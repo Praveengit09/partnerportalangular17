@@ -1,0 +1,140 @@
+<!-- <hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message> -->
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<ng-container *ngIf="enableVdcCustomTag">
+    <h1 class="page-title">Branch Walk-In Orders</h1>
+</ng-container>
+<ng-container *ngIf="!enableVdcCustomTag">
+    <h1 class="page-title">Central Walk-In Orders</h1>
+</ng-container>
+<div class="row">
+    <div class="col-lg-6 orderIdmrgn">
+        <mat-form-field appearance="outline" class="search-orders">
+            <mat-label>Order ID/Mobile Number</mat-label>
+            <input type="text" autocomplete="off" id="search" maxlength="12" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Order ID/Mobile Number">
+            <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getOrderListWithMobileOrOrderId()"></i>
+        </mat-form-field>
+    </div>
+
+    <!-- <div class="form-group col-xl-2 col-lg-4 col-md-4 submit_btn">
+        <button type="submit" class="btn btn-danger width-100" role="button"
+            (click)="getCentralWalkInOrderList()">
+            Submit
+        </button>
+    </div> -->
+    <div class="col-lg-6 date">
+        <h6 class="sub-title">Filter by Date</h6>
+        <div class="row date_txt">
+            <div class="form-group col-sm-4">
+                <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker" (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="form-group col-sm-4">
+                <datetime [(value)]="endDate" [placeholder]="'End Date'" name="endDate" id="datepicker2" (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="col-sm-4 sub-btn">
+                <button type="submit" class="btn btn-danger width-100" role="button" (click)="submit()">
+                    Submit
+                </button>
+            </div>
+        </div>
+        <div class="col-12 filter-bypoc">
+            <h6 class="sub-title">Filter by Centre</h6>
+            <select class="form-control select_poc" *ngIf="pocRolesList?.length > 0" [(ngModel)]="indexForPOC" [ngModelOptions]="{standalone : true}" (change)="onPOCSelect($event.target.value)">
+                <option value=0>Select all Centre</option>
+                <option *ngFor="let poc of pocRolesList;let i = index" [value]=i+1>{{poc.pocName}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf='enableButtonStatusFilter == true'>
+    <h6>Filter by Status</h6>
+</div>
+<div class="row buttonCounts" *ngIf='enableButtonStatusFilter == true'>
+    <button type="button" class="notification paymentPendingOrders" id="PaymentPending" role="button" 
+    (click)="onStatusButtonSelect(2)">Payment Pending
+            <span class="inside-badge"><b>{{diagnosticOrdersCount.paymentPendingOrders || 0}}</b></span>
+        </button>
+    <button type="button" class="notification cancelledOrders" id="CancelledOrders" role="button" 
+    (click)="onStatusButtonSelect(1)">Cancelled Orders
+            <span class="inside-badge"><b>{{diagnosticOrdersCount.cancelledOrders || 0}}</b></span>
+        </button>
+        <button type="button" class="notification appOrders" id="AppOrders" role="button" 
+        (click)="onStatusButtonSelect(31)">App Orders
+            <span class="inside-badge"><b>{{diagnosticOrdersCount.appOrders || 0}}</b></span>
+        </button>
+        <button type="button" class="notification centerOrders" id="CallCenterOrders" role="button" 
+        (click)="onStatusButtonSelect(32)">Call Center Orders
+            <span class="inside-badge"><b>{{diagnosticOrdersCount.centreOrders || 0}}</b></span>
+        </button>
+        <button type="button" class="notification websiteOrders" id="WebsiteOrders" role="button" 
+        (click)="onStatusButtonSelect(33)">Website Orders
+            <span class="inside-badge"><b>{{diagnosticOrdersCount.websiteOrders || 0}}</b></span>
+        </button>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mt-1 mb-1 text-right">
+        <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="getRefreshedorderList()">
+            <span class="glyphicon glyphicon-repeat"></span>
+            <span class="refresh_txt">REFRESH</span>
+        </button>
+        <button type="button" class="btn btn-primary searchresult_resetbtn mr-1" role="button" (click)="onSendEmail()">Email Report</button>
+    </div>
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body list_walkin">
+                <hs-table [columns]="columns" [pagingList]="centralWalkinOrderList" (clickEvent)="clickEventHandler($event)" [componentId]="'centralWalkinOrderListTable'" [perPage]="perPage" [total]="(centralWalkinOrderList && centralWalkinOrderList.length)?centralWalkinOrderList.length:0"
+                    [dataMsg]="dataMsg" (pageClick)="onPage($event)" [enableDownload]="true">
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!--//comments modal starts here-->
+<customer_review_modal [modalTitle]='modalTitle' [interactionStatus]='interactionStatus' [modalId]='modalId' [previousComments]='this.comments' (addInteractionStatusEvent)="addInteractionStatus($event)" [hasTypeCheck]='false' [errorMessage]='error' (onRemarkSubmitEvent)="onRemarksSubmit($event)"></customer_review_modal>
+
+<div class="modal fade" id="viewmoremodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Interaction Comments</h4>
+            </div>
+            <div class="modal-body">
+                <div [innerHTML]="formattedDataString | sanitizeHtml">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="mailmodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title page-title">Email Report</h4>
+            </div>
+            <div class="modal-body">
+                <p>Please Enter your email address to send orders for selected dates and filters</p>
+                <input class="form-control" type="text" id="toEmail" placeholder="Enter Email address" [(ngModel)]="toEmail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onMailSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

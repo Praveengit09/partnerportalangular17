@@ -1,0 +1,96 @@
+<div class="table_size">
+    <h1 class="page-title">Update {{procedurePrescriptionLabel ?
+        procedurePrescriptionLabel: 'Procedure'}}</h1>
+    <p class="inventory_para">This is the page where you can update the {{procedurePrescriptionLabel ?
+        procedurePrescriptionLabel: 'Procedure'}} Price.Please follow the steps mentioned below :-</p>
+    <section class="widget03" widget="">
+        <div class="widget-body">
+            <form class="form-horizontal " role="form">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12">Download Pricing Template</h4>
+                            <div class="col-md-10 col-sm-10 col-xs-9">
+                                <div class="form-group">
+                                    <button class="Update12"><a href="https://s3.ap-south-1.amazonaws.com/hsappimages/files/ProcedureInventoryTemplate.xlsx" target="_blank">DOWNLOAD TEMPLATE</a></button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                <h1 class="number_uploadtxt">1</h1>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12" style="padding-bottom: 8px;">Updated Information</h4>
+                            <div class="col-md-10 col-sm-10 col-xs-9">
+                                <p class="successfully_upload">Now that you have successfully downloaded the template,Please updated your information inventory information in the downloaded template.</p>
+                                <p class="successfully_upload">Please note that the template is in .xlsx format. You will require either Microsoft word, or open office in-order to edit the template.</p>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                <h1 class="number_uploadtxt" style="bottom: 20px;">2</h1>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12">Upload the Updated Template</h4>
+                            <div class="col-md-10 col-sm-10 col-xs-9">
+                                <div class="form-group">
+                                    <div>
+                                        <input #diagnosticFileUpload type="file" accept=".xls,.xlsx" class="form-control" id="files" name="uploadfile" (change)="fileUpload($event)" />
+                                        <input class="Update submitbtm" type="button" value="SUBMIT" (click)="onUploadButtonClick()">
+                                    </div>
+                                </div>
+                                <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                                <div *ngIf="hasCheckBoxValidation">
+                                    <label class="error_class">{{checkBoxValidationMessage}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                <h1 class="number_uploadtxt">3</h1>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+                <!-- <div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+ <p class="successfully_txt">successfully uploaded</p></div>
+ <div class="col-md-12 col-sm-12 col-xs-12">
+                <table class="table-striped">
+                    <thead>
+                      <tr class="table_head">
+                          <th>file</th>
+                          
+                          <th>png</th>
+                          
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table> 
+ </div>
+</div> -->
+
+            </form>
+        </div>
+    </section>
+</div>
+
+<spinner-component></spinner-component>

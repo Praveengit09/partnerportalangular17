@@ -1,0 +1,67 @@
+.software_settings{
+    margin-left: 30%;
+    padding: 6rem 2rem;
+
+.content_section{
+    padding: 0px 15px;
+}
+.page-title{
+    font-weight: 600;
+}
+span{
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+p{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #41484D;
+    margin-bottom: 2rem;
+}
+h4{
+    font-weight: 500;
+    font-size: 15px;
+}
+.d-flex{
+display: flex;
+align-items: baseline;
+}
+label{
+padding-left: 1rem;
+}
+.work_place_btn button{
+padding: 8px 16px;
+border: none;
+background: #DF5B21; 
+border-radius: 8px;
+font-weight: 600;
+font-size: 14px;
+color: #FFFFFF;
+cursor: pointer;
+}
+}
+@media only screen and (max-width: 1000px) and (min-width: 769px)  {
+    .software_settings{
+        margin-left: 35%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .software_settings{
+        margin-left: 0%;
+    }
+
+}
+@media only screen and (max-width: 575px){
+    .software_settings{
+        padding: 7rem 1rem;
+        padding-bottom: 1.2rem;
+        span{
+            top: 85px;
+       }
+    }
+    
+} 

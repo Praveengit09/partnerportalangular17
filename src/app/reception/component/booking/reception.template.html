@@ -1,0 +1,890 @@
+<div class="table_size">
+
+    <h1 class="page-title">Reception Order List</h1>
+
+
+    <section class="widget_txt appointment_orderlist" widget="" *ngIf="doctorId!=undefined">
+        <div class="row">
+            <div class="col-xl-3 col-lg-5 col-md-12 col-sm-12 col-xs-12
+                datetime_txt">
+                <h3 class="header_color">Appointments</h3>
+                <datetime [(value)]="date" [datepicker]="datepickerOpts" [timepicker]="false" [datepicker]="{ icon: 'fa fa-calendar'
+                    }" (dateChange)="getSlotsForThisDate()">
+                </datetime>
+            </div>
+            <div class="col-xl-9 col-lg-7 col-md-12 col-sm-12 col-xs-12
+                order_list">
+                <ul>
+                    <li id="total" (click)="getTotalSlots(1)">TOTAL
+                        <br />
+                        <span class="slotsnumber">
+                            <b>{{totalSlots}}</b>
+                        </span>
+                    </li>
+                    <li id="booked" (click)="getTotalBookedSlots()">BOOKED
+                        <br />
+                        <span class="slotsnumber">
+                            <b>{{bookedSlots}}</b>
+                        </span>
+                    </li>
+                    <li id="empty" (click)="getTotalEmptySlots()">EMPTY
+                        <br />
+                        <span class="slotsnumber">
+                            <b>{{emptySlots}}</b>
+                        </span>
+                    </li>
+                    <!--  (click)="getCheckedSlots()" -->
+                    <li id="checked" (click)="getCheckedSlots()">CHECKED
+                        <br />
+                        <span class="slotsnumber">
+                            <b>{{checkedSlots}}</b>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="row" *ngIf="convertedTimeSlot.length <1 && doctorId==undefined">
+        <div class="col-md-12">
+            <h3 class="header_color">Please select the Doctor for booking</h3>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="convertedTimeSlot.length <1 && doctorId
+        !=undefined">
+        <div class="col-md-12">
+            <h3 class="header_color">No Slots Available for this doctor</h3>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div [class.btn-refresh-align]="continueDisabled==1">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-warning walkin" (click)="onWalkInClick()" data-toggle="modal" data-target="#myrecption" data-backdrop="static" data-keyboard="false">WALK IN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" *ngIf="convertedTimeSlot.length> 0">
+        <div class="col-md-12" *ngIf="continueDisabled ==0 || continueDisabled
+            == 1">
+
+            <h3 class="header_color">Select a Slot to Book Appointments</h3>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div [class.btn-refresh-align]="continueDisabled==1">
+                        <div class="pull-right">
+                            <button class="refresh1 btn" (click)="getTotalSlots()">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning walkin" (click)="onWalkInClick()" data-toggle="modal" data-target="#myrecption" data-backdrop="static" data-keyboard="false">WALK IN</button>
+                            <button type="button" class="Update
+                                continuedisabled" role="button" data-toggle="modal" data-target="#myrecption" *ngIf="!docPhysicallyAvailable
+                                ||continueDisabled==0 || continueDisabled==3" disabled="true" (click)="onContinueClick()" data-backdrop="static" data-keyboard="false">
+                                CONTINUE
+                            </button>
+
+
+                            <button type="button" class="Update" role="button" data-toggle="modal" data-target="#myrecption" *ngIf="docPhysicallyAvailable &&
+                                continueDisabled==1" (click)="onContinueClick()" data-backdrop="static" data-keyboard="false">
+                                CONTINUE
+                            </button>
+                        </div>
+                    </div>
+                    <div style="height: 60px;"> </div>
+                </div>
+            </div>
+            <div class="col-md-12" *ngIf="continueDisabled == 2">
+                <h3 class="header_color">Booked Appointments
+                    <span class="refresh1-continue">
+                        <button class="refresh1 btn" (click)="getTotalBookedSlots()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                    </button>
+                    </span>
+                </h3>
+            </div>
+            <div class="col-md-12" *ngIf="continueDisabled ==3">
+                <h3 class="header_color">Select a Slot to Book Appointments
+                </h3>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="pull-right">
+                        <button class="refresh1 btn" (click)="getTotalEmptySlots()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                        </button>
+                        <button type="button" class="btn btn-warning walkin" (click)="onWalkInClick()" data-toggle="modal" data-target="#myrecption">WALK IN</button>
+                        <button type="button" class="Update continuedisabled" role="button" data-toggle="modal" data-target="#myrecption" *ngIf="!docPhysicallyAvailable ||continueDisabled==0
+                            || continueDisabled==3" disabled="true" (click)="onContinueClick()">
+                            CONTINUE
+                        </button>
+                        <button type="button" class="Update" role="button" data-toggle="modal" data-target="#myrecption" *ngIf="docPhysicallyAvailable &&
+                            continueDisabled==1" (click)="onContinueClick()">
+                            CONTINUE
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="totalSlots <1">
+            <div class="col-md-12">
+                <h3 class="header_color">No Slots available</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row custom_chk slot_booktxt">
+        <div class="col-lg-3 col-md-5 col-xs-6 col-sm-4 custom_chk" *ngFor="let
+            timeslot of convertedTimeSlot; let i=index">
+
+            <input type="radio" id={{i}} name="hlf" *ngIf="timeslot.isDisabled
+                && timeslot.status !=1 && timeslot.status !=2 && timeslot.status
+                != 7 && timeslot.status != 4 && timeslot.status != 5 &&
+                timeslot.status != 6" (click)="getSlotDetail($event,timeslot)" />
+            <label class="sloat_size" for={{i}} *ngIf="timeslot.status ==0 &&
+                timeslot.isDisabled">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <p class="text_margin" [innerHTML]="text"></p>
+                <p>Book Now</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="!timeslot.isDisabled && timeslot.status != 1 &&
+                timeslot.status != 2 && timeslot.status != 7 && timeslot.status
+                != 4 && timeslot.status != 5 && timeslot.status != 6" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <p class="text_margin" [innerHTML]="text"></p>
+                <p>Slot Expired</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="(!timeslot.isDisabled || timeslot.isDisabled) &&
+                timeslot.status == 2 || timeslot.status == 3" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <p class="text_margin" [innerHTML]="text"></p>
+                <p>Slot Blocked</p>
+            </label>
+            <label class="sloat_size slot-booked-pending-payment" for={{i}} *ngIf="timeslot.isDisabled && timeslot.status == 1 &&
+                timeslot.payment.paymentStatus==0" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <br>
+                <p class="patientdetail-expired-slot">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{
+                                (timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status-pending">Not Paid</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="!timeslot.isDisabled && timeslot.status == 1 &&
+                timeslot.payment.paymentStatus==0" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <br>
+                <p class="patientdetail-expired-slot">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status-pending">Not Paid</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="!timeslot.isDisabled && timeslot.status == 1 &&
+                timeslot.payment.paymentStatus==1" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <br>
+                <p class="patientdetail-expired-slot">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">Paid</p>
+            </label>
+            <label class="sloat_size slot-booked-paid" for={{i}} *ngIf="timeslot.isDisabled && timeslot.status == 1 &&
+                timeslot.payment.paymentStatus==1" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <br>
+                <p class="patientdetail-expired-slot">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">Paid</p>
+            </label>
+            <label class="sloat_size slot-booked" for={{i}} *ngIf="timeslot.isDisabled && timeslot.status==7">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <br>
+                <p class="patientdetail">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">Token ID:{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">In Payment</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="!timeslot.isDisabled && timeslot.status==7">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <br>
+                <p class="patientdetail">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">In Payment</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="!timeslot.isDisabled && timeslot.status==4">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <span class="payment-status-pendin" *ngIf="timeslot.payment.paymentStatus==0">Not Paid</span>
+                <span class="payment-statu" *ngIf="timeslot.payment.paymentStatus==1">Paid</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <!-- <br> -->
+                <p class="patientdetail">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">Waiting</p>
+            </label>
+            <label class="sloat_size" for={{i}} *ngIf="timeslot.isDisabled &&
+                timeslot.status==4">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <span class="payment-status-pendin" *ngIf="!timeslot.payment.partialPayment && timeslot.payment.paymentStatus==0">Not Paid</span>
+                <span class="payment-statu" *ngIf="timeslot.payment.paymentStatus==1">Paid</span>
+                <span class="payment-statu-pendin" *ngIf="timeslot.payment.partialPayment && timeslot.payment.partialPayment.paymentStatus==1"> Partially Paid</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <!-- <br> -->
+                <p class="patientdetail">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice: 0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">Waiting</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="timeslot.status==5">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <span class="payment-status-pendin" *ngIf="timeslot.payment.paymentStatus==0">Not Paid</span>
+                <span class="payment-statu" *ngIf="timeslot.payment.paymentStatus==1">Paid</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <!-- <br> -->
+                <p class="patientdetail-expired-slot">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">Engaged</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="!timeslot.isDisabled && timeslot.status==6" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <span class="payment-status-pendin" *ngIf="timeslot.payment.paymentStatus==0">Not Paid</span>
+                <span class="payment-statu" *ngIf="timeslot.payment.paymentStatus==1">Paid</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <!-- <br> -->
+                <p class="patientdetail-expired-slot">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'')+(''+timeslot.patientFirstName)+"
+                                "+(''+timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">Checked</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="timeslot.isDisabled && timeslot.status==6" (click)="bookedSlot(timeslot,date)">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <span class="payment-status-pendin" *ngIf="timeslot.payment.paymentStatus==0">Not Paid</span>
+                <span class="payment-statu" *ngIf="timeslot.payment.paymentStatus==1">Paid</span>
+                <img *ngIf="timeslot.bookingSubType==1" class="dgbooking" src="assets/img/ic_video_cam_16.png">
+                <img *ngIf="timeslot.bookingSubType==2" class="dgbooking" src="assets/img/ic_video_call_16.png">
+                <!-- <br> -->
+                <p class="patientdetail-expired-slot">
+                    <span class="patientname">
+                        <ul class="row patient-list">
+                            <li class="col-md-10 col-sm-10 col-xs-8">{{(timeslot.patientTitle?timeslot.patientTitle+'.
+                                ':'') +timeslot.patientFirstName+"
+                                "+(timeslot.patientLastName?timeslot.patientLastName:'')}}
+                            </li>
+                            <li class="col-md-2 col-sm-2 col-xs-3">
+                                <span class="patient-gen">{{timeslot.patientGender
+                                    | slice:0:1}},</span>
+                            </li>
+                        </ul>
+                        <p>{{timeslot.age}}</p>
+                    </span>
+                </p>
+                <p class="patient_token" *ngIf="timeslot.appointmentToken">{{timeslot.appointmentToken}}</p>
+                <p class="patientMobile">{{timeslot.patientContactNumber}}</p>
+                <p class="payment-status">Checked</p>
+            </label>
+        </div>
+    </div>
+    <!--<button type="button" class="Update" role="button" data-toggle="modal" data-target="#addpay">
+       ADD PAY</button>-->
+    <br />
+    <br />
+    <div class="row walk_reception" *ngIf="totalSlots> 0">
+
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="pull-right" *ngIf="continueDisabled==0">
+
+                <button type="button" class="btn btn-warning walkin" data-toggle="modal" data-target="#myrecption" (click)="onWalkInClick()">WALK IN</button>
+                <button type="button" class="Update continuedisabled" role="button" data-toggle="modal" data-target="#myrecption" *ngIf="!docPhysicallyAvailable || continueDisabled==0 ||
+                    continueDisabled==3" disabled="true" (click)="onContinueClick()">
+                    CONTINUE</button>
+                <!-- <button type="button" class="Update" role="button" data-toggle="modal" data-target="#myrecption" *ngIf="continueDisabled==1"
+                    (click)="onContinueClick()">
+                    CONTINUE</button> -->
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--model popup patientregistration start here -->
+<div class="modal left" id="myrecption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+
+
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component (profileVisitedDetails)="profileVisitedDetails($event)" (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+            <!-- modal-content -->
+
+        </div>
+        <!-- modal-dialog -->
+    </div>
+</div>
+<!-- container -->
+
+<div class="modal right fade" id="recption-3">
+
+    <div class="modal-dialog model_txt1">
+        <div *ngIf="selectedProfile">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" (click)="resetSlot()">
+                        <span class="close_txt buttonClose" aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title add_medtxt">Payment Information</h4>
+                </div>
+                <div class="modal-body appointment_txt">
+                    <form action="#" class="form-horizontal" #signupForm="ngForm">
+                        <div class="form-group">
+                            <p class="text-line">Appointment Summary</p>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+                                    <div class="row" id="edit_hide" *ngIf="!isWalkInClicked">
+                                        <div class="col-md-5 col-xs-5">
+                                            <label for="doctor" class="editdoc_txt">Doctor</label>
+                                        </div>
+                                        <div class="col-md-7 col-xs-7">
+                                            <input type="text" class="doctor_input" name="name" readonly [value]="selctedSlotInfo.doctorName">
+                                        </div>
+                                        <div class="col-md-5 col-xs-5">
+                                            <label for="date" class="editdoc_txt">Date</label>
+                                        </div>
+                                        <div class="col-md-7 col-xs-7">
+                                            <input type="text" class="doctor_input" name="date" readonly [value]="selctedSlotInfo.date">
+                                        </div>
+                                        <div class="col-md-5 col-xs-5">
+                                            <label for="time" class="editdoc_txt">Time Slot
+                                            </label>
+                                        </div>
+                                        <div class="col-md-7 col-xs-7">
+                                            <input type="text" class="doctor_input" name="time" readonly [value]="selctedSlotInfo.slot">
+                                        </div>
+                                    </div>
+                                    <div class="row" id="edit_hide" *ngIf="isWalkInClicked">
+                                        <div class="col-md-5 col-xs-5">
+                                            <label for="doctor" class="editdoc_txt">Doctor</label>
+                                        </div>
+                                        <div class="col-md-7 col-xs-7">
+                                            <input type="text" class="doctor_input" name="name" readonly [value]="selctedSlotInfo.doctorName">
+                                        </div>
+                                        <div class="col-md-5 col-xs-5">
+                                            <label for="date" class="editdate_txt">Date</label>
+                                        </div>
+                                        <div class="col-md-7 col-xs-7 mt-1">
+                                            <!-- <input type="text" class="doctor_input" name="date" readonly
+                                                [value]="confirmationDate"> -->
+                                            <datetime [(value)]="walkinSlotDate" [datepicker]="datepickerOpts" [timepicker]="false" [datepicker]="{ icon: 'fa fa-calendar'}">
+                                            </datetime>
+                                        </div>
+                                        <div class="col-md-5 col-xs-5">
+                                            <label for="time" class="editdate_txt">Time Slot
+                                            </label>
+                                        </div>
+                                        <div class="col-md-7 col-xs-7  mt-1">
+                                            <datetime [(value)]="walkinSlotTime" [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="false">
+                                            </datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <a class="edit_txt" (click)="editText()" id="bottonHide" *ngIf="!isWalkInClicked">EDIT</a>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12
+                                col-xs-12" id="edit_show" style="display:none">
+                                <label for="doctor" class="editxt_doc">Doctor
+                                    Name</label>
+                                <br>
+                                <p class="appoint_txt">{{selctedSlotInfo.doctorName}}</p>
+                                <label for="date" class="editxt_doc">Select Date</label>
+                                <br>
+                                <select class="appoint_txt" (change)="updateSlotDate($event)">
+                                    <option *ngFor="let availableSlotDate of
+                                        selctedSlotInfo.availableDates"
+                                        [selected]="availableSlotDate===selctedSlotInfo.date">
+                                        {{availableSlotDate}}</option>
+                                </select>
+                                <br>
+                                <br>
+                                <label for="time" class="editxt_doc">Select Time
+                                    Slot</label>
+                                <br>
+                                <select class="appoint_txt" (change)="updateSlotTime($event)">
+                                    <option></option>
+                                    <option *ngFor="let availableSlotTime of
+                                        selctedSlotInfo.availableSlots"
+                                        [selected]="availableSlotTime===selctedSlotInfo.slot">
+                                        {{availableSlotTime}}
+                                    </option>
+                                </select>
+                                <br>
+                                <br>
+                                <div class="form-group payment-error
+                                    Selectdateerror" *ngIf="!selctedSlotInfo.slot">
+                                    {{selectSlotTimeErrMsg}}</div>
+                                <a class="Update1_doctor submit_txt" data-toggle="modal" (click)="editTextUpdate()">UPDATE</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <p class="text-line">Patient Information</p>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="row">
+                                    <div class="col-md-5 col-xs-5">
+                                        <label for="name" class="editdoc_txt">Name</label>
+                                    </div>
+                                    <div class="col-md-7 col-xs-7">
+                                        <!-- <input type="text" class="doctor_input" name="name" readonly
+                                            value="{{(selectedProfile.title?selectedProfile.title+'.':'')+(''+selectedProfile.fName).slice(0,30)+' '+(selectedProfile.lName?(''+selectedProfile.lName).slice(0,30):'')}}"> -->
+                                        <span class="doctor_input">{{(selectedProfile.title?selectedProfile.title+'.':'')+(''+selectedProfile.fName)+'
+                                            '+(selectedProfile.lName?(''+selectedProfile.lName):'')}}</span>
+                                    </div>
+                                    <div class="col-md-5 col-xs-5">
+                                        <label for="age" class="editdoc_txt">Age</label>
+                                    </div>
+                                    <div class="col-md-7 col-xs-7">
+                                        <label class="doctor_input">{{common.getAge(this.selectedProfile.dob).split(",")[0]+common.getAge(this.selectedProfile.dob).split(",")[1]}}</label>
+                                    </div>
+                                    <div class="col-md-5 col-xs-5">
+                                        <label for="gender" class="editdoc_txt">Gender
+                                        </label>
+                                    </div>
+                                    <div class="col-md-7 col-xs-7">
+                                        <input type="text" class="doctor_input" name="gender" readonly value="{{selectedProfile.gender}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-line">Payment Information</p>
+                            <app-slotbookingdiscount [slotBookingDetails]="this.slotBookingDetails" [discountType]="discountType" (calculateDiscount)="onCalculateDiscount($event)" [isReception]=true>
+                            </app-slotbookingdiscount>
+                        </div>
+                        <div class="form-group" *ngIf="this.slotBookingDetails.payment.finalAmount>0">
+                            <p class="text-line">Payment Method</p>
+                        </div>
+                        <div class="form-group" *ngIf="this.slotBookingDetails.payment.finalAmount>0
+                            && this.paymentModeIndex>-1">
+                            <form action="#" class="color_cash">
+                                <input type="radio" name="paymant" [checked]="this.paymentModeIndex==2" (change)="checkPaymentModeSelection(2)"> Cash &nbsp;&nbsp;
+                                <input type="radio" name="paymant" (change)="checkPaymentModeSelection(5)"> Mobile &nbsp;&nbsp;
+                                <input type="radio" name="paymant" id="other-payment" (change)="checkPaymentModeSelection(0)"> Others
+                                <div class="other-paymentdetails">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6
+                                            col-xs-6">
+                                            <select class="form-control" [(ngModel)]=dropDownIndex [ngModelOptions]="{standalone:
+                                                true}" (change)="checkPaymentModeSelection($event.target.value)">
+                                                <option value="0">Select</option>
+                                                <option value="1">Card</option>
+                                                <option value="8">PhonePe</option>
+                                                <option value="6">Google Pay</option>
+                                                <option value="7">PayTM</option>
+                                                <option value="11">NEFT</option>
+                                                <option value="12">UPI</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <input type="text" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" [ngModelOptions]="{standalone:
+                                                true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage">
+                        </hs-message>
+
+                        <div class="form-group payment-error" *ngIf="(finalAmount>0&&!transactionType)||(otherDiscountValue>finalAmount)">
+                            {{paymentErrorMessage}}</div>
+                        <a class="Update submit_txt" *ngIf="!isConfirming" (click)="updatePaymentProviderDetails()">CONFIRM</a>
+                        <a class="Update submit_txt change-cursor" *ngIf="isConfirming" disabled="disabled">CONFIRMING</a>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+
+</div>
+<!-- /.modal -->
+
+
+<!-- /.modal -->
+<div class="modal fade" id="addpay">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content print-pdf">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h5 class="modal-title add_medtxt text-line">Appointment Summary</h5>
+            </div>
+            <div class="modal-body" *ngIf="selectedDoctor != undefined">
+                <form action="#" class="form-horizontal" #signupForm="ngForm" (ngSubmit)="registerUser(signupForm)">
+                    <div class="form-group">
+                        <p class="paycon_txt"> Booking Details</p>
+                    </div>
+                    <div class="form-group row">
+
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Doctor</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">
+                            {{selectedDoctor.firstName?selectedDoctor.firstName:"" }} {{selectedDoctor.lastName?selectedDoctor.lastName:""}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Service</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{bookedService}}</p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Date</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{bookedDate | date:'d/MMMM/yyyy'}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Time Slot </p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{bookedTime}}</p>
+                    </div>
+
+
+
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Patient Information</p>
+
+
+                    </div>
+                    <div class="form-group row">
+
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Name</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{bookedPatientTitle?bookedPatientTitle+'. ':''}}{{(''+bookedPatientFirstName)}} {{(''+bookedPatientLastName?bookedPatientLastName:'')}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Age</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">{{bookedPatientage}}</p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Gender
+                        </p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">{{bookedPatientGender}}</p>
+                    </div>
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Payment Information</p>
+                    </div>
+                    <div class="form-group consoul_line row">
+
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Consultation Charges
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{consultationCharge}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Package Discount
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{discountPrice| number : '1.2-2'}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Other Discount
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{otherDiscountPrice| number : '1.2-2'}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Credit Amount
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{creditAmount| number : '1.2-2'}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Wallet Amount Used</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{usedWalletAmount| number : '1.2-2'}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Platform Charges
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{platformCharges| number : '1.2-2'}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Grand Total
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{totalPrice| number : '1.2-2'}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Payment Status
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentStatus == 0">Not Paid
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentStatus == 1">Paid</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6" *ngIf="paymentStatus != 0">
+                            Payment Mode
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentType==2 && paymentStatus !=0">
+                            Cash</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentType==1 && paymentStatus !=0">
+                            Card</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentType==3 && paymentStatus !=0">
+                            Online</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentType==4 && paymentStatus !=0">
+                            Package</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentType==5 && paymentStatus !=0">
+                            Mobile</p>
+
+                    </div>
+                    <div *ngIf="this.cashBackAmount>0" class="form-group ">
+                        <span class="quantity_txt1">Cashback of
+                            {{currencySymbol}} {{this.cashBackAmount}} will be credited
+                            after successful
+                            Payment</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12
+                            col-xs-12" *ngIf="bookingSubType != 1 &&
+                            bookingSubType !=
+                            2">
+                            <button href="#recption-2" *ngIf="isMarkAsArrived &&
+                                selectedSlotDate == todaysDate" class="Update submit_txt mark_txt" data-toggle="modal" data-dismiss="modal" (click)="onMarkPatientArrivedClick()">Move to
+                                Desk/Queue
+                            </button>
+                            <button href="#recption-2" *ngIf="!isMarkAsArrived
+                                &&
+                                selectedSlotDate == todaysDate" class="Update submit_txt mark_txt" data-toggle="modal" data-dismiss="modal" (click)="onMoveToPaymentDeskClick()">Move to
+                                Desk/Queue
+                            </button>
+                            <button *ngIf="printBlankLetterHead" class="Update submit_txt mt-1 mb-0" (click)="convertToPdf()">Print
+                                BlankLetterHead</button>
+
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12
+                            col-xs-12">
+                            <button type="button" class="Update cancelslot_txt" (click)="openReschedule()">RESCHEDULE
+                            </button>
+                        </div>
+                        <!--<a href="#recption-2" class="Update submit_txt residule_txt" data-toggle="modal" data-dismiss="modal">Reschedule Slot</a>-->
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12
+                            col-xs-12">
+                            <button type="button" class="Update cancelslot_txt" (click)="opencancelModal('#cancelModal')">Cancel
+                                Slot
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Booking Confirmed</h4>
+            </div>
+            <div class="modal-body">
+                <p>Your slot has been booked successfully!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Do you want to cancel ?</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default" style="width:100px" (click)="closeCancelModal('#cancelModal');cancelSlot(orderId)">Yes</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default" style="width:100px" (click)="closeCancelModal('#cancelModal')">No</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<spinner-component></spinner-component>

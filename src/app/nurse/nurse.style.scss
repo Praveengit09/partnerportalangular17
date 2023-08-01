@@ -1,0 +1,91 @@
+@import '../scss/variables';
+@import '../scss/theme.scss';
+
+.serch_txt85{
+    padding: 6px 10px;
+     text-align: left;
+     border-radius: 4px;
+     border-width: 0px;
+     border: 1px solid #ddd;
+     text-align: left;
+     width: 235px;
+     height: 36px;
+     margin-bottom: 15px;
+ }
+.all-textbox{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bck_tabcol {
+    background-color: #f7f9fd;
+}
+.hide-sm, .hide-md {
+    display: none;
+}
+@media screen and (max-width: 1092px){
+    .widget{
+        margin-top: 20px;
+    }
+}
+@media only screen and (min-width: 992px){
+    .reset-vitalstatus{
+        text-align: right;
+    }
+    .reset_btn {
+        margin-bottom: 7px;
+    }
+    .hide-sm {
+        display: block;
+    }
+}
+@media only screen and (max-width: 991px){
+    .reset-vitalstatus .col-md-12:last-child{
+        order: 1;
+        margin-bottom: 7px;
+    }
+    .reset-vitalstatus .col-md-12:first-child{
+        order: 2;
+    }
+    .hide-md {
+        display: block;
+        text-align: right;
+    }
+    .tablereset-vitalstatus form {
+        display: inline-block;
+    }
+    .tablereset-vitalstatus .reset_btn {
+        width: auto;
+    }
+    .tablereset-vitalstatus .reset_btn .reset_txt {
+        display: none;
+    }
+  }
+.all_tableh {
+    padding: 0px 0px 18px;
+}
+@media only screen and (max-width: 471px){
+    .serch_txt85{
+        width: 140px;
+        padding: 6px 7px;
+    }
+    .search_btn{
+        width: auto;
+    }
+}
+@media screen and (max-width: 575px){
+    .form-inline .form-control{
+        display: inline-block;
+        width: auto;
+    }
+    .patient_name {
+        width: 100%;
+    }
+}
+.autorefresh-refreshbutton .form-inline .form-control {
+    width: 145px;
+    height: 45px !important;
+    margin-right: 5px;
+}
+
+  

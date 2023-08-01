@@ -1,0 +1,854 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/theme.scss";
+
+.datePickerClass {
+    margin-top: -7px !important;
+}
+
+.digi_radio {
+    margin-right: 10px;
+}
+
+.green {
+    color: green;
+    background-color: green;
+    border: solid 1px green;
+}
+
+.quantity::-webkit-inner-spin-button,
+.quantity::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.other_discount .quantity_txt {
+    padding: 0px;
+    margin: 0px;
+    color: #ff0000;
+    text-align: left;
+    padding-right: 100px;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.other_discount .quantity_txt sup {
+    font-size: 18px;
+    top: -1px;
+}
+
+.slots_details {
+    background-color: #fff;
+    padding: 5px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.slots_profile {
+    margin: 10px;
+}
+
+.slotsdetails_txt {
+    margin: 20px 0px 10px 0px;
+}
+
+.btn_display_slots {
+    margin-top: -1px;
+    padding-top: 27px;
+}
+
+.Update {
+    float: right;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    padding: 7px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin-right: 20px;
+}
+
+.slot_clicked button.Update {
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    margin-right: 20px;
+    position: fixed;
+    bottom: 20px;
+    right: 0;
+    z-index: 1;
+}
+
+.datetime_txt {
+    padding-bottom: 10px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    .doctor_booknow {
+        padding-top: 23px;
+    }
+}
+
+// //////
+.doctor_agetxt {
+    width: 75px !important;
+}
+
+
+/* --------------  PHR Checkbox Styles Starts   -----------------*/
+
+.walkin {
+    margin-right: 15px;
+    padding: 10px 33px;
+    background-color: $btn-walk-color;
+}
+
+.custom_chk input[type="radio"] {
+    display: none;
+}
+
+.custom_chk label {
+    border: 1px solid #e9f8fb;
+    padding: 16px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    margin-top: 15px;
+    margin-bottom: 0;
+    background: #fdfdfd;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-weight: normal;
+}
+
+.custom_chk label::before {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+}
+
+.ailment_text {
+    font-size: 18x;
+    font-weight: 600;
+    text-align: left;
+}
+
+.text_margin {
+    margin: 0px;
+}
+
+.custom_chk :checked+label,
+.reset-checkbox :checked+label {
+    outline: 2px solid #ff6d6d;
+}
+
+.custom_chk :checked+label:before,
+.reset-checkbox :checked+label:before {
+    content: "\2713";
+    background-color: #ff6d6d;
+    transform: scale(0.9);
+}
+
+.other-textbox {
+    margin-left: 12%;
+}
+
+.custom-chk1+label+.checkbox-group {
+    display: none;
+}
+
+.custom-chk1:checked+label+.checkbox-group {
+    display: block;
+}
+
+.checkbox-group {
+    padding: 10px;
+    border-bottom: 1px solid #ff6d6d;
+    border-left: 1px solid #ff6d6d;
+    border-right: 1px solid #ff6d6d;
+    background: #fff9f9;
+}
+
+
+/*--------------  PHR Checkbox Styles Ends     -----------------*/
+
+.datepik_bor {
+    border: 1px solid #000 !important;
+    padding: 5px 15px;
+    background-color: #ebf2f9;
+}
+
+.form-line {
+    border-left: 1px solid #b29999;
+}
+
+.header_color {
+    color: #14a9b5;
+}
+
+.widget_txt {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: 100px;
+    margin-top: 10px;
+}
+
+.widget_txt .patient_txt h4,
+.widget_txt .patient_txt p {
+    margin: 0px;
+    font-weight: 400;
+}
+
+.input_gender {
+    width: 58px;
+    height: 58px;
+    cursor: pointer;
+    display: block;
+}
+
+.gender_txt {
+    list-style: none;
+}
+
+.gender_txt li {
+    list-style: none;
+    float: left;
+    display: inline;
+}
+
+#resendotp {
+    color: #0074d9;
+}
+
+.input_label {
+    margin-right: 25px;
+}
+
+.input_label>input {
+    visibility: hidden;
+    position: absolute;
+}
+
+.gender_inline .input_label {
+    display: inline-block;
+}
+
+.input_label>input.male+span {
+    background: url("../../../../../assets/img/partner/sprite.png") -68px -222px transparent;
+}
+
+.input_label>input.male:checked+span {
+    background: url("../../../../../assets/img/partner/sprite.png") -68px -152px transparent;
+}
+
+.input_label>input.female+span {
+    background: url("../../../../../assets/img/partner/sprite.png") 0 -222px transparent;
+}
+
+.input_label>input.female:checked+span {
+    background: url("../../../../../assets/img/partner/sprite.png") 0 -152px transparent;
+}
+
+.input_label>input.others+span {
+    background: url("../../../../../assets/img/partner/sprite.png") -136px -222px transparent;
+}
+
+.input_label>input.others:checked+span {
+    background: url("../../../../../assets/img/partner/sprite.png") -136px -152px transparent;
+}
+
+.gender_txt {
+    padding-left: 0px;
+}
+
+.what_txt {
+    font-weight: 600;
+}
+
+.modal-body {
+    position: relative;
+    padding: 0px 15px 25px 15px !important;
+}
+
+body>[uib-modal-window]:not([modal-render]) {
+    display: none;
+}
+
+.model_txt1 {
+    float: right;
+    width: 500px;
+    display: inline-table;
+    overflow-y: scroll;
+}
+
+#recption-3 {
+    overflow-y: scroll;
+}
+
+.Update:focus,
+.Update:hover {
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+}
+
+.date_line {
+    border-bottom: 1px solid #eeeeee !important;
+}
+
+.error_massage {
+    display: none;
+}
+
+.form-group p {
+    padding-bottom: 0px;
+}
+
+.patient_add {
+    border: none;
+    background-color: transparent;
+}
+
+.patient_add .fa-plus {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #14a9b5;
+    padding-top: 5px;
+    text-align: center;
+    color: #fff;
+    background-color: #14a9b5;
+    margin-top: 15px;
+}
+
+.input_label .gender {
+    color: #333;
+    opacity: 0.7;
+    font-weight: normal;
+}
+
+.input_label .male {
+    margin-left: 14px;
+}
+
+.input_label .female {
+    margin-left: 7px;
+}
+
+.input_label .others {
+    margin-left: 9px;
+}
+
+.input_label input:checked+span {
+    font-weight: bold;
+}
+
+.order_list ul {
+    list-style: none;
+}
+
+.order_list ul li {
+    display: inline;
+    float: left;
+    border-left: 1px solid #000;
+    padding: 15px 40px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.model_txt {
+    float: right;
+    right: 0px;
+    width: 400px;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    min-height: 100%;
+    margin: 0 auto;
+    bottom: 0;
+}
+
+//*/////////////////////*//
+.doctor_txt {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.radio-inline {
+    background-color: rgba(114, 92, 92, 0.07);
+    margin: 0px;
+    padding-top: 8px;
+    padding-bottom: 5px;
+}
+
+.doctor_txtpage {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+
+/*Right*/
+
+.modal.right .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.left.in .modal-dialog,
+.modal.right.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+//*-----packages-------------*//
+.input_gender {
+    width: 58px;
+    height: 58px;
+    cursor: pointer;
+    display: block;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.submit_txt {
+    float: left;
+}
+
+.Update1_doctor {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #14a9b5;
+    border: solid 1px #14a9b5;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+
+.editdoc_txt {
+    width: 80px;
+    margin-bottom: 3px;
+}
+
+.consoul_line {
+    border-bottom: 1px solid rgb(222, 222, 222);
+    padding-bottom: 30px;
+}
+
+.paytxt_info {
+    padding-bottom: 17px !important;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.consultation_txt {
+    width: 155px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.consul_package {
+    width: 100px;
+    border: none;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.edit_txt:hover,
+.edit_txt:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.appoint_txt {
+    width: 100%;
+    padding: 8px 10px !important;
+    border: 1px solid #eee;
+}
+
+.editxt_doc {
+    font-weight: 600;
+}
+
+.doctor_input:focus {
+    outline: none;
+}
+
+.edit_txt {
+    border: none;
+    background-color: $title-color;
+    color: #fff;
+    padding: 5px 28px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.text-line {
+    background-color: transparent;
+    color: $title-color;
+    outline: none;
+    outline-style: none;
+    outline-offset: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #eeeeee 1px;
+    padding: 3px 5px 3px 0px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.check_add {
+    background-color: #ff6d6d;
+    color: #fff;
+    padding: 7px 30px;
+    font-weight: 600;
+    border: none;
+}
+
+.check_add:focus {
+    outline: none;
+}
+
+.mobile_txt {
+    width: 63%;
+    padding: 6px 5px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+.date_birth .form-inline .input-group {
+    width: 100%;
+}
+
+.date_birth .form-control {
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.model_addtxt {
+    width: 700px !important;
+    max-width: 700 !important;
+}
+
+.paycon_txt {
+    background-color: transparent;
+    color: $title-color;
+    outline: none;
+    outline-style: none;
+    outline-offset: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    font-size: 18px;
+}
+
+.mark_txt {
+    font-size: 12px !important;
+    margin-left: -15px !important;
+    padding: 12px 10px !important;
+}
+
+.residule_txt {
+    font-size: 12px !important;
+    background-color: $title-color !important;
+    border-color: $title-color !important;
+    padding: 12px 10px !important;
+    margin-left: 15px !important;
+}
+
+.cancelslot_txt {
+    background-color: transparent;
+    color: $title-color !important;
+    font-size: 12px !important;
+    margin-right: -15px;
+}
+
+.total_book {
+    width: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+.custom_chk input[type="checkbox"] {
+    display: none;
+}
+
+.hspresion {
+    color: #343434;
+}
+
+.close_txt {
+    font-size: 40px;
+}
+
+@media screen and (max-width: 1297px) {
+    .order_list ul li {
+        padding: 15px 19px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .order_list ul li {
+        padding: 15px 15px;
+    }
+
+    .order_list ul {
+        padding: 0px;
+    }
+
+    .datetime_txt {
+        padding-bottom: 10px;
+    }
+}
+
+.patientname {
+    width: 100%;
+}
+
+.custom_chk label .patientname ul {
+    padding-left: 0px;
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+.custom_chk label .patientname ul li {
+    word-wrap: break-word;
+    line-height: 10px;
+    font-size: 12px;
+}
+
+.patientdetail-expired-slot {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.patientdetail {
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.slot_booktxt label {
+    width: 174px;
+    padding: 3px !important;
+    height: 104px !important;
+}
+
+.sloat_size {
+    height: 80px !important;
+}
+
+.walk_reception {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.doctor_input {
+    border: none;
+    width: 165px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.modal-header {
+    padding: 15px 10px 15px 0;
+}
+
+.form_txt {
+    overflow: hidden;
+}
+
+.add_medtxt {
+    padding: 0px 43px 0px 15px;
+    font-size: 30px;
+    color: $title-color;
+    font-weight: 500;
+}
+
+.continuedisabled {
+    background-color: #808080 !important;
+    border-color: #808080 !important;
+}
+
+.patientage {
+    text-align: center;
+    margin-top: -18px;
+    margin-bottom: -9px;
+}
+
+.slotBooked {
+    text-align: center;
+    margin-top: -10px;
+}
+
+@media only screen and (min-width: 320px) {
+    .widget_txt {
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .widget_txt {
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .datetime_txt {
+        z-index: 0;
+        padding: 5px 7px;
+    }
+}
+
+.payment-status {
+    margin-top: -4px;
+    color: $title-color;
+}
+
+.slot-disabled {
+    background-color: #dddddd !important;
+    cursor: not-allowed !important;
+}
+
+.slot-booked {
+    background-color: #b5ffed !important;
+}
+
+.payment-error {
+    color: #ff0000;
+}
+
+.refresh1 {
+    margin-right: 15px;
+    padding: 10px 19px;
+    background-color: $btn-secondary;
+}
+
+.refresh1-continue {
+    float: right;
+}
+
+.slotactive {
+    color: #14a9b5;
+}
+
+.slotsnumber {
+    font-size: 25px;
+}
+
+.payment-status-pending {
+    margin-top: -4px;
+    color: #ff6d6d;
+}
+
+.slot-booked-pending-payment {
+    background-color: #f9e7e5 !important;
+}
+
+.slot-booked-paid {
+    background-color: #e5fafc !important;
+}
+
+@media screen and (max-width: 964px) {
+    .order_list ul li {
+        padding: 0px 20px;
+        font-size: 12px;
+    }
+
+    .widget_txt {
+        height: 170px;
+    }
+
+    .order_list ul {
+        padding-top: 15px;
+        padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .order_list ul li {
+        padding: 0px 7px;
+        font-size: 12px;
+    }
+
+    .widget_txt {
+        height: 200px;
+    }
+}
+
+.patientMobile {
+    margin-top: -23px;
+    margin-bottom: 0rem;
+    font-size: 12px;
+}
+
+.other-paymentdetails {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.other-paymentdetails input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: calc(2.5rem - 2px);
+}
+
+#other-payment:checked~.other-paymentdetails {
+    display: block !important;
+}
+
+.all_textboxtxt {
+    width: 100%;
+}
+
+.fname_discount_text {
+    max-width: 65px;
+    width: 100%;
+    font-size: 13px;
+    text-align: left;
+    padding-left: 8px;
+}
+
+@media screen and (max-width: 600px) {
+    .patientinfo_popup {
+        width: 100%;
+    }
+
+    .slot_booktxt label {
+        width: auto;
+    }
+}

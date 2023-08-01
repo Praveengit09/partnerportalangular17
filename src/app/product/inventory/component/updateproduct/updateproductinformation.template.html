@@ -1,0 +1,108 @@
+<h1 class="page-title">Search And Update Price</h1>
+<form action="#">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12 test-creation">
+
+            <hs-select [defaultSelectLabel]="'Search Product Name'" [defaultSelectField]="'productName'"
+                [selectColumns]="selectTestName" class="diagnostic-testsearch" [selectResults]="serviceNameSearchList"
+                (searchTrigger)="searchTests($event)" (selectTrigger)="getSearchTestName($event)"></hs-select>
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10 SalePrice_txt" *ngIf="this.dataMessage != undefined">
+            <p *ngIf="this.dataMessage.data==null">
+                <sup>*</sup>Invalid Medicine Name
+            </p>
+        </div>
+    </div>
+    <div class="card-body col-xl-6 col-lg-12" *ngIf="selectedTest != undefined">
+        <div class="list-inline">
+            <div class="row">
+                <h4 class="col-4">Product Name:</h4>
+                <h5 class="col-8 col-8 mt-1 pl-1 test_name">
+                    {{selectedTest.productName}}
+                </h5>
+            </div>
+            <section>
+                <div class="row" id="testprice">
+                    <h4 class="col-md-12 pl-0">Product Display Price</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3 pl-0 mt-2">MRP</div>
+                            <div class="col-md-9 col-sm-9 col-xs-9 mt-1 pl-1 test_name">
+                                <input class="form-control" [(ngModel)]="selectedTest.grossPrice"
+                                    [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                    (keyup)="onEnterPressedTest($event.target.value)"
+                                    (keydown)="onEnterdownTest($event.target.value)" [checked]="isTestVisible">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3 pl-0 mt-2">Sale Price</div>
+                            <div class="col-md-9 col-sm-9 col-xs-9 mt-1 pl-1 test_name">
+                                <input class="form-control" [(ngModel)]="selectedTest.netPrice"
+                                    [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                    (keyup)="onEnterPressed($event.target.value)"
+                                    (keydown)="onEnterdownTest($event.target.value)" [checked]="isTestVisible">
+                            </div>
+                            <div class="offset-md-2 col-md-10 col-sm-10 col-xs-10 SalePrice_txt">
+                                <p *ngIf="this.selectedTest.grossPrice < this.selectedTest.netPrice">
+                                    <sup>*</sup>MRP should be greater than or Sale Price
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3 pl-0 mt-2">Package Info</div>
+                            <div class="col-md-9 col-sm-9 col-xs-9 mt-1 pl-1 test_name">
+                                <input class="form-control" [(ngModel)]="selectedTest.packingInformation.unitsInPackage"
+                                    [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                    (keyup)="onEnterPressedTest($event.target.value)"
+                                    (keydown)="onEnterdownTest($event.target.value)" [checked]="isTestVisible">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3 col-xs-3 pl-0 mt-2">Product available</div>
+                            <div class="col-md-9 col-sm-9 col-xs-9 mt-1 pl-1 test_name">
+                                <div class="emp_type">
+                                    <label class="toggle">
+                                        <input type="checkbox" [checked]="this.selectedTest.purchaseEnabled"
+                                            (change)="changeData('purchaseEnabled')" id="purchaseEnabled">
+                                        <span class="slider"></span>
+                                        <span class="labels" data-on="Yes" data-off="No"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <div class="row mt-2">
+                <div class="col-md-6 col-sm-12 update_btn">
+                    <button type="button" class="btn button_update col-md-4 col-sm-12" role="button"
+                        (click)="updateTestCreation()">
+                        Update
+                    </button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button type="button" class="btn btn-danger float-right cencel_txt col-md-4 col-sm-12" role="button"
+                        (click)="updatesCancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hs-message [isError]="isErrorTest" [show]="showMessageTest" [messages]="errorMessageTest">
+    </hs-message>
+</form>
+<spinner-component></spinner-component>

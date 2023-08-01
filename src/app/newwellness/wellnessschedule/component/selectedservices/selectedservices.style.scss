@@ -1,0 +1,145 @@
+.selected_text{
+    text-align: right;
+    margin-top: 0px !important;
+  }
+  .Update12{
+     
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      border-radius: 2px;
+      background-color: #ff6d6d;
+      border: solid 1px #ec6262;
+      padding: 5px 30px;
+      text-transform: uppercase;
+      color: #fff !important;
+    }
+    .diagnosticsc_title{
+      color:#43BAC4;
+      font-weight: 600px;
+  }
+  .test_count{
+      color:red;
+      font-size: 32px;
+  }
+  // *** pagination css start here ***///
+  .paginate{position: relative;
+      
+  }
+  .pagination{
+      display: inline-block;
+      padding-left: 0;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #eee !important;
+      list-style-type: none;
+  }
+  .pagination > li {
+    float: left;
+  }
+  .pagination>li>a, .pagination>li>span {
+    padding: 6px 10px;
+    margin-left: 3px;
+    margin-right: 2px;
+    line-height: 2.428571;
+    color:#5c5858;
+  
+    border: 0px;
+    font-size: 20px;
+  }
+  .pagination>li>a.page-prev, .pagination>li>span.page-prev,.pagination>li>a.page-next, .pagination>li>span.page-next {
+    background-color: #1478B8;
+    color: #FFF;
+  }
+  .pagination>li>a.page-prev, .pagination>li>span.page-prev{
+    position: absolute;
+    right: 60px;
+  }
+  .pagination>li>a.page-next, .pagination>li>span.page-next{
+    position: absolute;
+    right: 0px;
+  }
+  
+  // *** pagination css start here ***///
+  
+  ////table css start here ///
+  .test_name_tytle h5{
+      font-size: 15px;
+      font-weight: 600;
+      margin-left: -9px;
+      
+    }
+    .doctor_name h5, .docbooking h5{
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 0px;
+      margin-left: -9px;
+    }
+    .engage_txt{
+      color: #fff;
+      background-color: #14a9b5;
+      border-color: #14a9b5;
+      padding: 5px 0px;
+      font-size: 14px;
+      border-radius: 10px;
+      width: 85px;
+      margin-top: 8px;
+      margin-left: -15px;
+    }
+    
+    ////table css end here ///
+  
+      /*--------------  PHR Checkbox Styles Ends     -----------------*/
+    
+      .applicable_check[type="checkbox"]:checked + label::after {
+          content: '';
+          position: absolute;
+          width: 2.2ex;
+          height: 1.3ex;
+          background: transparent;
+          top: 0.6ex;
+          left: 0.4ex;
+          border: 3px solid #ff6d6d;
+          border-top: none;
+          border-right: none;
+          -webkit-transform: rotate(-45deg);
+          -moz-transform: rotate(-45deg);
+          -o-transform: rotate(-45deg);
+          -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+        }
+        
+        .applicable_check[type="checkbox"] {
+          line-height: 2.1ex;
+        }
+        
+        .applicable_check[type="radio"],
+        .applicable_check[type="checkbox"] {
+           position: absolute;
+           left: -999em;
+        }
+        
+        .applicable_check[type="checkbox"] + label {
+           position: relative;
+           overflow: hidden;
+           cursor: pointer;
+        }
+        
+        .applicable_check[type="checkbox"] + label::before {
+          content: "";
+          display: inline-block;
+          vertical-align: -25%;
+          height: 3ex;
+          width: 3ex;
+          background-color: white;
+          border: 1px solid rgb(166, 166, 166);
+          border-radius: 4px;
+          box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
+          margin-right: 0.5em;
+        }
+  
+         /*--------------  PHR Checkbox Styles Ends     -----------------*/
+  .test_name_tytle{
+    word-break: break-word;
+  }

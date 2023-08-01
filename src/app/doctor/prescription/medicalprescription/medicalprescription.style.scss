@@ -1,0 +1,673 @@
+@import '../templatesbox/templatesbox.style.scss';
+
+/* CSS Document */
+
+
+.hsFav {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.hsfav_red_dot{
+    position: absolute;
+    bottom: 3px;
+    right: 0; 
+}
+
+
+.note-card-body {
+    padding: 0;
+}
+
+.service {
+    font-size: 11px !important;
+}
+
+.custom-dosages-toggle {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.medicineArea .pull-right .btn {
+    margin-right: 0;
+}
+
+.listOfcard {
+    background-color: #dbe9ee !important;
+    min-height: 35px;
+    max-height: 118px;
+    height: auto;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.medicine-widget .listOfcard {
+    max-height: 238px;
+}
+
+.investigation-widget .listOfcard {
+    max-height: 152px;
+}
+
+.listOfcard ul {
+    margin-bottom: 0;
+}
+
+#followUpcomments {
+    height: 60px
+}
+
+.form-group {
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
+
+.form-group.custom_chk_nav {
+    margin-bottom: 8px;
+}
+
+.medicineArea {
+    margin-right: 15px !important;
+}
+
+.list-inline {
+    height: auto;
+    min-height: 35px;
+    margin-bottom: 0px;
+}
+
+.modal-header .close {
+    margin-top: -21px;
+}
+
+.doseArea {
+    // margin-right: 12px;
+    padding: 15px;
+}
+
+.doseArea .form-group {
+    margin-right: 7px;
+    margin-bottom: 15px;
+}
+
+.customDose label {
+    margin-bottom: 0;
+}
+
+.row {
+    margin-left: 0 !important;
+}
+
+.wizard {
+    padding-bottom: 50px;
+}
+
+.col {
+    margin-left: 15px;
+}
+
+.col-5 {
+    margin-left: 15px;
+    width: 38%;
+}
+
+.col-7 {
+    margin-left: 15px;
+    width: 55%;
+}
+
+.col-12 {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.p-3x {
+    padding: 3px !important;
+}
+
+.listOfcardLast-child {
+    min-height: 134px;
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.listOfcardLast-child ul {
+    margin-bottom: 0;
+}
+
+.card-body .column {
+    display: table;
+    margin: 0 3px 0 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[name="dos"] {
+    visibility: hidden;
+    display: none;
+}
+
+input[name="stat"] {
+    visibility: hidden;
+}
+
+input[name="sos"] {
+    visibility: hidden;
+}
+
+h1 {
+    color: #129faa;
+    font-family: 'proxima_novalight', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-size: 1.875em;
+    margin-bottom: 20px;
+}
+
+.mb20 {
+    margin-bottom: 1.25rem;
+}
+
+h2 {
+    color: #333;
+    font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-size: 1.250em;
+}
+
+.card h4 {
+    color: #333;
+    font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-size: 1.082rem;
+    margin: 5px 0 0 0;
+}
+
+.card {
+    background-color: #FFF;
+    border: none;
+    -webkit-box-shadow: 0 2px 6px 0 #ccc;
+    -moz-box-shadow: 0 2px 6px 0 #ccc;
+    box-shadow: 0 2px 6px 0 #ccc;
+    margin: 0 0 20px 0;
+}
+
+.card-header {
+    padding: 5px 10px;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header .col-2 .form-check {
+    margin-top: 18px;
+    margin-left: 80px;
+}
+
+.col-3 .card-body {
+    background-color: #FFF;
+    margin-bottom: 0;
+}
+
+.card-header .input-group {
+    border-bottom: 1px solid #CCC !important;
+}
+
+.card-header .form-control {
+    padding-left: 0;
+}
+
+.card .input-group-text {
+    background-color: #FFF;
+}
+
+.card .input-group-text,
+.card .form-control {
+    border: none;
+    padding: 0 0.75rem;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: $btn-secondary;
+    border: 1px solid $btn-border-color;
+}
+
+.btn-primary:hover {
+    color: #FFF;
+    background-color: $btn-border-color;
+    border: 1px solid $btn-border-color;
+}
+
+.btn-danger {
+    background-color: #FF6D6D;
+    border: 1px solid #DE4B4B;
+}
+
+.btn-danger:hover {
+    background-color: #DE4B4B;
+    border: 1px solid #DE4B4B;
+}
+
+.cardBodyItem {
+    margin-bottom: 0 !important;
+    margin-right: 5px;
+}
+
+.cardBodyItem .column:first-child {
+    padding: 0px 2px;
+}
+
+.card-body h5 {
+    color: #000;
+    font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-size: 0.938em;
+    margin-bottom: 0;
+}
+
+.card-body h6 {
+    color: #000;
+    font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-size: 0.875em;
+    margin-bottom: 0;
+}
+
+.card-body p {
+    font-size: 0.750em;
+}
+
+.card-body p.last {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.card-body p {
+    margin-bottom: 0.313em;
+}
+
+.searchInput {
+    background: none !important;
+}
+
+.searchIcon {
+    padding: 0 0.75rem !important;
+}
+
+.custom_chk_btn .column .row .column>input[type="checkbox"] {
+    display: none;
+}
+
+.custom_chk_btn label {
+    border: 1px solid #e9f8fb;
+    padding: 3px 10px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    margin-top: 3px;
+    margin-bottom: 0px;
+    background: #FDFDFD;
+    font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-weight: normal;
+}
+
+.custom_chk_btn label::after {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+}
+
+.check_family_item label {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.custom_chk_btn :checked+label {
+    outline: 2px solid #FF6D6D;
+    padding: 0 0 0 10px;
+}
+
+.custom_chk_btn :checked+label::after {
+    content: "\2713";
+    background-color: #FF6D6D;
+    transform: scale(1.15);
+    position: relative;
+    display: inline-block;
+    right: 0px;
+    top: 0px;
+}
+
+.medicines .custom_chk_btn :checked+label::after,
+.medicines-list .custom_chk_btn :checked+label::after {
+    margin-bottom: 14px;
+}
+
+.first {
+    margin-top: 32px;
+}
+
+.column {
+    padding: 0 5px;
+    margin: 0 5px;
+}
+
+.custom_chk_nav .column_nav .row .column_nav>input[type="checkbox"] {
+    display: none;
+}
+
+.form-check {
+    margin-bottom: 0 !important;
+}
+
+.custom_chk_nav label {
+    border: 1px solid #e9f8fb;
+    padding: 3px 19px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background: #FDFDFD;
+    font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-weight: normal;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.custom_chk_nav label::after {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+}
+
+.check_family_item label {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.custom_chk_nav :checked+label {
+    outline: 2px solid #FF6D6D;
+    padding: 0 0 0 10px;
+    display: inline-block;
+}
+
+.nav_list .custom_chk_nav label {
+    font-size: 1.082rem;
+}
+
+.custom_chk_nav :checked+label:after {
+    content: "\2713";
+    background-color: #FF6D6D;
+    transform: scale(1.15);
+    position: relative;
+    display: inline-block;
+    right: 0px;
+    top: 0px;
+    margin-left: 5px;
+}
+
+.column_nav {
+    padding: 0 5px;
+    margin: 5px 0px 0 0px;
+}
+
+.nav_list {
+    margin: 10px auto;
+}
+
+.btn-outline-primary {
+    min-width: 7.5rem;
+}
+
+.bg-primary {
+    background-color: #DBE9EE !important;
+}
+
+.modal-dialog {
+    max-width: 1015px;
+}
+
+.large_table {
+    font-size: 0.750em;
+}
+
+// .modal-body{
+// 	padding-left: 30px !important;
+// }
+.followUpApply {
+    width: 121px;
+    height: 36px;
+    margin-left: 15px;
+}
+
+.medicineLabel {
+    height: auto;
+}
+
+.medicineCheckBox,
+.referralCheckBox,
+.immunizationCheckBox {
+    margin-right: 15px;
+}
+
+.medicineCheckBox,
+.immunizationCheckBox,
+.referralCheckBox {
+    display: inline-block;
+}
+
+.custom_chk_btn :checked+label.medicineLabel::after {
+    top: -15px !important;
+}
+
+.custom_chk_btn :checked+label.referralLabel::after {
+    top: -12px !important;
+}
+
+.custom_chk_btn :checked+label span.ailment_text {
+    padding: 0 12px;
+}
+
+.custom_chk_btn :checked+label span.statLabel {
+    padding: 0 30px;
+}
+
+.custom_chk_btn :checked+label span.sosLabel {
+    padding: 0 30px;
+}
+
+.custom_chk_btn :checked+label.immunizationLabel::after {
+    top: -15px !important;
+}
+
+.custom_chk_btn :checked+label.immunizationLabel span.ailment_text {
+    padding: 0;
+}
+
+.doseArea .list-inline-item {
+    margin-right: 0;
+}
+
+.medicineArea .row {
+    margin-left: -15px !important;
+}
+
+.medicineArea .custom_chk_btn label {
+    width: 126px;
+    height: 28px;
+    text-align: center;
+}
+
+.medicineArea .custom_chk_btn :checked+label::after {
+    float: right;
+}
+
+.medicineArea .custom_chk_btn :checked+label span.ailment_text {
+    line-height: 27px;
+}
+
+@media screen and (max-width: 359px) {
+    .medicineArea .select-dose .col-xs-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .medicineArea .custom_chk_btn label {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .search-field {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .followUpApply {
+        margin-top: 15px;
+        margin-bottom: 3px;
+    }
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: rgb(235, 67, 67);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.greendot {
+    height: 10px;
+    width: 10px;
+    background-color: rgb(3, 198, 101);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.greenStockdot {
+    height: 10px;
+    width: 10px;
+    background-color: #04bb1a;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.orangeStockdot {
+    height: 10px;
+    width: 10px;
+    background-color: rgb(255, 165, 0);
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}
+
+.dose {
+    .dose_input {
+        display: none;
+    }
+    .need_label {
+        width: 148px !important;
+    }
+}
+
+.needbased_section {
+    .custom_chk_btn :checked+label::after {
+        top: -27px !important;
+    }
+}
+
+.add_doctor {
+    float: right;
+}
+
+.add_doctor:focus,
+.add_doctor.focus,
+.add_doctor:active:focus,
+.add_doctor:active.focus,
+.add_doctor.active:focus,
+.add_doctor.active.focus {
+    outline: none;
+    outline-offset: none;
+}
+
+
+.addDoctorModal .modal-header .close {
+    margin-top: 0px;
+}
+
+.addDoctorModal .modal-dialog {
+    max-width: 635px !important;
+}
+
+.addDoctorModal .modal-body sup {
+    color: #FF6D6D;
+    font-size: 20px;
+    top: 0px;
+}
+
+
+.add_note_date .padding_bottom{
+    padding-bottom: 10px;
+}
+
+.alternate_medicine{
+    display: flex;
+
+    .add_medicine{
+        border: 3px solid #DF5B21;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+         i{
+             color: #DF5B21;
+         }
+     }
+}
+   .medicine_available_margin{
+    margin-left: 0px;
+    margin-bottom: 5px;
+   }
+ 
+
+ 

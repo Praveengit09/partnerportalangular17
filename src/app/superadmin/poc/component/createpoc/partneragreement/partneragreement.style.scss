@@ -1,0 +1,602 @@
+.no_listofpack_text{
+  margin-left: 15px;
+}
+.datepicker.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap{
+  border-top-color: #0000001c;
+}
+.cursoremp{
+  cursor: no-drop !important;
+}
+.partner_title23{
+  margin-left: 15px;
+}
+.pharm_txt{
+  width: 100%;
+  margin-left: 0px;
+}
+.package_checkbox{
+  margin-left: 18px;
+}
+.sgst_txt{
+  font-size: 23px;
+  top: -1px;
+  color: #ff0000;
+}
+.update_packages {
+  max-width: 22.3%;
+  margin-left: 19px;
+  margin-bottom: 30px;
+  box-shadow: 0px 1px 1px 1px rgba(216, 208, 208, 0.2196078431372549);
+}
+.Packages_participate{
+  font-size:20px;
+  color:#1DC8D5;
+  margin-left: 30px;
+}
+.add_txt1 {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #1DC8D5;
+  border-radius: 48%;
+  font-size: 21px;
+  color: #fff;
+  background-color: #1DC8D5;
+  padding-top: 4px;
+  font-weight: 100;
+  padding: 4px;
+  margin-top: 8px;
+}
+.modal-title_poc{
+    font-weight: 600px;
+    margin-left: 15px;
+    height:auto;
+    border-bottom: 1px solid #F5F7FA;
+    padding-bottom: 7px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.modal-title_packages{
+  font-weight: 600px;
+  margin-left: 15px;
+  height:auto;
+}
+.canedit_txt{
+  cursor: pointer;
+}
+.emp_type1{
+  margin-bottom:-15px;
+}
+.doctor_txt{
+  margin-right: 20px;
+}
+.doctor_walkin{
+  margin-left: 0px;
+}
+.doctor_walkin .doctor_walkin_txt{
+  height: auto;
+  border-bottom: 1px solid #F5F7FA;
+  padding-bottom: 7px;
+  margin-left: 15px;
+  padding-left: 0px;
+}
+.digi_txt{
+  cursor: pointer;
+  padding-left: 0px;
+}
+.would_txt{
+  padding-left: 0px;
+}
+.home_txt{
+  width:100%;
+  margin-left: 0px;
+}
+.onboarding_txt{
+  margin-bottom: 20px;
+}
+.empdigi_type{
+  padding-left: 50px;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  top: 10px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 5px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.walk_txt{
+  width: 100%;
+  margin-left: 0px;
+  margin-top: 15px;
+}
+
+
+
+.Update{
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+  }
+  .team-box {border: 1px solid #e5e5e5; padding:10px;height:auto}
+  .team-box:hover {border: 1px solid #ea6c56 ;}
+  
+  .team-img img {    width: 150px;
+    height: 150px;
+    border: 5px solid #021a40;
+    border-image: linear-gradient(#fdfbf7, #e5e6e3) 30;}
+  .medical_services{
+    font-size: 17px;
+      color: red;
+  }
+  .team-title h3 {font-size:16px;font-weight:600;color:#000 ;}
+  .team-title h4 {font-size:16px; font-weight:600;}
+  .team-title p {line-height:22px;}
+.list_title2{
+   
+    font-weight: 600px;
+  }
+
+  .validity{
+    margin-left: 13px;
+}
+
+/////////////  PRODUCTS css start here ////
+
+.right{
+float:right;
+border-bottom: 2px solid #4B8E4B;
+}
+.thumbnail{
+opacity:0.70;
+-webkit-transition: all 0.5s; 
+transition: all 0.5s;
+}
+.thumbnail:hover{
+opacity:1.00;
+box-shadow: 0px 0px 10px #4bc6ff;
+}
+.line{
+margin-bottom: 5px;
+}
+.img_pocpartner{
+  width: 100%;
+  margin-top: 15px;
+}
+
+
+/////////////  PRODUCTS css start here ////
+
+/* --------------  PHR Checkbox Styles Starts   -----------------*/
+
+
+.custom_chk input[type="checkbox"] {
+  display: none;
+}
+.custom_chk  label {
+  border: 1px solid #e9f8fb;
+  padding: 16px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 2px 3px -2px #999;
+  -moz-box-shadow: 1px 2px 3px -2px #999;
+  box-shadow: 1px 2px 3px -2px #999;
+  margin-top: 15px;
+  margin-bottom:0;
+  background: #FDFDFD;
+  font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+
+}
+.custom_chk  label::before {
+  background-color: white;
+  border: 1px solid #ff6d6d;
+  color: white;
+  content: " ";
+  display: block;
+  height: 25px;
+  line-height: 28px;
+  position: absolute;
+  right: -2px;
+  text-align: center;
+  top: -2px;
+  transform: scale(0);
+  transition-duration: 0s;
+  width: 25px;
+}
+.ailment_text{
+font-size: 18x;
+font-weight: 600;
+text-align: left;
+}
+.text_margin{
+  margin: 0px;
+}
+
+.custom_chk :checked+label, .reset-checkbox :checked+label {
+  outline: 2px solid #FF6D6D;
+}
+.custom_chk :checked+label:before, .reset-checkbox :checked+label:before {
+  content: "\2713";
+  background-color: #FF6D6D;
+  transform: scale(0.9);
+}
+.other-textbox{
+  margin-left: 12%;
+}
+.custom-chk1+label+.checkbox-group {
+display:none;
+}
+.custom-chk1:checked+label+.checkbox-group {
+display:block;
+}
+.checkbox-group {
+  padding: 10px;
+  border-bottom: 1px solid #FF6D6D;
+  border-left: 1px solid #FF6D6D;
+  border-right: 1px solid #FF6D6D;
+  background: #fff9f9;
+}
+
+.role_size{
+  height: 80px !important;
+  }
+
+/*--------------  PHR Checkbox Styles Ends     -----------------*/
+ /////radio button css start here ///
+
+  .emp_type label {
+   
+    display: inline-block;
+    position: relative;
+     padding: 10px;
+    cursor: pointer;
+  }
+  
+  .emp_type input {
+    opacity: 0;
+    position: relative !important;
+  }
+  
+  .outside {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1DC8D5;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    background: none;
+  }
+  
+  .inside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background:#1DC8D5;
+    left: 3px;
+    top: 3px;
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+  .no-transforms .inside {
+    left: auto;
+    top: auto;
+    width: 0;
+    height: 0;
+  }
+  
+  input:checked + .outside .inside {
+    -webkit-animation: radio-select 0.1s linear;
+            animation: radio-select 0.1s linear;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  .no-transforms input:checked + .outside .inside {
+    width: 10px;
+    height: 10px;
+  }
+  .consul-margin{
+    padding-left: 0px;
+  }
+  
+  ////radio button css end here ///
+  
+  ////// check box css start here ////
+
+
+
+.span_pseudo, .chiller_cb span:before, .chiller_cb span:after {
+  content: "";
+  display: inline-block;
+  background: #fff;
+  width: 0;
+  height: 0.2rem;
+  position: absolute;
+  transform-origin: 0% 0%;
+}
+
+.chiller_cb {
+  position: relative;
+  height: 3rem !important;
+  display: flex;
+  align-items: center;
+}
+.chiller_cb input {
+  display: none;
+}
+.chiller_cb input:checked ~ span {
+  background: #fd2727;
+  border-color: #fd2727;
+}
+.chiller_cb input:checked ~ span:before {
+  width: 1rem;
+  height: 0.15rem;
+  transition: width 0.1s;
+  transition-delay: 0.3s;
+}
+.chiller_cb input:checked ~ span:after {
+  width: 0.4rem;
+  height: 0.15rem;
+  transition: width 0.1s;
+  transition-delay: 0.2s;
+}
+.chiller_cb input:disabled ~ span {
+  background: #ececec;
+  border-color: #dcdcdc;
+}
+.chiller_cb input:disabled ~ label {
+  color: #dcdcdc;
+}
+.chiller_cb input:disabled ~ label:hover {
+  cursor: default;
+}
+.chiller_cb label {
+  padding-left: 1rem !important;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  margin-bottom:0;
+}
+.chiller_cb span {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid #ccc;
+  position: absolute;
+  left: 0;
+  transition: all 0.2s;
+  z-index: 1;
+  box-sizing: content-box;
+}
+.chiller_cb span:before {
+  transform: rotate(-55deg);
+  top: 1rem;
+  left: 0.37rem;
+}
+.chiller_cb span:after {
+  transform: rotate(35deg);
+  bottom: 0.35rem;
+  left: 0.2rem;
+}
+
+
+////// check box css end here ////
+.label_text1{
+  margin-top: 10px;
+}
+.applicable_check1[type="checkbox"]:checked + label::after {
+  content: '';
+  position: absolute;
+  width: 2.2ex;
+  height: 1.3ex;
+  background: transparent;
+  top: 0.6ex;
+  left: 0.4ex;
+  border: 3px solid #68c7d0;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.applicable_check1[type="checkbox"] {
+  line-height: 2.1ex;
+}
+
+.applicable_check1[type="radio"],
+.applicable_check1[type="checkbox"] {
+   position: absolute;
+   left: -999em;
+}
+
+.applicable_check1[type="checkbox"] + label {
+   position: relative;
+   overflow: hidden;
+   cursor: pointer;
+}
+
+.applicable_check1[type="checkbox"] + label::before {
+  content: "";
+  display: inline-block;
+  vertical-align: -25%;
+  height: 3ex;
+  width: 3ex;
+  background-color: white;
+  border: 1px solid rgb(166, 166, 166);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
+  margin-right: 0.5em;
+}
+
+.applydoc_checktxt[type="checkbox"]:checked + label::after {
+  content: '';
+  position: absolute;
+  width: 2.2ex;
+  height: 1.3ex;
+  background: transparent;
+  top: 0.6ex;
+  left: 0.4ex;
+  border: 3px solid #68c7d0;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.applydoc_checktxt[type="checkbox"] {
+  line-height: 2.1ex;
+}
+
+.applydoc_checktxt[type="radio"],
+.applydoc_checktxt[type="checkbox"] {
+   position: absolute;
+   left: -999em;
+}
+
+.applydoc_checktxt[type="checkbox"] + label {
+   position: relative;
+   overflow: hidden;
+   cursor: pointer;
+}
+.creditlimit_txt{
+  padding-left: 0px;
+  color: #ff0000;
+  font-size: 13px;
+}
+.minimum_txt{
+  padding-top: 26px;
+}
+.max_min_txt{
+  padding-left: 0px;
+}
+.max_min_txt .errorMessages{
+  margin-left: 0px;
+}
+
+//Revenu////////////@at-root
+.app_type{
+  padding-left: 0px;
+}
+.discount_revenu{
+  padding-top: 18px;
+  cursor:pointer;
+}
+.discount_revenu .add_pocbutton {
+  width: 35px;
+  height: 35px;
+  background-color: #43BAC4;
+  color: #fff;
+  border-radius: 50%;
+  padding: 11px 10px;
+}
+.form-group .to_txt{
+  text-align: center;
+  padding-top: 6px;
+}
+.control-label{
+  margin-bottom: 0px;
+}
+.transaction_type{
+  width: 100%;
+}
+.form-groupline{
+  margin-bottom: 20px;
+}
+.applydoc_checktxt[type="checkbox"] + label::before {
+  content: "";
+  display: inline-block;
+  vertical-align: -25%;
+  height: 3ex;
+  width: 3ex;
+  background-color: white;
+  border: 1px solid rgb(166, 166, 166);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
+  margin-right: 0.5em;
+}
+.datepicker {
+  max-width: 236px !important;
+  width: 100% !important;
+}
+@media screen and (max-width: 1500px) and (min-width: 1200px) {
+  .col-xl-5.validity {
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+  }
+}
+

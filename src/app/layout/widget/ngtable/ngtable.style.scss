@@ -1,0 +1,274 @@
+@import "../../../../../node_modules/@angular/material/theming";
+@import"../../../scss/variables";
+// @import"../../../../assets/jeevone/themes/theme.scss";
+@import"../../../scss/theme.scss";
+
+@include mat-core();
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.hide_btntxt {
+    pointer-events: none !important;
+    background-color: rgba(128, 128, 128, 0.54);
+    border-color: #1dc8d5;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.image-logo-circle {
+    width: auto;
+    height: 100px;
+    text-align: center;
+    display: block;
+}
+
+.image-logo-circle img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.max-width-100px {
+    max-width: 100px !important;
+}
+
+.max-width-150px {
+    max-width: 150px !important;
+}
+
+.max-width-200px {
+    max-width: 200px !important;
+}
+
+.width100px {
+    width: 100px !important;
+}
+
+.width150px {
+    width: 150px !important;
+}
+
+.width200px {
+    width: 200px !important;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.sortDisabled {
+    pointer-events: none;
+}
+
+.removeIcon {
+    color: #ff00008c;
+    margin-left: 5px;
+    cursor: pointer;
+    pointer-events: visible;
+}
+
+.add-btn {
+    position: relative;
+    cursor: pointer;
+    background-color: #14a9b5;
+    text-align: center;
+    padding: 8px 45px 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 17px;
+    float: right;
+    border: none;
+    border-radius: 10px;
+    margin: 5px;
+    outline: none;
+}
+
+.add-btn .addIcon {
+    line-height: 28px;
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    top: 0;
+    width: 32px;
+    border-left: 1px solid;
+    border-color: rgba(206, 206, 206, 0.52);
+    font-size: 12px;
+    color: rgba(206, 206, 206, 0.52);
+}
+
+.rotate {
+    -moz-transition: all .5s linear;
+    -webkit-transition: all .5s linear;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.rotate.icon-rotate {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+::ng-deep .sortDisabled .mat-sort-header-arrow {
+    display: none;
+    pointer-events: none;
+}
+
+::ng-deep .mat-sort-header-button {
+    cursor: default !important;
+    text-transform: uppercase;
+    outline: none;
+}
+
+::ng-deep .mat-header-row th,
+::ng-deep .mat-row td {
+    padding: 20px 15px !important;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    border-right: 1px solid #e0e0e0;
+}
+
+::ng-deep .mat-header-row th {
+    //background-color: #f7f9fd;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+::ng-deep .mat-row td {
+    border-top: 1px solid #e0e0e0;
+}
+
+::ng-deep tr.mat-row:nth-of-type(even) td {
+    background-color: #f9fbfd;
+}
+
+::ng-deep tr.mat-row:nth-of-type(odd) td {
+    background-color: #fff;
+}
+
+::ng-deep .mat-form-field-infix {
+    border-top: none;
+}
+
+::ng-deep .table-hover tbody tr.mat-row:nth-of-type(odd):hover td.cloum-sticky-row,
+::ng-deep .table-hover tbody tr.mat-row:nth-of-type(even):hover td.cloum-sticky-row,
+::ng-deep .table-hover tbody tr.mat-row:nth-of-type(odd):hover td,
+::ng-deep .table-hover tbody tr.mat-row:nth-of-type(even):hover td {
+    background-color: #F0F3F7;
+}
+
+::ng-deep .table-hover {
+    border: none !important;
+}
+
+::ng-deep .mat-paginator-range-label {
+    opacity: 0;
+}
+
+::ng-deep .isStaticPagingTotal .mat-paginator-range-label {
+    opacity: 1;
+}
+
+::ng-deep .vdcheader th {
+    position: sticky;
+    overflow: hidden;
+    top: 0;
+    z-index: 1;
+}
+
+// ::ng-deep .vdcheader .cloum-sticky-head {
+//     z-index: 111 !important;
+// }
+
+::ng-deep .vdcheader .mat-header-cell {
+    background-color: #2e6e91 !important;
+    color: #fff !important;
+}
+
+::ng-deep .allheader .mat-header-cell {
+    color: #333 !important;
+    background-color: $table-bg-header !important;
+}
+
+.tableTdSpan {
+    display: block;
+}
+
+.total-item {
+    position: absolute;
+    bottom: 12px;
+    right: 120px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.total-item.isStaticPagingTotal {
+    display: none;
+}
+
+#viewmoremodal .modal-title {
+    color: #23aeba;
+}
+
+@media screen and (max-width: 600px) {
+    table .hsTableHead {
+        overflow: hidden;
+        position: absolute;
+        width: 1px;
+    }
+
+    table td {
+        display: block;
+        min-height: 47px;
+        width: 100%;
+        float: left;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        width: 50%;
+        padding-right: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    table td span,
+    table td a,
+    table td button {
+        width: 100% !important;
+        white-space: normal;
+    }
+
+    table td .tabledatalabel-right {
+        width: 50% !important;
+        float: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+
+    table td button {
+        margin-right: 0;
+    }
+
+    .mat-row td:last-child {
+        border-bottom: 3px solid #e0e0e0;
+    }
+}
+
+input[placeholder],
+[placeholder],
+*[placeholder] {
+    border: none !important;
+}

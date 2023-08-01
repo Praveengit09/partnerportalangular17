@@ -1,0 +1,88 @@
+<!-- <h1>Pre Call Test</h1>
+<div id="status_container" class="prettyBox">
+  <h2>Testing stream capabilities</h2>
+  <p>{{videoConnectionStatus}}</p>
+  <img src="assets/spinner.gif">
+  <div></div>
+  <div #publisherEl></div>
+  <div #subscriberEl></div>
+</div> -->
+
+<div class="hidden">
+  <div #publisherEl></div>
+  <div #subscriberEl></div>
+</div>
+
+
+
+<div class="modal" style=" overflow-y: auto !important" id="preTestVideoCall" tabindex="-1" role="dialog"
+  aria-labelledby="modelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf="!isTestingResultsDone">
+      <div class="modal-header">
+        Testing Video Quality
+        <div class="pull-right" >
+            <button class="btn btn-danger" (click)="skipTest()">
+                skip test
+            </button>
+            
+          </div>
+      </div>
+      <div class="modal-body">
+        <p class="text-center font-weight-bold">
+          {{videoConnectionStatus}}
+        </p>
+
+        <ul class="list-group">
+          <li *ngFor="let status of connectionsStatus;let i=index" class="list-group-item d-flex justify-content-between align-items-center">
+            {{status}}
+            <span *ngIf="i!=(connectionsStatus.length-1)||connectionsStatus.length>=4" class="badge badge-primary badge-pill">&#10004;</span>
+            <span *ngIf="connectionsStatus.length<4 && i==(connectionsStatus.length-1)" class="badge badge-primary badge-pill">i</span>
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="modal-footer">
+        <mat-progress-bar [value]="testPercent">
+   
+        </mat-progress-bar>
+        <!-- {{testPercent+' %'}} -->
+      </div>
+    </div>
+
+    <div class="modal-content" *ngIf="isTestingResultsDone">
+      <div class="modal-header">
+        <div class="row ml-1">
+          Do you want to continue ?
+        </div>
+      </div>
+      <div class="modal-body row ml-1" style="text-align: center">
+        <div *ngIf="videoSupported && audioSupported">
+          Your network quality is good
+        </div>
+        <div *ngIf="!videoSupported && audioSupported">
+          Your network quality is low
+        </div>
+        <div *ngIf="!videoSupported && !audioSupported">
+          Your network quality  is bad
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-6">
+            <button type="button" class="btn btn-default" style="width:100px"
+              (click)="navigateTo(surl,1)">Yes</button>
+          </div>
+          <div class="col-md-6">
+            <button type="button" class="btn btn-default" style="width:100px" (click)="navigateTo(furl,1)">No</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<spinner-component></spinner-component>

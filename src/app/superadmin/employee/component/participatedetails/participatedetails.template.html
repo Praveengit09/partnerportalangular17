@@ -1,0 +1,729 @@
+<div class="table_size">
+
+    <div class="modal-body">
+        <h1 class="page-title">Participate Details</h1>
+
+        <div class="row participate_row">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('overridePdfHeader')">Override PDF Header with this POC
+                    Details?</label></div>
+
+            <div class="col-md-4">
+
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.overridePdfHeader"
+                        (change)="changeData('overridePdfHeader')">
+
+                    <span class="slider round"></span>
+                </label></div>
+        </div>
+
+        <div class="row participate_row">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('enableNotification')">Enable Notification
+                    Details?</label></div>
+
+            <div class="col-md-4">
+
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.enableNotification"
+                        (change)="changeData('enableNotification')">
+
+                    <span class="slider round"></span>
+                </label></div>
+        </div>
+        <div class="row participate_row">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('homePrescription')">Participate in Home
+                    Consultation</label>
+            </div>
+            <div class="col-md-4">
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.homeConsultationAvailable" id="homeConsultation"
+                        (change)="changeData('homePrescription')">
+
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="col-md-5">
+
+                <div class="form-group" *ngIf="participationData.homeConsultationAvailable">
+                    <button type="button" class="btn partedit_btn" data-toggle="modal" data-target="#myModaSpecialize"
+                        (click)="selectSpecialize('Home Consultation',3)">Fee Information</button>
+                    <div class="emp_type">
+
+
+
+                        <label>
+                            <input class="radio-inline" type="radio" value="0" [checked]="isHomePercent"
+                                (change)="isHomePercent=true; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Percentage</label>
+                        <label>
+                            <input class="radio-inline" type="radio" value="1" [checked]="!isHomePercent"
+                                (change)="isHomePercent=false; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Value</label>
+                    </div>
+                    <input *ngIf="isHomePercent" name="Home Consultation Fee" type="text"
+                        placeholder="Enter Home Consultation percentage"
+                        [(ngModel)]="employeePocMargin.homeConsultationMargin" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)"
+                        (keyup)="participatePercetage(employeePocMargin,'homeConsultationMargin');deleteVar(employeePocMargin,'homeConsultationMarginFee')">
+                    <input *ngIf="!isHomePercent" name="Home Consultation Fee" type="text"
+                        placeholder="Enter Home Consultation value"
+                        [(ngModel)]="employeePocMargin.homeConsultationMarginFee" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                        (keyup)="deleteVar(employeePocMargin,'homeConsultationMargin')">
+
+                </div>
+            </div>
+        </div>
+        <div class="row participate_row">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('physicalConsultation')">Participate in Walk-in
+                    Consultation</label></div>
+            <div class="col-md-4">
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.doctorPhysicallyAvailable"
+                        id="physicalConsultation" (change)="changeData('physicalConsultation')">
+
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="col-md-5" *ngIf="participationData.doctorPhysicallyAvailable">
+
+                <div class="form-group">
+                    <button type="button" class="btn partedit_btn" data-toggle="modal" data-target="#myModaSpecialize"
+                        (click)="selectSpecialize('Physical Consultation',4)">Fee Information</button>
+                    <div class="emp_type">
+
+
+                        <label>
+                            <input class="radio-inline" type="radio" value="0" [checked]="isPhysicallyPercent"
+                                (change)="isPhysicallyPercent=true; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Percentage</label>
+                        <label>
+                            <input class="radio-inline" type="radio" value="1" [checked]="!isPhysicallyPercent"
+                                (change)="isPhysicallyPercent=false; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Value</label>
+                    </div>
+                    <input *ngIf="isPhysicallyPercent" name="Home Consultation Fee" type="text"
+                        placeholder="Enter Physical  Consultation percentage"
+                        [(ngModel)]="employeePocMargin.walkinConsultationMargin" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)"
+                        (keyup)="participatePercetage(employeePocMargin,'walkinConsultationMargin');deleteVar(employeePocMargin,'walkinConsultationMarginFee')">
+                    <input *ngIf="!isPhysicallyPercent" name="Home Consultation Fee" type="text"
+                        placeholder="Enter Physical  Consultation value"
+                        [(ngModel)]="employeePocMargin.walkinConsultationMarginFee" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                        (keyup)="deleteVar(employeePocMargin,'walkinConsultationMargin')">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row participate_row">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('DigitalPrescription')">Generate
+                    Digital Prescription?</label>
+            </div>
+            <div class="col-md-4">
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.digitalPrescriptionAvailable"
+                        (change)="changeData('DigitalPrescription')" id="digitalDescription">
+
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="row participate_row" *ngIf="this.participationData.digitalPrescriptionAvailable">
+            <div class="col-md-4" *ngIf="participationData.digitalPrescriptionAvailable">
+
+                <label class="list_title5" (click)="changeData('digiroomPrescription')">Participate in Digiroom
+                    Consultation</label></div>
+            <div class="col-md-4">
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.doctorDigiAvailable" id="Digiroom"
+                        (change)="changeData('digiroomPrescription')">
+
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="col-md-5" *ngIf="participationData.digitalPrescriptionAvailable">
+
+                <div class="form-group" *ngIf="participationData.doctorDigiAvailable">
+                    <button type="button" class="btn partedit_btn" data-toggle="modal"
+                        (click)="selectSpecialize('Digi Consultation',0)" data-target="#myModaSpecialize">Fee
+                        Information</button>
+
+                    <div class="emp_type">
+
+
+                        <label>
+                            <input class="radio-inline" type="radio" value="0" [checked]="isDigiPercent"
+                                (change)="isDigiPercent=true;">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Percentage</label>
+                        <label>
+                            <input class="radio-inline" type="radio" value="1" [checked]="!isDigiPercent"
+                                (change)="isDigiPercent=false; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Value</label>
+                    </div>
+                    <input *ngIf="isDigiPercent" name="Digi Fee" type="text" placeholder="Enter Digi percentage"
+                        [(ngModel)]="employeePocMargin.digiConsultationMargin" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)"
+                        (keyup)="participatePercetage(employeePocMargin,'digiConsultationMargin');deleteVar(employeePocMargin,'digiConsultationMarginFee')">
+                    <input *ngIf="!isDigiPercent" name="digi Fee" type="text" placeholder="Enter Digi value"
+                        [(ngModel)]="employeePocMargin.digiConsultationMarginFee" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                        (keyup)="deleteVar(employeePocMargin,'digiConsultationMargin')">
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row participate_row" *ngIf="participationData.digitalPrescriptionAvailable">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('VideoNowPrescription')">Participate in Video Live
+                    Consultation
+                </label></div>
+            <div class="col-md-4">
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.doctorVideoNowAvailable" id="Consultation"
+                        (change)="changeData('VideoNowPrescription')">
+
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="col-md-5" *ngIf="participationData.digitalPrescriptionAvailable">
+
+                <div class="form-group" *ngIf="this.participationData.doctorVideoNowAvailable">
+                    <button type="button" class="btn partedit_btn" data-toggle="modal" data-target="#myModaSpecialize"
+                        (click)="selectSpecialize('Audio/Video Live Consultation',1)">Fee Information</button>
+                    <div class="emp_type">
+
+
+                        <label>
+                            <input class="radio-inline" type="radio" value="0" [checked]="isVideoPercent"
+                                (change)="isVideoPercent=true; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Percentage</label>
+                        <label>
+                            <input class="radio-inline" type="radio" value="1" [checked]="!isVideoPercent"
+                                (change)="isVideoPercent=false; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Value</label>
+                    </div>
+                    <input *ngIf="isVideoPercent" name="Live Now Fee" type="text"
+                        placeholder="Enter Live Now percentage" [(ngModel)]="employeePocMargin.videoConsultationMargin"
+                        class="form-control input-md" (keypress)="validateNumberInputOnly($event)"
+                        (keyup)="participatePercetage(employeePocMargin,'videoConsultationMargin');deleteVar(employeePocMargin,'videoConsultationMarginFee')">
+                    <input *ngIf="!isVideoPercent" name="Live Now Fee" type="text" placeholder="Enter Live Now value"
+                        [(ngModel)]="employeePocMargin.videoConsultationMarginFee" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                        (keyup)="deleteVar(employeePocMargin,'videoConsultationMargin')">
+
+                </div>
+            </div>
+        </div>
+        <div class="row participate_row" *ngIf="participationData.digitalPrescriptionAvailable">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('VideoLaterPrescription')">Participate in Video
+                    Later Consultation
+                </label></div>
+            <div class="col-md-4">
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.doctorVideoLaterAvailable"
+                        id="LaterConsultation" (change)="changeData('VideoLaterPrescription')">
+
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="col-md-5" *ngIf="participationData.digitalPrescriptionAvailable">
+
+                <div class="form-group" *ngIf="participationData.doctorVideoLaterAvailable==true">
+                    <button type="button" class="btn partedit_btn" data-toggle="modal" data-target="#myModaSpecialize"
+                        (click)="selectSpecialize('Video Later Consultation',2)">Fee Information</button>
+                    <div class="emp_type">
+
+
+                        <label>
+                            <input class="radio-inline" type="radio" value="0" [checked]="isVideoLaterPercent"
+                                (change)="isVideoLaterPercent=true; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Percentage</label>
+                        <label>
+                            <input class="radio-inline" type="radio" value="1" [checked]="!isVideoLaterPercent"
+                                (change)="isVideoLaterPercent=false; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Value</label>
+                    </div>
+                    <input *ngIf="isVideoLaterPercent" name="Live Now percentage" type="text"
+                        placeholder="Enter Later percentage"
+                        [(ngModel)]="employeePocMargin.videoLaterConsultationMargin" class="form-control input-md"
+                        (keypress)="validateNumberInputOnly($event)"
+                        (keyup)="participatePercetage(employeePocMargin,'videoLaterConsultationMargin');deleteVar(employeePocMargin,'videoLaterConsultationMarginFee')">
+                    <input *ngIf="!isVideoLaterPercent" name="Live Now value" type="text"
+                        placeholder="Enter Later value" [(ngModel)]="employeePocMargin.videoLaterConsultationMarginFee"
+                        class="form-control input-md" (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                        (keyup)="deleteVar(employeePocMargin,'videoLaterConsultationMargin')">
+
+                </div>
+            </div>
+        </div>
+
+
+        <h5 class="list_title5">Pharmacy Margin</h5>
+
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" type="radio" value="0" [checked]="isPharmacyPercent"
+                        (change)="isPharmacyPercent=true; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" type="radio" value="1" [checked]="!isPharmacyPercent"
+                        (change)="isPharmacyPercent=false; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="isPharmacyPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Pharmacy  Consultation percentage"
+                    [(ngModel)]="employeePocMargin.homePharmacyMargin" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)"
+                    (keyup)="participatePercetage(employeePocMargin,'homePharmacyMargin');deleteVar(employeePocMargin,'homePharmacyMarginFee')">
+                <input *ngIf="!isPharmacyPercent" name="Home Consultation value" type="text"
+                    placeholder="Enter Pharmacy  Consultation value"
+                    [(ngModel)]="employeePocMargin.homePharmacyMarginFee" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                    (keyup)="deleteVar(employeePocMargin,'homePharmacyMargin')">
+
+            </div>
+        </div>
+
+        <h5 class="list_title5">Diagnostics Margin</h5>
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" type="radio" value="0" [checked]="isDiagnosticsPercent"
+                        (change)="isDiagnosticsPercent=true; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" type="radio" value="1" [checked]="!isDiagnosticsPercent"
+                        (change)="isDiagnosticsPercent=false; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="isDiagnosticsPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Diagnostics  Consultation percentage"
+                    [(ngModel)]="employeePocMargin.homeCollectionInvestigationMargin" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)"
+                    (keyup)="participatePercetage(employeePocMargin,'homeCollectionInvestigationMargin');deleteVar(employeePocMargin,'homeCollectionInvestigationMarginFee')">
+                <input *ngIf="!isDiagnosticsPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Diagnostics  Consultation value"
+                    [(ngModel)]="employeePocMargin.homeCollectionInvestigationMarginFee" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                    (keyup)="deleteVar(employeePocMargin,'homeCollectionInvestigationMargin')">
+
+            </div>
+        </div>
+
+        <!-- <h5 class="list_title5">Investigation Margin</h5>
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" name="radioinvestigation" type="radio" value="0"
+                        [checked]="isInvestigationPercent" (change)="isInvestigationPercent=true; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" name="radioinvestigation" type="radio" value="1"
+                        [checked]="!isInvestigationPercent" (change)="isInvestigationPercent=false; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="isInvestigationPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Investigation Consultation Fee"
+                    [(ngModel)]="employeePocMargin.homeCollectionInvestigationMargin" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)" (keyup)="participatePercetage(employeePocMargin,'homeCollectionInvestigationMargin')">
+                <input *ngIf="!isInvestigationPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Investigation Consultation Fee"
+                    [(ngModel)]="employeePocMargin.homeCollectionInvestigationMarginFee" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)">
+
+            </div>
+        </div> -->
+        <h5 class="list_title5">Immunization Margin</h5>
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" type="radio" value="0" [checked]="isImmunizationPercent"
+                        (change)="isImmunizationPercent=true; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" type="radio" value="1" [checked]="!isImmunizationPercent"
+                        (change)="isImmunizationPercent=false; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="isImmunizationPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Immunization Consultation percentage"
+                    [(ngModel)]="employeePocMargin.immunizationMargin" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)"
+                    (keyup)="participatePercetage(employeePocMargin,'immunizationMargin');deleteVar(employeePocMargin,'immunizationMarginFee')">
+                <input *ngIf="!isImmunizationPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Immunization Consultation value"
+                    [(ngModel)]="employeePocMargin.immunizationMarginFee" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                    (keyup)="deleteVar(employeePocMargin,'immunizationMargin')">
+
+            </div>
+        </div>
+
+        <h5 class="list_title5">Welness Margin</h5>
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" type="radio" value="0" [checked]="isWelnessPercent"
+                        (change)="isWelnessPercent=true; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" type="radio" value="1" [checked]="!isWelnessPercent"
+                        (change)="isWelnessPercent=false; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="isWelnessPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Welness Consultation percentage" [(ngModel)]="employeePocMargin.welnessMargin"
+                    class="form-control input-md" (keypress)="validateNumberInputOnly($event)"
+                    (keyup)="participatePercetage(employeePocMargin,'welnessMargin');deleteVar(employeePocMargin,'welnessMarginFee')">
+                <input *ngIf="!isWelnessPercent" name="ConsultationFee" type="text"
+                    placeholder="Enter Welness Consultation value" [(ngModel)]="employeePocMargin.welnessMarginFee"
+                    class="form-control input-md" (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                    (keyup)="deleteVar(employeePocMargin,'welnessMargin')">
+
+            </div>
+        </div>
+
+        <h5 class="list_title5">Procedure Margin</h5>
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" type="radio" value="0" [checked]="isProcedurePercent"
+                        (change)="isProcedurePercent=true; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" type="radio" value="1" [checked]="!isProcedurePercent"
+                        (change)="isProcedurePercent=false; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="isProcedurePercent" name="procedureConsultationFee" type="text"
+                    placeholder="Enter Procedure Consultation percentage"
+                    [(ngModel)]="employeePocMargin.procedureMargin" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)"
+                    (keyup)="participatePercetage(employeePocMargin,'procedureMargin');deleteVar(employeePocMargin,'procedureMarginFee')">
+                <input *ngIf="!isProcedurePercent" name="procedureConsultationFee" type="text"
+                    placeholder="Enter Procedure Consultation value" [(ngModel)]="employeePocMargin.procedureMarginFee"
+                    class="form-control input-md" (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                    (keyup)="deleteVar(employeePocMargin,'procedureMargin')">
+            </div>
+        </div>
+
+        <h5 class="list_title5">Other Referral Margin</h5>
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" type="radio" value="0" [checked]="isReferralPercent"
+                        (change)="isReferralPercent=true;">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" type="radio" value="1" [checked]="!isReferralPercent"
+                        (change)="isReferralPercent=false;">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="isReferralPercent" name="ReferralConsultationFee" type="text"
+                    placeholder="Enter Referral Consultation percentage"
+                    [(ngModel)]="employeePocMargin.otherReferralMargin" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)"
+                    (keyup)="participatePercetage(employeePocMargin,'otherReferralMargin');deleteVar(employeePocMargin,'otherReferralMarginFee')">
+                <input *ngIf="!isReferralPercent" name="ReferralConsultationFee" type="text"
+                    placeholder="Enter Referral Consultation value"
+                    [(ngModel)]="employeePocMargin.otherReferralMarginFee" class="form-control input-md"
+                    (keypress)="validateNumberInputOnly($event)" maxlength="6"
+                    (keyup)="deleteVar(employeePocMargin,'otherReferralMargin')">
+
+            </div>
+        </div>
+
+        <h5 class="list_title5">Default Margin</h5>
+
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input class="radio-inline" type="radio" value="0" [checked]="ishsPercent"
+                        (change)="ishsPercent=true; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Percentage</label>
+                <label>
+                    <input class="radio-inline" type="radio" value="1" [checked]="!ishsPercent"
+                        (change)="ishsPercent=false; ">
+
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Value</label>
+            </div>
+            <div class="form-group">
+                <input *ngIf="ishsPercent" name="Consultation percentage" id="otherDisPer" type="text"
+                    placeholder="Enter Default percentage" [(ngModel)]="employeePocMargin.defaultMargin"
+                    class="form-control input-md" (keypress)="onlyDecimalValueTillTwoDigits($event)"
+                    (keyup)="participatePercetage(employeePocMargin,'defaultMargin');deleteVar(employeePocMargin,'defaultMarginFee')">
+
+                <input *ngIf="!ishsPercent" name="Consultation percentage" id="otherDisPer" type="text"
+                    placeholder="Enter Default value" [(ngModel)]="employeePocMargin.defaultMarginFee"
+                    class="form-control input-md" maxlength="6" (keyup)="deleteVar(employeePocMargin,'defaultMargin')">
+
+
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 other_discount" *ngIf="ishsPercent">
+            <p *ngIf="this.otherDiscountAmountPer > 100 || this.otherDiscountAmountPer < 0" class="quantity_txt">
+                <sup>*</sup>HS Discount % should be from 0 to 100.
+            </p>
+        </div>
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12 other_discount" *ngIf="ishsValue">
+            <p *ngIf="this.otherDiscountAmountPer > 100 || this.otherDiscountAmountPer < 0" class="quantity_txt">
+                <sup>*</sup>HS Discount Value should be from 0 to 5000.
+            </p>
+        </div> -->
+
+        <div class="row participate_row">
+            <div class="col-md-4">
+                <label class="list_title5" (click)="changeData('packageConsultation')">Participate in
+                    Packages?</label>
+            </div>
+            <div class="col-md-4">
+                <label class="switch">
+                    <input type="checkbox" [checked]="participationData.participateInPackages" id="Packagesno"
+                        (change)="changeData('packageConsultation')">
+
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="col-md-5" *ngIf="participationData.participateInPackages==true">
+
+                <div class="form-group">
+                    <div class="emp_type">
+                        <label>
+                            <input class="radio-inline" type="radio" value="0" [checked]="isPackagePercent"
+                                (change)="isPackagePercent=true; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Percentage</label>
+                        <label>
+                            <input class="radio-inline" type="radio" value="1" [checked]="!isPackagePercent"
+                                (change)="isPackagePercent=false; ">
+
+                            <span class="outside">
+                                <span class="inside"></span>
+                            </span>Value</label>
+                    </div>
+                    <input *ngIf="isPackagePercent" name="percentage" type="text" placeholder="Enter percentage"
+                        [(ngModel)]="employeePocMargin.packageMargin" class="form-control input-md"
+                        (keypress)="onlyDecimalValueTillTwoDigits($event)"
+                        (keyup)="applyHSpackageDiscount($event.target.value);deleteVar(employeePocMargin,'packageMarginFee')">
+                    <input *ngIf="!isPackagePercent" name="percentage" type="text" placeholder="Enter value"
+                        [(ngModel)]="employeePocMargin.packageMarginFee" class="form-control input-md" maxlength="6"
+                        (keyup)="deleteVar(employeePocMargin,'packageMargin')">
+
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 other_discount">
+                <p *ngIf="this.otherDiscountPackage > 100 || this.otherDiscountPackage < 0" class="quantity_txt">
+                    <sup>*</sup>HS Package Discount % should be from 0 to 100.
+                </p>
+            </div>
+        </div>
+
+        <h5 class="list_title5">Can Edit Packages?</h5>
+        <div class="col-md-5 hs_packages">
+            <div class="emp_type">
+                <label>
+                    <input type="radio" class="radio-inline" name="radios2" value="" id="editPackagesyes" value="0"
+                        [checked]="participationData.canEditPackages" (change)="editPackage(0)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Yes</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radios2" value="" id="editPackagesno" value="1"
+                        [checked]="nopackages " (change)="editPackage(1)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>No</label>
+            </div>
+        </div>
+        <div class="row" *ngIf="participationData.participateInPackages==true">
+            <div class="col-md-3">
+                <h5 class="list_title4">Add Packages To Participate</h5>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <a>
+                        <i aria-hidden="true" class="fa fa-plus add_txt1" data-toggle="modal"
+                            data-target=".bde-example-modal-lg" (click)="checkedSelectedPackages()"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="this.selectedPackageNameList">
+
+            <div class="col-md-10 col-sm-10 col-xs-10">
+                <ul>
+                    <li *ngFor="let package of selectedPackageNameList let i= index">
+                        {{package}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+    <div class="done_footerparti">
+        <button type="button" class="btn partdone_btn" (click)="doneParticipatedPoc()">DONE</button> &nbsp;
+        <button type="button" class="btn partdone_btn" (click)="goBack()">CANCEL</button>
+    </div>
+</div>
+<div id="myModaSpecialize" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{tempSelectedName}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"
+                    *ngIf="doctorDetail.employeePocMappingList[this.pocListIndexData].serviceList && doctorDetail.employeePocMappingList[this.pocListIndexData].serviceList as services">
+
+                    <label class="control-label" for="selectbasic">
+                        <div class="row speciality_fee" *ngFor="let item of services; let i= index">
+                            <span class="col-md-6"><b>{{item.serviceName}}</b></span>
+                            <input name="Fee" type="text" placeholder="Enter {{tempSelectedName}} Fee"
+                                class="form-control input-md allfee col-md-6"
+                                (keypress)="validateNumberInputOnly($event)" [(ngModel)]="item[serviceFeeType]">
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn speciality_done" data-dismiss="modal">DONE</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade bde-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="closePopUp()">×</button>
+                <h3 class="modal-title">Select Packages</h3>
+            </div>
+            <div class="modal-body">
+                <!-- BEGIN PRODUCTS -->
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 update_packages custom_check"
+                        *ngFor="let selectedpackage of packageList;let i=index">
+                        <span class="thumbnail">
+                            <img class="img_pocpartner" src="{{selectedpackage.portalThumbnailUrl}}">
+                            <input type="checkbox" id={{i}} name={{i}} (click)="onValueChecked(selectedpackage,i)">
+                            <label class="packCheck{{i}}" for={{i}}>{{selectedpackage.name}}</label>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnGetValue"
+                        Value="Get Value" (click)="updatePackageList()">Done</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Large modal -->
+</div>

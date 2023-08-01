@@ -1,0 +1,271 @@
+@import "../../../scss/variables";
+@import '../../../scss/theme.scss';
+
+.list-group:last-of-type .list-group-item:last-child {
+    border: 1px solid #ddd;
+}
+
+.nextBtn {
+    color: #fff;
+    // background-color: #dc3545;
+    background-color:$btn-next;
+}
+
+.progress_indicator_wrapper a {
+    padding: 5px 0;
+    width: 33.33%;
+}
+
+.subWizard {
+    margin-top: 0px !important;
+    border-top: none;
+}
+
+.wizard {
+    margin-bottom: 5px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: -2.5rem;
+}
+
+.leftBoxCards {
+    margin-left: 30px;
+}
+
+.card {
+    position: relative;
+    background-color: #FFF;
+    border: none;
+    -webkit-box-shadow: 0 2px 6px 0 #ccc;
+    -moz-box-shadow: 0 2px 6px 0 #ccc;
+    box-shadow: 0 2px 6px 0 #ccc;
+    margin: 0 0 20px 0;
+    display: block;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: $btn-border-color;
+    border: 1px solid $btn-border-color;
+}
+
+.minimizeVideoBtn {
+    margin-left: 1456px;
+    margin-bottom: 15px;
+    margin-top: -15px;
+}
+
+.doctor-prescription {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.symptoms-prescription {
+    width: 63%;
+    order: 1;
+}
+
+.width73per {
+    width: 73%;
+}
+
+.width63per {
+    width: 63%;
+}
+
+
+.width100per {
+    width: 100% !important;
+}
+
+.float-right {
+    float: right;
+}
+
+.save-nxtbtn {
+    display: none;
+    text-align: right;
+}
+
+.save-nxtbtn .btn-block+.btn-block {
+    margin-top: 0;
+}
+
+.open-modal {
+    display: none;
+}
+
+#modelIdprescriptiontemplate .modal-dialog,
+#modelIdwizardpastprescription .modal-dialog {
+    max-width: 1000px !important;
+}
+
+.show-lg,
+.show-md {
+    display: none;
+}
+
+// .open-modal.pres-detail, .reconnect-video {
+//     margin-bottom: 11px;
+// }
+.pres-btns button {
+    margin-bottom: 11px;
+}
+
+.next_save {
+    z-index: 2;
+    position: fixed;
+    top: 85%;
+    right: 22px;
+}
+
+@media (max-width: 767px) {
+    .next_save {
+        right: 15px;
+    }
+}
+
+@media screen and (min-width:1200px) and (max-width:1573px) {
+    .leftBoxCards {
+        margin-left: 26px !important;
+    }
+}
+
+@media screen and (min-width:1024px) and (max-width:1199px) {
+    .leftBoxCards {
+        margin-left: 23px !important;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .symptoms-prescription {
+        order: 2;
+    }
+
+    .video-sec {
+        order: 1;
+    }
+
+    .template-pastprescription {
+        order: 3;
+    }
+
+    .wizard_progress_indicator.width73per,
+    .wizard_progress_indicator.width63per,
+    .symptoms-prescription,
+    .video-sec,
+    .template-pastprescription {
+        width: 100%;
+    }
+
+    .save-nxtbtn,
+    .open-modal {
+        display: block;
+    }
+
+    .save-nxtbtn button {
+        display: inline-block;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .symptoms-prescription {
+        margin-left: -17px;
+    }
+
+    .modal-xl {
+        max-width: 1140px;
+    }
+}
+
+@media screen and (max-width: 359px) {
+
+    .open-modal.pres-detail,
+    .reconnect-video,
+    .vitalsbtn {
+        padding: 2px 5px;
+        font-size: 12px;
+    }
+
+    .pdf_prescription h4 {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (min-width: 360px) and (max-width: 392px) {
+
+    .open-modal.pres-detail,
+    .reconnect-video,
+    .vitalsbtn {
+        padding: 3px 7px;
+    }
+}
+
+#pastPrescriptionModelLabel,
+#prescriptionTemplateModelLabel {
+    display: inline-block;
+}
+
+@media screen and (max-width: 1229px) {
+    .show-md {
+        display: inline-block;
+    }
+}
+
+@media screen and (min-width: 1230px) {
+    .show-lg {
+        display: inline-block;
+    }
+}
+
+.pdf_prescription {
+    margin-top: 20px;
+}
+
+.pdf_prescription #scanned_prescription {
+    max-height: 280px;
+}
+
+@media (max-width: 1399px) and (min-width: 1200px) {
+
+    .symptoms-prescription,
+    .width63per {
+        width: 57%;
+    }
+}
+
+// @media (max-width: 1550px) and (min-width: 1400px) {
+//     .symptoms-prescription {
+//         width: 69%;
+//     }
+// }
+.text_area_header label{
+    font-size: 1.25rem !important;
+    padding: 15px;
+}
+.form-control {
+    display: block;
+    width: 100% !important;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.col-12{
+    padding-right: 15px;
+    padding-left: 15px;
+}

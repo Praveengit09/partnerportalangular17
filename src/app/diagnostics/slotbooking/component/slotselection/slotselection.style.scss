@@ -1,0 +1,551 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/theme.scss';
+
+.card {
+    margin-top: 22px;
+    // box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+    padding-bottom: 10px;
+}
+
+.card-header {
+    background: #fff;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
+    padding: 14px 15px 7px 15px;
+}
+
+.card-header h4 {
+    color: #4a4a4a;     
+    font-size: 18px;
+    margin: 0;
+}
+
+.spotbkg {
+    margin-top: 6px;
+}
+
+.card-header small {
+    font-size: 12px;
+    line-height: 1.08;
+    letter-spacing: 0.1px;
+    color: rgba(51, 51, 51, 0.37);
+    border-bottom: 1px solid;
+    border-color: rgba(151, 151, 151, 0.45);
+    display: block;
+    padding-bottom: 2px;
+    margin-top: 4px;
+}
+
+// .card-body {
+//     // min-height: 397px;
+//     // background-color: #dbe9ee;
+// }
+.cardBodyItem {
+    margin-right: 15px;
+    margin-bottom: 5px;
+}
+
+.cardBodyItem :checked+label {
+    outline: 2px solid #ff6d6d;
+}
+
+.cardBodyItem label {
+    position: relative;
+    cursor: pointer;
+    background: #ffffff;
+    min-width: 172px;
+    text-align: center;
+    padding: 12px 50px 11px 10px;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    color: rgba(51, 51, 51, 0.8);
+    text-transform: uppercase;
+    line-height: 17px;
+}
+
+.cardBodyItem label::before {
+    color: rgba(206, 206, 206, 0.52);
+    display: block;
+    height: 40px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: 0;
+    width: 40px;
+    content: "x";
+    border-left: 1px solid;
+    border-color: rgba(206, 206, 206, 0.52);
+    font-size: 14px;
+    padding-top: 7px;
+}
+
+.cardBodyItem input[type="checkbox"] {
+    display: none;
+}
+
+.slotinfo-sec label {
+    font-size: 12px;
+    color: rgba(51, 51, 51, 0.8);
+    margin-left: 15px;
+}
+
+.slotinfo-sec select {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), inset 0 2px 0 0 #ffffff;
+    background-image: linear-gradient(to bottom, #f2f2f2, #d4d4d4);
+    color: #4a4a4a;
+}
+
+.btn-danger {
+    // background-color: #FF6D6D;
+    // border-color: #FF6D6D;
+    background-color: $btn-danger-bg;
+    border-color: $btn-danger-bg;
+    text-transform: uppercase;
+    padding-top: 8px;
+    padding-bottom: 9px;
+    line-height: 17px;
+}
+
+
+/*Right*/
+
+.modal.right .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.left.in .modal-dialog,
+.modal.right.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+.model_txt1 {
+    float: right;
+    right: 0px;
+    width: 500px;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    min-height: 100%;
+    margin: 0 auto;
+    bottom: 0;
+}
+
+.diagnostic-tests {
+    border: 1px solid #a9a9a9;
+    background: #fff;
+    padding: 0 !important;
+}
+
+.diagnostic-tests span {
+    padding: 10px;
+}
+
+.diagnostic-tests label {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.diagnostic-tests label::before {
+    background: #ff6d6d;
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.md-input {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.md-input .md-form-control {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: none;
+    border-bottom: 2px solid #CACACA;
+    box-shadow: none;
+    width: 100%;
+}
+
+.md-input label {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.md-input .bar:before {
+    left: 50%;
+}
+
+.md-input .bar:after {
+    right: 50%;
+}
+
+.md-input .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.md-input .md-form-control:focus~label,
+.md-input .md-form-control:valid~label {
+    top: -15px;
+    font-size: 14px;
+    color: #183D5D;
+}
+
+.md-input .bar:before,
+.md-input .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 0px;
+    position: absolute;
+    background: #03A9F4;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.md-input .md-form-control:focus~.bar:before,
+.md-input .md-form-control:focus~.bar:after {
+    width: 50%;
+}
+
+.md-input .md-form-control:focus {
+    outline: 0px;
+}
+
+.patient_row {
+    padding: 0px !important;
+}
+
+.newadd_process {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+
+}
+.doctor_patient_cart{
+    background-color: transparent;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+}
+
+.newadd_processcroll {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.newadd_process .patient_txt h4 {
+    font-size: 21px;
+}
+
+.prescription_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 25px;
+}
+
+.prescription_jpg h4 {
+    color: #11a9b5;
+}
+
+.prescription_padding {
+    padding-left: 0px;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.image_download {
+    margin-left: 40%;
+}
+
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+
+.image_clickpopup {
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+
+.clientdrpdwn {
+    padding-left: 0px;
+}
+
+.bbuser {
+    padding-left: 15px;
+}
+
+.modal-body {
+    margin-top: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}
+
+.advice_text {
+    padding-left: 0px;
+    color: #14a9b5;
+}
+
+.card_body_padding {
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+    padding: 0px;
+}
+
+.table_margin {
+    margin-bottom: 0px !important;
+}
+
+.list-inline-padding {
+    padding: 0px;
+}
+
+.remove {
+    padding: 15px 15px !important;
+}
+
+.button_delete {
+    padding: 4px 8px;
+    font-size: 20px;
+    border-radius: 9px;
+}
+
+.table_margin ul {
+    padding-left: 0px;
+}
+
+.table_margin ul li {
+    list-style: none;
+}
+
+.table tr th:nth-child(1) {
+    width: 25%;
+}
+
+.table tr th:nth-child(2) {
+    width: 50%;
+}
+
+::ng-deep .datepicker,
+.mat-form-field {
+    width: 100% !important;
+    min-width: 160px !important;
+}
+
+.btn-danger {
+    min-width: 160px !important;
+    width: 100% !important;
+    margin-top: 5px;
+}
+.select_address{
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(187, 183, 229);
+    border-radius: 4px; 
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 10px;
+}
+.edit_icon{
+    text-align: right;
+    margin-bottom: 0px;
+}
+.user_padding_left{
+    padding-left: 0px;
+}
+.client_padding_left{
+    padding-left: 8px;
+}
+.text_area_padding{
+    padding-right: 0px;
+}
+@media screen and (max-width:575px) {
+
+    ::ng-deep .datepicker,
+    .mat-form-field {
+        margin-top: 10px;
+    }
+
+    .btn-danger {
+        width: 200px !important;
+        margin-top: 10px;
+    }
+    
+   // .client-selection{
+    //    padding-right: 30px;
+    //}
+    .client_padding_left{
+        padding-left: 0px;
+    }
+    .doctorserch_padding_left{
+        padding-left: 0px;
+    }
+}
+
+@media screen and (min-width:768px) {
+    ::ng-deep .form-control {
+        min-width: 144px;
+        width: 100%;
+    }
+}
+
+@mixin removecircle_btn {
+    font-size: 1.3em;
+    width: 1.3em;
+    height: 1.3em;
+    text-align: center;
+    line-height: 1.2em;
+    background: #666;
+    color: #fff;
+    border-radius: 0.9em;
+    cursor: pointer;
+}
+
+.removetest {
+    @include removecircle_btn;
+    border: 1px solid #dd5826;
+    background-color: #dd5826;
+}
+
+::ng-deep .pac-container {
+    z-index: 1000000 !important;
+}
+
+::ng-deep datetime .mat-form-field {
+    min-width: 120px !important;
+    width: 100% !important;
+}
+
+::ng-deep .selected_slot .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    height: 100px;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,"sans-serif";
+    font-weight: 600;
+    color: #000;
+    .amount {
+        margin-top: 10px;
+    }
+}
+
+.selected_slot .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-section {
+    padding: 7px;
+}
+
+.card-suggestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h5 {
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    p {
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .btn {
+        border-radius: 20px;
+        border-color: #0095E5;
+        color: #0095E5;
+        background-color: #ffffff;
+        padding: 0px 15px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .btnbooked {
+        border-radius: 20px;
+        border-color: #0095E5;
+        color: white;
+        background-color: #0095E5;
+        padding: 0px 15px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .mrgn {
+        margin-top: 5px;
+    }
+}
+.margin_left{
+    margin-left: 5px;
+}
+
+@media (min-width:992px) and (max-width: 1399px){
+    ::ng-deep .selected_slot .card{
+        height: 110px;
+    }
+}
+
+@media (min-width:766px) and (max-width: 992px){
+    ::ng-deep .selected_slot .card{
+        height: 130px;
+    }
+}
+
+@media  only screen and (min-width:766px) and (max-width:920px) {
+    ::ng-deep .selected_slot .card {
+                 width: 180px;
+             }
+    
+}

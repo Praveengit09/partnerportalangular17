@@ -1,0 +1,145 @@
+<h1 class="page-title">Add More Packages</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget table_pading mb-0 morepackages_widget widget-shadow">
+            <div class="widget-body table-responsive table-datalabel">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>#</th>
+                            <th>Package Information</th>
+                            <th>Service Line</th>
+                            <th>Price</th>
+                            <th>Validity</th>
+                            <th>Add/Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of this.packageList; let i =index">
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Package Information" class="profile-image">
+                                <div class="tabledatalabel-right">
+                                    <div class="row">
+                                        <div *ngIf="item.portalBannerUrl"
+                                            class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <img alt="" class="" src="{{item.portalBannerUrl}}">
+                                        </div>
+                                        <div *ngIf="!item.portalBannerUrl"
+                                            class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <img alt="" class="" src="assets/img/avatar.png">
+                                        </div>
+                                        <div class="col-xl-10 col-lg-9 col-md-8 col-sm-8 col-xs-12 doctor_name">
+                                            <h5>{{item.name}}</h5>
+                                            <button type="submit" class="btn btn-danger" value="View Package"
+                                                (click)=onViewPackage(item) data-toggle="modal"
+                                                data-target="#packageDetailsModal">Features</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Service Line">
+                                <div class="tabledatalabel-right">{{item.serviceLine}}</div>
+                            </td>
+                            <td data-label="Price">
+                                <div class="tabledatalabel-right">{{this.currency}}{{item.finalPrice}}</div>
+                            </td>
+                            <td data-label="Validity">
+                                <div class="tabledatalabel-right">1 Year</div>
+                            </td>
+                            <td data-label="Add/Remove">
+                                <div class="tabledatalabel-right"><input name="checkbox" type="checkbox"
+                                        id="{{item.packageId}}" (click)="checkedPackage(item)"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- <nav aria-label="Page navigation pull-right" *ngIf="packageList.length>noOfReportsPerPage">
+            <ul class="pagination pull-right">
+              <li class="page-item" *ngIf="indexOfPage!=1" [class.disabled]="indexOfPage==1">
+                <a class="page-link" tabindex="-1" (click)="changePageIndex(indexOfPage-1)">Previous</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" [class.currentPage]="indexOfPage==(i+1)"
+                  *ngFor="let j of getNumberOfPages();let i=index" (click)="changePageIndex(i+1)">
+                  {{i+1}}
+                </a>
+              </li>
+              <li class="page-item" *ngIf="indexOfPage!=(getNumberOfPages().length)"
+                [class.disabled]="indexOfPage==(getNumberOfPages().length)">
+                <a class="page-link" (click)="changePageIndex(indexOfPage+1)">Next</a>
+              </li>
+            </ul>
+        </nav> -->
+    </div>
+    <div class="col-lg-12">
+        <button class="btn btn-danger float-right" type="submit" (click)="AddPackages()">Add To My Packages</button>
+    </div>
+</div>
+
+<div class="modal right fade modal_scroll" id="packageDetailsModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel2">
+
+    <div class="popup modal-content ">
+        <div class="container-fluid">
+            <!--<div class="row">-->
+            <div class="col-sm-12" *ngIf="selectedpackage">
+                <button type="button" class="close" data-dismiss="modal"><span class="close_txt"
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <div class="package_details_image"><img src="{{selectedpackage.portalBannerUrl}}" class="img-responsive"
+                        alt="" />
+                    <h4>{{selectedpackage.name}}</h4>
+                </div>
+                <div class="quote_text">
+                    <h2>{{selectedpackage.description}}</h2>
+                </div>
+                <ul class=" package_invative_icon">
+                    <li *ngFor="let displayDetail of selectedpackage.displayDetails">
+                        <ul class="row">
+                            <li class="col-md-2 col-sm-2 col-xs-2 yoga_icon">
+                                <ul>
+                                    <li>
+                                        <img src="{{displayDetail.imageURL}}" alt="">
+                                    </li>
+                                    <li class="verticalLine"></li>
+                                </ul>
+                            </li>
+                            <li class="col-md-10 col-sm-10 col-xs-10 life_txt">
+                                <h5>{{displayDetail.title}}</h5>
+                                <p>{{displayDetail.content}}</p>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <div class="row">
+                    <div class="benefit_txt col-md-12">
+                        <h4>Some of the Benefits & Features of this package are;</h4>
+                    </div>
+                </div>
+                <div *ngFor="let newDescription of selectedpackage.packageDisplayDescription"
+                    class="freeconsul_txt col-md-12">
+                    <h5>{{newDescription.title}}</h5>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let description of newDescription.content">{{description}}</li>
+
+                    </ul>
+                </div>
+
+                <div class="validity_txt col-md-12">
+                    <h4>Validity</h4>
+                    <ul class="list-unstyled">
+                        <li>{{selectedpackage.validityDays}} Days from the Date of Purchase</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

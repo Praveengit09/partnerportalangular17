@@ -1,0 +1,103 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Order ID {{admissionnoteAdviseTrack.orderId}}</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt658" widget="">
+
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Patient </p>
+                <h4>{{this.admissionnoteAdviseTrack.patientProfileDetails.title?this.admissionnoteAdviseTrack.patientProfileDetails.title+".
+                    ":''}}
+                    {{this.admissionnoteAdviseTrack.patientProfileDetails.fName+'
+                    '+(this.admissionnoteAdviseTrack.patientProfileDetails.lName?this.admissionnoteAdviseTrack.patientProfileDetails.lName:'')}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4>Dr. {{admissionnoteAdviseTrack.doctorDetail.firstName}}
+                    {{admissionnoteAdviseTrack.doctorDetail.lastName?admissionnoteAdviseTrack.doctorDetail.lastName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Receipt ID</p>
+                <h4>{{admissionnoteAdviseTrack.invoiceId}}</h4>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+<div class="table_size">
+
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12 perscripton_txt">
+            {{admissionNotePrescriptionLabel ?
+                admissionNotePrescriptionLabel : 'Admission Notes'}}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading mt-0" widget>
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="admissionnoteAdviseTrack.serviceList"
+                        [componentId]="'admissionnoteinvoicelist'">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+            <div class="row">
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Original Amount (OA) :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    {{currencySymbol}} {{admissionnoteAdviseTrack.payment.originalAmount | number : '1.2-2'}}</div>
+                <br>
+                <br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Other Discount (OD) :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    {{currencySymbol}} {{ admissionnoteAdviseTrack.payment.otherDiscountAmount}}
+                </div>
+                <br>
+                <br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Package Discount (PD) :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    {{currencySymbol}} {{admissionnoteAdviseTrack.payment.packageDiscountAmount | number : '1.0-2'}}
+                </div>
+                <br>
+                <br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Platform Charges :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    {{currencySymbol}}
+                    {{(admissionnoteAdviseTrack.payment.platformCharges?admissionnoteAdviseTrack.payment.platformCharges:0)
+                    | number : '1.2-2'}}
+                </div>
+                <br>
+                <br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Total Amount Paid:
+                    <p class="with_txt">( OA - OD )</p>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt"> {{currencySymbol}}
+                    {{admissionnoteAdviseTrack.payment.amountPaid | number : '1.2-2'}}
+                </div>
+                <br>
+                <br>
+            </div>
+
+            <button role="button" class="submit_txt prient_txt" value="Submit" (click)="onPrintButtonClick()">
+                <i class="fa fa-print" aria-hidden="true"></i> PRINT</button>
+            <button role="button" class="submit_txt " value="Submit" (click)="onBackButtonClick()">Back</button>
+
+        </form>
+    </div>
+</div>
+<spinner-component></spinner-component>

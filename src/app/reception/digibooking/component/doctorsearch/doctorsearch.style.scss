@@ -1,0 +1,49 @@
+.doctorsearch-card {
+    background-color: #fff;
+    padding: 15px;
+}
+
+.doctor_details {
+    background-color: #fff;
+    padding: 5px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.heading {
+    padding-left: 35px
+}
+
+.sub-heading {
+    color: #000;
+    margin-top: 0px !important;
+}
+
+.doctordetails_txt {
+    margin: 20px 0px 10px 0px;
+    .col-xl-6:empty {
+        display: none;
+    }
+}
+
+.show-xs {
+    display: none;
+}
+
+@media screen and (max-width:575px) {
+    .doctor_booknow {
+        margin-top: 10px;
+    }
+    .show-xs {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .doctor_details:not(:last-child) {
+        border-bottom: 1px solid #F0F0F0;
+    }
+}
+
+.media-body {
+    flex: inherit;
+}

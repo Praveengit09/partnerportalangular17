@@ -1,0 +1,52 @@
+<button type="button" class="btn btn-primary patientPHR" (click)="this.onClickPatientPHR()" data-toggle="modal"
+    data-target="#patientPHRModel">
+    Patient History
+</button>
+
+
+<div class="modal " id="patientPHRModel" tabindex="-1" role="dialog" aria-labelledby="patientPHRModelLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="patientPHRModelLongTitle">PHR Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="(!isPHREdit) && (enablePhrSummary)">
+                <!-- <onboardingPersonal [isFromDoctor]="true"></onboardingPersonal> -->
+                <phrsummary [isFromDoctor]="true" [isOnlyPHRView]="true" *ngIf="this.consentVerified == true">
+                </phrsummary>
+                <div class="row phr-consent" *ngIf="this.consentVerified == false">
+
+                    <p class="">Please enter otp given by the patient to access phr details of <span
+                            class="queueName">{{requestConsentForPatient}}</span>
+                    </p>
+                    <div class="row otp-sec">
+                        <div class="col-9">
+                            <ng-otp-input (onInputChange)="onOtpChange($event)"
+                                [config]="{length:6,inputClass:'phrotpinput'}" [allowNumbersOnly]='true'>
+                            </ng-otp-input>
+                        </div>
+                        <div class="col-3 verify">
+                            <button class="verify_btn verify_btn_margin"
+                                (click)="verifyConsentOtpHandler()">Verify</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" *ngIf="isPHREdit" style="padding: 0 !important;">
+                <onboardingPersonal [isFromDoctor]="true"></onboardingPersonal>
+                <!-- <phrsummary [isFromDoctor]="true"  [isOnlyPHRView]="true"></phrsummary> -->
+            </div>
+            <div class="modal-footer" *ngIf="this.consentVerified == true || isPHREdit">
+                <button type="button" class="btn btn-default"
+                    (click)="isPHREdit=!isPHREdit">{{!isPHREdit?"Edit":"Summary"}}</button>
+            </div>
+
+        </div>
+    </div>
+</div>

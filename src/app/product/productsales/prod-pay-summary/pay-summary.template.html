@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row process_original">
+
+        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Original Amount (OA) :
+            <p class="with_txt">Without Taxes</p>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            {{cartItem.payment.originalAmount|currency:'INR':true:'1.2-2'}} </div>
+        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package : </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            {{cartItem.userPackageId>0 && cartItem.packageName!=null?cartItem.packageName:'NA'}}
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package Discount (PD) :</div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            {{(cartItem.userPackageId>0?cartItem.payment.packageDiscountAmount:0)|currency:'INR':true:'1.2-2'}}
+        </div>
+        <ng-template [ngIf]="cartItem.payment.otherDiscountAmount>0">
+            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Other Discounts (OD) :</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                {{(cartItem.payment.otherDiscountAmount?cartItem.payment.otherDiscountAmount:0)|currency:'INR':true:'1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="cartItem.payment.platformCharges && cartItem.payment.platformCharges > 0">
+            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Platform Charges:</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                {{(cartItem.payment.platformCharges?cartItem.payment.platformCharges:0) |currency:'INR':true:'1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="cartItem.payment.usedWalletAmount>0">
+            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount (WD) :</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                {{(cartItem.payment.usedWalletAmount?cartItem.payment.usedWalletAmount:0)|currency:'INR':true:'1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="cartItem.payment.totalCashbackAmount>0">
+            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount (CA) :</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                {{(cartItem.payment.totalCashbackAmount?cartItem.payment.totalCashbackAmount:0)|currency:'INR':true:'1.2-2'}}
+            </div>
+        </ng-template>
+
+        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Delivery Charges (DC) :</div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            {{(cartItem.deliveryAmount?cartItem.deliveryAmount:0)|currency:'INR':true:'1.2-2'}}</div>
+        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Tax Payable (TP) :</div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            {{(cartItem.payment.taxationAmount?cartItem.payment.taxationAmount:0) |currency:'INR':true:'1.2-2'}}</div>
+
+        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Billing Amount :</div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            {{cartItem.payment.finalAmount|currency:'INR':true:'1.2-2'}}
+        </div>
+        <ng-template [ngIf]="showCartPaid && !isInvoice">
+            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount Paid :</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                {{(cartItem.payment.amountPaid?cartItem.payment.amountPaid:0)|currency:'INR':true:'1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="showCartPayable && !isInvoice">
+            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Payable Amount :</div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                {{(+cartItem.payment.finalAmount - +(cartItem.payment.amountPaid?cartItem.payment.amountPaid:0))|currency:'INR':true:'1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="isInvoice">
+            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Amount
+                {{this.cartItem.payment.paymentStatus == 1? 'Paid' : 'Payable'}}:
+                <p class="with_txt">( OA + TP - OD + DC )</p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                {{this.cartItem.payment.finalAmount |currency:'INR':true:'1.2-2'}}
+            </div><br><br>
+        </ng-template>
+    </div>
+</div>

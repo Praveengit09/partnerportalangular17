@@ -1,0 +1,147 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Order ID {{immunizationAdviseTrack.orderId}}</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt658" widget="">
+
+
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Patient </p>
+                <h4>{{immunizationAdviseTrack.patientProfileDetails.title?immunizationAdviseTrack.patientProfileDetails.title+". ":''}}
+                    {{this.immunizationAdviseTrack.patientProfileDetails.fName+' '+(this.immunizationAdviseTrack.patientProfileDetails.lName?this.immunizationAdviseTrack.patientProfileDetails.lName:'')}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4>Dr. {{immunizationAdviseTrack.doctorDetail.firstName}}
+                    {{immunizationAdviseTrack.doctorDetail.lastName?immunizationAdviseTrack.doctorDetail.lastName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Receipt ID</p>
+                <h4>{{immunizationAdviseTrack.invoiceId}}</h4>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+
+
+
+
+<div class="table_size">
+
+
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12 perscripton_txt">
+            Immunizations
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading" widget>
+
+                <div class="widget-body">
+                    <!-- <table class="table new_table">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="head_dogo">#</th>
+
+                                <th class="">Immunization Name</th>
+                                <th></th>
+                                <th></th>
+                                <th class="">Amount</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of immunizationAdviseTrack.pharmacyList; let i = index">
+                                <td class="">{{i+1}}</td>
+                                <td class="fname_2txt">{{item.genericMedicine.genericMedicineName}}</td>
+                                <td></td>
+                                <td></td>
+                                <td> {{currencySymbol}} {{item.grossPrice}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table> -->
+                    <hs-table [columns]="columns" [pagingList]="immunizationAdviseTrack.pharmacyList"
+                        [componentId]="'immuneinvoicelist'">
+                        Loading table...
+                    </hs-table>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+            <div class="row">
+                <div class="col-md-7 total_txt">Original Amount (OA) :</div>
+                <div class="col-md-5 total_txt">
+                    {{currencySymbol}} {{immunizationAdviseTrack.payment.originalAmount}}</div>
+                <br>
+                <br>
+                <!--<div class="col-md-7 total_txt">Package name</div>-->
+                <!--<div class="col-md-5 total_txt"> {{diagnosticsAdviseTrack.usesHsPackageHistory.packageId}}</div><br><br>-->
+                <!-- <div class="col-md-7 total_txt">Package Discount (PD) : </div>
+                <div class="col-md-5 total_txt">
+                    {{currencySymbol}} {{discountAmount}}</div>
+                <br><br>-->
+                <div class="col-md-7 total_txt">Other Discount (OD) :</div>
+                <div class="col-md-5 total_txt">
+                    {{currencySymbol}} {{ immunizationAdviseTrack.payment.otherDiscountAmount}}
+                </div>
+                <br>
+                <br>
+                <div class="col-md-7 total_txt">Package Discount (PD) :</div>
+                <div class="col-md-5 total_txt">
+                    {{currencySymbol}} {{immunizationAdviseTrack.payment.packageDiscountAmount | number : '1.0-2'}}
+                </div>
+                <br>
+                <br>
+                <ng-template [ngIf]="immunizationAdviseTrack.payment.usedWalletAmount">
+                    <div class="col-md-7 total_txt">Wallet Amount :</div>
+                    <div class="col-md-5 total_txt">
+                        {{currencySymbol}} {{immunizationAdviseTrack.payment.usedWalletAmount | number : '1.0-2'}}
+                    </div>
+                    <br>
+                    <br>
+                </ng-template>
+                <ng-template [ngIf]="immunizationAdviseTrack.payment.usedPostWalletAmount">
+                    <div class="col-md-7 total_txt">Post Wallet Amount :</div>
+                    <div class="col-md-5 total_txt">
+                        {{currencySymbol}} {{immunizationAdviseTrack.payment.usedPostWalletAmount | number : '1.0-2'}}
+                    </div>
+                    <br>
+                    <br>
+                </ng-template>
+                <div class="col-md-7 total_txt">Platform Charges :</div>
+                <div class="col-md-5 total_txt">
+                    {{currencySymbol}} {{immunizationAdviseTrack.payment.platformCharges | number : '1.0-2'}}
+                </div>
+                <br>
+                <br>
+                <div class="col-md-7 total_txt">Total Amount Paid:
+                    <p class="with_txt">( OA - OD )</p>
+                </div>
+                <div class="col-md-5 total_txt"> {{currencySymbol}} {{immunizationAdviseTrack.payment.amountPaid}}</div>
+                <br>
+                <br>
+            </div>
+
+            <button role="button" class="submit_txt prient_txt" value="Submit" (click)="onPrintButtonClick()">
+                <i class="fa fa-print" aria-hidden="true"></i> PRINT</button>
+            <button role="button" class="submit_txt " value="Submit" (click)="onBackButtonClick()">Back</button>
+
+        </form>
+    </div>
+</div>
+<spinner-component></spinner-component>

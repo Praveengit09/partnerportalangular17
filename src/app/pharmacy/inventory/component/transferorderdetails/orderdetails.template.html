@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12 processid_text prescription_padding">
+        <h2><span>OrderId : {{transferOrder.orderId}}</span></h2>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 processid_text prescription_padding mb-2">
+        <h2><span>Centre Name: {{pocName}}</span></h2>
+    </div>
+</div>
+
+<div class="mt-2">
+    <div class="col-md-12">
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body table-responsive table-datalabel widget-shadow">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">
+                                #
+                            </th>
+
+                            <th class="">
+                                Medicine Name
+                            </th>
+
+                            <th class="">
+                                Quantity
+                            </th>
+
+                            <th class="">
+                                ExpiryDate
+                            </th>
+
+                            <th class="">
+                                Batch No
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of transferOrder.pharmacyList; let i =index">
+                        <tr>
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+
+                            <td data-label="Medicine Name">
+                                <div class="tabledatalabel-right">
+                                    <span>{{item.productName}} </span>
+                                </div>
+                            </td>
+
+                            <td data-label="Quantity">
+                                <div class="tabledatalabel-right"><span>{{item.quantity}} </span></div>
+                            </td>
+
+                            <td data-label="Expiry">
+                                <div class="tabledatalabel-right">{{item.stockDetails.expiryDate | date }}</div>
+                            </td>
+
+                            <td data-label="BatchNo">
+                                <div class="tabledatalabel-right">{{item.stockDetails.batchNo}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="mt-2">
+    <div class="row supplier_txt">
+        <div class="col-md-4 col-sm-4 col-xs-4 process_padding">
+            <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+        </div>
+        <div class="col-md-6 col-sm-4 col-xs-4 process_form"
+            *ngIf="transferOrder.invoiceCompletionStatus == 2 && pocId == transferOrder.senderPocId">
+            <button role="button" class="processbotton_txt processdone_txt1 accept_txt m-0"
+                (click)="updateOrder(4)">Dispatch</button>
+        </div>
+        <div class="col-md-6 col-sm-4 col-xs-4 process_form"
+        *ngIf="transferOrder.invoiceCompletionStatus == 4 && pocId == transferOrder.purchaserPocId">
+        <button role="button" class="btn btn-primary processbotton_txt processdone_txt accept_txt"
+            (click)="updateOrder(5)">Add To Inventory</button>
+    </div>
+    </div>
+    <div class="row process_form">
+        <div class="col-md-4 col-sm-4 col-xs-4 process_form"
+            *ngIf="transferOrder.invoiceCompletionStatus == 0 && pocId == transferOrder.purchaserPocId">
+            <button role="button" class="processbotton_txt processdone_txt accept_txt"
+                (click)="onSubmit(2)">ACCEPT</button>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-4 rejectbtn"
+            *ngIf="transferOrder.invoiceCompletionStatus == 0 && pocId == transferOrder.purchaserPocId">
+            <button role="button" class="processbotton_txt processdone_txt1 accept_txt"
+                (click)="onSubmit(21)">REJECT</button>
+        </div>
+    </div>
+</div>

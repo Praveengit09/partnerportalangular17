@@ -1,0 +1,207 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+
+.modal-dialog {
+    max-width: 1000px;
+}
+
+.large_table {
+    font-size: 0.750em;
+}
+
+.card-body {
+    padding: 1.25rem !important;
+}
+
+.patientPHR {
+    margin-bottom: 11px !important;
+}
+
+.card {
+    margin-bottom: 0.75rem;
+    background: #fff !important;
+}
+
+.card-columns {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 1.25rem;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+}
+
+.card-header {
+    background-color: #FFF;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.list-group-flush:first-child .list-group-item:first-child {
+    border-top: 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: $btn-secondary;
+    border: 1px solid $btn-border-color;
+}
+
+@media screen and (max-width: 359px) {
+    .patientPHR {
+        padding: 2px 5px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 360px) and (max-width: 392px) {
+    .patientPHR {
+        padding: 3px 7px;
+    }
+}
+
+#patientPHRModelLongTitle {
+    display: inline-block;
+}
+
+
+
+.phr-consent {
+    margin: 7px 17px 0px 249px;
+}
+
+.phr-consent .phr-consent_modal_width {
+    width: 40em
+}
+
+
+.phr-consent .verify_btn {
+    color: #fff;
+    // background-color: #14a9b5;
+    background-color: $title-color;
+    border-color: transparent;
+    padding: 7px 0px;
+    font-size: 14px;
+    width: 100px;
+    margin-left: 15px;
+    margin-top: 22px;
+    border-radius: 4px;
+
+}
+
+::ng-deep .phr-consent .otp-input {
+    height: 40px !important;
+    width: 45px !important;
+    margin-top: 22px;
+}
+
+
+.phr-consent .otp-sec {
+
+    margin: 0px 0px 30px 0px;
+}
+
+.phrotpinput {
+    height: 40px !important;
+    width: 50px !important;
+    padding: 0;
+    border-radius: 4px;
+    border: solid 2px #c5c5c5;
+    text-align: center;
+    // font-size: 19px;
+    margin-top: 22px;
+}
+
+
+
+.phr-consent .phrotpinput:last-child {
+    margin-right: 0;
+}
+
+@media screen and (min-width: 360px) and (max-width:511px) {
+    .phr-consent p {
+        margin: 0px 0px 14px -248px;
+
+    }
+
+    .phr-consent {
+        margin: 8px 2px 0px 261px;
+    }
+
+    .phr-consent .verify {
+        margin: 11px 0px 0px 53px;
+    }
+
+    .phr-consent .otp-sec {
+        margin: 0px 0px 30px -245px;
+    }
+
+
+    .phr-consent .phrotpinput {
+
+        border-radius: 4px;
+        border: solid 1px #c5c5c5;
+        text-align: center;
+        width: 30px !important;
+        height: 38px !important;
+        margin: 16px 0px 0px 8px;
+        // font-size: 32px;
+    }
+
+
+}
+
+
+@media screen and (min-width: 512px) and (max-width:640px) {
+    .phr-consent p {
+        margin: 2px 0px 0px -215px;
+        ;
+    }
+
+    .phr-consent {
+        margin: 8px 2px 0px 261px;
+    }
+
+    .phr-consent .otp-sec {
+        margin: 0px 0px 31px -209px;
+    }
+
+    .phr-consent .verify_btn_margin {
+
+        margin: 13px 0px 0px 123px;
+    }
+
+
+
+
+}
+
+@media screen and (min-width: 641px) and (max-width:860px) {
+    .phr-consent {
+        margin: 7px 17px 0px 59px;
+
+    }
+}

@@ -1,0 +1,112 @@
+<div class="custom_date">
+    <div class="row custom_dropdown">
+        <div class="col-lg-4">
+            <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-xl-3 col-lg-5 col-md-5 col-sm-4 col-xs-6 pr-0 date_ngx">
+                    <input type="text" ngxDaterangepickerMd [(ngModel)]="selectedRange" [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [linkedCalendars]="false" [ranges]="ranges" placeholder="Choose date" (ngModelChange)="ngModelChange($event)" [keepCalendarOpeningWithRange]="true"
+                        [locale]="{direction: 'ltr',separator: ' To '}" [minDate]="getMinDate()" [maxDate]="getMaxDate()" class="range_date form-control" />
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 pl-0">
+                    <select name="past_date" id="past_date" class="form-control state_select" (change)="onDateOptionChange($event.target.value)" [(ngModel)]="dropDownIndexForPastDate" [ngModelOptions]="{standalone: true}">
+                        <option [value]=1>Day Wise</option>
+                        <option [value]=2>Week Wise</option>
+                        <option [value]=3>Month Wise</option>
+
+                    </select>
+                    <!-- [(ngModel)]="dropDownIndexForPastDate" -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table_size pt-3">
+    <div class="row pt-2">
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+
+            <h3>Revenue Generated Per Day</h3>
+            <revenueperday [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate">
+            </revenueperday>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Revenue Generated Per Day Per Service</h3>
+            <revenueperservice [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></revenueperservice>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 set_margin">
+            <doctorPrescriptionSummary></doctorPrescriptionSummary>
+        </div>
+
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Revenue Generated Per Day Per Center</h3>
+            <revenueperpoc [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate">
+            </revenueperpoc>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 set_margin">
+            <averageTimeOfDoctorConsultation></averageTimeOfDoctorConsultation>
+        </div>
+
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Revenue Generated Per Doctor Per Day</h3>
+            <revenueperdoc [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate">
+            </revenueperdoc>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Slots Booked Per Day</h3>
+            <slotsperday [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate">
+            </slotsperday>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Slots Booked Per Day Per Center</h3>
+            <slotsperdayperpoc [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></slotsperdayperpoc>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Average Waiting Time Per Center</h3>
+            <averagewaitingtime [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></averagewaitingtime>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Average Visit Time Per Center</h3>
+            <averagevisittime [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></averagevisittime>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Average Consultation Time Per Center</h3>
+            <averageconsultationtime [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></averageconsultationtime>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Average Queue Time DiagsnoticsOrders Per Center</h3>
+            <averagequeuetimeDiagsnoticsOrders [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></averagequeuetimeDiagsnoticsOrders>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Average Queue Time Payment Per Center</h3>
+            <averagequeuetimePaymentQueue [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></averagequeuetimePaymentQueue>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Average Queue Time for Pharmacy Orders</h3>
+            <averagequeuetimePharmacyOrders [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></averagequeuetimePharmacyOrders>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Revenue by Payment Mode</h3>
+            <basedonpaymentmode [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></basedonpaymentmode>
+            <br> <br> <br>
+        </div>
+        <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Total Doctor Consultations Revenue</h3>
+            <videowalkinconsultation [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></videowalkinconsultation>
+            <br> <br> <br>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,105 @@
+<div id="{{componentId}}">
+    <div class="" *ngIf="((pagingList)?(pagingList.length):(total))>pageSizeOptions[0] && canSearchTableData">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchInput" autocomplete="off" [placeholder]="searchPlaceholder">
+            <span matSuffix class="glyphicon glyphicon-repeat rotate" (click)="resetTable()"></span>
+        </mat-form-field>
+    </div>
+
+    <div class="shadow table-responsive">
+
+        <button *ngFor="let col of removedColumns" (click)="addColumnToDisplay(col)" class="add-btn">{{columns[col.replace("col_", '')].display}}<span
+                class="addIcon glyphicon glyphicon-plus"></span></button>
+
+        <table mat-table [dataSource]="dataSource" matSort class="table-hover">
+
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="onSelectChange(row)" [checked]="row.isSelected" [aria-label]="checkboxLabel(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container  matColumnDef="{{'col_'+i}}" *ngFor="let column of columns;let i=index" [sticky]="column.sticky">
+                <th mat-header-cell *matHeaderCellDef [mat-sort-header]="(!column.sort)?column.display:''" scope="col" class="hsTableHead" [attr.name]="'head_'+i" [attr.id]="'head_'+i"  [class.cloum-sticky-head]="column.sticky" [class.sortDisabled]="!column.sort">
+                    <span>{{column.display}}</span>
+                    <a *ngIf="canAddAndRemove" (click)="removeDisplayColumn('col_'+i)">
+                        <span class="removeIcon glyphicon glyphicon-remove-circle"></span>
+                    </a>
+                </th>
+
+                <td mat-cell *matCellDef="let row" class="{{row.className}}" [ngStyle]="row.obj[ 'rowStyle'] ? row.obj[ 'rowStyle']:null" class="hsTableTd" [attr.name]="'col_'+i" [attr.id]="'col_'+i"  [class.cloum-sticky-row]="column.sticky" [attr.data-label]="column.display">
+                    <div class="tabledatalabel-right">
+                        <ng-container *ngIf="!column.isMultiBtn">
+                            <ng-container *ngFor="let colData of row['col_'+i].split('NgTableNewLineBreak')">
+                                <span class="tableTdSpan" class="{{getButtonStyle(row.obj, column)}}" *ngIf="(column.filter!='action' && column.filter !='number' && column.filter !='htmlContent' && column.filter!='multiLine' )|| column.filter=='nameTitle'">
+                                    {{colData | format : column.filter}}
+                                </span>
+                                <span *ngIf="column.filter=='multiLine'">
+                                    <ng-container *ngIf="column && column.isMultiRow && column.mainVar ;else loading">
+                                        <div
+                                            *ngFor="let ele of getDisplayMultiString(row.obj, column);let i=index ; last as l">
+                                            <div *ngFor="let item of ele">
+                                                {{item}}
+                                            </div>
+                                            <hr *ngIf='!l'>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #loading>
+                                        <li *ngFor="let ele of getDisplayMultiString(row.obj, column)"
+                                            class="{{getButtonStyle(row.obj, column)}}"> {{ele}} </li>
+                                    </ng-template>
+                                </span>
+                                <span class="tableTdSpan" class="{{getButtonStyle(row.obj, column)}}" *ngIf="column.filter=='number'">
+                                    {{isNaN(colData)?colData:colData | number : '1.2-2'}}
+                                </span>
+                                <span *ngIf="column.filter=='htmlContent' && colData && colData.length > 0" class="{{getButtonStyle(row.obj, column, colData)}}" [innerHTML]="colData | sanitizeHtml">
+                                </span>
+                                <button *ngIf="column.filter=='htmlContent' && column.event && column.eventLabel && (column.eventVisibleWhenEmpty || colData && colData.length > 0)" class="btn btn-danger width-100 botton_txtdigo done_txt" (click)="buttonClicked(row.obj);clickEventHandler(column.event,row.obj)">{{column.eventLabel}}</button>
+
+                                <button *ngIf="column.filter=='action' && column.type=='button' && !column.isMultiBtn" class="{{column.style+' '+getStyleByCondition(row.obj,column.variable,column.conditions)}} " role="button" (click)="buttonClicked(row.obj);clickEventHandler(column.event,row.obj)">
+                                    {{(colData&&colData!='')?colData:column.label}}
+                                </button>
+                                <a *ngIf="column.filter=='action' && column.type=='image'" class=" {{column.style+' '+getStyleByCondition(row.obj,column.variable,column.conditions)}}" (click)="imageClicked(row.obj);clickEventHandler(column.event,row.obj)"><img *ngIf="column.filter=='action' && column.type=='image'"  alt="..." class="img_txt" src="{{row['col_'+i]}}">
+                                </a>
+                                <a *ngIf="column.filter=='action' && column.type=='hyperlink'" class=" {{column.style+' '+getStyleByCondition(row.obj,column.variable,column.conditions)}}" (click)="hyperlinkClicked(row.obj);clickEventHandler(column.event,row.obj)">
+                                    {{colData}}
+                                </a>
+                                <a *ngIf="column.filter=='action' && column.type=='imagedownload'" href="{{row['col_'+i]}}" class="{{column.style+' '+getStyleByCondition(row.obj,column.variable,column.conditions)}} " download>
+                                    <img *ngIf="column.filter=='action' && column.type=='imagedownload'" alt="..." class="img_txt" src="{{row['col_'+i]}}">
+                                </a>
+
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="column.filter=='action' && column.type=='button' && column.isMultiBtn">
+                            <button *ngFor="let btn of column.buttonList; let ix=index;" class="{{btn.conditions[0].style+' '+getStyleByCondition(row.obj,column.variable,column.conditions)}} " role="button" (click)="buttonClicked(row.obj);clickEventHandler(btn.event,row.obj)">
+                                {{(row['col_'+i]&&row['col_'+i][ix]&&row['col_'+i][ix]!='')?row['col_'+i][ix]:column.label}}
+                            </button>
+                        </ng-container>
+                    </div>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="hsTableHead"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div *ngIf="pagingList==null || pagingList==undefined ||pagingList.length==0 ||(dataSource && dataSource.filteredData.length == 0)" class="text-lg-center text-xs-center text-md-center text-sm-center mb-2">
+            {{dataMsg}}
+        </div>
+    </div>
+    <div class="button_position">
+        <button *ngIf="enableDownload && pagingList && pagingList.length>0" type="button" class="btn btn-primary width-88 mb-xs reset_btn" role="button" (click)="downloadExcel()">Download&nbsp;&nbsp;<span
+                class="glyphicon glyphicon-download-alt"></span></button>
+
+        <div class="total-item" [class.hide]="(!showPaging) || (((pagingList)?(pagingList.length):(total))<=pageSizeOptions[0])" [class.isStaticPagingTotal]="isStaticPaging"><label>{{label}}</label></div>
+        <div class="mt-2 ngTablePagination" [class.isStaticPagingTotal]="isStaticPaging" [class.hide]="(!showPaging) || (((pagingList)?(pagingList.length):(total))<=pageSizeOptions[0] ||(dataSource &&  dataSource.filteredData.length == 0))">
+            <mat-paginator (page)="getPage($event)" [pageSizeOptions]="pageSizeOptions" [pageSize]="perPage" [showFirstLastButtons]="isStaticPaging">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

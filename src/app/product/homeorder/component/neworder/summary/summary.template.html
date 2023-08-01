@@ -1,0 +1,180 @@
+<!--<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>-->
+<div class="advice_text" *ngIf="cartItem.invoiceId">
+    <h1 class="page-title"> Invoice ID {{cartItem.invoiceId}}</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt2 row" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p class="perscripton_txt">Patient </p>
+                <h4>{{cartItem.patientProfileDetails?.title?cartItem.patientProfileDetails.title+'. ':''}}
+                    {{cartItem.patientProfileDetails?.fName}}
+                    {{cartItem.patientProfileDetails?.lName?cartItem.patientProfileDetails.lName:''}}</h4>
+            </div>
+            <!-- <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4> {{cartItem.doctorDetail.title}} {{cartItem.doctorDetail.firstName}} {{cartItem.doctorDetail.lastName}}</h4>
+            </div> -->
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt"
+                *ngIf="cartItem.orderId!=undefined && cartItem.orderId!=null">
+                <p>Order ID</p>
+                <h4>{{cartItem.orderId}}</h4>
+            </div>
+
+        </section>
+    </div>
+</div>
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12 perscripton_txt">
+            Order Details
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="widget-body">
+                <section class="table_pading homeorder_summarywidget table-responsive table-datalabel widget-shadow"
+                    widget>
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head">
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Unit MRP ( &#8377; )
+                                    <p class="with_txt">Without Taxes</p>
+                                </th>
+                                <th>Total Taxes ( &#8377; )
+                                </th>
+                                <th>Final Amount</th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngFor="let item of cartItem.productList; let i = index">
+
+                            <tr *ngIf="item.productName">
+                                <td data-label="Product Name">
+                                    <div class="tabledatalabel-right">
+                                        {{item.productName}}
+                                        <p class='schedule_txt' style="color:blue;">Batch
+                                            No:{{item.stockDetails.batchNo}}
+                                        </p>
+                                        <p class='schedule_txt'>Expiry
+                                            Date:{{item.stockDetails.expiryDate | date:'MMM y'}}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td data-label="Quantity">
+                                    <div class="tabledatalabel-right">{{item.quantity}}</div>
+                                </td>
+
+                                <td data-label="Unit MRP ( &#8377; )">
+                                    <div class="tabledatalabel-right">&#x20B9;{{item.grossPrice | number : '1.0-2'}}
+                                    </div>
+                                </td>
+                                <td data-label="Total Taxes ( &#8377; )">
+                                    <div class="tabledatalabel-right">
+                                        &#x20B9;{{(item.taxationAmount) | number : '1.0-2'}}</div>
+                                </td>
+                                <td data-label="Final Amount">
+                                    <div class="tabledatalabel-right">&#x20B9;{{item.finalAmount | number : '1.0-2'}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="addemptyspace"></div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <form action="#" class="from_txt productnewadvice_fromtxt">
+                        <div class="row">
+
+                            <ng-template [ngIf]="this.cartItem.parentProfileId>0">
+                                <app-cartdiscount [parentProfileId]="this.cartItem.parentProfileId"
+                                    [cartItemDetails]="this.cartItem" [discountType]="this.discountType" [pocId]="this.pocId">
+                                </app-cartdiscount>
+                            </ng-template>
+
+                            <div class="col-md-12" *ngIf="checkFinalAmount()">
+                                <div class="row process_original">
+                                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment Mode : </div>
+                                    <div class="col-md-7 col-sm-6 col-xs-12">
+                                        <form action="#" class="color_cash">
+                                            <input type="radio" name="paymant" value="0" checked (change)="checkPaymentModeSelection(2)">
+                                            Cash
+                                            &nbsp;&nbsp;<input type="radio" name="paymant" value="1" (change)="checkPaymentModeSelection(5)">
+                                            Mobile
+                                            &nbsp;&nbsp;<input type="radio" name="paymant" value="2" id="other-payment"
+                                                (change)="checkPaymentModeSelection(9)">
+                                            Others
+                                            <div class="other-paymentdetails" *ngIf="paymentModeIndex!=2 && paymentModeIndex!=5">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                                        <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                                            <option value="0" disabled>Select</option>
+                                                            <option value="1">Card</option>
+                                                            <option value="8">PhonePe</option>
+                                                            <option value="6">Google Pay</option>
+                                                            <option value="7">PayTM</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <input type="text" placeholder="Transaction Id" class="form-control"
+                                                            [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row process_original" *ngIf=" paymentModeIndex != 5">
+                                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment Status: </div>
+                                    <div class="col-md-7 col-sm-6 col-xs-12">
+                                        <form action="#" class="color_cash">
+                                            <input type="radio" name="payment" value="1"  (change)="checkPaymentStatusSelection(1)">
+                                            Paid
+                                            &nbsp;&nbsp;<input type="radio" name="payment" value="0"  checked (change)="checkPaymentStatusSelection(0)">
+                                            Not Paid
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <br>
+                        </div>
+                        <div hs-notification></div>
+                    </form>
+                </div>
+            </div>
+            <button role="button" class="btn submit_btn" value="Submit" (click)="ConfirmOrder()">Confirm</button>
+            <button role="button" class="btn back_btn " value="Submit" (click)="onBackButtonClick()">Back</button>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"  data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="gotoProductInvoice()"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>{{modalMessage}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                    (click)="gotoProductInvoice()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

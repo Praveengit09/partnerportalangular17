@@ -1,0 +1,47 @@
+@import '../walkin/component/editorder/editorder.style.scss';
+tr.addproduct_errormsg {
+    background: transparent !important;
+}
+tr.addproduct_errormsg td {
+    border-top: none;
+    padding: 0 !important;
+}
+.editprocess_widget .table-striped tr.addproduct_errormsg td {
+    padding: 0 !important;
+}
+input[placeholder]{
+    border: none;
+}
+.table-responsive {
+    overflow-x: auto !important;
+}
+.prod-sales .table-responsive::-webkit-scrollbar {
+    background-color: #ffffff;
+}
+.prod-sales .table-responsive::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+}
+@media screen and (max-width: 600px) {
+    .editprocess_widget {
+        border: none !important;
+    }
+    ::ng-deep .mat-form-field {
+        width: 100% !important;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .editprocess_widget .table {
+      border-bottom: 2px solid #e6e6e6 !important;
+      min-width: 1105px !important;
+    }
+    .prod-sales .widget-body {
+      border-top: 2px solid #e6e6e6 !important;
+    }
+    .editprocess_widget .addemptyspace {
+      height: 137px;
+    }
+    .editprocess_widget .table-striped td input {
+      width: 100px;
+    }
+  }

@@ -1,0 +1,174 @@
+::ng-deep .search-orders.mat-form-field {
+    width: 100%;
+    max-width: 500px;
+}
+
+// ::ng-deep .coupon_field .row {
+//     margin: 0px;
+// }
+.coupon_margin .product_submit{
+    float: right;
+}
+
+::ng-deep .coupon_field .mat-form-field-wrapper .mat-form-field-outline .mat-form-field-outline-gap {
+    width: auto !important;
+}
+
+.coupon_margin {
+    margin-top: 4px;
+}
+
+.coupon_box {
+    height: 40px !important;
+    border-radius: 4px;
+}
+
+.mat-form-field {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+}
+
+.model_txt1 {
+    float: right;
+    right: 0px;
+    width: 500px;
+}
+
+.modal.left.in .modal-dialog,
+.modal.right.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    min-height: 100%;
+    margin: 0 auto;
+    bottom: 0;
+}
+
+.assign {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    float: none !important;
+    height: 35px;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    text-transform: uppercase;
+}
+
+.assign:focus {
+    outline: none;
+}
+
+.popup_error ul {
+    margin-left: 0px;
+}
+
+.discount_list {
+    list-style: none;
+    padding-left: 0px;
+}
+
+ul.package_explained li {
+    font-size: 28px;
+    color: rgba(51, 51, 51, 0.8);
+}
+
+.consult_info .card {
+    border: solid 1px #b6e0e4;
+    background-color: #eef8fb;
+    margin-bottom: 8px;
+    padding: 21px 0;
+    text-align: center;
+    height: 152px;
+}
+
+.card_padding {
+    padding-left: 0px;
+    padding-top: 15px;
+    list-style: none;
+}
+
+.consult_info .card-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-image: linear-gradient(47deg, #008cbd, #00cec5);
+    margin: 0 auto;
+}
+
+.consult_info .card-img img {
+    width: 20px;
+}
+
+.consult_info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #204a64;
+}
+
+.consult_info p {
+    font-size: 13px;
+    color: #333333;
+    line-height: 1.43;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+::ng-deep .coupon_field .datepicker,
+.coupon_field .mat-form-field {
+    width: 100% !important;
+}
+
+// modal
+.user_dialog {
+    max-width: 50%;
+}
+
+.assign_txt {
+    color: #1dc8d5;
+}
+
+
+
+@media screen and (max-width: 1199px) {
+    .consult_info .card-columns {
+        column-count: 1;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .consult_info .card-columns {
+        column-count: 2;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .consult_info .card-columns {
+        column-count: 3;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .assign {
+        font-size: 12px;
+    }
+
+    .product_submit {
+        width: 100%;
+    }
+
+    .coupon_field .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+}

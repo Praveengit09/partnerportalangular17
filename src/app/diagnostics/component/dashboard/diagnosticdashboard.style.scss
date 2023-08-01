@@ -1,0 +1,31 @@
+@import "../../../scss/variables";
+@import "../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../node_modules/bootstrap/scss/mixins";
+.grapps_txt{
+    background-color: #fff;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+    height: 480px;
+    padding: 8px;
+}
+.grapps_txt  h3{
+   
+        padding-top: 14px;
+     
+}
+.days7_txt {
+    padding-right: 12px;
+}
+.state_select{
+width: 150px;
+}
+ 
+svg{
+    width: 50%;
+}
+.nvd3 g.nv-groups path.nv-line {
+  stroke-width: 1px;
+}
+.panel-body ul{
+overflow-y: auto;
+max-height: 220px;
+}

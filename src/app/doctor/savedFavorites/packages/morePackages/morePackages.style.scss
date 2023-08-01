@@ -1,0 +1,191 @@
+@import "../../../../doctor/prescription/reports/reports.style.scss";
+.modal-content{
+	border: transparent;
+	border-radius: 0px;
+}
+.package_details_image {
+	margin: 20px 6px 20px 0;
+}
+.package_details_image img {
+	width: 100%;
+}
+.package_details_image h4{
+    font-size: 24px;
+    color: #333333;
+}
+ul.list-unstyled {
+	width: 80%;
+	margin-bottom: 25px;
+}
+.validity_txt{
+    background-color: #f8f8f8;
+    padding: 5px 15px 1px;
+}
+.modal.right.fade .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+       -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+            transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+.modal.left.fade.in .modal-dialog,
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+margin: 0px;
+    position: relative;
+height: 100%;
+}
+.input_gender {
+	width: 58px;
+	height: 58px;
+	cursor: pointer;
+	display: block;
+}
+.popup {
+	width: 650px;	
+    float: right;
+	border: none;
+    border-radius: 0px;
+	bottom: 0px;
+}
+.freeconsul_txt {
+    padding-left: 0px;
+    }
+    .freeconsul_txt h5{
+    
+        font-size: 16px;
+        color: #212121;
+        font-weight: 500;
+        border-bottom: 1px solid #ECECEC;
+    }
+    .freeconsul_txt ul{
+        list-style: none;
+        padding-left: 0px;
+    }
+    .freeconsul_txt ul li{
+    margin-bottom: 0px;
+    line-height: 1.71;
+    text-align: left;
+    color: rgba(51, 51, 51, 0.8);
+    font-weight: 500;
+    font-size: 14px;
+    }
+.validity_txt h4{
+	 font-size: 15px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-align: left;
+  color: #ff6d6d;
+}
+.validity_txt ul{
+    margin-bottom: 15px;
+}
+.validity_txt ul li{
+font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: #333333;
+}
+.package_invative_icon , .package_invative_icon li ul{
+    list-style: none;
+    padding-left: 0px;
+     }
+    .package_invative_icon .verticalLine{  
+        height: 75px;
+        position: absolute;
+        left: 38px;
+        border: dashed 1px #979797;
+    }
+    .package_invative_icon li:last-child .yoga_icon ul li.verticalLine{
+        border: none;
+     
+    }
+.package_invative_icon .yoga_icon img{
+    padding-top: 6px;
+}
+.package_invative_icon .life_txt h5{
+font-size: 16px;
+color: #212121;
+font-weight: 500;
+}
+.package_invative_icon .life_txt p{
+	font-size: 14px;
+    color: #333333
+}
+.quote_text {
+	background: url(../../../../../assets/img/package/quote_bg.png) no-repeat;
+	padding-left: 100px;
+	padding-bottom: 30px;
+}
+.quote_text h2 {
+	font-size: 28px;
+	color: #14a9b5;
+	font-weight: 300;
+	margin-right: 50px;
+	line-height: 30px;
+}
+// th{
+//     color: #64819E !important;
+//     text-transform: capitalize !important;
+//     font-size: 15px;
+//     line-height: 1.73;
+//     padding: 19px 15px 17px 15px;
+// }
+.profile-image img{
+    border: 1px solid #ddd;
+    border-radius: 1px;
+    padding: 5px;
+    width: 49px;
+    height:auto;
+}
+table h5{
+    font-size: 14px;
+    line-height: 1.29;
+    margin: 0;
+    font-weight: 500;
+}
+table th:nth-child(3){
+    min-width: 110px;
+}
+.btn-danger{
+    background-color: #FF6D6D;
+    border-color: #FF6D6D;
+    text-transform: uppercase;
+    width: 190px;
+    padding-top: 11px;
+    padding-bottom: 12px;
+    line-height: 17px;
+}
+table .btn-danger{
+    margin-top: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 12px;
+    border-radius: 1px;
+    width: 86px;
+    line-height: 14px;
+}
+.float-right{
+    float: right;
+}
+.morepackages_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .popup {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width:601px) {
+    .morepackages_widget table{
+        min-width: 600px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .morepackages_widget {
+        border: none !important;
+    }
+}

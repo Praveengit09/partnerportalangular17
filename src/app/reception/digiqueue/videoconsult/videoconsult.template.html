@@ -1,0 +1,106 @@
+<div class="video-consult">
+    <div class="table_size">
+        <!-- <section class="row">
+            <div class="col-md-5 col-sm-5 col-xs-5">
+                <div class="row video_circle">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <img alt="..." class="rounded-circle" src="assets/img/avatar.png">
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-8 doctor_name">
+                        <h6>{{queue.patientTitle?queue.patientTitle+'. ':''}}{{queue.patientFirstName}}
+                            {{queue.patientLastName?queue.patientLastName:''}}</h6>
+                        <p>{{queue.patientGender}}, {{queue.localDOBYear}}
+                            <br> {{queue.patientContactNumber}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <section class="row">
+           <div class="col-xl-8">
+            <div *ngIf="session" class="parent">
+                <div class="image1" [class.video-present]="streams && streams.length>0">
+                    <span class="pull-right network-quality badge badge-success bg-success text-white"
+                        *ngIf="getVideoSupported() && getAudioSupported()">
+                        Network: Good
+                    </span>
+                    <span class="pull-right badge network-quality badge-warning bg-warning text-white"
+                        *ngIf="!getVideoSupported() && getAudioSupported()">
+                        Network: Poor
+                    </span>
+                    <span class="pull-right badge network-quality badge-danger bg-danger text-white"
+                        *ngIf="!getVideoSupported() && !getAudioSupported()">
+                        Network: Bad
+                    </span>
+                    <div class="OT_placeholder_img" *ngIf="!(streams && streams.length>0)">
+
+                    </div>
+                    <div *ngIf="streams && streams.length>0">
+                        <app-subscriber [stream]="streams[0]" [session]="session"></app-subscriber>
+                    </div>
+                </div>
+                <div class="image2" [class.isSelfNotVideoVisable]="!isSelfVideoVisable">
+                    <div class="min-maxbtn">
+                        <i class="fa fa-minus" *ngIf="isSelfVideoVisable" aria-hidden="true" (click)="isSelfVideoVisable=false"></i>
+                        <i class="fa fa-plus" *ngIf="!isSelfVideoVisable" aria-hidden="true" (click)="isSelfVideoVisable=true"></i>
+                    </div>
+                    <app-publisher [class.hide]="!isSelfVideoVisable" [session]="session"></app-publisher>
+                </div>
+                <div class="image3" *ngIf="isCrossVisible">
+                    <button type="button" class="btn btn-default btn-circle" (click)="onStopButtonClick()">STOP</button>
+                </div>
+
+            </div>
+           </div>
+           <div class="col-xl-4 prescriptionsummary_detail shadow">
+            <h5>Prescription Details</h5>
+                <prescriptionsummary [patientQueue]="queue" [isFrom]="'videoprescription'" [pastPrescription]="prescription" [isFooterHidden]="true"></prescriptionsummary>
+           </div>
+        </section>
+
+        <!-- <section class="row">
+        <h4 class="col-md-12 col-sm-12 col-xs-12 upload_video">Upload Prescription</h4>
+        <p class="col-md-12 col-sm-12 col-xs-12 video_paratxt">Please upload the scanned copy of the prescription </p>
+        <div class="form-group col-md-12 col-sm-12 col-xs-12 ">
+            <input type="file" class="form-control-file" aria-describedby="fileHelp">
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            <button class="btn video_upload"> UPLOAD </button>
+        </div>
+    </section> -->
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6" *ngIf="(!(streams.length>0))&&(isCrossVisible)">
+            <button type="button" class="btn btn-primary primaryColor notifyDoctor" (click)="reNotifyCustomer()">Notify
+                Doctor</button>
+        </div>
+        <!-- <div class="col-md-6 col-sm-6">
+            <button class="btn btn-primary notifyDoctor" (click)="openPrescriptionSummary()">prescriptionsummary</button>
+        </div> -->
+    </div>
+</div>
+
+
+<div class="modal" style=" overflow-y: auto !important" id="modelIdvideoprescription" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog modelIdvideoprescriptionmodal" role="document">
+        <div class="modal-content">
+            <div>
+                <div class="p-1">
+                    <div class="modal-header">
+                        <button type="button" class="close" (click)="modelView=''" data-dismiss="modal" aria-label="Close" aria-label="Close">
+                            <span aria-hidden="true">Close &times;</span>
+                        </button>
+                        <h5 class="modal-title" id="pastPrescriptionModelLabel">Prescription Details</h5>
+                    </div>
+                    <div class="model-body" *ngIf="modelView=='videoprescription'" style="min-height: 300px">
+                        <prescriptionsummary [isFrom]="'videoprescription'" [patientQueue]="queue"
+                             [pastPrescription]="prescription" [isFooterHidden]="true">
+                        </prescriptionsummary>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

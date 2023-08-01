@@ -1,0 +1,91 @@
+table{
+    width: 100%;
+}
+#vdcdetails .model_addtxt .modal-header .close {
+    margin-top: 10px;
+}
+.modal-body .shadow table th{
+    border-bottom-width: 1px;
+    background-color: #f7f9fd;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 20px 15px !important;
+    color: #333;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    border-right: 1px solid #e0e0e0;
+}
+.modal-body .shadow table td {
+    border-top: 1px solid #e0e0e0;
+}
+.modal-body .shadow table tr:nth-of-type(even) td {
+    background-color: #f9fbfd;
+}
+.modal-body .shadow table tr:nth-of-type(odd) td {
+    background-color: #fff;
+}
+.modal-body .shadow table td {
+    padding: 20px 15px !important;
+    color: #333;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    border-right: 1px solid #e0e0e0;
+}
+.rejectbtn{
+    float: right;
+}
+.approve_txt{
+    color: #fff;
+    background-color: #14a9b5;
+    border-color: #14a9b5;
+    float: right;
+}
+.rejectbtn:focus, .approve_txt:focus{
+    outline: none;
+}
+
+::ng-deep .datepicker, .mat-form-field {
+    width: 100% !important;
+    min-width: 150px;
+}
+::ng-deep .datepicker input {
+    text-align: left !important;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.image_download {
+    margin-left: 40%;
+}
+
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+
+.image_clickpopup {
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+.search-orders{
+    margin-top: 24px;
+}

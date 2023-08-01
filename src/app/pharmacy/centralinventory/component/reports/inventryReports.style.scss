@@ -1,0 +1,55 @@
+.report-sec {
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+    border: solid 1px #e8f4fe;
+    float: left;
+    width: 100%;
+}
+.report-sec .report-widget {
+    width: 25%;
+    padding: 22px 16px;
+    float: left;
+}
+.report-sec .report-widget:not(:last-child) {
+    border-right: 1px solid #e8f4fe;
+}
+.report-sec .report-widget h6 {
+    color: rgba(51, 51, 51, 0.36);
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+.report-sec .report-widget span {
+    color: rgba(51, 51, 51, 0.8);
+    font-size: 30px;
+}
+#months, ::ng-deep .Symptom input {
+    height: 45px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: medium;
+    width: 100%;
+    border-color: rgb(118, 118, 118) !important;
+}
+.inventory-reports .page-title {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+@media screen and (max-width: 565px) {
+    .report-sec .report-widget {
+        width: 100%;
+        text-align: center;
+    }
+    .report-sec .report-widget:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid #e8f4fe;
+    }
+}
+
+@media screen and (max-width: 991px)  and (min-width: 566px) {
+    .report-sec .report-widget {
+        width: 50%;
+    }
+}

@@ -1,0 +1,159 @@
+<div class="pull-right">
+    <button type="button" class=" btn btn-primary" (click)="ngOnInit();">
+        REFRESH
+    </button>
+</div>
+
+
+<div class="table_size">
+    <h1 class="page-title">Consultation Queue </h1>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading queue_widget" widget="">
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head tabledoc_head">
+                                <th>#</th>
+                                <th>Patient Details</th>
+                                <th>Doctor Details</th>
+                                <th>Booking Information</th>
+                                <th>Status</th>
+                                <th>Payment Status</th>
+                                <th>Action</th>
+                                <th>Receipt</th>
+                                <th>Prescription</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="doctor_serial" *ngFor="let queue of queueResponse;let i =index;">
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Patient Details" class="image_circle">
+                                    <div class="tabledatalabel-right">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-12" *ngIf=!queue.patientProfilePic>
+                                                <div class="user"><img alt="..." class="rounded-circle"
+                                                        src="assets/img/avatar.png"></div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 col-xs-12" *ngIf=queue.patientProfilePic>
+                                                <div class="user"><img alt="..." class="rounded-circle"
+                                                        src="{{queue.patientProfilePic}}"></div>
+                                            </div>
+                                            <div class="col-md-8 col-sm-8 col-xs-12 doctor_name">
+                                                <h6>{{queue.patientTitle?queue.patientTitle+'. ':''}}
+                                                    {{(''+queue.patientFirstName).slice(0,22)}}
+                                                    {{queue.patientLastName?(''+queue.patientLastName).slice(0,22):''}}
+                                                </h6>
+                                                <p>{{queue.patientGender}}, {{queue.localDOBYear}}
+                                                    <br> {{queue.patientContactNumber}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Doctor Details" class="docbooking">
+                                    <div class="tabledatalabel-right">
+                                        <h6>{{queue.doctorFirstName}} {{queue.doctorLastName?queue.doctorLastName:''}}
+                                        </h6>
+                                        <span *ngFor="let service of serviseList">
+                                            <span *ngIf="service.serviceId==queue.serviceId">{{service.text}}</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Booking Information" class="docbooking">
+                                    <div class="tabledatalabel-right">
+                                        <h6>{{queue.time | date:'shortTime'}}</h6>
+                                        <p *ngIf="queue.visitDetails.lastVisitedDate > 0">Last Consultation
+                                            {{queue.visitDetails.lastVisitedDate | date: 'yyyy-MM-dd'}}</p>
+                                    </div>
+                                </td>
+                                <td data-label="Status" class="docbooking">
+                                    <div class="tabledatalabel-right">
+                                        <h6 *ngIf="queue.status == 1">Booked</h6>
+                                        <h6 *ngIf="queue.status == 4">Waiting</h6>
+                                        <h6 *ngIf="queue.status == 5">Engaged</h6>
+                                        <h6 *ngIf="queue.status == 6">Checked</h6>
+                                        <p *ngIf="queue.status == 4 || queue.status == 5">In Queue
+                                            {{queue.waitingTime/60000 | number:'1.0-0'}} min</p>
+                                    </div>
+                                </td>
+                                <td data-label="Payment Status">
+                                    <div class="tabledatalabel-right">
+                                        <div *ngIf="queue?.payment?.paymentStatus != 1">
+                                            <button type="button" class="btn engage_txt"
+                                                (click)="onPayNowClick(queue)">Pay
+                                                Now</button>
+                                        </div>
+                                        <div *ngIf="queue?.payment?.paymentStatus == 1">
+                                            <button type="button" class="btn engage_txt" disabled>Paid</button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Action">
+                                    <div class="tabledatalabel-right">
+                                        <div *ngIf="queue.status == 1">
+                                            <button type="button" class="btn engage_txt"
+                                                (click)="onClickEngage(1,queue)">Mark
+                                                As Arrived</button>
+                                        </div>
+                                        <div *ngIf="queue.status == 4">
+                                            <button type="button" class="btn engage_txt" disabled>Waiting</button>
+                                        </div>
+                                        <div *ngIf="queue.status == 5 && queue?.sessionBean?.sessionId">
+                                            <button type="button" class="btn engage_txt"
+                                                (click)="onClickEngage(5,queue)">Engage</button>
+                                        </div>
+                                        <div *ngIf="queue.status == 5 && !queue?.sessionBean?.sessionId">
+                                            <button type="button" class="btn engage_txt" disabled>Waiting</button>
+                                        </div>
+                                        <div *ngIf="queue.status == 6">
+                                            <button type="button" class="btn engage_txt" disabled>Completed</button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="RECEIPT">
+                                    <div class="tabledatalabel-right">
+                                        <span
+                                            *ngIf="queue &&(( queue.pdfUrlWithHeader && queue.pdfUrlWithHeader !='')||( queue.pdfUrlWithoutHeader && queue.pdfUrlWithoutHeader !=''))">
+                                            <a class="" (click)="onRecieptClicked(queue)">
+                                                <img alt="" class="img_txt" src="assets/img/partner/pdf_icon_read.png">
+                                            </a>
+                                        </span>
+                                        <span
+                                            *ngIf="!(( queue.pdfUrlWithHeader && queue.pdfUrlWithHeader !='')||( queue.pdfUrlWithoutHeader && queue.pdfUrlWithoutHeader !=''))">
+                                            <a class="">
+                                                <img alt="" class="img_txt"
+                                                    src="assets/img/partner/pdf_icon_disabled.png">
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Prescription">
+                                    <div class="tabledatalabel-right">
+                                        <span
+                                            *ngIf="queue && queue.advisePdfUrlWithHeader && queue.advisePdfUrlWithHeader !=''">
+                                            <a class="" (click)="onImageClicked(queue)">
+                                                <img alt="" class="img_txt" src="assets/img/partner/pdf_icon_read.png">
+                                            </a>
+                                        </span>
+                                        <span
+                                            *ngIf="!(queue && queue.advisePdfUrlWithHeader && queue.advisePdfUrlWithHeader !='')">
+                                            <a class="">
+                                                <img alt="" class="img_txt"
+                                                    src="assets/img/partner/pdf_icon_disabled.png">
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

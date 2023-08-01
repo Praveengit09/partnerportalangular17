@@ -1,0 +1,98 @@
+{
+    "name": "JeevOne",
+    "appId": 49,
+    "website": "http://jeevone.in/",
+    "websiteLabel": "jeevone.in",
+    "email": "care@jeevone.in",
+    "contactnumber": "8088680680",
+    "iconspath": "assets/jeevone/icons/",
+    "backgroundImage": "assets/mymedic/bgimage/",
+    "facebook": "https://www.facebook.com/jeevone",
+    "twitter": "https://twitter.com/jeevone",
+    "linkedin": "https://www.linkedin.com/company/jeevone",
+    "gtmKey": "UA-92315709-3",
+    "clevertapId": "",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "themeCustomizations": {
+        "overrideNavbar": true,
+        "navbarIconsPath": "src/assets/jeevone/navicons",
+        "overrideBaseCSS": true,
+        "baseCSSPath": "src/assets/jeevone/themes/"
+    },
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "internalFinanicalReports": true,
+        "centralHomeCare": true,
+        "digiReception": true,
+        "onboardingPartner": true,
+        "appOnboardingRequest": true,
+        "misReports": true,
+        "communityPackages": false,
+        "enableInPatientBilling": true,
+        "enableSaaSManagement": false,
+        "enableOtPatientBilling": true,
+        "enablePresGenerationChanges": true,
+        "enableReceptionistAvailabilityCheck": true
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "referredByCheckout": false,
+        "walletEnabled": true,
+        "postWalletEnabled": false,
+        "emailPrimaryConsumerLogin": false,
+        "customizedSpinner": true,
+        "disablePatientContactNo": true,
+        "referDoctor": true,
+        "addReferlDoctor": true
+    },
+    "doctorOptions": {
+        "enableDoctorWidgets": true,
+        "enableDoctorShareCard": true,
+        "enableDoctorChat": true,
+        "enableFixedNextBtn": true,
+        "enableDoctorDefaultDashboard": true,
+        "enablePrescriptionAutoSave": true,
+        "disableDoctorWaitingTime": false,
+        "disablePromotionalDiagnosis": false,
+        "disablePrintVideoPresc": false,
+        "enableDeletePrescription": true,
+        "disableFollowupConsultation": false,
+        "enableClickCall": false,
+        "enableBlurVideo": false,
+        "enableMedicineGenericName": true,
+        "enableCheckedSymptomNotes": false,
+        "enableMandatoryMedRoute": false,
+        "enableInvestigationNotes": false,
+        "enableCustomDoctorQueue": true,
+        "enableOtpBasedConsent": true,
+        "enablePrescriptionQuestionnaire": true,
+        "enableMandatoryDiagnosisType": true,
+        "enableSeperateRouteFlow": true
+    },
+    "pharmacyOptions": {
+        "enableStockValidation": false
+    },
+    "productOptions": {
+        "enableStockValidation": false
+    },
+    "firebaseConfig": {
+        "apiKey": "AIzaSyBa8a7ix1zagfk7k3z7uaRSbeapeXRjlH8",
+        "authDomain": "mymedic-portal.firebaseapp.com",
+        "databaseURL": "https://mymedic-portal.firebaseio.com",
+        "projectId": "mymedic-portal",
+        "storageBucket": "mymedic-portal.appspot.com",
+        "messagingSenderId": "297135873595",
+        "appId": "1:297135873595:web:c07990111daff5f1df861e",
+        "measurementId": "G-Q5MDRRR407"
+    },
+    "QA_URLS": {
+        "HSIGNZ_SERVER_URL": "https://api-qa8.healthsignz.net/HSignzAppServices/",
+        "POZ_SERVER_URL": "https://api-qa8.healthsignz.net/POZAppServices/",
+        "SEARCH_SERVER_URL": "https://api-qa.healthsignz.net/search/",
+        "CHAT_SERVER_URL": "https://api-qa.healthsignz.net/"
+    },
+    "UAT_URLS": {},
+    "LIVE_URLS": {}
+}

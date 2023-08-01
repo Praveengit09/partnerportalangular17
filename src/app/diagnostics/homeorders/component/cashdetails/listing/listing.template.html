@@ -1,0 +1,126 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Cash Collected Details </h1>
+
+    <form action="#">
+        <div class="row">
+            <div class="col-xl-6 col-lg-5">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Agent Name</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                        placeholder="Enter Agent Name">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getBasedOnAgentName()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                    <div class="row">
+                        <div class="form-group col-sm-6 mb-0">
+                            <h6 class="sub-title">Start Date</h6>
+                            <datetime [(value)]="startDate" class="startdate" name="startDate" id="datepicker"
+                                [placeholder]="'Start Date'" [datepicker]="datepickerOpts"
+                                (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                            </datetime>
+                        </div>
+                        <div class="form-group col-sm-6 mb-0">
+                            <h6 class="sub-title">End Date</h6>
+                            <datetime [(value)]="endDate" name="endDate" id="datepicker" [placeholder]="'End Date'"
+                                [datepicker]="datepickerOpts" (dateChange)="endDateChoosen($event)"
+                                [timepicker]="false">
+                            </datetime>
+                        </div>
+                    </div>
+                </div>
+          
+        </div>
+    </form>
+
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="autorefresh-refreshbutton filter-ordersbtn">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                    (click)="getRefreshedorderList()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+                <button type="button" class="btn button_addtxt" role="button" (click)="onNewReq()">
+                    <i aria-hidden="true" class="fa fa-plus add_txt"></i>New Request</button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="agentCashResponse"
+                        (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg" [componentId]="'cashagentdetails'"
+                        [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="cashreq">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header address_text">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="page-title">Cash Request</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Select Agent</b>
+                        </p>
+                    </div>
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" id="agent" [(ngModel)]="selectedId"
+                                [ngModelOptions]="{standalone:true}" (change)="setSeletedAgent($event.target.value)">
+                                <option value="0">Select Agent</option>
+                                <option *ngFor="let agent of agentResponse; let i= index" [value]="i+1">
+                                    {{agent.fullName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Enter Amount:</b>
+                        </p>
+                    </div>
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Enter Amount"
+                                [(ngModel)]="cashAmount">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Enter Agent Mobile Number:</b>
+                        </p>
+                    </div>
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Mobile No" maxlength="10"
+                                [(ngModel)]="mobileNo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="isError1" [show]="showMessage1" [messages]="errorMessage1">
+            </hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save_btn" (click)="sendRequest()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

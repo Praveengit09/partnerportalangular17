@@ -1,0 +1,33 @@
+<div class="modal" id="modelIdincomingcall" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" *ngIf="data">
+        <div class="profile-info">
+          <div class="user"><img alt="..." class="rounded-circle" src="{{getProfilePic(data)}}"></div>
+          <h5 *ngIf="data.to == 0 ">
+            {{ 
+              (data.patientTitle?(data.patientTitle+'.'):'')+ 
+              (data.patientFirstName?(data.patientFirstName+' '):'')+ 
+              (data.patientLastName?(data.patientLastName+''):'')
+            }}
+          </h5>
+          <h5 *ngIf="data.to == 2 ">
+            {{
+              (data.doctorTitle?data.doctorTitle:'') + ' ' +
+              (data.doctorFirstName?data.doctorFirstName:' ') + ' ' + 
+              (data.doctorLastName?data.doctorLastName:'')
+            }}</h5>
+        </div>
+        <div class="call-btns mt-2">
+          <button class="accept-call bounce mr-3" (click)="acceptCall(data)"><i class="fa fa-video-camera"
+              aria-hidden="true"></i></button>
+          <button class="ignore-call bounce " (click)="rejectCall(data)"><i class="fa fa-phone"
+              aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

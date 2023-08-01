@@ -1,0 +1,277 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+
+.btn-style {
+    // background: #1DC8D5;
+    background:$btn-secondary;
+    color: #fff;
+    // border: 1px solid #17ACB7;
+    border: 1px solid $btn-border-color;
+    margin-bottom: 10px;
+    margin-left: 54px;
+}
+
+.progress_indicator_wrapper {
+    padding: 0px 0 0 0;
+    border-top: none;
+    border-bottom: 1px solid #eee;
+    margin-top: -10px;
+}
+
+.progess_section a {
+    padding: 5px 0;
+    width: 33.33%;
+    margin-top: 0px;
+}
+
+@media screen and (max-width:575px) {
+    .padding_bottm {
+        padding-bottom: 31px !important;
+    }
+}
+
+.progress_indicator ul {
+    padding-left: 0px;
+    list-style: none;
+}
+
+.progress_indicator ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.progress_indicator ul li:last-child {
+    float: none;
+    display: block;
+    margin-right: 0px;
+}
+
+.pre_consulwidth {
+    max-width: 900px;
+}
+
+.question_txt {
+    border: 1px solid #ddd;
+    padding: 11px 15px;
+    margin-bottom: 10px;
+}
+
+.float_right {
+    float: right;
+}
+
+.onboarding_txt {
+    border-bottom: 1px solid #ddd;
+}
+
+
+.onboarding_txt li {
+    display: inline-block;
+    padding: 5px 55px;
+}
+
+.list_padding {
+    padding: 0px 0px !important;
+    margin-bottom: 5px;
+}
+
+.box_border {
+    padding: 10px 10px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+}
+
+.question_border {
+    border: none;
+}
+
+.question_border li {
+    padding: 5px 15px !important;
+}
+
+.border_top_indicator {
+    border-top: 1px solid #e5e5e5;
+    margin-top: 10px;
+}
+
+.btn_closes {
+    margin-top: -25px !important;
+}
+
+.down_button {
+    padding-bottom: 5px;
+}
+
+.family-container {
+    width: 100%;
+    border-radius: 4px;
+}
+
+@media (min-width: 576px) {
+    .card_display {
+        display: block !important;
+        width: 100%;
+    }
+}
+
+.card {
+    background: #FFFFFF;
+    border-radius: 2px;
+    color: #444444;
+    box-shadow: 0 3px 5px 0 #00000033;
+}
+
+.general_padding ul li {
+    padding: 20px 20px;
+    border-bottom: 2px solid #ecf1f7;
+    font-size: 13px;
+    // margin-top: -15px;
+}
+
+.general_padding ul li:first-child {
+    margin-top: -15px;
+}
+
+
+.card_display {
+    box-shadow: none !important;
+}
+
+.card_body_padding .onboarding_txt {
+    box-shadow: 0 3px 5px 0 #00000033;
+}
+
+
+.gregory b {
+    word-break: break-all;
+    line-break: anywhere;
+}
+
+.pre_consulwidth {
+    max-width: 1150px !important;
+}
+
+
+.report-consent {
+    margin: 7px 17px 0px 249px;
+}
+
+.report-consent .report-consent_modal_width {
+    width: 40em
+}
+
+
+.report-consent .verify_btn {
+    color: #fff;
+    // background-color: #14a9b5;
+    background-color: $title-color;
+    border-color: transparent;
+    padding: 7px 0px;
+    font-size: 14px;
+    width: 100px;
+    border-radius: 4px;
+    margin-top: 16px;
+
+}
+
+
+.report-consent .otp-sec {
+
+    // margin: 0px 0px 30px 0px;
+    margin: 31px 0px 30px -406px;
+
+}
+
+.report-consent .reportsotpinput {
+    height: 40px !important;
+    width: 50px !important;
+    padding: 0;
+    border-radius: 4px;
+    border: solid 2px #c5c5c5;
+    text-align: center;
+    margin-top: 22px;
+}
+
+// .close {
+//     margin-top: -30px !important;
+// }
+
+.report-consent .reportsotpinput:last-child {
+    margin-right: 0;
+}
+
+
+.report-consent .verify {
+    margin: 7px 17px 0px 22px;
+
+
+}
+
+@media screen and (min-width: 360px) and (max-width:510px) {
+    .report-consent p {
+        margin: 0px 0px 10px -238px;
+    }
+
+    .report-consent {
+        margin: 8px 2px 0px 261px;
+    }
+
+    .report-consent .otp-sec {
+        margin: 0px 0px 30px -245px;
+    }
+
+    .report-consent .verify_btn_margin {
+        margin: 24px 0px 0px 81px;
+    }
+
+    .report-consent .reportsotpinput {
+
+        border-radius: 4px;
+        border: solid 1px #c5c5c5;
+        text-align: center;
+        width: 30px !important;
+        height: 38px !important;
+        margin: 16px 0px 0px 8px;
+        // font-size: 32px;
+    }
+
+
+}
+
+
+@media screen and (min-width: 511px) and (max-width:640px) {
+    .report-consent p {
+        margin: 0px 0px 10px -238px;
+
+    }
+
+    .report-consent {
+        margin: 8px 2px 0px 261px;
+    }
+
+    .report-consent .otp-sec {
+        margin: 0px 0px 31px -209px;
+    }
+
+    .report-consent .verify_btn_margin {
+
+        margin: 13px 0px 0px 123px;
+    }
+
+
+
+
+}
+
+@media screen and (min-width: 641px) and (max-width:860px) {
+    .report-consent {
+        margin: 7px 17px 0px 59px;
+
+    }
+}
+
+::ng-deep .report-consent .otp-input {
+    width: 45px !important;
+    height: 40px !important;
+    margin-top: 22px;
+}

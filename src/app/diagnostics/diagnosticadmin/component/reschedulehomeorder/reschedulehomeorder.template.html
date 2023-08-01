@@ -1,0 +1,145 @@
+<div class="table_size">
+
+    <h1 class="page-title">Select a Slot to <b>Reschedule</b> Appointment</h1>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3>Patient Details</h3>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h5>{{order.patientProfileDetails.title?order.patientProfileDetails.title+'.
+                        ':''}}{{(''+order.patientProfileDetails.fName)}}
+                        {{(''+order.patientProfileDetails.lName?order.patientProfileDetails.lName:'')}}</h5>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>{{order.patientProfileDetails?.contactInfo?.mobile ?
+                        order.patientProfileDetails.contactInfo.mobile : ''}}</p>
+                    <p>{{order.patientProfileDetails?.contactInfo?.email ? order.patientProfileDetails.contactInfo.email
+                        : ''}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3>Order Id</h3>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h5>{{order.orderId}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-xl-3">
+            <datetime [(value)]="date" [datepicker]="datepickerOpts" [timepicker]="false"
+                [datepicker]="{ icon: 'fa fa-calendar'}" (dateChange)="getSlots()">
+            </datetime>
+        </div>
+        <div class="col-sm-4 col-xl-3" *ngIf="spotBooking">
+            <mat-form-field appearance="outline">
+                <mat-label>Select Spot Booking Slot</mat-label>
+                <mat-select id="timeSelection" (selectionChange)="onSpotTimeSelected($event.value)">
+                    <mat-option *ngFor="let eachTime of spotBookingTimeList" [value]="eachTime.timeValue">
+                        {{eachTime.label}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-4 col-xl-6 spotbkg">
+            <ng-container *ngIf="!spotBooking && enableSpotBook">
+                <button type="button" (click)="enableSpotBooking(true)" class="btn btn-primary">Enable Spot
+                    Booking</button>
+            </ng-container>
+            <ng-container *ngIf="spotBooking">
+                <button type="button" (click)="enableSpotBooking(false)" class="btn btn-danger width-120">Disable Spot
+                    Booking</button>&nbsp;
+                <button type="button" (click)="onSubmit()" class="btn btn-danger width-100">Submit</button>
+            </ng-container>
+        </div>
+    </div>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+    <div class="row custom_chk slot_booktxt" *ngIf="!spotBooking">
+        <div class="col-lg-3 col-md-5 col-xs-6 col-sm-4 custom_chk" *ngFor="let
+            timeslot of convertedTimeSlot; let i=index">
+
+            <input type="radio" id={{i}} name="hlf" (click)="getSlotDetail($event,timeslot)" />
+            <label class="sloat_size" for={{i}}>
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <p class="text_margin" [innerHTML]="text"></p>
+                <p>Book Now</p>
+            </label>
+        </div>
+        <div class="col-lg-3 col-md-5 col-xs-6 col-sm-4 data_msg " *ngIf="!convertedTimeSlot.length">
+            <br>
+            <h4>No slots available</h4>
+        </div>
+    </div>
+</div>
+
+<!-- /addpay.modal -->
+<div class="modal fade" id="addpay">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h5 class="modal-title add_medtxt text-line">Appointment Summary</h5>
+            </div>
+            <div class="modal-body" *ngIf="order !=
+                undefined">
+                <form action="" class="form-horizontal" #signupForm="ngForm">
+                    <div class="form-group">
+                        <p class="paycon_txt"> Booking Details</p>
+                    </div>
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Centre Name</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">
+                            {{order.pocDetails.pocName}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Date</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{date | date:'d/MMMM/yyyy'}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Time Slot </p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{resheduledTime | date:"hh:mm a"}}</p>
+                    </div>
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Patient Information</p>
+
+
+                    </div>
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Name</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{order.patientProfileDetails.title?order.patientProfileDetails.title+'.
+                            ':''}}{{(''+order.patientProfileDetails.fName)}}
+                            {{(''+order.patientProfileDetails.lName?order.lName:'')}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Age</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">{{age}}</p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Gender
+                        </p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">{{order.patientProfileDetails.gender}}
+                        </p>
+                    </div>
+                    <hr class="date_line">
+                    <div class="row">
+                        <div *ngIf="!rescheduleInProgess" class="col-xl-12 col-lg-12 col-md-12 col-sm-12
+                            col-xs-12">
+                            <button type="button" class="Update cancelslot_txt" (click)="confirmPopup()">CONFIRM
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

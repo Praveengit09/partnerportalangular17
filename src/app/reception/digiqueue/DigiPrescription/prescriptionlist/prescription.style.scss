@@ -1,0 +1,63 @@
+@import "../../../../scss/variables";
+.widget-doctor {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 15px 20px 35px;
+    border-radius: 0.2rem;
+}
+.doctor-serch{
+    max-width: 18%;
+    padding-right: 0px;
+}
+.patient_mobile{
+padding-bottom: 25px;
+}
+.doctor-serch h4{
+padding-left: 20px;
+font-size: 22px;
+text-decoration: none;
+color: #65767c;
+}
+.search_glyphicon .input-group .btn-secondary{
+    background: #8ec5d8;
+    color: #fff;
+}
+.done_txt:hover, .done_txt:active:hover, .done_txt:active:focus, .done_txt:focus {
+    background-color: $btn-secondary;
+    border-color: $btn-secondary;
+}
+.approved_txt:hover, .approved_txt:active:hover, .approved_txt:active:focus, .approved_txt:focus {
+    background-color:red !important;
+    border-color: red !important;
+}
+.approved_txt {
+    background-color:red !important;
+    border-color: red !important;
+}
+.botton_txtdigo {
+    padding: 5px 5px;
+    font-size: 13px;
+    border-radius: 9px;
+    width: 85px;
+}
+.btn_prsearch{
+    padding-left: 0px;
+}
+.botton_txtsearch{
+    padding: 5px 5px;
+    font-size: 15px;
+    border-radius: 2px !important;
+    width: 95px;
+    text-transform: uppercase;
+}
+@media screen and (max-width: 575px){
+    .search_glyphicon{
+        margin-bottom: 10px;
+    }
+    .btn_prsearch{
+        padding-left: 15px;
+    }
+}
+.input-group .form-control, .refresh_txt {
+    z-index: inherit !important;
+}

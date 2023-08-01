@@ -1,0 +1,729 @@
+<div *ngIf="!addMemberCheck" (onHidden)="resetAllFields()">
+    <div class="modal-header" id="patientRegistration">
+        <button type="button" class="close" data-dismiss="modal" (click)="onModelClose()">
+            <span class="close_txt" aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title add_medtxt">Enter Patient Details</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" #registerForm="ngForm" ngNativeValidate>
+            <div class="form-group">
+
+                <ng-template [ngIf]="emailPrimaryConsumerLogin">
+                    <label for="Medicine" class="all_textboxtxt">
+                        <b>Enter Email</b>
+                        <sup class="sgst_txt">*</sup>
+                    </label>
+                    <br>
+                    <input type="text" class="form-control" placeholder="Enter Your Email" name="emailAddr1"
+                        id="emailAddr1" [(ngModel)]="selfRegistered.contactInfo.email"
+                        (keydown.enter)="onEmailChange($event.target.value)"
+                        (keyup)="emailInputChanged($event.target.value)" maxlength="50" [disabled]="hsPrimaryIdentifier"
+                        #xmobilex required />
+                </ng-template>
+                <label for="Medicine" class="all_textboxtxt">
+                    <b>Enter Mobile Number</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <br>
+                <ng-template [ngIf]="emailPrimaryConsumerLogin">
+                    <input type="text" class="form-control" placeholder="Enter Your Mobile No" name="mname" id="mname"
+                        [(ngModel)]="selfRegistered.contactInfo.mobile" maxlength="10" (keyup)="onNumberEdit()"
+                        [disabled]='isLname && editLname' #xmobilex required />
+                </ng-template>
+                <ng-template [ngIf]="!emailPrimaryConsumerLogin">
+                    <input type="text" class="form-control" placeholder="Enter Your Mobile No" name="mname" id="mname"
+                        [(ngModel)]="selfRegistered.contactInfo.mobile" (keyup)="onNumberChange($event.target.value)"
+                        maxlength="10" [disabled]="hsPrimaryIdentifier || isFromAppReq"
+                        (keypress)="validateNumberInputOnly($event)" #xmobilex required />
+                </ng-template>
+                <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessages"></hs-message>
+            </div>
+            <p *ngIf="isNumComplete" value="isNumComplete" class="error_Messages">
+                Fill the complete 10 digits.
+            </p>
+
+            <div class="form-group1" name="myDiv" id="myDiv"
+                *ngIf=" relationShipNames?.length > 0 && isAlreadyregistered">
+                <label for="batch" class="all_textboxtxt">The Appointment is for?</label>
+                <div class="col-lg-12 col-md-12 col-sm-12 custom_chk">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6 relation_txt"
+                            *ngFor="let relations of relationShipNames; let i = index">
+
+                            <input type="radio" required id="{{relations.relationName}}_{{relations.profileId}}_cb_id"
+                                name="relation" [checked]="relations.profileId==selectedProfileId"
+                                (change)="getSelectedProfile($event,relations.profileId)" />
+                            <label for="{{relations.relationName}}_{{relations.profileId}}_cb_id">
+
+                                <span class="ailment_text">
+                                    {{relations.relationName}}
+                                </span>
+                                <span>
+                                    &nbsp;{{relations.relationshipType}}
+                                </span>
+                                <div *ngIf="relations.isPrivilegeUser" class="gold_member">
+                                    <img src="assets/img/premium_icon.png" alt="logo" />
+                                </div>
+                            </label>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <button type="button" class="patient_add patient_add_icon" role="button"
+                                (click)="onAddMemberButtonClick()">
+                                <i aria-hidden="true" class="fa fa-plus"></i>
+                                <p>ADD FAMILY</p>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <br>
+            <br> -->
+
+            <div class="form-group">
+                <label for="strength" class="all_textboxtxt">
+                    <b>Title</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <select class="form-control" [disabled]="hasTitle" (change)="onTitleChange($event.target.value)"
+                    [value]="selfRegistered.title">
+                    <option value="undefined">select Title</option>
+                    <option *ngFor="let title of titlesList;let i = index" [value]='title'>{{title}}.</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="strength" class="all_textboxtxt">
+                    <b>First Name </b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <br>
+                <input *ngIf="(!isAlreadyregistered || isError) && !vdcFirstname" type="text" id="fname"
+                    class="form-control" placeholder="Enter First name" name="sname" id="sname"
+                    [(ngModel)]="selfRegistered.fName" value={{selfRegistered.fName}} [disabled]="!vdcFirstname">
+                <input *ngIf="(!isAlreadyregistered || isError) && vdcFirstname" type="text" id="fname"
+                    class="form-control" placeholder="Enter First name" required name="sname" id="sname"
+                    [(ngModel)]="selfRegistered.fName" value={{selfRegistered.fName}}>
+                <hs-select *ngIf="hsSelectBoolean && isAlreadyregistered && !isError"
+                    [defaultSelectLabel]="'Enter First Name'" [selectColumns]="selectColumns"
+                    [defaultSelected]="selfRegistered" [defaultSelectField]="'fName'"
+                    [hardReset]="patientFirstNameHardReset" [selectTotal]="patientFirstNameSelectTotal"
+                    [disable]='isFname && editFname' [selectResults]="patientFirstNameSearchResults"
+                    (searchTrigger)="PatientFirstNameSearchTrigger($event)" (selectTrigger)="selectTrigger($event)">
+                </hs-select>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity" class="all_textboxtxt">
+                    <b>Last Name</b>
+                    <!-- <sup class="sgst_txt">*</sup> -->
+                </label>
+                <br>
+                <input type="text" *ngIf="(!isAlreadyregistered || isError) && !vdcLastname" id="lname"
+                    class="form-control" placeholder="Enter Last name" name="qname" id="qname"
+                    [(ngModel)]="selfRegistered.lName" value={{selfRegistered.lName}} [disabled]="!vdcLastname">
+                <input type="text" *ngIf="(!isAlreadyregistered || isError) && vdcLastname" id="lname"
+                    class="form-control" placeholder="Enter Last name" name="qname" id="qname"
+                    [(ngModel)]="selfRegistered.lName" value={{selfRegistered.lName}}>
+
+                <hs-select *ngIf="hsSelectBoolean && isAlreadyregistered && !isError"
+                    [defaultSelectLabel]="'Enter Last Name'" [selectColumns]="selectColumns"
+                    [defaultSelected]="selfRegistered" [defaultSelectField]="'lName'" [disable]='isLname && editLname'
+                    [hardReset]="patientLastNameHardReset" [selectTotal]="patientLastNameSelectTotal"
+                    [selectResults]="patientLastNameSearchResults"
+                    (searchTrigger)="PatientLastNameSearchTrigger($event)" (selectTrigger)="selectTrigger($event)">
+                </hs-select>
+
+            </div>
+            <div class="form-group"
+                *ngIf="profileVisitedDetailsforDoctor.revenue != undefined || profileVisitedDetailsforDoctor.revenue != null">
+                <label for="quantity" class="all_textboxtxt">
+                    <b>Revenue: </b>
+                </label> {{profileVisitedDetailsforDoctor.revenue | number : '1.2-2'}}
+                <label for="quantity" class="NoVisits">
+                    <b>Number of Visits: </b>{{profileVisitedDetailsforDoctor.noOfVisits}}</label>
+
+            </div>
+            <div class="form-group"
+                *ngIf="profileVisitedDetailsforDoctor.lastVisitedDate != undefined && profileVisitedDetailsforDoctor.lastVisitedDate != null && profileVisitedDetailsforDoctor.lastVisitedDate != 0">
+                <label for="quantity" class="all_textboxtxt">
+                    <b>Last Visited Date: </b>
+                </label> {{common.convertToDate(this.profileVisitedDetailsforDoctor.lastVisitedDate)}}
+            </div>
+            <div class="form-group"
+                *ngIf="profileVisitedDetailsforDoctor.lastVisitedDate == undefined || profileVisitedDetailsforDoctor.lastVisitedDate == null || profileVisitedDetailsforDoctor.lastVisitedDate == 0">
+                <label for="quantity" class="all_textboxtxt">
+                    <b>Last Visited Date: </b>
+                </label> NA
+            </div>
+            <div class="form-group">
+                <p class="what_txt">What is your age?
+                </p>
+                <input type="radio" name="ageButton" value="0" [checked]="isDOB" (change)="checkAgeSelection(0)"
+                    [disabled]="isDOB1"> Date of Birth &nbsp;&nbsp;
+                <input type="radio" name="ageButton" value="1" [checked]="isAge" (change)="checkAgeSelection(1)"
+                    [disabled]="isAge1"> Age
+
+            </div>
+            <div class="form-group" *ngIf="isDOB">
+                <label for="datepicker" class="all_textboxtxt">
+                    <b>Date of Birth</b>
+                    <sup *ngIf="!optionalDOB" class="sgst_txt">*</sup>
+                </label>
+                <br>
+                <datetime [(value)]="memberDate" name="datepicker" id="datepicker" [datepicker]="datepickerOpts"
+                    [timepicker]="false" [datepicker]="datepickerOpts" placeholder="'Select Date'">
+                </datetime>
+            </div>
+            <div class="form-group" *ngIf="isAge">
+                <label for="batch" class="">Age
+                    <sup *ngIf="!optionalDOB" class="sgst_txt">*</sup>
+                </label>
+                <div class="row">
+                    <div class="col-md-6 mb-xs">
+                        <input type="text" maxlength="3" class="form-control ageBox" placeholder="Years"
+                            name="anameyear" id="anameyear" [(ngModel)]="ageYears" [disabled]="isAge1"
+                            (keypress)="validation.onlyNumbers($event)" (keyup)="checkAgeYearvalidation(ageYears)"
+                            required>&nbsp;Years
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" maxlength="2" class="form-control ageBox" placeholder="Months"
+                            name="anamemon" id="anamemon" [(ngModel)]="ageMonths" [disabled]="isAge1"
+                            (keypress)="validation.onlyNumbers($event)"
+                            (keyup)="checkAgeMonthvalidation(ageMonths)">&nbsp;Months
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group gender_inline">
+                <label class="col-sm-12 control-label gender_txt">
+                    <b>Gender</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+
+                <label class="input_label">
+                    <input type="radio" #gender="ngModel" name="gender" class="male" value="Male"
+                        [(ngModel)]="selfRegistered.gender" [checked]="selfRegistered.gender == 'Male' ? 'true':'false'"
+                        [disabled]="isGender" />
+                    <span class="input_gender input_male" tabindex="0" (keypress)="selectGender($event,gMale)"
+                        (click)="onGenderSelect()" #gMale></span>
+                    <span class="text-center gender male">Male</span>
+                </label>
+                <label class="input_label">
+                    <input type="radio" #gender="ngModel" name="gender1" class="female" value="Female"
+                        [(ngModel)]="selfRegistered.gender"
+                        [checked]="selfRegistered.gender == 'Female' ? 'true':'false'" [disabled]="isGender" />
+                    <span class="input_gender input_female" tabindex="0" (keypress)="selectGender($event,gFemale)"
+                        (click)="onGenderSelect()" #gFemale></span>
+                    <span class="text-center gender female">Female</span>
+                </label>
+                <label class="input_label">
+                    <input type="radio" #gender="ngModel" name="gender2" class="others" value="Others"
+                        [(ngModel)]="selfRegistered.gender"
+                        [checked]="selfRegistered.gender == 'Others' ? 'true':'false'" [disabled]="isGender" />
+                    <span class="input_gender input_others" tabindex="0" (keypress)="selectGender($event,gOthers)"
+                        (click)="onGenderSelect()" #gOthers></span>
+                    <span class="text-center gender others">Others</span>
+                </label>
+            </div>
+
+            <div *ngIf="selfRegistered.relationShip>0" class="form-group gender_inline">
+                <label class="col-sm-12 control-label gender_txt">
+                    <b>Relationship</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <select class="form-control" required id="sel1" [value]="selfRegistered.relationShip"
+                    (change)="onRelationShipDropDownChange($event.target.value)">
+                    <option [value]=0>Select Relationship</option>
+                    <option [value]=1>spouse</option>
+                    <option [value]=2>mother</option>
+                    <option [value]=3>father</option>
+                    <option [value]=4>daughter</option>
+                    <option [value]=5>son</option>
+                    <option [value]=6>mother-in-law</option>
+                    <option [value]=7>father-in-law</option>
+                    <option [value]=8>sibling</option>
+                    <option [value]=9>grandmother</option>
+                    <option [value]=10>grandfather</option>
+                    <option [value]=11>daughter-in-law</option>
+                    <option [value]=12>son-in-law</option>
+                    <option [value]=13>Others</option>
+                </select>
+            </div>
+
+            <div class="form-group" *ngIf="!emailPrimaryConsumerLogin">
+                <label for="batch" class="all_textboxtxt">
+                    <b>Email Id</b>
+                </label>
+                <br>
+                <input type="text" class="form-control" placeholder="Enter EmailId" name="bname" id="bname"
+                    [(ngModel)]="selfRegistered.contactInfo.email" (keypress)="validation.validateEmail($event)"
+                    [disabled]="this.isEmail == true ? true : false">
+            </div>
+
+            <div class="form-group" *ngIf="!emailPrimaryConsumerLogin">
+                <label for="batch" class="all_textboxtxt">
+                    <b>Enter Alternate Mobile Number</b>
+                    <sup *ngIf="mandateAlertnateContactNo" class="sgst_txt">*</sup>
+                </label>
+                <br>
+                <input type="text" class="form-control" placeholder="Enter Alternate Mobile Number" name="altno"
+                    id="altno" [(ngModel)]="selfRegistered.contactInfo.alternateMobile" maxlength="10"
+                    (keypress)="validateNumberInputOnly($event)" (keyup)="onAltNumberChange()"
+                    [disabled]="this.isAltno == true ? true : false">
+                <hs-message [isError]="altisError" [show]="altisError" [messages]="alterrorMessage"></hs-message>
+            </div>
+
+            <ng-template [ngIf]="enableEmployeeReferral">
+                <div class="form-group gender_inline">
+                    <div class="form-group">
+                        <label for="batch" class="all_textboxtxt">
+                            <b>Referral Code </b>
+                        </label>
+                        <br>
+                        <input type="text" class="form-control" placeholder="Enter Referral Code" name="rname"
+                            id="rname" maxlength="15" [(ngModel)]="selfRegistered.referralCode"
+                            (keyup)="onReferralChange($event.target.value)"
+                            (change)="onReferralChange($event.target.value)"
+                            (keypress)="validation.noSpecialCharacters($event)" [disabled]="isRef1">
+                    </div>
+                    <div class="form-group">
+                        <label for="batch" class="all_textboxtxt">
+                            <b>Employer Name </b>
+                        </label>
+                        <br>
+                        <input type="text" class="form-control" placeholder="Enter Employer Name" name="employername"
+                            id="employername" maxlength="30" [(ngModel)]="corporateName"
+                            (change)="updateCorporateName($event.target.value)"
+                            (keypress)="validation.onlyAlphabetsWithSpace($event)" [disabled]="isRef">
+                    </div>
+                    <div class="form-group">
+                        <label for="batch" class="all_textboxtxt">
+                            <b>Employee Id </b>
+                        </label>
+                        <br>
+                        <input type="text" class="form-control" placeholder="Enter Employee Id" name="employeeId"
+                            id="employeeId" maxlength="15" [(ngModel)]="employeeCorporateId"
+                            (change)="updateEmployeeID($event.target.value)"
+                            (keypress)="validation.noSpecialCharacters($event)" [disabled]="isRef">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="batch" class="all_textboxtxt">
+                            <b>Upload{{isRef?'ed':''}} ID Proof</b>
+                        </label>
+                        <br>
+                        <input type="file" multiple name="chooseFile" *ngIf="!isRef" style="opacity:0"
+                            accept=".jpg,.jpeg,.png,.pdf" id="chooseFile" (change)="fileUpload($event)"><button
+                            type="button" *ngIf="!isRef" class="uploadFile">Upload</button>
+
+                    </div>
+
+                    <div class="file-upload"
+                        *ngIf="selfRegistered.corporateDetailsList && selfRegistered.corporateDetailsList.length>0 && selfRegistered.corporateDetailsList[0]">
+                        <div class="file-select">
+                            <div class="" *ngIf="this.tempIdProofsList &&
+                        this.tempIdProofsList>=MAX_FILES_COUNT">You have choosen maximum no of files</div>
+                            <div class="file-select-name" id="noFile">
+                                <div *ngIf="this.tempIdProofsList && this.tempIdProofsList.length<=0">
+                                    No file chosen
+                                </div>
+                                <span *ngFor="let url of this.tempIdProofsList;let i=index">
+
+                                    <img src="{{url.displayUrl}}" class="img-thumbnail uploadthumbnail"
+                                        (click)="openUrlInNewTab(url.displayUrl)">
+                                    <i class="glyphicon glyphicon-remove-circle t12 remove" *ngIf="!isRef"
+                                        (click)="this.tempIdProofsList.splice(i,1)"></i>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <div *ngIf="isReferral">
+                <button type="button" name="generate" class="Update geneter_otp" role="button"
+                    (click)="getReferral()">Verify</button>
+            </div>
+
+            <div *ngIf="!isSelected && isAlreadyregistered" class="submit_updatedtxt">
+                <button type="button" class="Update" role="button"
+                    (click)="registerNewUser(registerForm.valid)">Submit</button>
+            </div>
+            <div class="field_empty" *ngIf="isError1">{{errorMessage}}
+            </div>
+            <div *ngIf="!isAlreadyregistered">
+                <button type="button" class="Update" name="update" role="button"
+                    (click)="updateUser(registerForm.valid)">Submit</button>
+            </div>
+            <div *ngIf="isSelected && !isActive ">
+                <button type="button" class="Update submit_txt" role="button"
+                    (click)="UpdateRegisteredUser()">EDIT</button>
+                <button *ngIf="!isIncompleteData" type="button" class="Update submit_txt next_btn" role="button"
+                    (click)="alreadyRegisteredUser()">{{isPatientFetch?'Submit':'Next'}}</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- modal-content -->
+<!--model popup Add Family start here -->
+<div *ngIf="addMemberCheck">
+    <div class="modal-header">
+        <button type="button" class="close" (click)="onAddMemberButtonCancelClick()">
+            <span class="close_txt" aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title add_medtxt">Add Family</h4>
+    </div>
+    <div class="modal-body">
+        <form action="#" class="form-horizontal" ngNativeValidate #addMember="ngForm">
+            <div class="form-group">
+                <label for="strength" class="all_textboxtxt">
+                    <b>Title</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <select class="form-control" (change)="onTitleChange1($event.target.value)"
+                    [value]="familyMember.title">
+                    <option value="undefined">select Title</option>
+                    <option *ngFor="let title of titlesList;let i = index" [value]='title'>{{title}}.</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="strength" class="all_textboxtxt">
+                    <b>First Name</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <br>
+                <input type="text" class="form-control" required [(ngModel)]="familyMember.fName"
+                    placeholder="Enter first name" name="sname2" id="sname2" [ngModelOptions]="{standalone: true}"
+                    ngModel>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity" class="all_textboxtxt">
+                    <b>Last Name</b>
+                </label>
+                <br>
+                <input type="text" class="form-control" [(ngModel)]="familyMember.lName" placeholder="Enter last name"
+                    name="qname2" [ngModelOptions]="{standalone: true}" id="qname2">
+            </div>
+
+            <div class="form-group">
+                <p class="what_txt">What is your age?</p>
+                <!--<form action="#">-->
+                <input type="radio" name="ageButton" value="0" [checked]="isNewMemberDOB"
+                    (change)="checkNewMemberAgeSelection(0)"> Date of Birth
+                <input type="radio" name="ageButton" value="1" [checked]="isNewMemberAge"
+                    (change)="checkNewMemberAgeSelection(1)"> Age
+                <!--</form>-->
+            </div>
+            <div class="form-group" *ngIf="isNewMemberDOB">
+                <label for="datepicker" class="all_textboxtxt">Date of Birth
+                    <sup *ngIf="!optionalDOB" class="sgst_txt">*</sup>
+                </label>
+                <datetime [(value)]="newMemberDate" name="datepicker" id="datepicker" [timepicker]="false"
+                    [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="form-group" *ngIf="isNewMemberAge">
+                <label for="batch" class="all_textboxtxt">Age
+                    <sup *ngIf="!optionalDOB" class="sgst_txt">*</sup>
+                </label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" maxlength="3" class="form-control ageBox" placeholder="Years"
+                            name="bnameyear" (keypress)="validation.onlyNumbers($event)" id="bnameyear"
+                            [(ngModel)]="ageYears" (keyup)="checkAgeYearvalidation(ageYears)">Years
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" maxlength="2" class="form-control ageBox" placeholder="Months"
+                            name="bnamemon" (keypress)="validation.onlyNumbers($event)" id="bnamemon"
+                            [(ngModel)]="ageMonths" (keyup)="checkAgeMonthvalidation(ageMonths)">Months
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group gender_inline">
+                <label class="col-sm-12 control-label gender_txt">
+                    <b>Gender</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+
+                <label class="input_label">
+                    <input type="radio" required name="gender" class="male" value="Male" #memGender="ngModel"
+                        [(ngModel)]="familyMember.gender" [checked]="familyMember.gender == 'Male' ? 'true':'false'"
+                        (click)="onGenderChange()" [disabled]="isFamilyMemGender" />
+                    <span class="input_gender input_male"></span>
+                    <span class="text-center gender male">Male</span>
+                </label>
+                <label class="input_label">
+                    <input type="radio" required name="gender" class="female" value="Female" #memGender="ngModel"
+                        [(ngModel)]="familyMember.gender" [checked]="familyMember.gender == 'Female' ? 'true':'false'"
+                        (click)="onGenderChange()" [disabled]="isFamilyMemGender" />
+                    <span class="input_gender input_female"></span>
+                    <span class="text-center gender female">Female</span>
+                </label>
+                <label class="input_label">
+                    <input type="radio" required name="gender" class="others" value="Others" #memGender="ngModel"
+                        [(ngModel)]="familyMember.gender" [checked]="familyMember.gender == 'Others' ? 'true':'false'"
+                        (click)="onGenderChange()" [disabled]="isFamilyMemGender" />
+                    <span class="input_gender input_others"></span>
+                    <span class="text-center gender others">Others</span>
+                </label>
+
+            </div>
+
+            <p *ngIf="!isGenderChoose" value="isGenderChoose" class="error_Messages">
+                Please select the gender...!!!
+            </p>
+
+            <div class="form-group gender_inline">
+                <label class="col-sm-12 control-label gender_txt">
+                    <b>Relationship</b>
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <select class="form-control" required id="sel1"
+                    (change)="onRelationShipDropDownChange1($event.target.value)">
+                    <option [value]=0>Select Relationship</option>
+                    <option [value]=1>spouse</option>
+                    <option [value]=2>mother</option>
+                    <option [value]=3>father</option>
+                    <option [value]=4>daughter</option>
+                    <option [value]=5>son</option>
+                    <option [value]=6>mother-in-law</option>
+                    <option [value]=7>father-in-law</option>
+                    <option [value]=8>sibling</option>
+                    <option [value]=9>grandmother</option>
+                    <option [value]=10>grandfather</option>
+                    <option [value]=11>daughter-in-law</option>
+                    <option [value]=12>son-in-law</option>
+                    <option [value]=13>Others</option>
+                </select>
+            </div>
+
+            <p *ngIf="!isChoose" value="isChoose" class="error_Messages">
+                Select the Relationship...!!!
+            </p>
+
+            <div class="form-group">
+                <label for="batch" class="all_textboxtxt">
+                    <b>Email Id</b>
+                </label>
+                <br>
+                <input type="text" class="form-control" placeholder="Enter EmailId" name="bname" id="bname"
+                    [(ngModel)]="familyMember.contactInfo.email" (keypress)="validation.validateEmail($event)">
+            </div>
+
+            <div class="field_empty" *ngIf="isError1">{{errorMessage}}
+            </div>
+            <div class="button_disp">
+                <button type="button" class="Update" role="button"
+                    (click)="onAddMemberButtonCancelClick()">Cancel</button>
+                <button type="submit" class="Update" role="button"
+                    (click)="onAddMemberButtonSubmitClick()">Done</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- modal-content -->
+
+<div class="patient_modal">
+    <div class="col-sm-12">
+        <div class="modal fade" tabindex="-1" role="dialog" id="lisUserSelection" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content back-color">
+                    <div class="Default_profile prof_shadow">
+                        <div>
+                            <h4 class='profile_txt'>Default Profile</h4>
+                        </div>
+                        <div class="close_btn">
+                            <button type="button" (click)="closeLisModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="this.lisScreen1" class="lis-text text_header mt-1 ml-2 mb-1">Choose your default profile
+                    </div>
+                    <div class="modal-body">
+                        <div *ngIf="this.lisScreen1">
+                            <p class='mt-1 ml-0 mb-1 cont_text'>We have found below profiles that are associated with
+                                your mobile number. Please choose a primary profile to continue.</p>
+
+                            <div class="user_card" *ngFor="let profile of lisUserList; let i = index">
+
+                                <div class="flex_style">
+                                    <div class='user_image '>
+                                        <img src="https://hsappimages.s3.ap-south-1.amazonaws.com/other/vdc/person.png"
+                                            alt='User Image' />
+                                    </div>
+                                    <div class="user_detail">
+                                        <p class="text_header"><span>{{profile.fName}} {{profile.lName}}</span></p>
+                                        <p *ngIf="profile.referenceId"><b>Health Id:</b> {{profile.referenceId}}</p>
+                                    </div>
+                                </div>
+                                <div class="user_check pr-2">
+                                    <div class="form-check">
+                                        <input id="i" type="radio" name="lisprofile" [checked]="i == lisIndex"
+                                            (change)="onChangeLisUser(i)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="create_box">
+                                <div class="create_new">
+                                    <div>
+                                        <p class="text_header">Create new profile</p>
+                                        <p class='user_detail'>Ignore the above & create a new profile.</p>
+                                    </div>
+                                </div>
+                                <div class="user_check pr-2 mt-1">
+                                    <div class="form-check">
+                                        <label>
+                                            <input id="-1" class="i" type="radio" name="lisprofile"
+                                                [checked]="lisIndex == -1" (change)="onChangeLisUser(-1)">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div *ngIf="this.lisScreen2">
+                            <p class='prof_text'>
+                                The profile you selected as your primary profile is,
+                            </p>
+                            <div class="create_box mb-1">
+                                <div class="user_detail p-2 ml-1">
+                                    <p class="text_header">{{lisSelfUser.title}} {{lisSelfUser.fName}}
+                                        {{lisSelfUser.lName}}</p>
+                                    <p *ngIf="lisNewUser"><b>Health Id:</b> {{lisSelfUser.referenceId}}</p>
+                                </div>
+                            </div>
+                            <p class="black_txt">
+                                Please select your relationship with the below profiles that we found in our system.
+                            </p>
+                            <div class="sub_detail">
+                                <div *ngFor="let profiles of lisUserList;let i = index"
+                                    class="form-group gender_inline">
+                                    <p class="user_header mb-1">{{profiles.title}} {{profiles.fName}} {{profiles.lName}}
+                                    </p>
+                                    <select class="form-control drop-down" id="lisrel" [value]="profiles.relationShip"
+                                        (change)="onlisRelation($event.target.value,i)">
+                                        <option [value]=0>Please select your relationship</option>
+                                        <option [value]=1>spouse</option>
+                                        <option [value]=2>mother</option>
+                                        <option [value]=3>father</option>
+                                        <option [value]=4>daughter</option>
+                                        <option [value]=5>son</option>
+                                        <option [value]=6>mother-in-law</option>
+                                        <option [value]=7>father-in-law</option>
+                                        <option [value]=8>sibling</option>
+                                        <option [value]=9>grandmother</option>
+                                        <option [value]=10>grandfather</option>
+                                        <option [value]=11>daughter-in-law</option>
+                                        <option [value]=12>son-in-law</option>
+                                        <option [value]=13>Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" *ngIf="lisNewUser">
+                                <label for="strength" class="all_textboxtxt">
+                                    <b>Alternate Number </b>
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <br>
+                                <input type="text" class="form-control" placeholder="Enter Alternate Mobile Number"
+                                    name="lisaltno" id="lisaltno" [(ngModel)]="lisSelfUser.contactInfo.alternateMobile"
+                                    maxlength="10" (keypress)="validateNumberInputOnly($event)">
+                            </div>
+                        </div>
+                        <div *ngIf="this.lisScreen3">
+                            <div class="form-group">
+                                <label for="strength" class="all_textboxtxt">
+                                    <b>Title</b>
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <select class="form-control" (change)="onLisTitleChange($event.target.value)"
+                                    [value]="lisSelfUser.title">
+                                    <option value="undefined">select Title</option>
+                                    <option *ngFor="let title of titlesList;let i = index" [value]='title'>{{title}}.
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="strength" class="all_textboxtxt">
+                                    <b>First Name </b>
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <br>
+                                <input type="text" id="lisfname" class="form-control" placeholder="Enter First name"
+                                    name="lisfname" id="lisfname" [(ngModel)]="lisSelfUser.fName"
+                                    value={{lisSelfUser.fName}}>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quantity" class="all_textboxtxt">
+                                    <b>Last Name</b>
+                                </label>
+                                <br>
+                                <input type="text" id="lislname" class="form-control" placeholder="Enter Last name"
+                                    name="lislname" id="lislname" [(ngModel)]="lisSelfUser.lName"
+                                    value={{lisSelfUser.lName}}>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="strength" class="all_textboxtxt">
+                                    <b>Gender</b>
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <select class="form-control" [value]="lisSelfUser.gender"
+                                    [(ngModel)]="lisSelfUser.gender" [disabled]="lisGender">
+                                    <option value=null>Select Gender</option>
+                                    <option value='Male'>Male</option>
+                                    <option value='Female'>Female</option>
+                                    <option value='Others'>Others</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="datepicker" class="all_textboxtxt">
+                                    <b>Date of Birth</b>
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <br>
+                                <datetime [(value)]="lismemberDate" name="datepicker" id="datepicker"
+                                    [datepicker]="datepickerOpts" [timepicker]="false" [datepicker]="datepickerOpts"
+                                    placeholder="Select Date">
+                                </datetime>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="strength" class="all_textboxtxt">
+                                    <b>Alternate Number </b>
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <br>
+                                <input type="text" class="form-control" placeholder="Enter Alternate Mobile Number"
+                                    name="lisaltno" id="lisaltno" [(ngModel)]="lisSelfUser.contactInfo.alternateMobile"
+                                    maxlength="10" (keypress)="validateNumberInputOnly($event)">
+                            </div>
+                        </div>
+                        <hs-message [isError]="lisIsError" [show]="lisIsError"
+                            [messages]="lisErrorMessages"></hs-message>
+                    </div>
+                    <div class='modal-footer'>
+                        <button *ngIf="lisScreen1" type="button" class="btn sub_btn"
+                            (click)="onLisContinue()">Continue</button>
+                        <button *ngIf="lisScreen2" type="button" class="btn sub_btn"
+                            (click)="onLisSubmit()">Submit</button>
+                        <button *ngIf="lisScreen3" type="button" class="btn sub_btn"
+                            (click)="onNewLisReg()">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

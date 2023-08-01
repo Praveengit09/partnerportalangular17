@@ -1,0 +1,257 @@
+<h1 class="page-title">Add And Update Test</h1>
+<form action="#">
+    <div class="col-xl-6 col-lg-6">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <h4>Test Name  <sup class="color_red">*</sup></h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <div *ngIf="this.serviceNameSearchList == null || this.serviceNameSearchList == undefined">
+                    <input type="text"  name="textname">    
+                </div>
+                <div *ngIf="this.serviceNameSearchList != null || this.serviceNameSearchList != undefined">
+                <hs-select [defaultSelectLabel]="'Search Test Name'" [defaultSelectField]="'serviceName'"
+                    [selectColumns]="selectTestName" class="diagnostic-testsearch"
+                    [selectResults]="serviceNameSearchList" (searchTrigger)="searchTests($event)"
+                    (selectTrigger)="getSearchTestName($event)" [defaultSelected]="selectedTest"></hs-select>
+                </div>
+
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Test Display Name
+                    <sup class="color_red">*</sup>
+                </h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" class="form-control" id="testAmount" placeholder="Enter Display Name"
+                    [(ngModel)]="selectedTest.displayName" [ngModelOptions]="{standalone: true}">
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Description</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" [(ngModel)]="selectedTest.description" class="form-control"
+                    placeholder="Enter Your Description" name="displayName" id="displayName" ngModel>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Test Category <sup class="color_red">*</sup></h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <select class="form-control" (change)="onTestSelectChange($event.target.value)" [(ngModel)]="selectedTestIndex" [ngModelOptions]="{standalone : true}">
+                    <option value="-1">Enter Your Test Category</option>
+                    <option  *ngFor="let test of testCategoryIds,let i=index" [value]=i>{{test.name}}</option>
+                </select>
+            </div>
+
+
+            <div class="col-xl-12 col-lg-12">
+                <h4>Home Collection:
+                    <input type="checkbox" name="genres" class="applicable_check" id="test_id"
+                    [(ngModel)]="selectedTest.homeCollections"  (change)="applyTests(selectedTest.homeCollections)">
+                    <label for="test_id" class="checked_test"></label>
+                </h4>
+            </div>
+
+            <div class="col-xl-12 col-lg-12">
+                <h4>Precaution</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" [(ngModel)]="selectedTest.precaution" class="form-control"
+                    placeholder="Enter Your precaution" name="precaution" id="precaution" ngModel>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <div class="row">
+                    <h4 class="col-xl-10 col-lg-10">Display Description:
+                        <i aria-hidden="true" class="fa fa-plus test_addicon" (click)="addApplyButton()"></i>
+                    </h4>
+                </div>
+            </div>
+            <div class="row display_des mb-2" *ngFor="let item of displayDescriptionList; let i=index">
+                <div class="col-xl-9 col-lg-9">
+                    <div class="row title_txt">
+                        <h4 class="col-md-4">Title:</h4>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Enter Your Title"
+                                [(ngModel)]="item.title" [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div class="row title_txt"> -->
+                        <h4 class="col-md-4 mt-1">Description:</h4>
+                        <!-- <ng-container *ngFor="let descDetails of item.descDetails; let j=index">
+                            <div class="col-md-7 mt-1" *ngFor="let content of descDetails.content; let k=index">
+
+                                <input type="text" class="form-control" placeholder="Enter Your Description"
+                                    [(ngModel)]="item.descDetails[j].content[k]" [ngModelOptions]="{standalone: true}">
+
+                            </div>
+
+
+                        </ng-container> -->
+                        <div class="col-md-7 mt-1" *ngFor="let descDetails of item.descDetails; let j=index">
+                            <div class="row" *ngFor="let content of descDetails.content; let k=index">
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" placeholder="Enter Your Description"
+                                        [(ngModel)]="content" [ngModelOptions]="{standalone: true}">
+                                </div>
+
+                                <div class="col-md-1 col-sm-1 col-xs-1 discount_poc">
+                                    <span class="close_description" (click)="removeclickList(j)">×</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-1 add_descri_btn mt-1">
+                            <i aria-hidden="true" class="fa fa-plus test_addicon" (click)="addApplyButton1(i)"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-1 col-xs-1 discount_poc">
+                    <span class="close_pocbtn" (click)="removeclick(i)">×</span>
+                </div>
+            </div>
+
+            <div class="col-xl-12 col-lg-12">
+                <div class="row">
+                    <h4 class="col-xl-10 col-lg-10">Notes
+                        <i aria-hidden="true" class="fa fa-plus test_addicon" (click)="addApplyNoteButton()"></i>
+                    </h4>
+                </div>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <div class="row mb-2" *ngFor="let item of displayNoteList; let i=index">
+
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Enter Your Title" [(ngModel)]="item.title"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1 discount_note">
+                        <span class="close_pocbtn" (click)="removeNoteclick(i)">×</span>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>LIS Test Id</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" class="form-control" placeholder="Enter Your LIS Test Id"
+                    [(ngModel)]="selectedTest.referenceId" name="referenceId">
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Sample Type</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" class="form-control" placeholder="Enter Your Sample Type"
+                    [(ngModel)]="selectedTest.sample" name="sample">
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Methodology</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" class="form-control" placeholder="Enter Your Methodology"
+                    [(ngModel)]="selectedTest.methodology" name="methodology">
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Turn Around Time</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" class="form-control" placeholder="Enter Your Turn Around Time"
+                    [(ngModel)]="selectedTest.tat" name="turnAroundTime">
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Search Tags</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10">
+                <input type="text" class="form-control" placeholder="Enter Your Search Tags"
+                    [(ngModel)]="selectedTest.tags" name="tags">
+            </div>
+
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Department 1</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10" *ngFor="let item of categoryNameList; let i=index">
+                <select id="poc_select4" class="form-control" *ngIf="item.categoryId >=10000 && item.categoryId < 20000"
+                    (change)="onDepartmentSelectChange1($event.target.value)" [(ngModel)]="selectedCategoryIndex1" [ngModelOptions]="{standalone : true}">
+                    <option value="-1">{{item.categoryName}}</option>
+                    <option *ngFor="let category of item.subServiceList;let j = index" [value]=j>
+                        {{category.categoryName}}</option>
+                </select>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Department 2</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10" *ngFor="let item of categoryNameList; let j=index">
+                <select id="poc_select3" class="form-control" *ngIf="item.categoryId >=20000 && item.categoryId < 30000"
+                    (change)="onDepartmentSelectChange2($event.target.value)" [(ngModel)]="selectedCategoryIndex2" [ngModelOptions]="{standalone : true}">
+                    <option value="-1">{{item.categoryName}}</option>
+                    <option *ngFor="let category of item.subServiceList;let j = index" [value]=j>
+                        {{category.categoryName}}</option>
+                </select>
+            </div>
+
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Department 3</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10" *ngFor="let item of categoryNameList; let k=index">
+                <select id="poc_select2" class="form-control" *ngIf="item.categoryId>=30000 && item.categoryId<40000"
+                    (change)="onDepartmentSelectChange3($event.target.value)" [(ngModel)]="selectedCategoryIndex3" [ngModelOptions]="{standalone : true}">
+                    <option value="-1">{{item.categoryName}}</option>
+                    <option *ngFor="let category of item.subServiceList;let j = index" [value]=j>
+                        {{category.categoryName}}</option>
+                </select>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 mt-1">
+                <h4>Department 4</h4>
+            </div>
+            <div class="col-xl-10 col-lg-10" *ngFor="let item of categoryNameList; let l=index">
+                <select id="poc_select1" class="form-control" *ngIf="item.categoryId >=40000"
+                    (change)="onDepartmentSelectChange4($event.target.value)" [(ngModel)]="selectedCategoryIndex4" [ngModelOptions]="{standalone : true}">
+                    <option value="-1">{{item.categoryName}}</option>
+                    <option *ngFor="let category of item.subServiceList;let j = index" [value]=j>
+                        {{category.categoryName}}</option>
+                </select>
+            </div>
+
+
+            <div class="col-xl-12 col-lg-12 mt-2">
+                <div class="row update_cencel">
+                    <div class="col-md-6 col-sm-12 pl-0 save_btn">
+                        <button type="button" class="btn button_update col-md-4 col-sm-12" role="button"
+                            (click)="saveTestCreation()">
+                            Save
+                        </button>
+                    </div>
+                    <div class="col-md-6 col-sm-12 cencel_btn">
+                        <button type="button" class="btn btn-danger float-right cencel_txt col-md-5 col-sm-12" role="button"
+                            (click)="updatesCancel()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- </div> -->
+    <br/>
+    <br/>
+    <hs-message [isError]="isErrorTest" [show]="showMessageTest" [messages]="errorMessageTest">
+    </hs-message>
+</form>

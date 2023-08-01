@@ -1,0 +1,125 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+.saveBtn {
+  color: #6c757d;
+  border-color: #6c757d;
+}
+
+.saveBtn:hover {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.card-header h4 {
+  font-size: 1.082rem;
+  margin: 5px 0 0 0;
+}
+
+.card-header {
+  padding: 5px 10px;
+}
+
+h6 {
+  font-size: 1.1428571428571428rem !important;
+  font-weight: 600;
+}
+
+h5 {
+  font-weight: 600;
+}
+
+.pPast {
+  margin-bottom: 0px !important;
+}
+
+.viewBtn {
+  margin-top: 5px !important;
+}
+
+.nextBtn {
+  color: #fff;
+  // background-color: #dc3545;
+  background-color:$btn-next;
+}
+
+.card {
+  position: relative;
+  background-color: #fff;
+  border: none;
+  -webkit-box-shadow: 0 2px 6px 0 #ccc;
+  -moz-box-shadow: 0 2px 6px 0 #ccc;
+  box-shadow: 0 2px 6px 0 #ccc;
+  margin: 0 0 20px 0;
+  display: block;
+}
+
+.rightCard {
+  height: 459px;
+  overflow: auto;
+  padding: 0px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: $btn-border-color;
+  border: 1px solid $btn-border-color;
+}
+
+.modal-dialog {
+  max-width: 1000px !important;
+}
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+.btn-outline-info {
+  // color: #17a2b8;
+  color: $btn-info-outline;
+  background-color: transparent;
+  background-image: none;
+  // border-color: #17a2b8;
+  border-color: $btn-info-outline;
+}
+
+.large_table {
+  font-size: 0.750em;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.float-right {
+  float: right !important;
+}
+
+.btn-primary {
+  color: #FFF;
+  background-color: $btn-border-color;
+  border: 1px solid $btn-border-color;
+}
+
+.col-12,
+.col-6,
+.col-lg-12 {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.fade.in {
+  opacity: 1 !important;
+  backface-visibility: hidden !important;
+}
+
+.countOfMedicine {
+  color: #1DC8D5;
+}
+
+.word-break {
+  word-break: break-word;
+}

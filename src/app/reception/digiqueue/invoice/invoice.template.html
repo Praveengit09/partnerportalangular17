@@ -1,0 +1,205 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Invoice {{finalPaymentList.orderId}}</h1>
+
+    <p class="sub-title">{{todayDate}}</p>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading digiqueue_invoicewidget">
+
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head">
+                                <th>#</th>
+                                <th class="sort-default">
+                                    <span class="sort-default1">Doctor's Description</span>
+                                </th>
+                                <th class="">
+                                    Consultation Charges
+                                </th>
+                                <th class="">
+                                    Package Discount
+                                </th>
+                                <!-- <th class="sort-default">
+                                    FollowUp Discount
+                                </th>
+                                <th class="sort-default">
+                                    Partner Discount
+                                </th> -->
+                                <th class="sort-default">
+                                    Other Discount
+                                </th>
+                                <th class="sort-default">
+                                    Wallet Amount
+                                </th>
+                                <th class="">
+                                    Platform Charges
+                                </th>
+                                <th class="">
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table_head">
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">1</div>
+                                </td>
+                                <td data-label="Doctor's Description" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>
+                                            <span class="admin_order1"
+                                                *ngIf="finalPaymentList.slotBookingDetailsList[0].doctorDetail != undefined">{{finalPaymentList.slotBookingDetailsList[0].doctorDetail.title+"
+                                                "+finalPaymentList.slotBookingDetailsList[0].doctorDetail.firstName+"
+                                                "+(finalPaymentList.slotBookingDetailsList[0].doctorDetail.lastName?finalPaymentList.slotBookingDetailsList[0].doctorDetail.lastName:'')}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Consultation Charges" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList?.slotBookingDetailsList[0]?.payment?.originalAmount |
+                                            number : '1.2-2'}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Package Discount" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList?.slotBookingDetailsList[0]?.payment?.packageDiscountAmount
+                                            | number
+                                            : '1.2-2'}}</span>
+                                    </div>
+                                </td>
+                                <!-- <td class="admin_order">
+                                    <span>
+                                        {{(finalPaymentList?.slotBookingDetailsList[0]?.basketDiscount[0]?.type == 1) ? (finalPaymentList?.slotBookingDetailsList[0]?.basketDiscount[1]?.discountAmount
+                                        | number : '1.2-2') : 0}}</span>
+                                </td>
+                                <td class="admin_order">
+                                    <span>
+                                        {{(finalPaymentList?.slotBookingDetailsList[0]?.basketDiscount[0]?.type == 0) ? (finalPaymentList?.slotBookingDetailsList[0]?.basketDiscount[1]?.discountAmount
+                                        | number : '1.2-2') : 0}}</span>
+                                </td> -->
+                                <td data-label="Other Discount" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList?.slotBookingDetailsList[0]?.payment?.otherDiscountAmount |
+                                            number : '1.2-2'}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Wallet Amount" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList?.slotBookingDetailsList[0]?.payment?.usedWalletAmount?finalPaymentList?.slotBookingDetailsList[0]?.payment?.usedWalletAmount:'0.00' |
+                                            number : '1.2-2'}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Platform charges" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList?.slotBookingDetailsList[0]?.payment?.platformCharges |
+                                            number : '1.2-2'}}</span>
+                                    </div>
+                                </td>
+
+                                <td data-label="Total" class="admin_order">
+                                    <div class="tabledatalabel-right">{{finalPaymentList?.slotBookingDetailsList[0]?.payment?.finalAmount | number : '1.2-2'}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="from_txt">
+                <div class="row">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Total payable amount </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        <span>{{finalPaymentList?.slotBookingDetailsList[0]?.payment?.finalAmount | number : '1.2-2'}}</span>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+                <div class="row" *ngIf="finalPaymentList.slotBookingDetailsList[0].payment.paymentStatus !=1">
+                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment Type </div>
+                    <!-- <div class="col-md-2 col-sm-2 ">
+                        <select id="paymenttype" class="form-control" [(ngModel)]="paymentType" [disabled]="showPrintOption">
+                            <option value="2" selected="true">Cash</option>
+                            <option value="1">Credit</option>
+                        </select>
+                    </div> -->
+                    <div class="col-md-7 col-sm-6 col-xs-12 form-group">
+                        <input type="radio" name="cash" id="cash" value="cash" checked (change)="checkPaymentModeSelection(2)">
+                        <label for="cash">&nbsp;Cash</label> &nbsp;&nbsp;
+                        <input type="radio" name="cash" id="mobile" value="mobile" (change)="checkPaymentModeSelection(5)">
+                        <label for="mobile">&nbsp;Mobile</label> &nbsp;&nbsp;
+                        <input type="radio" name="cash" id="others" value="others" (change)="checkPaymentModeSelection(0)" id="other-payment">
+                        <label for="mobile">&nbsp;Others</label>
+                        <div class="other-paymentdetails">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                    <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                        <option value="0">Select</option>
+                                        <option value="1">Card</option>
+                                        <option value="8">PhonePe</option>
+                                        <option value="6">Google Pay</option>
+                                        <option value="7">PayTM</option>
+                                        <option value="11">NEFT</option>
+                                        <option value="12">UPI</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input type="text" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="!showPrintOption">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <h5 class="payment-error" *ngIf="!transactionType">{{paymentErrorMessage}}</h5>
+                        <br>
+                        <button class="submit_txt" role="button" value="Pay Now" (click)="makePayment()">PAY
+                            NOW</button>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="showPrintOption">
+                    <div class="col-md-5 col-sm-6 col-xs-6"></div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        <div *ngIf="paymentDeskListResponse.slotBookingDetailsList && paymentDeskListResponse.slotBookingDetailsList != null && paymentDeskListResponse.slotBookingDetailsList != undefined && paymentDeskListResponse.slotBookingDetailsList[0].pdfUrlWithHeader!=null && paymentDeskListResponse.slotBookingDetailsList[0].pdfUrlWithHeader!=undefined && paymentDeskListResponse.slotBookingDetailsList[0].pdfUrlWithHeader!=''">
+                            <a class="btn print-btn mr-2 pl-0" (click)="showPdf(paymentDeskListResponse.slotBookingDetailsList[0])">
+                                <span class="glyphicon glyphicon-print"></span>&nbsp;PRINT</a>
+                        </div>
+                        <button class="submit_txt" (click)="goTopaymentDesk()">HOME</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <!-- <h4 class="modal-title">Payment Done</h4> -->
+            </div>
+            <div class="modal-body">
+                <p>{{confirmationMessage}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

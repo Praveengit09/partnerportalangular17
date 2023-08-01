@@ -1,0 +1,72 @@
+@import '../../prescriptionFavorites/prescriptionFavorites.style.scss';
+@import '../../../prescription/medicalprescription/medicalprescription.style.scss';
+.templateName {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-left: 5px;
+}
+
+.widget {
+    border: none !important;
+    border-top: 1px solid #e6e6e6 !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+}
+
+// th {
+//     color: #64819E !important;
+//     text-transform: capitalize !important;
+//     font-size: 15px;
+//     line-height: 1.73;
+//     padding: 19px 15px 17px 15px;
+// }
+
+table {
+    min-width: 600px;
+}
+
+.btn-danger {
+    background-color: #FF6D6D;
+    border-color: #FF6D6D;
+    text-transform: uppercase;
+    padding-top: 11px;
+    padding-bottom: 12px;
+    line-height: 17px;
+}
+
+table .btn-danger {
+    margin-top: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 12px;
+    border-radius: 1px;
+    width: 86px;
+    line-height: 14px;
+}
+
+table td .btn-danger:first-child,
+.modal-footer .btn-danger:first-child {
+    margin-right: 7px;
+}
+
+@media screen and (max-width: 1037px) {
+    table .btn-danger:not(:first-child) {
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 80%;
+        margin: 90px auto;
+    }
+    .departmentList {
+        margin-top: -15px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .departmentList {
+        margin-top: 15px;
+    }
+}

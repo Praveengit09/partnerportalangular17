@@ -1,0 +1,665 @@
+<div class="row">
+    <div class="col-md-12 ml-1">
+        <h2>Patient Examination</h2>
+    </div>
+    <div class="col-md-12 card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-5 col-lg-5 col-sm-7 col-xl-5 col-xs-9">
+                    <h4 class="hide-sm">Symptoms (Presenting Complaints)</h4>
+                    <h4 class="hide-md">Symptoms</h4>
+                </div>
+                <div class="col-xs-3 hide-md">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="notes_symp"
+                            [checked]="enableCheckedSymptomNotes"
+                            (change)="enableCheckedSymptomNotes=!enableCheckedSymptomNotes">
+                        <label class="form-check-label noteLabel" for="notes_symp">Notes</label>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-5 col-xl-5 col-xs-12 search-field">
+                    <label class="sr-only" for="inlineFormInputGroup">Search for more symptoms</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text searchInput"><i class="icon ion-md-search"></i></div>
+                        </div>
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupSymptons"
+                            (keyup)="searchForMoreSymptoms($event)" placeholder="Search for more symptoms">
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xl-2 col-xs-12 hide-sm">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="notes_symp"
+                            [checked]="enableCheckedSymptomNotes"
+                            (change)="enableCheckedSymptomNotes=!enableCheckedSymptomNotes">
+                        <label class="form-check-label noteLabel" for="notes_symp">Notes</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body listOfcard">
+            <ul class="list-inline">
+                <li class="list-inline-item" *ngIf="addSuggestedSymptom!='' && !addButtonAtLast">
+                    <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedSymptoms()">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <label>
+                                        <span class="ailment_text">Add "{{addSuggestedSymptom}}" as Symptom</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngFor="let symptom of displaySymptoms;let i=index">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="symptom{{i}}" name="symptoms"
+                                        (click)="onClickPresentingComplaints(symptom,i)" [value]="symptom.isSelected"
+                                        [checked]="symptom.isSelected" />
+                                    <label for="symptom{{i}}">
+                                        <span class="ailment_text">{{symptom.name}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngIf="addSuggestedSymptom!='' && addButtonAtLast">
+                    <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedSymptoms()">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <label>
+                                        <span class="ailment_text">Add "{{addSuggestedSymptom}}" as Symptom</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="card-footer alert alert-success" style="margin:0px;text-align:center">
+					Sympton Added
+				</div> -->
+    </div>
+    <div class="col-md-12 card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <h4>Clinical Examination</h4>
+                </div>
+                <div class="col-md-5 col-sm-7 col-xs-12 search-field">
+                    <label class="sr-only" for="inlineFormInputGroup">Search for more Clinical Examinations</label>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text searchInput"><i class="icon ion-md-search"></i></div>
+                        </div>
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupClinicalExamination"
+                            placeholder="Search for more Clinical Examinations"
+                            (keyup)="searchForMoreClinicalExaminations($event)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body listOfcard">
+            <ul class="list-inline">
+                <li class="list-inline-item" *ngIf="addSuggestedClinicalExamination!='' && !addButtonAtLast">
+                    <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedClinicalExaminations()">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <label>
+                                        <span class="ailment_text">Add "{{addSuggestedClinicalExamination}}" as
+                                            Clinical Examination</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item"
+                    *ngFor="let clinicalExamination of displayClinicalExaminations;let i=index">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="clinicalExamination{{i}}" name="clinicalExaminations"
+                                        (click)="onClickClinicalExaminations(clinicalExamination,i)"
+                                        value="{{clinicalExamination.isSelected}}"
+                                        [checked]="clinicalExamination.isSelected" />
+                                    <label for="clinicalExamination{{i}}" [class.cdss]="clinicalExamination.isCDSS">
+                                        <span class="ailment_text">{{clinicalExamination.name}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngIf="addSuggestedClinicalExamination!='' && addButtonAtLast">
+                    <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedClinicalExaminations()">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <label>
+                                        <span class="ailment_text">Add "{{addSuggestedClinicalExamination}}" as
+                                            Clinical Examination</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-12 card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <h4>Diagnosis</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6" *ngIf="mandatoryDiagnosisType">
+                    <button class="btn btn-primary saveBtn width-100" (click)="onClickColumDiagnosisSelect()">Select
+                        Type</button>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6" *ngIf="!mandatoryDiagnosisType"></div>
+                <div class="col-md-5 col-sm-7 col-xs-12 search-field">
+                    <label class="sr-only" for="inlineFormInputGroup">Search for more Diagnosis</label>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text searchInput"><i class="icon ion-md-search"></i></div>
+                        </div>
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupDiagnosis"
+                            placeholder="Search for more Diagnosis" (keyup)="searchForMoreDiagnoses($event)">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body listOfcard">
+            <ul class="list-inline">
+                <li class="list-inline-item" *ngIf="addSuggestedDiagnoses!='' && !addButtonAtLast">
+                    <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedDiagnosess()">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <label>
+                                        <span class="ailment_text">Add "{{addSuggestedDiagnoses}}" as Diagnosis</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngFor="let diagnosis of displayDiagnoses;let i=index">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <!-- <input type="checkbox" id="diagnosis{{i}}" name="diagnoses"
+                                        (click)="onClickColumDiagnosis(diagnosis,i)" value="{{diagnosis.isSelected}}"
+                                        [checked]="diagnosis.isSelected" /> -->
+
+                                    <input type="checkbox" id="diagnosis{{i}}" name="diagnoses"
+                                        (click)="onClickColumDiagnosis(diagnosis,i)" value="{{diagnosis.isSelected}}"
+                                        [checked]="diagnosis.isSelected" />
+
+                                    <label for="diagnosis{{i}}" class="diagnosis{{i}}" [class.cdss]="diagnosis.isCDSS">
+                                        <span class="ailment_text">{{diagnosis.name}}</span>
+                                        <!-- <div *ngIf="enableDiagnosesProvisionalFinal[i]">
+													<button class="btn diagnosis{{i}}Provisional" (click)="onClickDiagnosis(diagnosis,i,false)">Provisional</button>
+													<button class="btn diagnosis{{i}}Final" (click)="onClickDiagnosis(diagnosis,i,true)">Final</button>
+												</div> -->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngIf="addSuggestedDiagnoses!='' && addButtonAtLast">
+                    <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedDiagnosess()">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <label>
+                                        <span class="ailment_text">Add "{{addSuggestedDiagnoses}}" as Diagnosis</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 
+    <div class="col-md-12 card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <h4>Investigations</h4>
+                </div>
+                <div class="col-md-5 col-sm-7 col-xs-12 search-field">
+                    <label class="sr-only">Search for more Investigations</label>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text searchInput"><i class="icon ion-md-search"></i></div>
+                        </div>
+                        <input type="text" class="form-control searchInput"
+                            placeholder="Search for more Investigations">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body listOfcard">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_01" name="investigations" />
+                                    <label for="id_01">
+                                        <span class="ailment_text">Glucose, Random/Random Blood Sugar/RBS</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_02" name="investigations" />
+                                    <label for="id_02">
+                                        <span class="ailment_text">Culture, Anaerobic, Blood, Rapid?Blood Culture</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_03" name="investigations" />
+                                    <label for="id_03">
+                                        <span class="ailment_text">Lipid Profile</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_04" name="investigations" />
+                                    <label for="id_04">
+                                        <span class="ailment_text">Dengue Antigen(NS1), Serum</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_05" name="investigations" />
+                                    <label for="id_05">
+                                        <span class="ailment_text">Absolute Eosinophil Count; AEC</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_06" name="investigations" />
+                                    <label for="id_06">
+                                        <span class="ailment_text">Glucose Tolerance Test, Oral(OGTT)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_07" name="investigations" />
+                                    <label for="id_07">
+                                        <span class="ailment_text">Complete Urine Examinattion(CUE)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_08" name="investigations" />
+                                    <label for="id_08">
+                                        <span class="ailment_text">BUN; Blood Urea Nitrogen</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_09" name="investigations" />
+                                    <label for="id_09">
+                                        <span class="ailment_text">Clotting Time; CT</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_10" name="investigations" />
+                                    <label for="id_10">
+                                        <span class="ailment_text">Bleeding Time; BT</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="col-md-12 card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <h4>Referral</h4>
+                </div>
+                <div class="col-md-5 col-sm-7 col-xs-12 search-field">
+                    <label class="sr-only">Search for more Doctors</label>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text searchInput"><i class="icon ion-md-search"></i></div>
+                        </div>
+                        <input type="text" class="form-control searchInput" placeholder="Search for more Doctors">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body listOfcard">
+            <ul class="list-inline">
+                <li class="list-inline-item" data-toggle="modal" data-target="#doctor">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <label class="add_doctor">
+                                        <span class="ailment_text">Add "Hari" as Doctor</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item doctors_name">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_d1" name="doctor" />
+                                    <label for="id_d1">
+                                        <span class="ailment_text">Dr. Harish Kolla </span>
+                                        <p class="ailment_text">(General Physician)</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item doctors_name">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_d2" name="doctor" />
+                                    <label for="id_d2">
+                                        <span class="ailment_text">Dr. Harish Kolla </span>
+                                        <p class="ailment_text">(General Physician)</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item doctors_name">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_d3" name="doctor" />
+                                    <label for="id_d3">
+                                        <span class="ailment_text">Dr. Harish Kolla </span>
+                                        <p class="ailment_text">(General Physician)</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item doctors_name">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_d4" name="doctor" />
+                                    <label for="id_d4">
+                                        <span class="ailment_text">Dr. Harish Kolla </span>
+                                        <p class="ailment_text">(General Physician)</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item doctors_name">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_d5" name="doctor" />
+                                    <label for="id_d5">
+                                        <span class="ailment_text">Dr. Harish Kolla </span>
+                                        <p class="ailment_text">(General Physician)</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item doctors_name">
+                    <div class="form-group custom_chk_btn cardBodyItem">
+                        <div class="column">
+                            <div class="row">
+                                <div class="column">
+                                    <input type="checkbox" id="id_d6" name="dotor" />
+                                    <label for="id_d6">
+                                        <span class="ailment_text">Dr. Harish Kolla </span>
+                                        <p class="ailment_text">(General Physician)</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="modal " id="doctor" tabindex="-1" role="dialog" aria-labelledby="doctor" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content  p-3">
+                <div class="modal-header modal_border">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Add "Hari" as a Doctor</h5> 
+                </div>
+                <div class="modal-body ">
+                    <div class="form-group modal_shadow">
+                        <label class="control-label w-100" for="height">
+                            Doctor Name
+                        </label>
+
+                        <div class="col-md-12 col-xs-12">
+                            <input class="form-control pr-0" placeholder="Enter Doctor's Name" />
+
+                        </div>
+                    </div>
+                    <div class="form-group modal_shadow">
+                        <label class="control-label w-100" for="height">
+                            Doctor Specialization
+                        </label>
+
+                        <div class="col-md-12 col-xs-12">
+                            <select class="form-control pr-0">
+                                <option>
+                                    General Physician
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group modal_shadow">
+                        <label class="control-label w-100" for="height">
+                            Phone Number
+                        </label>
+
+                        <div class="col-md-12 col-xs-12">
+                            <input class="form-control pr-0" placeholder="0000000000" />
+
+                        </div>
+                    </div>
+                    <div class="form-group modal_shadow">
+                        <label class="control-label w-100" for="height">
+                            Hospital
+                        </label>
+
+                        <div class="col-md-12 col-xs-12">
+                            <input class="form-control pr-0" placeholder="Enter Hospital's Name" />
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer modal_border">
+                    <button type="button" class="btn add_btn">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+    <div class="col-md-12 card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-7">
+                    <h4>Follow Up</h4>
+                </div>
+            </div>
+        </div>
+        <div class="card-body listOfcard listOfcardLast-child bg-primary">
+            <ul class="pl-0">
+                <div class="row follow_up_padding">
+                    <label class="col-sm-3 col-xs-4 py-3x pl-3x pr-2"> Follow up After</label>
+                    <input type="number" min="1" class="col-sm-3 col-xs-5 p-3x form-control">
+                    <label class="col-sm-6 col-xs-3 py-3x pr-3x pl-2">Days</label>
+                </div>
+                <div class="row follow_up_padding">
+                    <label for="discount" min="0" max="100" class="col-sm-3 col-xs-4 py-3x pl-3x pr-2">
+                        Discount</label>
+                    <input type="number" style="width:25%" class="col-sm-3 col-xs-5 p-3x form-control">
+                    <label class="col-sm-6 col-xs-3 py-3x pr-3x pl-2">%</label>
+                </div>
+                <div class="row follow_up_padding">
+                    <label for="followUpcomments" class="col-sm-3 col-xs-4 py-3x pl-3x pr-2"> Comments </label>
+                    <textarea type="text" class="col-sm-5 col-xs-7 py-3x pl-3x pr-2 form-control"></textarea>
+                    <div class="col-sm-3 col-xs-3">
+                        <button class="btn-style">Remove</button>
+                    </div>
+
+                </div>
+            </ul>
+        </div>
+    </div> -->
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="symptomprescriptionmodel" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [class.modal-dialog-centered]="modelView=='diagnosis'"
+        [style.width]="modelView=='diagnosis'?('335px'):'auto'" role="document">
+        <div class="modal-content">
+            <div *ngIf="modelView=='symptonsNote'">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" id="adviceremarks" style="width: 100%; height: 200px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                    <button type="button" class="btn btn-primary" (click)="onClickSymptonRemarks()">Add Remarks</button>
+                </div>
+            </div>
+            <div *ngIf="modelView=='diagnosis'">
+                <div class="modal-body row" style="text-align: center">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default" style="width:100px"
+                            (click)="onClickDiagnosis(false)">Provisional</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default" style="width:100px"
+                            (click)="onClickDiagnosis(true)">Final</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

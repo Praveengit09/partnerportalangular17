@@ -1,0 +1,182 @@
+@import "../../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+
+.transform_txt002 {
+    svg .nv-controlsWrap {
+        display: none;
+    }
+
+    .yAxis.tick {
+        display: none;
+    }
+}
+
+.poc_revenue {
+    padding: 20px 6px;
+    margin-top: 10px;
+
+    .d-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .all_card {
+        border-radius: 4px;
+        padding: 0px;
+    }
+
+    .top_header {
+        background-color: white;
+        margin: 0px 10px;
+        padding: 2rem 1rem 1rem;
+        border-bottom: 1px solid #EDEEF0;
+        border-radius: 4px 4px 0px 0px;
+    }
+
+    .icon_logo img {
+        width: 80px;
+        height: 25.08px;
+
+    }
+
+    .poc_revenue_card {
+        background: #F9F9FA;
+        border-radius: 1px;
+        padding: 1rem;
+        margin: 0px 10px;
+        border-radius: 0px 0px 4px 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .doctor_consluts {
+        background: #FAE6DE;
+        border-radius: 1px;
+        padding: 1rem;
+        margin: 0px 10px;
+        border-radius: 0px 0px 4px 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .performing_percentage_card-1 {
+        background: #ECFDF5;
+        border-radius: 1px;
+        padding: 1rem;
+        margin: 0px;
+        border-radius: 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+        h5 {
+            font-weight: 600;
+        }
+    }
+
+    .performing_percentage_card-2 {
+        background: linear-gradient(0deg, #FEE2E2, #FEE2E2),
+            linear-gradient(0deg, #FCA5A5, #FCA5A5);
+        border-radius: 1px;
+        padding: 1rem;
+        margin: 10px 0px;
+        border-radius: 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+        h5 {
+            font-weight: 600;
+        }
+    }
+
+    .percentage_green {
+        color: #059669 !important;
+        font-weight: 800;
+    }
+
+    .percentage_red {
+        color: #DC2626 !important;
+        font-weight: 800;
+    }
+
+    h1,
+    span {
+        font-weight: 600;
+        font-size: 15px;
+        color: #626C74;
+    }
+
+    .percentage_revenue_card {
+        background-color: white;
+        border-radius: 1px;
+        padding: 7px;
+        margin: 7px 0px;
+        border-radius: 2px;
+
+        h6 {
+            font-weight: 800;
+        }
+    }
+
+    .revenue_card {
+        background-color: white;
+        border-radius: 1px;
+        padding: 10px;
+        margin: 7px 0px;
+        border-radius: 2px;
+
+        p {
+            font-size: 15px;
+            color: #626C74;
+            font-weight: 600;
+        }
+
+        h2,
+        h6 {
+            font-weight: 700;
+            color: #41484D;
+        }
+
+        h4,
+        small {
+            font-weight: 400;
+        }
+
+        h5 {
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 20px;
+            color: #41484D;
+        }
+    }
+
+    //.transform_txt002{
+    // svg .nv-controlsWrap {
+    // display: none;
+    // }
+    //}
+
+}
+
+@media screen and (max-width: 991px) {
+    .poc_revenue {
+        padding: 12px 14px;
+
+        .poc_revenue_card,
+        .doctor_consluts {
+            margin: 0px;
+        }
+
+        .top_header {
+            margin-top: 2rem !important;
+            margin: 0px;
+        }
+
+        .performing_percentage_card-1,
+        .performing_percentage_card-2 {
+            margin: 2rem 0px 0px;
+        }
+
+        .zero_padding {
+            padding: 0px;
+        }
+    }
+}

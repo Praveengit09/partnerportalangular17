@@ -1,0 +1,153 @@
+<div class="table_size">
+    <h1 class="page-title">POC Information</h1>
+    <section class="widget_poc" widget="">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6 pocname_txt">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="!this.pocDetails.pocLogo">
+                        <img alt="..." class="poc_img" src="assets/img/ic-poc-list.png">
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="this.pocDetails.pocLogo">
+                        <img alt="..." class="poc_img" src={{this.pocDetails.pocLogo}}>
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <p class="prinston_txt">{{pocDetails.pocName}}</p>
+                        <p class="serial_number">{{pocDetails.licenseInfo}}</p>
+                        <span class="serial_number"> {{pocDetails.address.address1}},{{pocDetails.address.address2}}
+                        </span>
+                        <p class="serial_number">{{pocDetails.locality}},{{pocDetails.address.cityName}}</p>
+                        <p class="serial_number">{{pocDetails.address.pinCode}}</p>
+                        <div class="row">
+                            <div class="col-md-1 col-sm-1 col-xs-1">P:</div>
+                            <div class="col-md-8 col-sm-8 col-xs-8">
+                                <div class="row serial_number">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 mobil_numbertxt">+91
+                                        {{pocDetails.contactList}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="serial_number">E: {{pocDetails.email}}</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-6 pocname_txt">
+                <span class="viewedit_button">
+                    <button class="view_employees view_emptxt" (click)='onPocViewEmployee()'>VIEW EMPLOYEES</button>
+                    <button class="view_employees" (click)='onEditPoc()'>EDIT POC</button>
+                </span>
+            </div>
+        </div>
+    </section>
+    <h5 class="poc_service" *ngIf="pocDetails.serviceList != undefined && pocDetails.serviceList.length>0">Service
+        Portfolio</h5>
+    <div class="row service_details">
+        <ng-container *ngFor="let item of serviceKey">
+            <section class="service col-md-4" *ngIf="(getValue(item))">
+
+                <div class="service_poctxt">
+
+                    <p class="medical_services">{{serviceRole[item-1]}}</p>
+                    <hr>
+                    <div class="service_pocdetail">
+                        <div *ngFor="let item1 of getValue(item)" class="cardiology_txt">
+                            <div class="medical_test">{{item1.serviceName}}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </ng-container>
+
+    </div>
+
+    <div *ngIf="this.pocDetails.agreement != undefined">
+        <h5 class="poc_service">Partner Agreement</h5>
+        <section class="service row">
+            <div class="col-md-12 col-sm-12 col-xs-12 partner_poctxt">
+                <div class="row cardiology_txt" *ngIf="pocDetails.agreement.margin.hsMargin!=0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">HS Margin</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">{{pocDetails.agreement.margin.hsMargin}}
+                    </div>
+                </div>
+                <div class="row cardiology_txt" *ngIf="pocDetails.agreement.subscriptionFee!=0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Subscription Fee </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">{{pocDetails.agreement.subscriptionFee}}
+                    </div>
+                </div>
+                <!-- <div class="row cardiology_txt" *ngIf="pocDetails.agreement.margin.hsConsultationMargin!=0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Consultation Margin</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        {{pocDetails.agreement.margin.hsConsultationMargin}}</div>
+                </div> -->
+                <div class="row cardiology_txt" *ngIf="pocDetails.agreement.margin.walkinConsultationMargin!=0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Walkin Consultation Margin</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        {{pocDetails.agreement.margin.walkinConsultationMargin}}</div>
+                </div>
+                <div class="row cardiology_txt" *ngIf="pocDetails.agreement.margin.walkinPharmacyMargin!=0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Pharmacy Margin</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        {{pocDetails.agreement.margin.walkinPharmacyMargin}}</div>
+                </div>
+                <div class="row cardiology_txt" *ngIf="pocDetails.agreement.margin.procedureMargin!=0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Procedure Margin</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        {{pocDetails.agreement.margin.procedureMargin}}</div>
+                </div>
+                <div class="row cardiology_txt" *ngIf="pocDetails.agreement.margin.immunizationMargin!=0">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Immunization Margin</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        {{pocDetails.agreement.margin.immunizationMargin}}</div>
+                </div>
+                <div class="row cardiology_txt"
+                    *ngIf="this.pocDetails.cdssOptions.brandDefaults == true || this.pocDetails.cdssOptions.brandSpecific == true || this.pocDetails.cdssOptions.doctorSpecific == true">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">CDSS Options</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        <p *ngIf="this.pocDetails.cdssOptions.brandDefaults == true">Brand Defaults</p>
+                        <p *ngIf="this.pocDetails.cdssOptions.brandSpecific == true">Brand Specific</p>
+                        <p *ngIf="this.pocDetails.cdssOptions.doctorSpecific == true">Doctor Specific</p>
+                    </div>
+                </div>
+                <div class="row cardiology_txt">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Can Doctor change CDSS Options?</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        <p>{{this.pocDetails.cdssOptions.doctorEditable?'YES':'NO'}}</p>
+                    </div>
+                </div>
+                <div class="row cardiology_txt">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Agreement validity</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        {{pocDetails.fromDate | date: 'dd/MM/yyyy'}} - {{pocDetails.toDate | date: 'dd/MM/yyyy'}}
+                    </div>
+                </div>
+                <div class="row cardiology_txt">
+                    <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Participating in Packages</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 medical_testnumber">
+                        <p
+                            *ngIf="this.pocDetails.agreement.packageIdList != undefined && this.pocDetails.agreement.packageIdList.length>0">
+                            YES</p>
+                        <p *ngIf="packageList == 0">NO</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div *ngIf="packageList.length>0">
+        <h5 class="poc_service">Packages Associated with the POC</h5>
+        <div>
+            <div class="row partner_poctxt1">
+                <div *ngFor="let selectedpackage of packageList" class="col-md-2">
+
+                    <img src="{{selectedpackage.portalThumbnailUrl}}" class="img-responsive packagelist_img">
+
+                    <div class="pull-left">
+                        <h5 class="package_title">{{selectedpackage.name}}</h5>
+                    </div>
+                    <!-- <div class="clearfix"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

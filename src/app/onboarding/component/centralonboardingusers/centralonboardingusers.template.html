@@ -1,0 +1,50 @@
+<hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+
+<h1 class="page-title">Central Onboarding Orders</h1>
+<div class="row">
+   
+        <div class="form-group col-lg-3 col-sm-4">
+            <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker" (dateChange)="startDateChoosen($event)"
+                [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+        </div>
+        <div class="form-group col-lg-3 col-sm-4">
+            <datetime [(value)]="endingDate" [placeholder]="'End Date'" name="endDate" id="datepicker2" (dateChange)="endDateChoosen($event)"
+                [timepicker]="false" [datepicker]="datepickerOptEnd"></datetime>
+        </div>
+        <div class="form-group col-lg-2 col-sm-4 submit_btn">
+            <button type="submit" class="btn btn-danger width-100" role="button" (click)="onSubmitDate()">
+                Submit
+            </button>
+        </div>
+    
+    <div class="col-lg-4 col-sm-6">
+        <h6 class ='filter_txt filter-section'>Filter by Interaction Status</h6>
+      <select class="form-control set_width" [(ngModel)]="filterInteractionStatus" [ngModelOptions]="{standalone : true}"  
+        (change)="onChangeStatus($event.target.value)">
+            <option *ngFor="let item of interactionStatusList;let j = index" [value]='item'>{{item}}</option>
+        </select>
+    </div>
+    
+   
+</div>
+<div class="row mt-1">
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="centralOnboardingOrdersList" [sort]="sorting"
+                    [componentId]="'centralOnboardingOrdersListTable'" (clickEvent)="clickEventHandler($event)"
+                    [perPage]="perPage" [total]="total" [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<customer_review_modal [modalTitle] = "'Add Customer Review'" [hasTypeCheck] = 'true' [interactionStatus] = 'interactionStatus' [modalId] = 'modalId'
+[checkDoctorBooking] = 'doctorType' [checkDiagnosticBooking] = 'diagnosticType'  [previousComments] = 'this.userData?.comments' 
+(addInteractionStatusEvent) = "addInteractionStatus($event)" [errorMessage] = 'error'
+(onRemarkSubmitEvent) = "onSubmit($event)" (checkBookingTypeEvent) = 'checkType($event)'></customer_review_modal>
+
+<spinner-component></spinner-component>

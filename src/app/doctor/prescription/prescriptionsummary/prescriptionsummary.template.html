@@ -1,0 +1,861 @@
+<div
+    *ngIf="(modelView==''&& (isFrom=='pastPrescription' ||isFrom=='videoprescription' || isFrom=='templateView') )||isFrom==''">
+    <div class="row">
+        <!-- <div class="col-12" style="width:150%">
+            <h1 class="mb10">Summary</h1>
+        </div> -->
+        <div class="col-lg-12">
+            <ul class="list-unstyled list-group mb-2">
+                <li *ngIf="isFrom!='templateView'" class="list-group-item"><span class="small">Patient Details</span> :
+                    <strong>{{displayMedicalAdvice.patientTitle?displayMedicalAdvice.patientTitle+'. ':''}}
+                        {{displayMedicalAdvice.patientFirstName}}
+                        {{displayMedicalAdvice.patientLastName?displayMedicalAdvice.patientLastName:''}},
+                        {{displayMedicalAdvice.patientGender}},
+                        {{patientAge}},{{displayMedicalAdvice.patientContactNumber}}</strong>
+                </li>
+                <li class="list-group-item" *ngIf="displayMedicalAdvice.symptomList.length>0 && isFrom!='templateView'">
+                    <span class="small">
+                        Presenting Complaints
+                    </span> :
+                    <strong *ngFor="let symptom of displayMedicalAdvice.symptomList;let i=index">{{i==0?'':','}}
+                        {{symptom.name}}{{symptom.doctorRemarks?(' ('+symptom.doctorRemarks+')'):''}}</strong>
+                </li>
+                <li class="list-group-item"
+                    *ngIf="displayMedicalAdvice.clinicalExaminationList.length>0 && isFrom!='templateView'">
+                    <span class="small">
+                        Clinical Examination
+                    </span> :
+                    <strong
+                        *ngFor="let clinicalExamination of displayMedicalAdvice.clinicalExaminationList;let i=index">{{i==0?'':','}}
+                        {{clinicalExamination.name}}</strong>
+                </li>
+
+                <li class="list-group-item" *ngIf="displayMedicalAdvice.diagnosisList.length>0">
+                    <span class="small">Diagnosis</span> :
+                    <strong *ngFor="let diagnosis of displayMedicalAdvice.diagnosisList;let i=index">{{i==0?'':','}}
+                        {{diagnosis.name}} ({{diagnosis.finalDiagnosis?'Final':'Provisional'}})</strong>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div *ngIf="displayMedicalAdvice.pharmacyAdvises">
+        <div class="row mb-1" *ngIf="displayMedicalAdvice.pharmacyAdvises.pharmacyAdviceList.length>0">
+            <div class="col-6 col-md-6 col-xl-4">
+                <h5>Pharmacy Advice</h5>
+            </div>
+            <div class="col-2 col-md-2 col-xl-2"></div>
+            <div class="dropdown col-4 col-md-4 col-xl-6">
+                <button class="btn btn-secondary dropdown-toggle dropDownBtn" id="pharmacyPartnersPOCDropdown"
+                    type="button" data-toggle="dropdown" *ngIf="!isFrom" [disabled]="isFrom!=''"
+                    (mouseover)="toggleDropdown('#pharmacyPartnersPOCDropdown')">
+                    <label>
+                        <span>{{getSelectedPharmacyAdvisesPOCName()}} </span>
+                    </label>
+
+                    <!-- {{pharmacyPartner.details.pocName}}
+                        Jai Anjanaye Dignocstic Center new farm style="width: 150px" style="left: 0px; -->
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu " *ngIf="pharmacyPartners"
+                    style="left: -13px; width: 100%; position: absolute; padding-left: 5px;">
+                    <li *ngFor="let poc of pharmacyPartners;let i=index">
+                        <input type="checkbox" id="pharmacyPartnerpoc{{i}}"
+                            (change)="changeOfSelectedPharmacyPartners(i,poc)"
+                            [checked]="(indexOfPOCWithRouteToInvestigation(displayMedicalAdvice.pharmacyAdvises.routedToPoc,poc)!=-1)"
+                            value="{{(indexOfPOCWithRouteToInvestigation(displayMedicalAdvice.pharmacyAdvises.routedToPoc,poc)!=-1)}}">
+                        <label for="pharmacyPartnerpoc{{i}}">{{poc.details.pocName}}</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="displayMedicalAdvice.pharmacyAdvises.pharmacyAdviceList.length>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading prescription_summarywidget widget-shadow">
+                    <div class="table-responsive table-datalabel">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Medicine</th>
+                                    <th scope="col">Strength</th>
+                                    <th scope="col">Dosage</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Frequency</th>
+                                    <th scope="col">Food Info</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let pharmacyAdvise of displayMedicalAdvice.pharmacyAdvises.pharmacyAdviceList">
+                                    <td data-label="Medicine" scope="row">
+                                        <div class="tabledatalabel-right">{{pharmacyAdvise.productName}}
+                                            {{pharmacyAdvise.drugForm?('('+pharmacyAdvise.drugForm+')'):''}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Strength">
+                                        <div class="tabledatalabel-right">
+                                            {{pharmacyAdvise.medicineStrength?pharmacyAdvise.medicineStrength:'--'}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Dosage">
+                                        <div class="tabledatalabel-right">{{pharmacyAdvise.doseLabel}}</div>
+                                    </td>
+                                    <td data-label="Duration">
+                                        <div class="tabledatalabel-right">{{ ((pharmacyAdvise.duration) &&
+                                            (pharmacyAdvise.duration.repeatTimes) )
+                                            ?(pharmacyAdvise.duration.repeatTimes)+' Days'
+                                            :((pharmacyAdvise.isSOS)?'SOS':'--') }}</div>
+                                    </td>
+                                    <td data-label="Frequency">
+                                        <div class="tabledatalabel-right">{{ (pharmacyAdvise.duration &&
+                                            pharmacyAdvise.duration.frequencyLabel ) ?
+                                            pharmacyAdvise.duration.frequencyLabel :
+                                            pharmacyAdvise.duration.frequencyDays }}</div>
+                                    </td>
+                                    <td data-label="Food Info">
+                                        <div class="tabledatalabel-right">{{pharmacyAdvise.takenWhenFood}}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="displayMedicalAdvice.investigationAdvises">
+        <div class="row mb-1" *ngIf="displayMedicalAdvice.investigationAdvises.investigationList.length>0">
+            <div class="col-6 col-md-6 col-xl-4">
+                <h5>Investigation Advice</h5>
+            </div>
+            <div class="col-2 col-md-2  col-xl-2"></div>
+            <div class="dropdown col-4 col-md-4 col-xl-6">
+                <button class="btn btn-secondary dropdown-toggle dropDownBtn" id="investigationPartnersPOCDropdown"
+                    type="button" *ngIf="!isFrom" [disabled]="isFrom!=''" data-toggle="dropdown"
+                    (mouseover)="toggleDropdown('#investigationPartnersPOCDropdown')">
+                    <label>
+                        <span>{{getSelectedInvestigationAdvisesPOCName()}}</span>
+                    </label>
+                    <span class="caret"></span>
+                </button>
+
+
+
+                <ul class="dropdown-menu " *ngIf="investigationPartners"
+                    style="left: -13px; width: 100%; position: absolute; padding-left: 5px;">
+                    <li *ngFor="let poc of investigationPartners;let i=index">
+                        <input type="checkbox" id="investigationPartnerpoc{{i}}"
+                            (change)="changeOfSelectedInvestigationPartners(i,poc)"
+                            [checked]="(indexOfPOCWithRouteToInvestigation(displayMedicalAdvice.investigationAdvises.routedToPoc,poc)!=-1)"
+                            value="{{(indexOfPOCWithRouteToInvestigation(displayMedicalAdvice.investigationAdvises.routedToPoc,poc)!=-1)}}">
+                        <label for="investigationPartnerpoc{{i}}">{{poc.details.pocName}}</label>
+                    </li>
+                </ul>
+                <!-- <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">{{investigationPartner.details.pocName}}
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" *ngIf="investigationPartners">
+                    <li *ngFor="let poc of investigationPartners"><a (click)="investigationPartner=poc">{{poc.details.pocName}}</a></li>
+                </ul> -->
+            </div>
+        </div>
+        <div class="row" *ngIf="displayMedicalAdvice.investigationAdvises.investigationList.length>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Test Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let investigation of displayMedicalAdvice.investigationAdvises.investigationList;let i=index">
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>
+                                        <span>
+                                            {{investigation.serviceName}} {{enableInvestigationNotes &&
+                                            investigation.remarks?'('+investigation.remarks+')':''}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="displayMedicalAdvice.procedureList">
+        <div class="row" *ngIf="displayMedicalAdvice.procedureList.length>0">
+            <div class="col-6">
+                <h5>{{procedurePrescriptionLabel ?
+                    procedurePrescriptionLabel: 'Procedure'}}</h5>
+            </div>
+        </div>
+        <div class="row" *ngIf="displayMedicalAdvice.procedureList.length>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">{{procedurePrescriptionLabel ?
+                                        procedurePrescriptionLabel: 'Procedure'}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let procedure of displayMedicalAdvice.procedureList;let i=index">
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>
+                                        <span>
+                                            {{procedure.serviceName}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="displayMedicalAdvice.nonMedicationAdvises">
+        <div class="row" *ngIf="displayMedicalAdvice.nonMedicationAdvises.length>0">
+            <div class="col-6">
+                <h5>{{nonMedicationPrescriptionLabel?
+                    nonMedicationPrescriptionLabel:'Non-Medication'}}</h5>
+            </div>
+        </div>
+        <div class="row" *ngIf="displayMedicalAdvice.nonMedicationAdvises.length>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">{{nonMedicationPrescriptionLabel?
+                                        nonMedicationPrescriptionLabel:'Non-Medication'}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let nonMedication of displayMedicalAdvice.nonMedicationAdvises;let i=index">
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>
+                                        <span>
+                                            {{nonMedication.title}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="displayMedicalAdvice.admissionNote">
+        <div class="row" *ngIf="displayMedicalAdvice.admissionNote.procedureList.length>0">
+            <div class="col-6">
+                <h5>{{admissionNotePrescriptionLabel ?
+                    admissionNotePrescriptionLabel : 'Admission Note'}}</h5>
+            </div>
+        </div>
+        <div class="row" *ngIf="displayMedicalAdvice.admissionNote.procedureList.length>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">{{admissionNotePrescriptionLabel ?
+                                        admissionNotePrescriptionLabel : 'Admission Note'}}</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr
+                                    *ngFor="let Procedure of displayMedicalAdvice.admissionNote.procedureList;let i=index">
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>
+                                        <span>
+                                            {{Procedure.serviceName}}
+                                        </span>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-striped mb-0">
+                            <tbody>
+                                <tr *ngIf="displayMedicalAdvice.admissionNote.admissionDateFrom">
+                                    <td>
+                                        <span>
+                                            From Date
+                                            :{{commonUtil.convertToDate(displayMedicalAdvice.admissionNote.admissionDateFrom)}}
+                                        </span>
+                                        <span *ngIf="displayMedicalAdvice.admissionNote.admissionDateTo">
+                                            To Date
+                                            :{{commonUtil.convertToDate(displayMedicalAdvice.admissionNote.admissionDateTo)}}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="displayMedicalAdvice.admissionNote.note">
+                                    <td>
+                                        Note: {{displayMedicalAdvice.admissionNote.note}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="displayMedicalAdvice.immunizationAdvices">
+        <div class="row" *ngIf="displayMedicalAdvice.immunizationAdvices.length>0">
+            <div class="col-6">
+                <h5>Immunization</h5>
+            </div>
+        </div>
+        <div class="row" *ngIf="displayMedicalAdvice.immunizationAdvices.length>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Immunization</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let immunization of displayMedicalAdvice.immunizationAdvices;let i=index">
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>
+                                        <span>
+                                            {{immunization.genericMedicine.genericMedicineName}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            {{commonUtil.convertToDate(immunization.followupDate)}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="displayMedicalAdvice.referralDoctorList">
+        <div class="row" *ngIf="displayMedicalAdvice.referralDoctorList.length>0">
+            <div class="col-6">
+                <h5>Referral Doctor</h5>
+            </div>
+        </div>
+        <div class="row" *ngIf="displayMedicalAdvice.referralDoctorList.length>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Doctor</th>
+                                    <th scope="col">Specialization</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let referralDoctor of displayMedicalAdvice.referralDoctorList;let i=index">
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>
+                                        <span>
+                                            {{referralDoctor.doctorDetail.title}}
+                                            {{referralDoctor.doctorDetail.firstName}}
+                                            {{referralDoctor.doctorDetail.lastName?referralDoctor.doctorDetail.lastName:''}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            {{referralDoctor.doctorDetail?.serviceList[0]?.serviceName}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        *ngIf="displayMedicalAdvice.followupAdvices && displayMedicalAdvice.followupAdvices[0]&&(displayMedicalAdvice.followupAdvices[0]!=undefined)&&(displayMedicalAdvice.followupAdvices[0]!=null)">
+        <div class="row"
+            *ngIf="displayMedicalAdvice.followupAdvices.length>0&&displayMedicalAdvice.followupAdvices[0].validityDays>0">
+            <div class="col-6">
+                <h5>Followup Advice </h5>
+            </div>
+        </div>
+        <div class="row"
+            *ngIf="displayMedicalAdvice.followupAdvices.length>0&&displayMedicalAdvice.followupAdvices[0].validityDays>0">
+            <div class="col-lg-12">
+                <div class="widget table_pading">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Visit WithIn</th>
+                                    <th scope="col">Discount</th>
+                                    <th scope="col">Comment</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let followup of displayMedicalAdvice.followupAdvices;let i=index">
+                                    <td>
+                                        <span>
+                                            {{followup.validityDays}} {{followup.validityDays>0?'Days':''}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            {{followup.discountPercent}} {{followup.discountPercent>0?'%':''}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            {{followup.title}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" style="width:100%;padding: 15 px">
+            <form *ngIf="isFrom!='templateView'">
+                <div class="form-group">
+                    <label for="prescription_notes">Add Note</label>
+                    <textarea class="form-control" id="prescription_notes" placeholder="Add a note"
+                        [value]="textAdvise.title" [disabled]="isFrom!=''" (change)="addNoteForAdvice()"
+                        rows="3"></textarea>
+                </div>
+                <div *ngIf="enableDoctorNotes" class="form-group">
+                    <label for="prescription_notes">Doctor to Doctor Note</label>
+                    <textarea class="form-control" id="docprescription_notes" autofocus placeholder="Add a note"
+                        [value]="doctorTextAdvise.title" (change)="addDoctorNoteForAdvice()" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prev_prescriptions{{displayMedicalAdviceModelId}}">Upload Advice</label>
+                    <div class="file-upload">
+                        <div class="file-select">
+                            <div
+                                *ngIf="(isFrom=='') && displayMedicalAdvice.uploadedFileList.length>=MAX_FILES_COUNT_ADVICE">
+                                Uploaded maximum no of files</div>
+                            <div class="file-select-button" (click)="onClickUploadFiles('#chooseFileForAdvice')"
+                                *ngIf="(isFrom=='') && displayMedicalAdvice.uploadedFileList.length<MAX_FILES_COUNT_ADVICE">
+                                SELECT FILE</div>
+                            <div class="file-select-name">
+                                <span *ngIf="displayMedicalAdvice.uploadedFileList.length<=0">No file uploaded</span>
+                                <div *ngFor="let url of displayMedicalAdvice.uploadedFileList;let i=index"
+                                    class="namelink" (click)="openUrlInNewTab(url)">
+                                    advice{{i+1}}{{getFileExtensionFromUrl(url)}}
+                                    <i *ngIf="isFrom==''" class="icon ion-md-close-circle remove"
+                                        (click)="removeAdviceFile(i)"></i>
+                                </div>
+                            </div>
+                            <input type="file" multiple
+                                *ngIf="(isFrom=='') && displayMedicalAdvice.uploadedFileList.length<MAX_FILES_COUNT_ADVICE"
+                                name="chooseFileForAdvice" accept="{{imageExtentions.concat(['.pdf']).join(',')}}"
+                                id="chooseFileForAdvice"
+                                (change)="fileUpload($event,displayMedicalAdvice.uploadedFileList,MAX_FILES_COUNT_ADVICE,imageExtentions.concat(['.pdf']));">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="chooseFileForClinicalExamination">Clinical Examination </label>
+                    <div class="file-upload">
+                        <div class="file-select">
+                            <div
+                                *ngIf="(isFrom=='') && displayMedicalAdvice.uploadedClinicalExaminationFileList.length>=MAX_FILES_COUNT_CLINICAL">
+                                Uploaded maximum no of files</div>
+                            <div class="file-select-button"
+                                (click)="onClickUploadFiles('#chooseFileForClinicalExamination')"
+                                *ngIf="(isFrom=='') && displayMedicalAdvice.uploadedClinicalExaminationFileList.length<MAX_FILES_COUNT_CLINICAL">
+                                SELECT FILE</div>
+                            <div class="file-select-name">
+                                <span *ngIf="displayMedicalAdvice.uploadedClinicalExaminationFileList.length<=0">No file
+                                    uploaded</span>
+                                <div *ngFor="let url of displayMedicalAdvice.uploadedClinicalExaminationFileList;let i=index"
+                                    class="namelink" (click)="openUrlInNewTab(url)">
+                                    ClinicalExamination{{i+1}}{{getFileExtensionFromUrl(url)}}
+                                    <i *ngIf="isFrom==''" class="icon ion-md-close-circle remove"
+                                        (click)="removeClinicalExamination(i)"></i>
+                                </div>
+                            </div>
+                            <input type="file" multiple
+                                *ngIf="(isFrom=='') && displayMedicalAdvice.uploadedClinicalExaminationFileList.length<MAX_FILES_COUNT_CLINICAL"
+                                name="chooseFileForClinicalExamination" accept="{{imageExtentions.join(',')}}"
+                                id="chooseFileForClinicalExamination"
+                                (change)="fileUpload($event,displayMedicalAdvice.uploadedClinicalExaminationFileList,MAX_FILES_COUNT_CLINICAL);">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer" *ngIf="!isFooterHidden">
+        <!-- <div class="form-check" *ngIf="isFrom!='templateView'">
+            <input class="form-check-input" type="checkbox" id="save_template" (change)="saveAdviceAsTemplate()">
+            <label class="form-check-label" for="save_template">Save Advice as Template</label>
+        </div> -->
+
+
+        <ul class="list-inline">
+            <li class="list-inline-item mb-xs"><button type="button"
+                    *ngIf="isFrom=='pastPrescription'||isFrom=='templateView'" class="btn btn-outline-info"
+                    data-toggle="tooltip" data-placement="top"
+                    title="{{isFrom=='templateView'?'Copy will also include selected diagnosis':'Copy will append with all selected one'}}"
+                    (click)="copyAndModify()">Copy &amp;
+                    Modify Advice</button></li>
+            <button
+                *ngIf="!this.isFromDigitization && isFrom!='templateView' && displayMedicalAdvice.diagnosisList && displayMedicalAdvice.diagnosisList.length > 0"
+                data-toggle="tooltip" data-placement="top"
+                title="{{isFrom!=''?'Advice will also include selected symptoms,clinical Examinations & diagnosis':'Generate medical advice'}}"
+                type="button" class="btn btn-info" (click)="saveAdviceAsTemplate()">Save as Template & Generate
+                Advice</button>
+            <li class="list-inline-item mt-xs">
+                <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top"
+                    title="{{isFrom!=''?'Advice will also include selected symptoms,clinical Examinations & diagnosis':'Generate medical advice'}}"
+                    (click)="openModal('#modelprescriptionsummary');modelView='adviceconfirmation'">
+                    Generate Advice
+                </button>
+
+                <button type="button" class="btn btn-info" *ngIf="isCaseSheet()" data-toggle="tooltip"
+                    data-placement="top"
+                    title="{{isFrom!=''?'Case Sheet will also include selected symptoms,clinical Examinations & diagnosis':'Generate Casesheet'}}"
+                    (click)="openModal('#modelprescriptionsummary');modelView='caseSheetconfirmation'">Generate
+                    CaseSheet
+                </button>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<!-- <div class="casesheet mt-2">
+    <div class="row">
+        <div class="col-md-2">
+            <p>AR</p>
+        </div>
+        <div class="col-md-5">
+            <p>Right: <span></span></p>
+        </div>
+        <div class="col-md-5">
+            <p>Left: <span></span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Present Glasses Power <span></span></p>
+        </div>
+        <div class="col-md-6">
+            <p>Present Glasses Duration <span></span></p>
+        </div>
+    </div>
+    <section class="widget table_pading" widget="">
+        <div class="widget-body table-responsive table-datalabel widget-shadow">
+            <table class="table table-hover table-striped table-bordered hs_tabletxt mb-0">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>SPHERE</th>
+                        <th>CYL</th>
+                        <th>AXIS</th>
+                        <th>ADD</th>
+                        <th>CVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Right</div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Left</div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <p class="mt-3">Subjective Correction</p>
+    <section class="widget table_pading" widget="">
+        <div class="widget-body table-responsive table-datalabel widget-shadow">
+            <table class="table table-hover table-striped table-bordered hs_tabletxt mb-0">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>UVA</th>
+                        <th>SPHERE</th>
+                        <th>CYL</th>
+                        <th>AXIS</th>
+                        <th>ADD</th>
+                        <th>CVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Right</div>
+                        </td>
+                        <td data-label="UVA">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Left</div>
+                        </td>
+                        <td data-label="UVA">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><span></span></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <p>
+                Dominent Eye:
+                <label>RE <input type="checkbox" /></label>&nbsp;&nbsp;
+                <label>LE <input type="checkbox" /></label>
+            </p>
+            <section class="widget table_pading" widget="">
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table table-hover table-striped table-bordered hs_tabletxt mb-0">
+                        <thead>
+                            <tr>
+                                <th>IOP</th>
+                                <th>Right Eye</th>
+                                <th>Left Eye</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="IOP">
+                                    <div class="tabledatalabel-right">NCT</div>
+                                </td>
+                                <td data-label="Right Eye">
+                                    <div class="tabledatalabel-right"><span></span></div>
+                                </td>
+                                <td data-label="Left Eye">
+                                    <div class="tabledatalabel-right"><span></span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="IOP">
+                                    <div class="tabledatalabel-right">AT</div>
+                                </td>
+                                <td data-label="Right Eye">
+                                    <div class="tabledatalabel-right"><span></span></div>
+                                </td>
+                                <td data-label="Right Eye">
+                                    <div class="tabledatalabel-right"><span></span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <p>SAC Washout(Syringing):</p>
+            <p>RE: <span></span></p>
+            <p>LE: <span></span></p>
+        </div>
+    </div>
+
+    <p class="mt-3">OCULAR EXAMINATION</p>
+    Ocular Movements:
+    <label class="ocular_movementlabel">FULL <input type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">Restricted <input type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">RCS <input type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">RCS <input type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">RDS <input type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">LCS <input type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">LDS <input type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">Others <input type="checkbox" value="" /></label>
+</div> -->
+
+<spinner-component></spinner-component>
+
+<div class="modal" style=" overflow-y: auto !important" id="modelprescriptionsummary" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [class.modal-dialog-centered]="modelView=='diagnosis'"
+        [style.width]="modelView=='diagnosis'?('250px'):'auto'" role="document">
+        <div class="modal-content">
+
+
+            <div *ngIf="modelView=='saveTemplate'">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Save as Prescription Template</h5>
+                    <button type="button" class="close" (click)="hideModel('#modelprescriptionsummary')"
+                        aria-label="Close">
+                        <span aria-hidden="true">Close &times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <label class="col-3" for="saveTemplateTitle">Enter title for Prescription Template</label>
+                    <input class="col-9" type="text" class="form-control" id="saveTemplateTitle" />
+
+                </div>
+                <div class="modal-footer">
+                    <div class="alert alert-danger " *ngIf="errorMessage!=''" style="text-align:center">
+                        {{errorMessage}}
+                    </div>
+                    <button type="button" class="btn btn-secondary"
+                        (click)="hideModel('#modelprescriptionsummary')">Discard</button>
+                    <button type="button" class="btn btn-primary" (click)="saveTemplate()">Save Template & Generate
+                        Advice</button>
+                </div>
+            </div>
+
+
+            <ng-container *ngIf="modelView=='adviceconfirmation' || modelView=='caseSheetconfirmation'">
+                <div class="modal-header">
+                    <div class="h6">
+                        Do want to generate {{modelView=='adviceconfirmation'?'advice':''}}
+                        {{modelView=='caseSheetconfirmation'?'case sheet':''}}?
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center">
+                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 col-6">
+                            <button type="button" class="btn btn-default" style="width:100px"
+                                (click)="checkWHOConditionsAndGeneratePrescription(modelView=='caseSheetconfirmation')">Yes</button>
+                        </div>
+                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 col-6">
+                            <button type="button" class="btn btn-default" style="width:100px"
+                                (click)="hideModal('#modelprescriptionsummary');modelView=''">No</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modelwhophrquestions" role="dialog">
+    <div class="modal-dialog phrans">
+        <div class="modal-content">
+            <h4 class="modal-title">WHO QUESTIONARE</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div *ngFor="let item of question ;let i=index">
+                    <ul>
+                        <li>
+                            <span> {{item.text}}</span>
+                            <br>&nbsp;
+                            <input type="radio" name={{i}} [checked]="item.ans == 'yes'"
+                                (change)="onRadioChange(i,'yes')">Yes &nbsp;
+                            <input type="radio" name={{i}} [checked]="item.ans == 'no'"
+                                (change)="onRadioChange(i,'no')">No
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" (click)="saveWHOPhrAnswers()">Submit</button>
+        </div>
+    </div>
+</div>

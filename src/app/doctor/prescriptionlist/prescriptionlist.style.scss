@@ -1,0 +1,102 @@
+@import "../../scss/variables";
+
+.doctor-serch {
+    max-width: 18%;
+    padding-right: 0px;
+}
+
+.patient_mobile {
+    padding-bottom: 25px;
+}
+
+.doctor-serch h4 {
+    padding-left: 20px;
+    font-size: 22px;
+    text-decoration: none;
+    color: #65767c;
+}
+
+.search_glyphicon .input-group .btn-secondary {
+    background: #8ec5d8;
+    color: #fff;
+}
+
+.autorefresh-refreshbutton .btn-primary {
+    color: #fff;
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+}
+
+.done_txt {
+    background-color: $btn-secondary !important;
+    border-color: $btn-secondary;
+}
+
+.done_view {
+    background-color: $btn-secondary !important;
+    border-color: $btn-secondary;
+    color: #fff;
+}
+
+.done_txt:hover,
+.done_txt:active:hover,
+.done_txt:active:focus,
+.done_txt:focus {
+    background-color: $btn-secondary;
+    border-color: $btn-secondary;
+}
+
+.approved_txt:hover,
+.approved_txt:active:hover,
+.approved_txt:active:focus,
+.approved_txt:focus {
+    background-color: red !important;
+    border-color: red !important;
+}
+
+.approved_txt {
+    background-color: red !important;
+    border-color: red !important;
+}
+
+.botton_txtdigo {
+    padding: 5px 5px;
+    font-size: 13px;
+    border-radius: 9px;
+    width: 85px;
+}
+
+.btn_prsearch {
+    padding-left: 0px;
+}
+
+.botton_txtsearch {
+    padding: 5px 5px;
+    font-size: 15px;
+    border-radius: 2px !important;
+    width: 95px;
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 575px) {
+    .search_glyphicon {
+        margin-bottom: 10px;
+    }
+
+    .btn_prsearch {
+        padding-left: 15px;
+    }
+}
+
+.input-group .form-control,
+.refresh_txt {
+    z-index: inherit !important;
+}
+
+// ::ng-deep .allheader .mat-header-cell {
+//     background: linear-gradient(0deg, #FFE4D4, #FFE4D4),
+//     linear-gradient(0deg, #FFFAF8, #FFFAF8) !important; 
+// }
+// ::ng-deep .allheader .mat-header-row th, .mat-row td {
+//     border-right: none !important; 
+// }

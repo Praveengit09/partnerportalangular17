@@ -1,0 +1,191 @@
+.pac-container {
+    z-index: 100000;
+  }
+  
+  .agm-map {
+    height: 400px;
+  }
+  
+  .widget {
+    margin-bottom: 5px;
+  }
+  .sgst_txt{
+    font-size: 23px;
+    top: -1px;
+    color: #ff0000;
+  }
+  
+  .add_newfield_icon {
+    margin-top: 30px;
+  }
+  .contact_num{
+    margin-top:5px;
+  }
+  .add_txt1{
+    width: 28px;
+    height: 28px;
+    border: 1px solid #1DC8D5;
+    border-radius: 48%;
+    font-size: 20px;
+    color: #fff;
+    background-color: #1DC8D5;
+    font-weight: 100;
+    padding: 3px 0px 0px 5px;
+    margin-top: 8px;
+    }
+    .add_txt_det{
+      width: 28px;
+      height: 28px;
+      border: 1px solid #1DC8D5;
+      border-radius: 48%;
+      font-size: 20px;
+      color: #fff;
+      background-color: #1DC8D5;
+      font-weight: 100;
+      padding: 3px 0px 0px 5px;
+      margin-top: 4px;
+      }
+    .Update{
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      border-radius: 2px;
+      background-color: #ff6d6d;
+      border: solid 1px #ec6262;
+      padding: 5px 30px;
+      text-transform: uppercase;
+      color: #fff !important;
+    }
+
+  .langauage_sel_text{
+    margin: 20px;
+  }
+  ul#menu li {
+    display:inline;
+}
+  ul#menu li {
+    display:inline;
+}
+.btn-circle1 {
+  background-color: #ff6d6d;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 50%;
+margin-bottom:5px;
+}
+  .list_title2 {
+    margin-left: 15px;
+    font-weight: 600;
+  }
+  .lan_title{
+    margin-left: 15px;
+    font-weight: 500;
+  }
+  .contact_add{
+    margin: 0px;
+  }
+  /////radio button css start here ///
+
+  .emp_type label {
+   
+    display: inline-block;
+    position: relative;
+     padding: 10px;
+    cursor: pointer;
+  }
+  
+  .emp_type input {
+    opacity: 0;
+    position: relative !important;
+  }
+  
+  .outside {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1DC8D5;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  
+  .inside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background:#1DC8D5;
+    left: 3px;
+    top: 3px;
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+  .no-transforms .inside {
+    left: auto;
+    top: auto;
+    width: 0;
+    height: 0;
+  }
+  
+  input:checked + .outside .inside {
+    -webkit-animation: radio-select 0.1s linear;
+            animation: radio-select 0.1s linear;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  .no-transforms input:checked + .outside .inside {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ////radio button css end here ///
+  @media only screen and (min-width: 320px) {
+    .botton_txtdigo {
+      padding: 5px 0px;
+      font-size: 14px;
+      border-radius: 3px;
+      width: 123px;
+      color: #fff;
+    }
+    .widget-body {
+      overflow-x: scroll;
+    }
+    th,
+    td {
+      min-width: 135px;
+    }
+  }
+  
+  @media only screen and (min-width: 568px) {
+    .widget-body {
+      overflow-x: scroll;
+    }
+    th,
+    td {
+      min-width: 200px;
+    }
+  }
+  
+  @media only screen and (min-width: 1100px) {
+    .widget-body {
+      overflow-x: inherit;
+    }
+    th,
+    td {
+      min-width: 0px;
+    }
+  }

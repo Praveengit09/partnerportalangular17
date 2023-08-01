@@ -1,0 +1,41 @@
+{
+    "name": "Health5",
+    "appId": 30,
+    "website": "http://mymedic.in/",
+    "websiteLabel": "mymedic.in",
+    "email": "care@mymedic.in",
+    "contactnumber": "8801094242",
+    "iconspath": "assets/health5/icons/",
+    "facebook": "https://www.facebook.com/",
+    "twitter": "https://twitter.com/",
+    "linkedin": "https://www.linkedin.com/company/",
+    "gtmKey": "UA-92315709-3",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "internalFinanicalReports": false,
+        "centralHomeCare": false,
+        "digiReception": false,
+        "onboardingPartner": true,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": true,
+        "enableInPatientBilling": false
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "emailPrimaryConsumerLogin": false
+    },
+    "doctorOptions": {
+        "enableDoctorWidgets": true,
+        "enableDoctorShareCard": true,
+        "enableDoctorChat": true,
+        "enableFixedNextBtn": true,
+        "disableDoctorWaitingTime": false,
+        "disablePromotionalDiagnosis": false,
+        "disablePrintVideoPresc": false
+    }
+}

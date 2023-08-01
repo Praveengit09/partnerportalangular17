@@ -1,0 +1,349 @@
+@import "../../../../scss/variables";
+.list_title3 {
+    margin-left: 15px;
+    font-weight: 600;
+  }
+  .modal-title{
+    color: #43BAC4;font-weight: 500;
+}
+  .brand_list_title {
+    color: #43BAC4;
+    font-weight: 500;
+}
+.slot-disabled{
+  background-color: #dddddd !important;
+}
+  .contact_add2{
+    margin: 0px;
+  }
+  .done_txt {
+    background-color: $btn-secondary;
+    border-color: $btn-secondary;
+  }
+  .employee_img2{
+    width:100px;
+    height: 100px;
+    border: 2px solid #fafbfa;
+  }
+  .widget_emp{
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 30px 25px;
+}
+.prinston_txt3{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin: 0px;
+    line-height: 20px
+}
+.serial_number2{
+    margin-bottom: 0px;
+    font-size: 15px;
+    font-weight: 500;
+}
+    .Update{
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+        color: #ffffff;
+        border-radius: 2px;
+        background-color: #ff6d6d;
+        border: solid 1px #ec6262;
+        padding: 5px 30px;
+        text-transform: uppercase;
+        color: #fff !important;
+      }
+      .doctorButton{
+        cursor: no-drop !important;
+        background: #00000021 !important; 
+      }
+      .mapping_list{
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+      .employee_edit12{
+        float: right;
+      }
+      
+    
+    /////radio button css start here ///
+
+  .emp_type label {
+   
+    display: inline-block;
+    position: relative;
+     padding: 10px;
+    cursor: pointer;
+  }
+  
+  .emp_type input {
+    opacity: 0;
+  }
+  
+  .outside {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1DC8D5;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    background: none;
+  }
+  
+  .inside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    display: inline-block;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background: #1DC8D5;
+    left: 3px;
+    top: 3px;
+    -webkit-transform: scale(0, 0);
+            transform: scale(0, 0);
+  }
+  .no-transforms .inside {
+    left: auto;
+    top: auto;
+    width: 0;
+    height: 0;
+  }
+  
+  input:checked + .outside .inside {
+    -webkit-animation: radio-select 0.1s linear;
+            animation: radio-select 0.1s linear;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  .no-transforms input:checked + .outside .inside {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ////radio button css end here ///
+  .listrole{
+      list-style: none;
+      height: 44vh;
+      width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+  }
+  .widget_emp1{
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 30px 25px 30px 25px;
+    height: 70vh;
+
+}
+.slectOne{
+  top: 2px;
+  position: relative;
+}
+.employee_edit{
+  color: #fff;
+  background-color: #14a9b5;
+  font-weight: bold;
+  font-size: 15px;
+}
+.edit_pencil ,.doctor_table tbody tr td .fa-pencil{
+
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 50%;
+    border-color: #231616;
+    border: 1px solid rgba(0, 0, 0, 0.32);
+    margin-top: 8px;
+}
+.edit_pencil .fa-pencil{
+    font-size: 23px;
+    color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    padding: 11px 12px;
+    cursor: pointer;
+}
+
+////// check box css start here ////
+
+
+
+.span_pseudo, .chiller_cb span:before, .chiller_cb span:after {
+    content: "";
+    display: inline-block;
+    background: #fff;
+    width: 0;
+    height: 0.2rem;
+    position: absolute;
+    transform-origin: 0% 0%;
+  }
+  
+  .chiller_cb {
+    position: relative;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  .chiller_cb input {
+    display: none;
+  }
+  .chiller_cb input:checked ~ span {
+    background: #fd2727;
+    border-color: #fd2727;
+  }
+  .chiller_cb input:checked ~ span:before {
+    width: 1rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.3s;
+  }
+  .chiller_cb input:checked ~ span:after {
+    width: 0.4rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.2s;
+  }
+  .chiller_cb input:disabled ~ span {
+    background: #ececec;
+    border-color: #dcdcdc;
+  }
+  .chiller_cb input:disabled ~ label {
+    color: #dcdcdc;
+  }
+  .chiller_cb input:disabled ~ label:hover {
+    cursor: default;
+  }
+  .chiller_cb label {
+    padding-left: 2rem;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    margin-bottom:0;
+  }
+  .chiller_cb span {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid #ccc;
+    position: absolute;
+    left: 0;
+    transition: all 0.2s;
+    z-index: 1;
+    box-sizing: content-box;
+  }
+  .chiller_cb span:before {
+    transform: rotate(-55deg);
+    top: 1rem;
+    left: 0.37rem;
+  }
+  .chiller_cb span:after {
+    transform: rotate(35deg);
+    bottom: 0.35rem;
+    left: 0.2rem;
+  }
+  
+
+////// check box css end here ////
+
+.done_footer{
+  border-top: none;
+}
+.allfee{
+  opacity: inherit !important;
+}
+
+/* --------------  PHR Checkbox Styles Starts   -----------------*/
+.edit_setting{
+  margin-top:8%;
+}
+.setting{
+  float: right;
+}
+
+.custom_chk input[type="checkbox"] {
+  display: none;
+}
+.custom_chk  label {
+  border: 1px solid #e9f8fb;
+  padding: 7px 5px 5px 7px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 2px 3px -2px #999;
+  -moz-box-shadow: 1px 2px 3px -2px #999;
+  box-shadow: 1px 2px 3px -2px #999;
+  margin-top: 15px;
+  margin-bottom:0;
+  background: #FDFDFD;
+  font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+
+}
+.custom_chk  label::before {
+  background-color: white;
+  border: 1px solid #ff6d6d;
+  color: white;
+  content: " ";
+  display: block;
+  height: 25px;
+  line-height: 28px;
+  position: absolute;
+  right: -2px;
+  text-align: center;
+  top: -2px;
+  transform: scale(0);
+  transition-duration: 0s;
+  width: 25px;
+}
+.ailment_text{
+font-size: 18x;
+font-weight: 600;
+text-align: left;
+}
+.text_margin{
+  margin: 0px;
+}
+
+.custom_chk :checked+label, .reset-checkbox :checked+label {
+  outline: 2px solid #FF6D6D;
+}
+.custom_chk :checked+label:before, .reset-checkbox :checked+label:before {
+  content: "\2713";
+  background-color: #FF6D6D;
+  transform: scale(0.9);
+}
+.other-textbox{
+  margin-left: 12%;
+}
+.custom-chk1+label+.checkbox-group {
+display:none;
+}
+.custom-chk1:checked+label+.checkbox-group {
+display:block;
+}
+.checkbox-group {
+  padding: 10px;
+  border-bottom: 1px solid #FF6D6D;
+  border-left: 1px solid #FF6D6D;
+  border-right: 1px solid #FF6D6D;
+  background: #fff9f9;
+}
+
+.role_size{
+  height: 80px !important;
+  }
+.suman_rolepage{
+  min-height: 45vh;
+}
+
+/*--------------  PHR Checkbox Styles Ends     -----------------*/

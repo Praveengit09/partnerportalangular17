@@ -1,0 +1,95 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Order List</h1>
+    <!-- <h6 class="sub-title">Search orders</h6> -->
+    <!-- <div class="row all_tableh">
+        <div class="col-md-12">
+            <form >
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="radio" name="searchcriteria" value="orderId" id="orderId" checked (change)="onSearchChange('orderId')">
+                        <label for="advice" class="radio_txt">Order ID</label>
+                        <input type="radio" name="searchcriteria" value="contactNo" (change)="onSearchChange('contactNo')">
+                        <label for="order" class="radio_txt">Mobile Number</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                (keyup)="getRefreshedorderList(search.value)"
+                                <input type="text" name="search" #search class="serch_txt" placeholder="Enter Search query" ngModel>
+                                (keyup.enter)="getPharmacyAdvisesForPocBasedOnPhnNoId(search.value)"
+                                <button type="submit" class="btn btn-danger width-100 mb-xs" (click)="getPharmacyAdvisesForPocBasedOnPhnNoId(search.value)">SEARCH</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary width-100 mb-xs reset_btn" role="button" (click)="getRefreshedorderList(''); search.value=''">
+                            <span class="glyphicon glyphicon-repeat"></span>REFRESH</button>
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </div> -->
+    <form>
+        <div class="row">
+            <div class="col-xl-5 col-lg-4">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Order ID/Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                        placeholder="Enter Order ID/Mobile Number">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix
+                        (click)="getPharmacyAdvisesForPocBasedOnPhnNoId()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-7 col-lg-8 mb-3">
+                <h6>Filter by Date</h6>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+
+                        <datetime [(value)]="startDate" name="startDate" id="datepicker" [datepicker]="datepickerOpts"
+                            (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-4">
+
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [timepicker]="false"
+                            (dateChange)="endDateChoosen($event)" [datepicker]="datepickerOpts">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-4 submit-btn">
+                        <button class="btn btn-danger  sub_txt width-100" type="button" id="inpatient"
+                            (click)="getPharmacyAdvisesForPocBasedOnDate()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-lg-12 neworder-refresh">
+            <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                (click)="getRefreshedorderList();">
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="refresh_txt">REFRESH</span>
+            </button>
+            <button type="button" class="btn btn-primary button_addtxt" role="button" (click)="onGenerateNewAdvise()"><i
+                    class="fa fa-plus add_txt" aria-hidden="true"></i>New Order</button>
+        </div>
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="pharmacyList" [sort]="sorting"
+                        (clickEvent)="clickEventHandler($event)" [componentId]="'pharmacyOrdersTable'"
+                        [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                        Loading table...
+                    </hs-table>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<spinner-component></spinner-component>

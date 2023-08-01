@@ -1,0 +1,105 @@
+<div class="table_size">
+
+    <h1 class="page-title">Create/Modify Brand </h1>
+
+
+    <form>
+        <!-- Form start -->
+        <!-- <div class="row"> -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">Brand Name</label>
+                <input id="brandName" name="name" type="text" placeholder="Name" [(ngModel)]="brandDetails.brandName"
+                    class="form-control input-md">
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="email">Brand Image</label>
+                <input type="file" class="form-control" id="file" (change)="fileUpload($event)">
+                <!-- <input id="email" name="email" type="text" placeholder="E-Mail" class="form-control input-md"> -->
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Organisation</label>
+                <input name="organisation" type="text" placeholder="Organisation"
+                    [(ngModel)]="brandDetails.organisation" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Validity</label>
+            <div class="row">
+                <div class="col-md-12 col-lg-6 validity">
+                    <div class="form-group">
+                        <datetime [(value)]="startDate" name="startDate" id="datepicker" [datepicker]="datepickerOpts"
+                            [timepicker]="false" (dateChange)="startDateChange('start')" [placeholder]="'From Date'">
+                        </datetime>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6 todate">
+                    <div class="form-group">
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [timepicker]="false"
+                            [datepicker]="datepickerOptEnd" [placeholder]="'To Date'">
+                        </datetime>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Mobile</label>
+                <!-- <input type="text" name="phone" id="phone"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}" maxlength="10" title="Minimum 10 characters required" placeholder="Phone" required /> -->
+                <input type="text" name="mobileNumber" id="phone" [(ngModel)]="brandDetails.mobileNumber"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}"
+                    maxlength="10" title="Minimum 10 characters required" placeholder="Phone" required
+                    class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input id="email" name="email" type="text" [(ngModel)]="brandDetails.emailId" placeholder="E-Mail"
+                    class="form-control input-md">
+            </div>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-4">
+                <label class="list_title5">Would you like to Disable PartnerPortal?</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation" [checked]="brandDetails.partnerPortalDisabled"
+                        (change)="changeData('partnerPortalDisabled')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+        <div class="row col-md-12">
+            <div class="col-md-4">
+                <label class="list_title5">Has BrandApp</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation" [checked]="brandDetails.hasBrandApp"
+                        (change)="changeData('hasBrandApp')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <button id="singlebutton" name="singlebutton" class="btn  Update" (click)="uploadProfilePic()">{{brandButtonType
+                    | uppercase}}</button>
+            </div>
+        </div>
+        <!-- </div> -->
+    </form>
+
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+</div>
+<spinner-component></spinner-component>

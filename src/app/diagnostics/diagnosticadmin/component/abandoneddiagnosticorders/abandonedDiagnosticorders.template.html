@@ -1,0 +1,39 @@
+<hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+
+<h1 class="page-title">Abandoned Diagnostic Orders</h1>
+<h6>Filter by Date</h6>
+<div class="row">
+    <div class="form-group col-xl-3 col-lg-4 col-md-4 col-sm-4">
+        <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker" (dateChange)="startDateChoosen($event)"
+            [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+    </div>
+    <div class="form-group col-xl-3 col-lg-4 col-md-4 col-sm-4">
+        <datetime [(value)]="endingDate" [placeholder]="'End Date'" name="endDate" id="datepicker2" (dateChange)="endDateChoosen($event)"
+            [timepicker]="false" [datepicker]="datepickerOptEnd"></datetime>
+    </div>
+    <div class="form-group col-xl-2 col-lg-4 col-md-4 submit_btn">
+        <button type="submit" class="btn btn-danger width-100" role="button" (click)="getAbandonedDiagnosticOrders()">
+            Submit
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="abandonedDiagnosticOrdersList" [sort]="sorting"
+                    [componentId]="'abandoneddiagnosticsordersListTable'" (clickEvent)="clickEventHandler($event)"
+                    [perPage]="perPage" [total]="total" [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!--//comments modal starts here-->
+<customer_review_modal [modalTitle] = "'Add Customer Review'" [interactionStatus] = 'interactionStatus' [modalId] = 'modalId'
+[previousComments] = 'this.userData?.comments' (addInteractionStatusEvent) = "addInteractionStatus($event)"  
+[errorMessage] = 'error'  [hasTypeCheck] = 'false' 
+(onRemarkSubmitEvent) = "onSubmit($event)" ></customer_review_modal>
+<spinner-component></spinner-component>

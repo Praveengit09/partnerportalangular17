@@ -1,0 +1,64 @@
+<div class="table_size">
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<h1 class="page-title">Central PostWallet</h1>
+<div class="row pb-2">
+    <div class="col-md-6">
+        <form>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="patient_title">Patient Mobile:</h5>
+                </div>
+                <div class="col-md-6 mobile_search">
+                    <mat-form-field appearance="outline" class="search-orders">
+                        <mat-label>Mobile Number</mat-label>
+                        <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                            placeholder="Enter Mobile Number"  (keypress)="validateNumberInputOnly($event)"  maxlength="10" 
+                            [(ngModel)]="mobileNo" [ngModelOptions]="{standalone:true}">
+                        <i class="fa fa-search" aria-hidden="true" matSuffix
+                            (click)="onSearch()"></i>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="patient_title">Post Wallet Amount Due:</h5>
+                </div>
+                <div class="col-md-6 mobile_search">
+                    <mat-form-field appearance="outline" class="search-orders">
+                        <mat-label>Amonut</mat-label>
+                        <input type="text" autocomplete="off" id="search1" (keyup)="onEnterPressedAmount($event)" matInput
+                            placeholder="Enter Amount Number"  (keypress)="validateNumberInputOnly($event)"  maxlength="10" 
+                            [(ngModel)]="amount" [ngModelOptions]="{standalone:true}">
+                        <i class="fa fa-search" aria-hidden="true" matSuffix
+                            (click)="amountonSearch()"></i>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="postwalletList" [sort]="sorting" [componentId]="'postwalletListdetails'"  [perPage]="perPage" 
+                [total]="total" [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+                    Loading table...
+            </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<!--//comments modal starts here-->
+<!-- <customer_review_modal [modalTitle]="'Add Customer Review'" [interactionStatus]='interactionStatus' [modalId]='modalId' [hasTypeCheck]='false' [errorMessage]='error' [previousComments]='this.userData?.comments' (addInteractionStatusEvent)="addInteractionStatus($event)"
+    (onRemarkSubmitEvent)="onSubmit($event)">
+</customer_review_modal> -->
+<spinner-component></spinner-component>

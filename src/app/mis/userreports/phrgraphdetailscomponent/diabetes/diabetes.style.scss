@@ -1,0 +1,25 @@
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+
+text {
+    font: 12px sans-serif;
+}
+svg {
+    display: block;
+}
+#chartdiabetes, svg {
+    margin: 0px;
+    padding: 0px;
+     height: 400px;
+    width: 100%;
+}
+.date_txt .datepicker, .date_txt .mat-form-field{
+    width: -webkit-fill-available !important;
+}
+.graph_txt h3 {
+    padding-top: 14px;
+}
+.date_time_txt .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap {
+    border-top-color: rgba(0, 0, 0, 0.11);
+}

@@ -1,0 +1,142 @@
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<h1 class="page-title">New Order</h1>
+<div class="row">
+
+    <div class="col-lg-12">
+        <section class="newadd_process row" widget="">
+
+            <div class="col-md-4 col-sm-4 col-xs-12 process_txt patientpop">
+                <p>Patient
+                    <i *ngIf="!(selectedRegisteredProfile && selectedRegisteredProfile.selfProfile && selectedRegisteredProfile.selfProfile.fName) && !(slotBookingDetails && slotBookingDetails.patientProfileDetails && slotBookingDetails.patientProfileDetails.fName)"
+                        aria-hidden="true" class="fa fa-plus add_patient"
+                        (click)="openModal('#registerPatientModal')"></i>
+                </p>
+                <ng-container *ngIf="slotBookingDetails.patientProfileDetails">
+                    <h4 class="mb-2">
+                        {{slotBookingDetails.patientProfileDetails.title?slotBookingDetails.patientProfileDetails.title+".
+                        ":''}} {{slotBookingDetails.patientProfileDetails.fName}}
+                        {{slotBookingDetails.patientProfileDetails.lName?slotBookingDetails.patientProfileDetails.lName:''}}
+                    </h4>
+                </ng-container>
+            </div>
+        </section>
+    </div>
+    <br>
+
+    <div class="col-lg-12" *ngIf="!sampleIdCheck">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+                        <h4 class="page-title">Diagnostic Tests</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6 mb-1">
+                        <hs-select [defaultSelectLabel]="'Search Diagnostic Tests'" [selectColumns]="selectColumns"
+                            class="diagnostic-testsearch" [selectTotal]="searchTestsTotal"
+                            [selectResults]="searchedTests" (searchTrigger)="searchTests($event)"
+                            (selectTrigger)="getTestName($event)"></hs-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body card_body_padding">
+            <div class="list-inline">
+                <div class="list-inline-item" *ngFor="let item of
+                    slotBookingDetails.serviceList; let i= index">
+                    <div class="cardBodyItem diagnostic-tests" (click)="remove(i)">
+                        <input id="comment{{item.serviceId}}" type="checkbox" value="true">
+                        <label class="testLabel">
+                            {{item.serviceName}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12" *ngIf="sampleIdCheck">
+        <table class="table table-border table-striped hs_tabletxt table_margin">
+            <thead>
+                <tr class="table_head">
+                    <th class="head_dogo">#</th>
+                    <th class="">Vacutainer List</th>
+                    <th class="">Sample ID</th>
+                    <th>Sample Collected Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of vacutainerList; let i= index">
+                    <td data-label="#">
+                        <div class="tabledatalabel-right">{{i+1}}
+                        </div>
+                    </td>
+                    <td data-label="Test Name">
+                        <div class="tabledatalabel-right">
+                            {{item.vacutainerType}}
+                        </div>
+                        <div>
+                            <ul>
+                                <li *ngFor="let test of item.tests">
+                                    {{test.serviceName}}
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td data-label="Sample ID">
+                        <div class="tabledatalabel-right">
+                            <textarea type="text" class="fname_2txt1" placeholder="Sample Id" value={{item.sampleId}}
+                                [(ngModel)]="item.sampleId"></textarea>
+                        </div>
+                    </td>
+                    <td data-label="Sample Collected Date" class="datepic_txt1">
+                        <div class="tabledatalabel-right">
+                            <datetime [(value)]="item.sampleCollectionDate" [timepicker]="false"
+                                [datepicker]="datepickerOpts"></datetime>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="row uploaddoc mt-2" *ngIf="!sampleIdCheck && uploadDoc">
+        <h4 class="page-title col-md-12">Upload Documents</h4>
+        <div class="col-md-10 col-sm-10 col-xs-9">
+            <div class="form-group">
+                <input #diagnosticFileUpload type="file" accept=".png,.pdf,.jpg" class="form-control" id="files"
+                    name="diagnosticFileUpload" (change)="fileUpload($event)" multiple />
+                <input class="Update submitbtm" type="button" value="SUBMIT" (click)="onUploadButtonClick()">
+                <p class="select_only">*Only pdf, png, jpg files are supported</p>
+            </div>  
+            <div *ngIf="checkBoxValidationMessage && checkBoxValidationMessage.length>0">
+                <label class="error_class">{{checkBoxValidationMessage}}</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12
+            col-xs-12" *ngIf="!sampleIdCheck">
+        <button type="button" class="btn btn-primary next" (click)="onNext()">Next
+        </button>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="sampleIdCheck">
+        <button role="button" (click)="onBack()">Back</button>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="sampleIdCheck">
+        <button type="button" class="btn btn-primary next" (click)="onConfirm()">Confirm
+        </button>
+    </div>
+
+    <div class="modal left" id="registerPatientModal">
+        <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+            <div class="modal-content patient-registerpopup">
+                <patientregister-component (closeModel)="closeModel('#registerPatientModal')"
+                    (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

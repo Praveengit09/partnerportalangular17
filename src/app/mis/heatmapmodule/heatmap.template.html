@@ -1,0 +1,22 @@
+<agm-map [latitude]="22.0574" [longitude]="78.9382" (mapReady)="onMapLoad($event)" [zoom]='5'
+    (centerChange)="centerChange($event)" (zoomChange)="onZoomChange($event)" (idle)="onIdle($event)">
+    <!-- (mapReady)="onMapLoad($event)" (boundsChange)="centerChange($event)" -->
+
+    <ng-container>
+        <!-- *ngIf="lastFetchedRes.length>0"-->
+        <agm-marker [latitude]="getLatLon(marker).lat" [longitude]="getLatLon(marker).lon" 
+            (mouseOver)="onMarker('over',infoWindow, $event)" (mouseOut)="onMarker('out',infoWindow, $event)"
+            *ngFor="let marker of lastFetchedRes" [iconUrl]="''" (focusout)="onMarker('out',infoWindow, $event)">
+            <agm-info-window [disableAutoPan]="true" #infoWindow>
+                <div>
+                    <ul class="text-capitalize">
+                        <li *ngFor="let infoVar of this.config.infowindowvars">
+                            {{infoVar}}:{{marker[infoVar]}}
+                        </li>
+                        <li>{{ this.config.type}}:{{marker[this.config.populationVar]|number : '1.2-2'}}</li>
+                    </ul>
+                </div>
+            </agm-info-window>
+        </agm-marker>
+    </ng-container>
+</agm-map>

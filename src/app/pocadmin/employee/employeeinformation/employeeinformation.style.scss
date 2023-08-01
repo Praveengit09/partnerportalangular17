@@ -1,0 +1,115 @@
+
+.emp_information{
+  .form-control {
+    background-color: transparent;  
+    opacity: 1;
+  }
+  .upload_files_list{
+    border: none;
+    top: 35%;
+    left: 14%;
+    position: absolute;
+  }
+  .d-flex{
+    display: flex;
+   }
+  label{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #41484D;
+        span{
+        color: red;
+      }
+    }
+   input{
+    border: 1px solid #EDEEF0;
+    border-radius: 4px;
+   }
+   select{
+    border: 1px solid #EDEEF0;
+    border-radius: 4px;
+   }
+    input::file-selector-button{
+    visibility: hidden;
+   }
+   ::placeholder {
+   font-style: italic;
+   color: #859098;
+   }
+  .work_place_role_btn button{
+    padding: 8px 16px;
+    border: none;
+    background: #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+  .upload_file{
+    text-align: center;
+    border: none;
+    padding: 16px 24px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+         input{
+          border: none;
+          cursor: pointer;
+          color: transparent;
+         }
+         span{
+          color: red;
+         }
+         .info-txt{
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 14px;
+          text-align: center;
+          color: #21A5DF;
+         }
+  img{
+    z-index: 10 !important;
+    top: 26%;
+    left: 50%;
+    transform: translateX(-50%, -50%);
+    position: absolute;
+    cursor: pointer;
+
+   }
+ }
+   .add_number_btn button{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #187CA8;
+    border: 1px solid #187CA8;
+    background: transparent;
+    padding: 5px;
+    margin-top: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+   }
+ }
+
+ @media screen and (max-width: 768px) {
+  .emp_information{
+    .upload_files_list{
+      top: 32%;
+      left: 0%;
+    }
+
+  }
+}
+
+  @media screen and (max-width: 576px) {
+  .emp_information{
+    .d-flex{
+       flex-direction: column;
+    }
+    .add_number_btn button{
+       margin-top: 13px;
+     }
+   }
+ }

@@ -1,0 +1,186 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">User Privileges List </h1> 
+  <div class="row">
+    <div class="col-xl-6 col-lg-5">
+        <mat-form-field appearance="outline" class="search-orders">
+            <mat-label>Mobile Number</mat-label>
+            <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                placeholder="Enter Mobile Number" (keypress)="validateNumberInputOnly($event)">
+            <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getUserPrivilegesListBasedOnPhnNo()"></i>
+        </mat-form-field>
+    </div>
+    <div class="col-xl-6 col-lg-7">
+        <h6 class="marginTop">Filter by Date</h6>    
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <!-- <label class="mb-0">Start Date</label> -->
+                <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker"
+                    (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="form-group col-sm-6">
+                <!-- <label class="mb-0">End Date</label> -->
+                <datetime [(value)]="endDate" [placeholder]="'End Date'" name="endDate" id="datepicker"
+                    (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <!-- <div class="col-xl-2 col-lg-12 submit_btn mt-2">
+            <button type="submit" class="btn btn-danger width-100" role="button" (click)="onSubmit()">
+                Submit
+            </button>
+        </div> -->
+
+        <div class="col-sm-6 col-12 mb-1">
+            <h6>Filter by Card Type</h6>
+            <select class="form-control" [(ngModel)]='type' [ngModelOptions]="{standalone: true}"
+                (change)="onChangeStatus($event.target.value)">
+                <option value=0>Select Card Type</option>
+                <option value=2>Senior Citizen Card</option>
+                <option value=3>Central Government Card</option>
+                <option value=4>Jain Community Card</option>
+                <option value=1>Privilege Card</option>
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-6">
+            <h6>Filter by Approval Status</h6>
+            <select class="form-control" [(ngModel)]='status' [ngModelOptions]="{standalone: true}"
+                (change)="onChangeStatus($event.target.value)">
+                <option value=0>Select Approval Status</option>
+                <option value=2>Approval Pending</option>
+                <option value=3>Rejected Approval</option>
+                <option value=4>Payment Pending</option>
+                <option value=1>Active</option>
+            </select>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-12 mb-1">
+            <div class="autorefresh-refreshbutton filter-ordersbtn">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                    (click)="RefreshButton()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    <!-- <br /> -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="vdcUserPrivilegeResponse"
+                        (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg"
+                        [componentId]="'diagnosticAdminTable'" [enableDownload]="true" [perPage]="perPage" [total]="(vdcUserPrivilegeResponse
+                        &&
+                        vdcUserPrivilegeResponse.length)?vdcUserPrivilegeResponse.length:0" (pageClick)="onPage($event)">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="modal fade" id="vdcdetails">
+        <div class="modal-dialog model_addtxt">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>Patient Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="shadow table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <!-- <th>Order Id</th> -->
+                                    <th>Name</th>
+                                    <th>Mobile No.</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Upload File</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="vdcUserPrivilegeList!=undefined||vdcUserPrivilegeList!=null">
+                                    <!-- <td>{{vdcUserPrivilegeList.orderId}}</td> -->
+                                    <td>{{(vdcUserPrivilegeList.patientProfileDetails?.title?(vdcUserPrivilegeList.patientProfileDetails?.title+".
+                                        "):'')}} {{vdcUserPrivilegeList.patientProfileDetails?.fName}}
+                                        {{vdcUserPrivilegeList.patientProfileDetails?.lName?(vdcUserPrivilegeList.patientProfileDetails?.lName):''}}
+                                    </td>
+                                    <td>{{vdcUserPrivilegeList.patientProfileDetails.contactInfo.mobile}}</td>
+                                    <td>{{vdcUserPrivilegeList.patientProfileDetails.age}}</td>
+                                    <td>{{vdcUserPrivilegeList.patientProfileDetails.gender}}</td>
+                                    <td>
+                                        <div *ngFor="let item of patientProfile.proofDocumentUrlList ; let i =index">
+                                            <div
+                                                *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                                                <img alt=" "  src='assets/img/partner/image_icon_read.png'  style="height: 25px;"
+                                                    (click)="viewProofDocumentImage(item)"
+                                                    class="image_clickpopup" data-toggle="modal"
+                                                    data-target="#sliderimagepopup">
+                                            </div>
+                                            <div *ngIf="item.includes('pdf')">
+                                                <img alt=" " src='assets/img/partner/pdf_icon_read.png'
+                                                    (click)="sliderImage(item,'pdf')" class="image_clickpdf">
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="row" class="col-lg-12">
+                        <label for="descrip">Add Reason</label><br>
+                        <textarea rows="4" id="remarkArea" cols="50"
+                            [placeholder]="'Please provide reason if rejecting approval'" [(ngModel)]="remarks"
+                            name="remark" #remark class="form-control title_txt"></textarea>
+                        <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 pt-2">
+                            <button type="button" class="btn btn-danger
+                                rejectbtn ng-star-inserted" (click)="rejectRequest()">REJECT PRIVILEGE</button>
+                        </div>
+                        <div class="col-lg-4 pt-2">
+                            <button class="btn approve_txt" type="button" (click)="approveRequest()">APPROVE
+                                PRIVILEGE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="sliderimagepopup" class="modal fade in" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close slider_close{
+                                " data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="prescription-modal">
+                    <form name="info_form" class="form-inline" action="#" method="post">
+                        <div class="form-group">
+                            <img [src]="crouselSelectedImage" class="image_sliderpop">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group image_download">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

@@ -1,0 +1,7 @@
+<div *ngIf="showMessages(messages,show)">
+    <ul class="{{getMessageStyle()}}">
+        <li *ngFor="let errMsg of messages">
+            <span>{{errMsg}}</span>
+        </li>
+    </ul>
+</div>

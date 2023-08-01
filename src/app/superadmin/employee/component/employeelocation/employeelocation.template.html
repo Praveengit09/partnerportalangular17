@@ -1,0 +1,149 @@
+<div class="table_size">
+
+    <!-- <h2 class="brand_list_title">Edit Profile</h2>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="progress_indicator_wrapper">
+            <a routerLink="/app/master/employee/employeepersonaldetails/" class="progress_indicator">
+                <span class="ic_progress past"></span>Personal Details</a>
+            <a routerLink="/app/master/employee/employeeprofessionaldetails/" class="progress_indicator"
+                *ngIf="doctorDetails.type==0  || doctorDetails.type==1 ">
+                <span class="ic_progress past"></span>Professional Details</a>
+            <a routerLink="/app/master/employee/employeeroles/" class="progress_indicator">
+                <span class="ic_progress past"></span>POC And Roles</a>
+            <a routerLink="/app/master/employee/employeeparticipatedetails/" class="progress_indicator"
+                *ngIf="doctorDetails.type==0  || doctorDetails.type==1 ">
+                <span class="ic_progress past"></span>Participate Details</a>
+            <a routerLink="/app/master/employee/employeelocation/" class="progress_indicator active">
+                <span class="ic_progress present"></span>Location Mapping</a>
+
+            <div class="clearfix"></div>
+        </div>
+    </div> -->
+    <br />
+
+    <h5 class="list_title3">Location Mapping</h5>
+    <div class="row contact_add2">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label class="control-label" for="name">Country</label>
+
+                <select class="form-control" (change)="getRegion($event.target.value)" [(ngModel)]="this.country">
+                    <option value="0">Enter Your Country</option>
+                    <option value="1">India</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="name">Region</label>
+
+                <select class="form-control" (change)="onRegionChange($event.target.value, 0)"
+                    [value]="regionListIndex">
+                    <option value="-1">Enter Your Region</option>
+                    <option *ngFor="let region of regionList;let i = index" [value]="i">{{region.name}}</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="name">State</label>
+
+                <select class="form-control" (change)="onStateChange($event.target.value, 0)" [value]="stateListIndex">
+                    <option value="-1">Enter Your State</option>
+                    <option *ngFor="let state of stateList;let i = index" [value]="i">{{state.name}}</option>
+                </select>
+
+
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="name">City</label>
+
+                <select class="form-control" (change)="onCityChange($event.target.value, 0)" [value]="cityListIndex">
+                    <option value="-1">Enter Your City</option>
+                    <option *ngFor="let city of cityList;let i = index" [value]="i">{{city.name}}</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="name">Area</label>
+
+                <select class="form-control" (change)="onAreaChange($event.target.value, 0)" [value]="areaListIndex">
+                    <option value="-1">Enter Your Area</option>
+                    <option *ngFor="let area of areaList;let i = index" [value]="i">{{area.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-danger width-100 mb-xs botton_txtsearch done_txt" role="button"
+                        (click)="onadd()">ADD</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <section class="widget_emp" widget="">
+                <div class="row">
+
+                    <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="this.doctorDetails.imageUrl!=undefined">
+                        <img [src]="this.doctorDetails.imageUrl" class="employee_img2">
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3"
+                        *ngIf="this.doctorDetails.gender=='Male' && this.doctorDetails.imageUrl==undefined">
+                        <img alt="..." class="employee_img2" src="assets/img/default-avatar-male.png">
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3"
+                        *ngIf="this.doctorDetails.gender=='Female' && this.doctorDetails.imageUrl==undefined">
+                        <img alt="..." class="employee_img2" src="assets/img/default-avatar-female.png">
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3"
+                        *ngIf="this.doctorDetails.gender=='Others' && this.doctorDetails.imageUrl==undefined">
+                        <img alt="..." class="employee_img2" src="assets/img/default-avatar-others.png">
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-9">
+                        <p class="prinston_txt2">{{doctorDetails.title}} {{doctorDetails.firstName}}
+                            {{doctorDetails.lastName?doctorDetails.lastName:''}}</p>
+                        <p class="serial_number2" *ngIf="doctorDetails.type==0">Employee Type:Doctor</p>
+                        <p class="serial_number2" *ngIf="doctorDetails.type==1">Employee Type:Expert</p>
+                        <p class="serial_number2" *ngIf="doctorDetails.type==2">Employee Type:App User</p>
+                        <p class="serial_number2" *ngIf="doctorDetails.type==3">Employee Type:Other</p>
+                        <p class="serial_number2">Mobile:{{ doctorDetails.contactList}}</p>
+                        <p class="serial_number2">Gender:{{doctorDetails.gender}}</p>
+                        <p class="serial_number2">Languages:</p>
+                        <span>{{list}}</span>
+                        <p class="serial_number2">Email: {{doctorDetails.emailId}}</p>
+
+                    </div>
+
+                </div>
+
+            </section>
+            <section class="widget_emp" *ngIf="addressList.length>0" widget="">
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12" *ngFor="let details of addressList;let i=index">
+                        <label class="checkbox-inline package_checkbox">
+                            {{details.country}}<span *ngIf="details.regionName">,</span> {{details.regionName}}<span
+                                *ngIf="details.stateName">,</span> {{details.stateName}}<span
+                                *ngIf="details.cityName">,</span> {{details.cityName}}<span
+                                *ngIf="details.areaName">,</span> {{details.areaName}}<span
+                                *ngIf="details.pinCode">-</span> {{details.pinCode}}</label>
+                        <button type="button" class="btn btn-warning btn-circle"><i class="glyphicon glyphicon-remove"
+                                (click)="removeAddress(i)"></i></button>
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <button id="singlebutton" name="singlebutton" class="btn  Update" [disabled]="showMessage&&!isError"
+                (click)="onSubmitEmployee()">SUBMIT</button>
+        </div>
+    </div>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+</div>
+<spinner-component></spinner-component>

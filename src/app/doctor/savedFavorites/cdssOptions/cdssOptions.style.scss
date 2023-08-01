@@ -1,0 +1,38 @@
+@import '../../../scss/variables';
+@import '../../../scss/theme.scss';
+
+// th{
+//     color: #64819E !important;
+//     text-transform: capitalize !important;
+//     font-size: 15px;
+//     line-height: 1.73;
+// }
+table h5{
+    font-size: 1.10rem;
+}
+.btn-danger{
+    // background-color: #FF6D6D;
+    // border-color: #FF6D6D;
+    background: $btn-danger-bg;
+    border-color: $btn-danger-bg;
+    text-transform: uppercase;
+}
+.float-right{
+    float: right;
+}
+
+.cdssOptions_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .cdssOptions_widget {
+        border: none !important;
+    }
+}
+
+@media screen and (min-width:601px) {
+    .cdssOptions_widget table{
+        min-width: 630px;
+    }
+}

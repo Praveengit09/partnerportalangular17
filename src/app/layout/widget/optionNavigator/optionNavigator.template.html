@@ -1,0 +1,12 @@
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="progress_indicator_wrapper">
+        <ng-container *ngFor="let data of tabData;let i=index;">
+            <a *ngIf="data.condition" class="progress_indicator" [class.active]="i<=tempEditPage||isModify"
+                (click)="onPageNavigate(i)">
+                <span class="ic_progress" [class.past]="currentPageIndex>i" [class.present]="currentPageIndex==i"
+                    [class.future]="currentPageIndex<i">
+                </span>{{data.name}}</a>
+        </ng-container>
+        <div class="clearfix"></div>
+    </div>
+</div>

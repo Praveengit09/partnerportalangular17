@@ -1,0 +1,130 @@
+.emp_location{
+    padding: 2rem 1rem;
+    .d-flex{
+        display: flex;
+       }
+       h5{
+        color: #14a9b5;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 29px;
+       }
+       p{
+         font-weight: 600;
+         font-size: 14px;
+         line-height: 20px;
+         color: #626C74;
+         margin-bottom: 7px;
+       }
+       .profile_email{
+         color: #DF5B21;
+       }
+    .emp_loc_map{   
+    background: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    }
+      .profile_address{
+        display: flex;
+        align-items: center;
+           .border-left{
+            border-left: 2px solid #EDEEF0;
+           }
+      }
+      .emp_profile{
+         display: flex;
+         align-items: center;
+      }
+      .profile_pic img{
+         width: 130px;
+         height: 130px;
+         border-radius: 50%;
+      }
+      .about_profile{
+        padding-left: 12px;
+
+      }
+    
+    .first_hr{
+        border: 1px solid #EDEEF0;
+    }
+    .pharmacy_location{
+         h2{
+            font-weight: 600;
+            font-size: 28px;
+            line-height: 42px;
+            letter-spacing: -0.02em;
+            color: #41484D;
+         }
+        
+    }
+    .pharmacy_form{
+        background: #F9F9FA;
+        border: 1px solid #EDEEF0;
+        border-radius: 8px;
+        margin-top: 20px;
+        padding: 10px;
+
+           label{
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            color: #41484D;
+           }
+           span{
+            color: #DF5B21;
+            padding-left: 4px;
+          }
+           ::placeholder {
+             font-style: italic;
+          }
+
+      } 
+
+   .add-emp-btn button{
+    padding: 8px 16px;
+    border: none;
+    background: #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+   
+    .emp_location{
+        padding: 2rem 1rem;
+        .d-flex{
+            flex-direction: column;
+           }
+           
+      .profile_address{
+           .border-left{
+            border-left: 2px solid #EDEEF0;
+           }
+      }
+        }      
+  }
+
+  @media only screen and (max-width: 576px) {
+    .emp_location{
+        .profile_address{
+            .border-left{
+             border-left: none;
+             text-align: center;
+             padding-top: 12px;
+            }
+       }
+  } 
+} 
+@media only screen and (max-width: 400px) {
+    .emp_location{
+      .emp_profile{
+         flex-direction: column;
+     }
+    }
+  }

@@ -1,0 +1,123 @@
+<h1 class="page-title">Stock Information</h1>
+
+<div class="stock-infosec">
+    <div class="filter-section">
+        <div class="pull-left">
+            <span>Filter</span>
+        </div>
+        <div class="pull-right">
+            <a class="reset-filter" (click)="resetFilters()">Reset Filters</a>
+        </div>
+    </div>
+    <div class="info-section">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget-info">
+                    <h6>Quantity</h6>
+                    <select [(ngModel)]="quantityOption" (change)="setQuantityCondition()">
+                        <!-- <option value="-1">Select</option> -->
+                        <option value="0">Less Than</option>
+                        <option value="1">Equals To</option>
+                        <option value="2">Greater Than</option>
+                    </select>
+                    <label for="quantity">Enter Quantity</label>
+                    <input type="text" [(ngModel)]="quantity" (keydown)="(quantityOption==null||quantityOption==undefined)?quantityOption=0:''" (change)="setQuantityCondition()" name="quantity" id="quantity" placeholder="Enter Quantity">
+                    <!-- <label for="minQuantity">Less Than</label>
+                    <input type="text" name="minQuantity" id="minQuantity" placeholder="Minimum Quantity">
+                    <label for="equalsTo">Equals To</label>
+                    <input type="text" name="equalsTo" id="equalsTo" placeholder="Equals to">
+                    <label for="greaterThan">Greater Than</label>
+                    <input type="text" name="greaterThan" id="greaterThan" placeholder="Number greater than"> -->
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget-info">
+                    <h6>Expiry Information</h6>
+                    <!-- <label for="expiringIn">Expiring In</label> -->
+                    <!-- <input type="text" name="expiringIn" id="expiringIn" placeholder="Days in which item expires"> -->
+                    <datetime [placeholder]="'Expiring In'" [(value)]="expiringIn" [timepicker]="false" id="expiringIn" [datepicker]="datepickerOpts"></datetime>
+                    <h6 class="mt-2">Drug Form</h6>
+                    <label>Select the Drug Form</label>
+                    <select [(ngModel)]="pocPharmacyDetailsRequest.drugForm">
+                        <option value="-1">Select value</option>
+                        <option *ngFor="let drugForm of getPharmacyConstants('pharmacyType')" value="{{drugForm}}">
+                            {{drugForm}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget-info">
+                    <h6>Manufacturer</h6>
+                    <label for="manufacturer">Manufactured By</label>
+                    <input [(ngModel)]="pocPharmacyDetailsRequest.brandName" type="text" name="manufacturer" id="manufacturer" placeholder="Manufacturer">
+                    <h6 class="mt-2">Supplier Information</h6>
+                    <label for="supplierName">Supplier Name</label>
+                    <hs-select [defaultSelectLabel]="'Supplier Name'" [selectColumns]="selectColumns" [defaultSelected]="pocPharmacyDetailsRequest.suplierName" [multiCheckVarName]="'pocId'" [defaultSelectField]="'pocName'" [selectTotal]="(supplierResult && supplierResult.length)?supplierResult.length:0"
+                        [selectResults]="supplierResult" (searchTrigger)="searchSupplier($event)" (change)="searchSupplier('0')" (selectTrigger)="getSupplierId($event.pocName)"></hs-select>
+
+                    <!-- <input type="text" [(ngModel)]="pocPharmacyDetailsRequest.suplierName" name="supplierName" id="supplierName" placeholder="Enter supplier name"> -->
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget-info">
+                    <h6>POC Information</h6>
+                    <label for="pocName">Centre Name</label>
+                    <select [(ngModel)]="pocPharmacyDetailsRequest.pocId">
+                        <option value="0">Select POC</option>
+                        <option *ngFor="let poc of pocList" value="{{poc.pocId}}">{{poc.pocName}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-3">
+                <button class="searchbtn" value="Search" (click)="searchPoc()">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="search-results mt-2" *ngIf="listOfPharmacyPOC!=null && listOfPharmacyPOC!=undefined">
+    <!-- <h4 class="page-subtitle mb-2">Stock Search Results</h4>
+    <label class="mt-2">Enter Keyword</label>
+    <input type="text" name="keyword" value="Prinston"> -->
+    <div class="row mt-2">
+        <div class="col-lg-12">
+            <hs-table [columns]="columns" [pagingList]="listOfPharmacyPOC" [isStaticPaging]="true" [dataMsg]="'No Data Found'" [componentId]="'centralinventoryinformation'" [total]="(listOfPharmacyPOC.length)?listOfPharmacyPOC.length:0" (clickEvent)="clickEventHandler($event)">
+                Loading table...
+            </hs-table>
+            <!-- <section class="widget table_pading" widget>
+                <div class="widget-body table-responsive">
+                    <table class="table hs_tabletxt">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="serialno">#</th>
+                                <th>POC Details</th>
+                                <th class="actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let poc of listOfPharmacyPOC;let i=index">
+                                <td>{{i+1}}.</td>
+                                <td>
+                                    <p>{{poc?.pocName}}</p>
+                                    <p class="address">{{poc?.address?.areaName}}</p>
+                                    <p class="mobile">{{poc?.contactList}}</p>
+                                </td>
+                                <td>
+                                    <button class="viewbtn" (click)="onClickView(poc.pocId)">View</button>
+                                    <a (click)="onClickDownloadExcell(poc.pocId)" class="viewbtn">Download</a>
+                                </td>
+                            </tr>
+                     
+                        </tbody>
+                    </table>
+                </div>
+            </section> -->
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

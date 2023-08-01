@@ -1,0 +1,51 @@
+ .ui-datepicker-calendar {
+    display: none;
+    }
+    .date_form{
+     padding: 0px;
+    }
+    .monthsubmit{
+        background-color: #14a9b5;
+        color: #fff;
+    }
+.sgst_txt{
+    font-size: 23px;
+    top: -1px;
+    color: #ff0000;
+}
+.monthclose{
+    background-color: #FF6D6D;
+    color: #fff;
+}
+.input_date .form-control {
+    padding: 0px 0px !important; 
+
+}
+.modal-header {
+    padding: 11px 15px;
+	background-color: #F8F8F8;
+background: -webkit-linear-gradient(top, #F8F8F8, #F2F2F2);
+background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+background: linear-gradient(top, #f8f8f8, #f2f2f2);
+}
+@media screen and (min-width: 768px) {
+    .modal-dialog {
+      width: 700px; /* New width for default modal */
+    }
+   
+}
+@media screen and (min-width: 992px) {
+    
+}
+@media screen and (min-width: 576px) {
+
+.modal-dialog {
+    max-width: 413px;
+   
+}
+}
+.form-control.isMat{
+    background-color: transparent;
+}

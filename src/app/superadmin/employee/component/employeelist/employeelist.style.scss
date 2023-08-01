@@ -1,0 +1,67 @@
+
+@import "../../../../scss/variables";
+.widget{
+    margin-bottom: 5px;
+}
+
+.orderId:not([href]):not([tabindex]){
+  color: #0000ff;
+}
+.orderId:not([href]):not([tabindex]):focus, .orderId:not([href]):not([tabindex]):hover{
+
+  color: #0000ff;
+  text-decoration: underline;
+}
+
+.manage_buttontxt{
+  background-color: #1dc8d5;
+  color: #fff;
+  border: none;
+  padding: 7px 20px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+.done_txt1 {
+  margin-left: 12px !important;
+  background-color: $btn-secondary;
+  border-color: $btn-secondary;
+}
+.botton_editimg .img_txt{
+  margin-top: 4px !important;
+}
+.orderId:not([href]):not([tabindex]){
+  color: #0000ff;
+}
+.orderId:not([href]):not([tabindex]):focus, .orderId:not([href]):not([tabindex]):hover{
+
+  color: #0000ff;
+  text-decoration: underline;
+}
+
+@media only screen and (min-width: 320px) {
+  .botton_txtdigo {
+    padding: 5px 0px;
+    font-size: 14px;
+    border-radius: 3px;
+    width: 123px;
+    color: #fff;
+}
+.widget-body { overflow-x: scroll; }
+th, td { min-width: 135px; }
+
+}
+  @media only screen and (min-width: 568px){
+.widget-body { overflow-x: scroll; }
+th, td { min-width: 200px; }
+  }
+  @media only screen and (min-width: 1100px) {
+.widget-body {
+  overflow-x: inherit;
+}
+th, td {
+  min-width: 0px;
+}
+
+   }
+

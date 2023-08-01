@@ -1,0 +1,41 @@
+{
+    "name": "Arogya Bandhu",
+    "appId": 37,
+    "website": "http://arogyabandhu.in/",
+    "websiteLabel": "arogyabandhu.in",
+    "email": "care@mymedic.in",
+    "contactnumber": "8088680680",
+    "iconspath": "assets/arogya/icons/",
+    "facebook": "https://www.facebook.com/",
+    "twitter": "https://twitter.com/",
+    "linkedin": "https://www.linkedin.com/company/",
+    "gtmKey": "UA-92315709-3",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "internalFinanicalReports": false,
+        "centralHomeCare": false,
+        "digiReception": true,
+        "onboardingPartner": true,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": false,
+        "enableInPatientBilling": false
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "emailPrimaryConsumerLogin": false
+    },
+    "doctorOptions": {
+        "enableDoctorWidgets": true,
+        "enableDoctorShareCard": true,
+        "enableDoctorChat": true,
+        "enableFixedNextBtn": true,
+        "disableDoctorWaitingTime": false,
+        "disablePromotionalDiagnosis": false,
+        "disablePrintVideoPresc": false
+    }
+}

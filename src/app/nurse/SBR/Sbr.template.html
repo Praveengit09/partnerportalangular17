@@ -1,0 +1,146 @@
+<div class="col-lg-12">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+    <section class="newadd_process row" widget="">
+
+        <div class="col-md-6 col-sm-6 col-xs-12 process_txt patientpop">
+            <h4>1.Customer Information
+                <i aria-hidden="true" class="fa fa-plus add_patient" (click)="openModal('#registerPatientModal')"></i>
+            </h4>
+            <div class="customer-info" *ngIf="slotBookingDetails && slotBookingDetails.patientProfileDetails">
+                <h5>{{slotBookingDetails.patientProfileDetails.title?slotBookingDetails.patientProfileDetails.title+". ":''}}
+                    {{slotBookingDetails.patientProfileDetails.fName}}
+                    {{slotBookingDetails.patientProfileDetails.lName?slotBookingDetails.patientProfileDetails.lName:''}}
+                </h5>
+                <span>{{common.getAge(slotBookingDetails.patientProfileDetails.dob).split(",")[0]+common.getAge(slotBookingDetails.patientProfileDetails.dob).split(",")[1]}}
+                    {{slotBookingDetails.patientProfileDetails.gender}}
+                </span><br>
+                <span>{{slotBookingDetails.patientProfileDetails.contactInfo.mobile}}
+                </span><br>
+                <span
+                    *ngIf="slotBookingDetails.patientProfileDetails.contactInfo.addresses!=null">{{slotBookingDetails.patientProfileDetails.contactInfo.addresses[0]?.address2}},
+                    {{slotBookingDetails.patientProfileDetails.contactInfo.addresses[0]?.cityName}}
+                </span>
+            </div>
+        </div>
+    </section>
+</div>
+<section class="mt-3">
+    <div>
+        <div class="col-md-5 col-sm-5 col-xs-5">
+            <h4>2.Primary Symptom</h4>
+            <p>
+                <b>Select symptom for which you need advice : </b>
+            </p>
+        </div>
+        <div class="col-md-5 col-md-5 col-md-5">
+            <div class="form-group">
+                <select class="form-control" id="symptom" (change)="onSymptomChange($event.target.value)">
+                    <option value="-1">Select symptom</option>
+                    <option *ngFor="let item of symptomsList;let j = index" [value]=j+1>
+                        {{item.title}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+<section *ngFor="let res of questionsList ;let i = index">
+    <div class=" col-md-3 col-sm-3 col-xs-3">
+        <p>
+            <b>Symptoms {{i+1}}: </b><i class="fa fa-pencil pl-1" aria-hidden="true"
+                (click)="onEditSymptom(res,i);openModal('#modal-2')"></i>
+        </p>
+    </div>
+
+    <div *ngFor="let que of res ;let j = index">
+        <div class="row col-md-10 col-sm-10 col-xs-10" *ngIf="que.isSelected==true">
+            <div class=" col-md-5 col-md-5 col-md-5">
+                <div class="form-group">
+                    {{que.symptomName}}
+                    <!-- <i class="fa fa-times-circle-o remove-symptom" aria-hidden="true"></i> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="mt-2" *ngIf="this.generateAdvice==true">
+    <button type="button" class="btn btn-danger" (click)="OnGenerateClick()">Generate Advice</button>
+    <button type="button" *ngIf="receptionRole" class="btn btn-danger"
+        [routerLink]="['/app/reception/digibooking/doctorsearch']" routerLinkActive="active">Book Consultation</button>
+</div>
+
+<div class="modal left" id="registerPatientModal" data-backdrop="static">
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component (closeModel)="closeModel('#registerPatientModal')" [isSBR]='true'
+                (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+        </div>
+    </div>
+</div>
+
+<div class="modal left" id="modal-2" data-backdrop="static">
+    <div class="modal-dialog model_txt1 patientregister-modaldialog">
+        <div class="modal-content patient-registerpopup">
+            <div class="modal-header">
+                <h4>Select Symptoms</h4>
+                <button type="button" class="close" (click)="onModelClose()" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="symptom-info" *ngFor="let item of selectedSymptomAdviceQue; let i = index">
+                    <input type="checkbox" name="symptomCheck{{i}}" id="symptomCheck{{i}}" [(ngModel)]="item.isSelected"
+                        (click)="onClick(i,$event)">
+                    <label for="symptomCheck{{i}}">{{item.symptomName}}</label>
+
+                </div>
+                <p class="ErrorMessage">{{ischecked}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <span *ngIf="selectedSymptomAdviceList.length>1">
+                    <button type="button" class="btn btn-danger" (click)="OnPreviousClick()">Previous</button>
+                </span>
+                <button type="button" class="btn btn-danger"
+                    (click)="OnNextClick()">{{nextButton==true?'Next':'Review'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal-3" data-backdrop="static">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Book an Appointment</h4>
+            </div>
+            <div class="modal-body" *ngIf="tablets && this.sbrAdvices && this.sbrAdvices.isEmergency==1 ">
+                <h6>Based on your symptoms, you are adviced to take
+                    <span *ngFor="let tablet of tablets;let i=index">
+                        {{tablet.doses[0]?.doseQuantity}}
+                        {{tablet.genericMedicine.genericMedicineName}}
+                        {{tablet.drugForm}}
+                    </span>
+                    and urgently visit Emergency room at Hospital.
+                </h6>
+            </div>
+            <div class="modal-body" *ngIf="this.sbrAdvices && this.sbrAdvices.isEmergency==2 ">
+                <h6>Based on your symptoms, you are adviced to consult Doctor within 24hours.
+                </h6>
+            </div>
+            <div class="modal-body" *ngIf="this.isFound==false">
+                <h6>you are advised to take appointment.
+                </h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="receptionRole" class="btn btn-default"
+                    [routerLink]="['/app/reception/digibooking/doctorsearch']" routerLinkActive="active"
+                    data-dismiss="modal">Book Consultation</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCancel()">Cancel</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>

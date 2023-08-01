@@ -1,0 +1,459 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Patient Details</h1>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-5">
+        <section class="widget_txt11" widget="">
+            <div *ngIf="!(rejectedHomeConsultOrderTrack?.patientProfileDetails.fName)"
+                class="col-md-6 col-sm-6 col-xs-12 patient_txt patientpop">
+                <p>Patient
+                    <i aria-hidden="true" class="fa fa-plus add_patient" data-toggle="modal"
+                        data-target="#registerPatientModal" data-backdrop="static" data-keyboard="false"></i>
+                </p>
+                <h4 *ngIf="selectedRegisteredProfile">
+                    {{selectedRegisteredProfile.selectedProfile.title?selectedRegisteredProfile.selectedProfile.title+". ":''}}
+                    {{selectedRegisteredProfile.selectedProfile.fName}}
+                    {{ selectedRegisteredProfile.selectedProfile.lName?selectedRegisteredProfile.selectedProfile.lName:''}}
+                </h4>
+            </div>
+            <div *ngIf="rejectedHomeConsultOrderTrack?.patientProfileDetails.fName"
+                class="col-md-6 col-sm-6 col-xs-12 patient_txt">
+                <p>Patient </p>
+                <h4>{{selectedRegisteredProfile.selectedProfile.title?selectedRegisteredProfile.selectedProfile.title+". ":''}}
+                    {{selectedRegisteredProfile.selectedProfile.fName}}
+                    {{ selectedRegisteredProfile.selectedProfile.lName?selectedRegisteredProfile.selectedProfile.lName:''}}
+                </h4>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-lg-6">
+        <form class="form-inline">
+            <label for="advice" class="radio_txt">Doctor's List </label>
+            <select class="form-control selectwidth" id="my_select1 option1" [(ngModel)]="dropDownIndex1"
+                [ngModelOptions]="{standalone: true}" (change)="onDoctorDropDownChange($event.target.value)">
+                <option [value]=0>Select Doctor</option>
+                <option *ngFor="let doctor of filteredDoctorList;let i = index" [value]=i+1>{{doctor.firstName}}
+                    {{doctor.lastName}}</option>
+            </select>
+        </form>
+    </div>
+    <div class="col-lg-6" *ngIf="selectedDoctorIndex>0">
+        <form class="form-inline">
+            <label for="advice" class="radio_txt">Doctor's Service List </label>
+            <select class="form-control selectwidth" id="my_select2 option2" [(ngModel)]="dropDownIndex2"
+                [ngModelOptions]="{standalone: true}" (change)="onDoctorServiceDropDownChange($event.target.value)">
+                <option [value]=0>Select Service</option>
+                <option *ngFor="let service of doctorServiceList;let j = index" [value]=j+1>{{service.serviceName}}</option>
+            </select>
+        </form>
+    </div>
+
+</div> -->
+
+<div class="row mt-2 patient_detail">
+    <div class="col-lg-12">
+        <form class="form-inline">
+            <label for="advice" class="radio_txt">Service List </label>
+            <select class="form-control selectwidth" [(ngModel)]="this.selectedServiceIndex"
+                [ngModelOptions]="{standalone: true}" (change)="onServiceSelected($event.target.value)">
+                <option [value]=0>Select Service</option>
+                <option *ngFor="let service of doctorServiceList; let i =index" [value]=i+1>{{service.serviceName}}
+                </option>
+            </select>
+        </form>
+        <div class="errorMessage">{{error_Message}}</div>
+        <form class="form-inline mt-1" *ngIf="selectedServiceIndex>0 && doctorSubServiceList?.length > 0">
+            <label for="advice" class="radio_txt">SubService List </label>
+            <select class="form-control selectwidth" [(ngModel)]="this.selectedSubServiceIndex"
+                [ngModelOptions]="{standalone: true}" (change)="onSubServiceSelected($event.target.value)">
+                <option [value]=0>Select SubService</option>
+                <option *ngFor="let subservice of doctorSubServiceList; let j = index" [value]=j+1>
+                    {{subservice.serviceName}}</option>
+            </select>
+
+        </form>
+        <div class="errorMessage">{{providerErrorMessage}}</div>
+        <form class="form-inline mt-1" *ngIf="selectedSubServiceIndex>0 && filteredDoctorList?.length > 0">
+            <label for="advice" class="radio_txt">Provider List </label>
+            <select class="form-control selectwidth" [(ngModel)]="this.providerDropDownIndex"
+                [ngModelOptions]="{standalone: true}" (change)="onDoctorSelected($event.target.value)">
+                <option [value]=0>Select Provider</option>
+                <option *ngFor="let doctor of filteredDoctorList;let k = index" [value]=k+1>
+                    <!-- {{this.rejectedHomeConsultOrderTrack.doctorDetail.firstName?this.rejectedHomeConsultOrderTrack.doctorDetail.firstName:''}}
+                    {{this.rejectedHomeConsultOrderTrack.doctorDetail.lastName?this.rejectedHomeConsultOrderTrack.doctorDetail.lastName:''}} -->
+                    {{this.doctor.firstName?this.doctor.firstName:''}}
+                    {{this.doctor.lastName?this.doctor.lastName:''}}
+                </option>
+            </select>
+        </form>
+    </div>
+</div>
+<br>
+<!-- <div class="row" *ngIf="this.selectedDoctorServiceIndex">
+    <div class="col-lg-4">
+        <section class="widget_txt11" widget="">
+            <span>
+                <h4>Total Payable Amount
+                </h4>
+            </span>
+            <input type="text" [value]="this.homeConsultationFee" disabled>
+            <h5>{{this.homeConsultationFee}}</h5>
+        </section>
+    </div>
+</div> -->
+<br>
+<div class="row patient_detail">
+    <div class="col-lg-12">
+        <h3 class="header_color mt-2 mb-1">Schedule</h3>
+    </div>
+    <div class="col-lg-12">
+        <div>
+            <label class="validationCustom03">Date:</label>
+            <!-- <datetime [(ngModel)]="toTime" [timepicker]="{ icon: 'fa fa-clock-o' }" ngModel [datepicker]="false"></datetime> -->
+            <datetime class="datePayment date-time mr-2" [(value)]="date" (dateChange)="onDateSelected()"
+                [datepicker]="datepickerOpts" [timepicker]="false"></datetime>
+        </div>
+
+        <div class="mt-1">
+            <label class="validationCustom03 mt-1"> Time:</label>
+            <datetime id="schedule-time" [(value)]="fromTime" (valueChange)="onTime()" [datepicker]="false"
+                class="date-time">
+            </datetime>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div *ngIf="this.slotBookingDetails.patientProfileId">
+    <div class="row mt-2" *ngIf="rejectedHomeConsultOrderTrack?.deliveryAddress">
+        <div class="col-lg-12">
+            <label class="validationCustom03">Consultation Address</label>
+            <section
+                *ngIf="this.rejectedHomeConsultOrderTrack?.deliveryAddress!=undefined && this.rejectedHomeConsultOrderTrack?.deliveryAddress!=null">
+                <div class="address">
+                    <p>{{rejectedHomeConsultOrderTrack?.deliveryAddress.address1}},
+                        {{rejectedHomeConsultOrderTrack?.deliveryAddress.address2}}</p>
+                    <p>{{rejectedHomeConsultOrderTrack?.deliveryAddress.cityName}},
+                        {{rejectedHomeConsultOrderTrack.deliveryAddress.stateName}} -
+                        {{rejectedHomeConsultOrderTrack.deliveryAddress.pinCode}}
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- <section *ngIf="diagnosticPurchaseType==2"> -->
+    <section *ngIf="this.slotBookingDetails.patientProfileId && !(rejectedHomeConsultOrderTrack?.deliveryAddress)">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    <b>Select Address</b>
+                </p>
+            </div>
+        </div>
+        <div class="row"
+            *ngIf='this.selectedRegisteredProfile.selfProfile!=undefined && this.selectedRegisteredProfile.selfProfile!=null'>
+            <div class="col-md-5 col-md-5 col-md-5">
+                <div class="form-group">
+                    <select class="form-control" id="consultationAddressSelect1" [(ngModel)]='addressIndex'
+                        (change)="setSelectedAddress( 2)">
+                        <option value="-1">Select Address</option>
+                        <option *ngFor="let address of patientAddressList;let i=index" value="{{i+1}}"
+                            [selected]="consultationAddress!=undefined && address!=undefined && address.addressId===consultationAddress.addressId">{{address.addressType
+                                    == 0? 'Home Address': (address.addressType == 1? 'Office Address': (address.addressType
+                                    == 3? 'Emergency Address':(address.label!=undefined && address.label!=null &&
+                                    address.label.length>0?address.label:'Other
+                                    Address')))}}
+                        </option>
+                        <option value="0">Add New</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <section
+            *ngIf="this.consultationAddress!=undefined && this.consultationAddress!=null &&  addressIndex != 0 && addressIndex != -1">
+
+
+            <div class="row">
+                <div class="col-md-4 address">
+                    <p class="edit" (click)="modifyAddress(consultationAddress)">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </p>
+                    <p></p>
+                    <p>{{consultationAddress.address1}}, {{consultationAddress.address2}}</p>
+                    <p>{{consultationAddress.cityName}}, {{consultationAddress.stateName}} -
+                        {{consultationAddress.pinCode}}
+                    </p>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- </section> -->
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<!-- <span class="row" style="margin:0px;width: 100%;">
+
+    <div class="col-md-6 col-sm-6 col-xs-12 paymode_cash">
+        <label>Mode Of Payment </label>
+        <form action="#" class="color_cash">
+            <table>
+                <tr>
+                    <input type="radio" name="payment" checked (change)="checkPaymentModeSelection(2)"> Cash
+                </tr>
+                <tr>
+                    <input type="radio" name="payment" (change)="checkPaymentModeSelection(1)"> Card
+                </tr>
+                <tr>
+                    <input type="radio" name="payment" (change)="checkPaymentModeSelection(5)"> Mobile
+                </tr>
+            </table>
+
+        </form>
+    </div>
+</span> -->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Amount Payable :
+
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="this.selectedDoctor">
+                                    <!-- &#x20B9; {{this.homeConsultationFee}}  -->
+                                    &#x20B9; <input type="number" name="totalamt" [(ngModel)]="this.homeConsultationFee"
+                                        id="total-amt" [ngModelOptions]="{standalone: true}"
+                                        (keydown)="validateNumber('#total-amt',$event);validateNumberWithMaxWithDigit('#total-amt',$event)"
+                                        (click)='onAmountChange()'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12 total_txt paymode_txt">Payment mode: </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 paymode_cash">
+                                    <form action="#" class="color_cash">
+                                        <input type="radio" name="payment" checked (change)="checkPaymentModeSelection(2)">
+                                        Cash&nbsp;&nbsp;
+                                        <input type="radio" name="payment" (change)="checkPaymentModeSelection(5)">
+                                        Mobile&nbsp;&nbsp;
+                                        <input type="radio" name="payment" id="other-payment" (change)="checkPaymentModeSelection(0)">
+                                        Others
+                                        <div class="other-paymentdetails">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                                    <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                                        <option value="0">Select</option>
+                                                        <option value="1">Card</option>
+                                                        <option value="8">PhonePe</option>
+                                                        <option value="6">Google Pay</option>
+                                                        <option value="7">PayTM</option>
+                                                         <option value="11">Neft</option>
+                                                         <option value="12">Upi</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <input type="text" placeholder="Transaction Id" class="form-control"
+                                                        [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <br>
+
+                    <!-- <span class="col-md-12 col-sm-12 col-xs-12" *ngIf="isOtherDiscountFullPaymentHide"> -->
+                    <!-- <div class="col-md-6 col-sm-6 col-xs-12 total_txt paymode_txt">Payment mode: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 paymode_cash">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" value="1" checked (change)="checkPaymentModeSelection(1)"> Cash
+                        </form>
+                    </div> -->
+                    <!-- </span> -->
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="requestoption">
+    <button type="button" class="btn btn-info change " id='request' [disabled] = 'isError == true'
+        (click)="raiseRequest()">Raise
+        Request</button>
+
+    <button
+        *ngIf='rejectedHomeConsultOrderTrack?.orderId != undefined || rejectedHomeConsultOrderTrack?.orderId != null'
+        id='cancel' type="button" class="btn  btn-danger change" (click)="cancelRequest()">Cancel
+        Request</button>
+
+</div>
+<!--<p>model###########<p> -->
+<div class="modal left" id="registerPatientModal">
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component (closeModel)="closeModel('#registerPatientModal')"
+                (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+        </div>
+    </div>
+</div>
+
+
+<!-- Update Address Model -->
+<div class="modal fade" tabindex="-1" role="dialog" id="updateAddress">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Update Address</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <hs-message [isError]="isErrorPopup" [show]="showMessagePopup" [messages]="errorMessagePopup"></hs-message> -->
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Type</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" id="addressType" [(ngModel)]="editAddress.addressType"
+                                (change)="selectedAddressType()">
+                                <option value="-1" [selected]="editAddress.addressType == -1">Select Type</option>
+                                <option value="0" [selected]="editAddress!=undefined && editAddress.addressType == 0">
+                                    Home</option>
+                                <option value="1" [selected]="editAddress!=undefined && editAddress.addressType == 1">
+                                    Office</option>
+                                <option value="3" [selected]="editAddress!=undefined && editAddress.addressType == 3">
+                                    Emergency</option>
+                                <option value="2" [selected]="editAddress!=undefined && editAddress.addressType == 2">
+                                    Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <section *ngIf="editAddress.addressType == 2">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Name of this address</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-5 col-md-5">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="editAddress.label"
+                                    placeholder="Address name">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 1</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 1"
+                                [(ngModel)]="editAddress.address1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 2</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 2"
+                                [(ngModel)]="editAddress.address2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Pin Code</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" maxlength="6" class="form-control" placeholder="Enter PIN Code"
+                                [(ngModel)]="editAddress.pinCode" (keyup)="searchByPinCode($event.target.value)"
+                                (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>City</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputcity" type="text"
+                                [(ngModel)]="editAddress.cityName" placeholder="City" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>State</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputstate" type="text"
+                                [(ngModel)]="editAddress.stateName" placeholder="State" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="isErrorPopup" [show]="showMessagePopup" [messages]="errorMessagePopup"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" (click)="saveAddress()">Save Address</button>
+            </div>
+        </div>
+    </div>
+    <!-- <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message> -->
+</div>
+<spinner-component></spinner-component>

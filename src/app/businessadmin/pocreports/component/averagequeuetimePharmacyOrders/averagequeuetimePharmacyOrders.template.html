@@ -1,0 +1,53 @@
+<div class="widget-body">
+    <div class="pull-right row day7_txt">
+        <div class="col-md-12 col-sm-12 col-xs-12 otherday_txt" *ngIf="isMoreItem == true">
+            <a href="#otherdayModel" data-toggle="modal">POC's List</a>
+        </div>
+
+        <!-- <select name="past_date" id="past_date" class="form-control state_select" (change)="onDateOptionChange($event.target.value)"
+        [(ngModel)]="dropDownIndexForPastDate" [ngModelOptions]="{standalone: true}">
+                  <option [value]=0 >Past 7 Days</option>
+                  <option [value]=1 >Past 15 Days</option>
+                  <option [value]=2> Past 30 Days</option>
+                
+                </select> -->
+
+    </div>
+    <div *ngIf="nvd32Data != undefined" class='transform_txt10'>
+        <div nvd3-chart [chart]="nvd32Chart" [datum]="nvd32Data">
+            <svg id="chart09"></svg>
+        </div>
+    </div>
+</div>
+
+<div class="modal right fade" id="otherdayModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="close_txt" 
+                  aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title add_medtxt" id="myModalLabel">Partipated POCs</h4>
+
+            </div>
+            <div class="modal-body table_body">
+                <table class="table-striped1">
+
+                    <thead>
+                        <tr class="table_head1">
+                            <th>Serial No</th>
+                            <th>Centre Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dashBoardChartResponseList; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.key}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Order Details</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="newadd_patient" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                <p>Patient</p>
+                <h4>{{cartItem.patientProfileDetails?.title?cartItem.patientProfileDetails?.title+'. ':''}} {{cartItem.patientProfileDetails?.fName}} {{cartItem.patientProfileDetails?.lName?cartItem.patientProfileDetails?.lName:''}}
+                    <br /> {{cartItem.patientProfileDetails?.contactInfo?cartItem.patientProfileDetails?.contactInfo.mobile:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4> {{cartItem.doctorDetail?.title}} {{cartItem.doctorDetail?.firstName}} {{cartItem.doctorDetail?.lastName?cartItem.doctorDetail?.lastName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Order ID</p>
+                <h4>{{cartItem.orderId?cartItem.orderId:''}}</h4>
+            </div>
+        </section>
+    </div>
+</div>
+
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<medicinesales [triggerCount]="triggerCount" (calculateEvent)="onCalculateEvent($event)"></medicinesales>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt advicedetail_fromtxt">
+            <div class="row">
+                <ng-template [ngIf]="cartItem?.parentProfileId>0">
+                    <app-cartdiscount [parentProfileId]="this.cartItem.parentProfileId" [cartItemDetails]="this.cartItem" [discountType]="discountType" [pocId]="this.pocId" [isOldRecord]="this.oldRecord">
+                    </app-cartdiscount>
+                </ng-template>
+
+                <br>
+                <br>
+                <span class="row" style="margin:0px;width: 100%;" *ngIf="this.cartItem.payment.finalAmount>0 && isOtherDiscountCashPaymentHide == false">
+                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment Mode : </div>
+                    <div class="col-md-7 col-sm-6 col-xs-12">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" value="0"
+                                [checked]="paymentModeIndex==2 ||!paymentModeIndex"
+                                (change)="checkPaymentModeSelection(2)"> Cash
+                            &nbsp;&nbsp;<input type="radio" name="paymant" value="1" [checked]="paymentModeIndex==5"
+                                (change)="checkPaymentModeSelection(5)"> Mobile
+                            &nbsp;&nbsp;<input type="radio" name="paymant" value="2"
+                                [checked]="paymentModeIndex!=5 && paymentModeIndex!=2" id="other-payment"
+                                (change)="checkPaymentModeSelection(9)"> Others
+                            <div class="other-paymentdetails">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                        <select class="form-control"
+                                            (change)="checkPaymentModeSelection($event.target.value)">
+                                            <option value="0">Select</option>
+                                            <option value="1">Card</option>
+                                            <option value="8">PhonePe</option>
+                                            <option value="6">Google Pay</option>
+                                            <option value="7">PayTM</option>
+                                            <option value="11">NEFT</option>
+                                            <option value="12">UPI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <input type="text" placeholder="Transaction Id" class="form-control"
+                                            [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </span>
+                <br>
+                <br>
+            </div>
+            <button role="button" class="submit_txt" value="Pay Now" (click)="onPayNowClick()">Submit</button>
+            <div hs-notification></div>
+        </form>
+    </div>
+</div>
+<br>
+
+<spinner-component></spinner-component>

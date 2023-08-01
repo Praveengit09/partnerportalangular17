@@ -1,0 +1,81 @@
+<div class="basic_information">
+  <div class="content_section">
+    <h1 class="page-title">Congratulations</h1>
+    <p>You’ve successfully subscribed to {{this.subscriptionDetails?.planDetails.productName}}. <br>
+      As the next step, let’s setup your work place.
+    </p>
+  </div>
+  <span (click)="skipForNow()">Skip for now</span>
+  <form>
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="pharmacyName">Your Pharmacy Name</label>
+      <input type="text" class="form-control" id="pharmacyName" name="name" placeholder="For eg: Remedy Pharmacy"
+        [(ngModel)]="pocDetails.pocName">
+    </div>
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="uploadLogo">Work Place Logo</label>
+      <div class="d-flex">
+        <input type="file" class="form-control" id="uploadLogo" placeholder="Upload your pharmacy logo "
+          (change)="fileUpload($event)">
+        <img src="assets/img/upload_icon.png" alt="logo">
+      </div>
+    </div>
+    
+    <div class="form-row d-flex">
+      <div class="form-group col-md-4 col-lg-3 pt-1">
+        <label for="licenseNo">License Number</label>
+        <input type="text" class="form-control" id="licenseNo" placeholder="Enter your license number"
+          name="organisation" [(ngModel)]="pocDetails.licenseInfo">
+      </div>
+
+      <div class="form-group col-md-4 col-lg-3 pt-1">
+        <label for="gstNo">GSTIN</label>
+        <input type="text" class="form-control" id="gstNo" placeholder="For eg: AA8888AA99AA" name="servicetaxNum"
+          [(ngModel)]="pocDetails.GSTIN">
+      </div>
+    </div>
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="contactmail">Contact Email</label>
+      <input type="email" class="form-control" id="contactmail" placeholder="For eg: Remedy Pharmacy" name="email"
+        [(ngModel)]="pocDetails.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+    </div>
+
+
+    <!-- <div class="form-group row contact_number""> -->
+      <div class="form-group col-md-8 col-lg-6 pt-1"  *ngFor="let contact of contactList;let i =index;trackBy:trackByFn">
+        <label for="contactno">Contact Number(s)</label>
+        <input type="text" name="mobileNumber+{{i}}" id="phone+{{i}}" maxlength="12"
+          onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}"
+          title="Minimum 10 characters required" name="first" [(ngModel)]="contactList[i]" required
+          class="form-control input-md" id="phone" placeholder="For eg: Remedy Pharmacy">
+      </div>
+    <!-- </div> -->
+
+    <div class="form-group col-sm-5 col-md-5 col-lg-4 pt-1 add-another-no-btn">
+      <button class="w-100" (click)="addAnotherNumber()">Add another number</button>
+    </div>
+
+    <!-- <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="contactmail">Contact Email</label>
+      <input type="email" class="form-control" id="contactmail" placeholder="For eg: Remedy Pharmacy"
+        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+    </div> -->
+
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="contactno">Home Consultation Contact Number</label>
+      <input type="text" name="mobileNumber" class="form-control" id="contactno" maxlength="12"
+        onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}"
+        placeholder="For eg: Remedy Pharmacy" [(ngModel)]="pocDetails.homeConsultationContactNo">
+    </div>
+
+
+
+    <div class="form-group col-md-8 col-lg-6 pt-1 work_place_btn">
+      <button class="w-100" (click)="onWorkPlaceAddress()">Next: Work Place Address</button>
+      <!-- <button class="w-100" (click)="onhomepage()">Next: hs</button> -->
+    </div>
+  </form>
+
+  <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+</div>

@@ -1,0 +1,75 @@
+
+.newadd_process {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.newadd_processcroll {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.newadd_process .patient_txt h4 {
+    font-size: 21px;
+}
+
+.prescription_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 25px;
+}
+
+.prescription_jpg h4 {
+    color: #11a9b5;
+}
+
+.prescription_padding {
+    padding-left: 0px;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.image_download {
+    margin-left: 40%;
+}
+
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+
+.image_clickpopup {
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+
+.modal-body {
+    margin-top: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}

@@ -1,0 +1,101 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Return Orders</h1>
+    <h6 class="sub-title">Search Order</h6>
+
+    <div class="row all_tableh">
+
+        <div class="col-md-12">
+            <form action="#">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary width-88 mb-xs reset_btn" role="button"
+                            (click)="getRefreshedorderList()"><span class="glyphicon glyphicon-repeat"></span><span
+                                class="reset_txt">REFRESH</span></button>
+                    </div>
+                    <div class="col-lg-5 col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="radio" id="checkOrderId" name="searchcriteria" value="orderId" checked
+                                    (change)="onSearchChange('orderId')">
+                                <label for="profile" class="radio_txt">Order ID</label>
+                                <input type="radio" id="checkMobile" name="searchcriteria" value="mobile"
+                                    (change)="onSearchChange('mobile')">
+                                <label for="mobile" class="radio_txt">Mobile Number</label>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-10 col-xs-8">
+                                        <input type="text" id="searchBox" name="search" #search class="serch_txt"
+                                            placeholder="Mobile Number / Order Id" (keypress)="validateWithCriteria(search.value,$event);">
+                                    </div>
+                                    <div class="col-md-4 col-sm-2 col-xs-4">
+                                        <button type="button" class="btn btn-primary width-88 mb-xs search_btn"
+                                            role="button" (click)="onSearchButtonClick(search.value)">SEARCH</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-7 col-md-12">
+                        <div class="filter_txt select_city">
+                            <h6 class="sub-title">Filter by Area</h6>
+                            <form>
+                                <select class="form-control" [(ngModel)]="indexForLoc"
+                                    [ngModelOptions]="{standalone : true}" *ngIf="localityResponse"
+                                    (change)="onLocationChange($event.target.value)">
+                                    <option value=0>Select Area</option>
+                                    <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j+1>
+                                        {{locationArea.name}}</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="filter_txt">
+                            <h6 class="sub-title">Filter by City</h6>
+                            <form>
+                                <select class="form-control" title={{cityResponseforTooltip}} *ngIf="cityResponse"
+                                    [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}"
+                                    (change)="onCityChange($event.target.value)">
+                                    <option value=0>Select City</option>
+                                    <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}
+                                    </option>
+                                </select>
+
+                            </form>
+                        </div>
+                        <div class="filter_txt ">
+                            <h6 class="sub-title">Filter by State</h6>
+                            <form>
+                                <select class="form-control" [(ngModel)]="indexForState"
+                                    [ngModelOptions]="{standalone : true}" *ngIf="stateResponse"
+                                    (change)="onStateChange($event.target.value)">
+                                    <option value=0>Select State</option>
+                                    <option *ngFor="let loc of stateResponse;let i = index" [value]=i+1>{{loc.name}}
+                                    </option>
+                                </select>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="isCorrectMobile" class="enter_error">Enter 10 digits mobile number only..!</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="productDeliveryResponseList" [sort]="sorting" 
+                    (clickEvent)="clickEventHandler($event)" [componentId]="'productAdminTable'" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

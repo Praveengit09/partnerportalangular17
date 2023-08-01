@@ -1,0 +1,441 @@
+<div class="row mr-0 ml-0">
+    <div class="col-md-6 col-sm-6 col-xs-6 advice_text">
+        <h2>Order ID:</h2>
+        <h2> {{orderDetails.orderId}}</h2>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6 advice_text">
+        <h2> Ordered By:</h2>
+        <h2 *ngIf="orderDetails.purchaserPocDetails">{{orderDetails.purchaserPocDetails.pocName}}</h2>
+        <h2 *ngIf="orderDetails.pocDetails">{{orderDetails.pocDetails.pocName}}</h2>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 addproduct_padding mb-2" *ngIf="!isBasketCalculated">
+        <button class="processbotton_txt processdone_txt add_product" (click)="addProduct()" role="button">Add
+            Product</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <section class=" table_pading table-responsive table-datalabel">
+            <table class="table table-striped process_widget">
+                <thead>
+                    <tr class="table_head">
+                        <!-- <th *ngIf="!isBasketCalculated"> <input type="checkbox" [checked]="isAllSelected()"
+                                    (change)="selectAll()"></th> -->
+                        <th class="">Product Name</th>
+                        <th class="">Quantity</th>
+                        <th class="">Selling Price</th>
+                        <th class="">Total Taxes ( &#8377; )</th>
+                        <th class="">Total Amount ( &#8377; )</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of prodList; let i = index">
+                    <tr id="{{'prod-item-'+i}}">
+                        <!-- <td *ngIf="!isBasketCalculated">
+                                <input type="checkbox" [checked]="item.isSelected" (change)="selectItem(i)">
+                            </td> -->
+                        <td class="product_namevalue" data-label="Product Name">
+                            <div class="tabledatalabel-right">
+                                <input type="text" [(ngModel)]="item.productName" disabled *ngIf="isBasketCalculated">
+                                <hs-select [defaultSelectLabel]="'Product Name'" [selectColumns]="selectColumns"
+                                    [defaultSelected]="item" [defaultSelectField]="'productName'"
+                                    [selectTotal]="searchResultLength" [selectResults]="searchResult"
+                                    (searchTrigger)="searchProduct($event,2,item)" [multiCheckVarName]="'productId'"
+                                    (selectTrigger)="selectProduct($event,item)" *ngIf='!isBasketCalculated'>
+                                </hs-select>
+                                <p class="schedule_txt with_taxes" *ngIf="!isBasketCalculated">
+                                    Update Stock Details
+                                    <a class="edit_link" (click)="updateStockDetails(i)">
+                                        <img src="assets/img/ic_edit_primary_16.png"></a>
+                                </p>
+                                <p class='schedule_txt' *ngIf="isBasketCalculated"> Batch
+                                    No:{{item.stockDetails.batchNo}} </p>
+                                <p class='schedule_txt' *ngIf="isBasketCalculated"> Expiry
+                                    Date:{{item.stockDetails.expiryDate | date}}</p>
+                            </div>
+                        </td>
+                        <td class="quantity_value" data-label="Quantity">
+                            <div class="tabledatalabel-right">
+                                <input type="text" (keypress)="restrictingToOnlyNumberInputes($event)"
+                                [(ngModel)]="item.quantity" (change)="calculateProd(item); checkQuantity($event, item)"
+                                    [disabled]="isBasketCalculated">
+                                <ng-container *ngIf="item.packingInformation?.unitsInPackage as unitsInPackage">
+                                    <p
+                                        *ngIf="item?.stockDetails?.totalAvailableQuantity && item.quantity>item.stockDetails?.totalAvailableQuantity/(item.packageSoldLoose?1:unitsInPackage)">
+                                        Avail Stock :
+                                        {{item.stockDetails?.totalAvailableQuantity/(item.packageSoldLoose?1:unitsInPackage)
+                                        | number : '1.0-2'}} {{item.packingInformation.packageType}}
+                                        ({{item.packingInformation.unitsInPackage}}
+                                        units/{{item.packingInformation.packageType}})
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </td>
+                        <td class="quantity_value" data-label="Selling Price">
+                            <div class="tabledatalabel-right">
+                                <input type="text" (keypress)="restrictingToOnlyNumberInputes($event)" [(ngModel)]="item.netPrice" (change)="calculateProd(item)"
+                                    [disabled]="isBasketCalculated">
+                                <p class='schedule_txt'> {{item.grossPrice|currency:'INR':true:'1.2-2'}} (without taxes)
+                                </p>
+                            </div>
+                        </td>
+                        <td class=" total_taxvalue" data-label="Total Taxes">
+                            <div class="tabledatalabel-right">
+                                <p class="schedule_txt with_taxes">
+                                    {{item.taxationAmount |currency:'INR':true:'1.2-2'}}
+                                    <a class="edit_link" (click)="updateTax(i)" *ngIf="!isBasketCalculated">
+                                        <img src="assets/img/ic_edit_primary_16.png"></a>
+                                </p>
+                                <p class='schedule_txt with_taxes' style="color:#000">CGST
+                                    {{item.taxes.cgst?item.taxes.cgst:0 | number : '1.0-2'}} % :
+                                    {{(item.totalTaxes?.cgstAmount?item.totalTaxes.cgstAmount:0)
+                                    |currency:'INR':true:'1.2-2'}}
+                                </p>
+                                <p class='schedule_txt with_taxes' style="color:#000">SGST
+                                    {{item.taxes.sgst?item.taxes.sgst:0 | number : '1.0-2'}} % :
+                                    {{(item.totalTaxes?.sgstAmount?item.totalTaxes.sgstAmount:0) |
+                                    currency:'INR':true:'1.2-2'}}
+                                </p>
+                                <p class='schedule_txt with_taxes' style="color:#000">IGST
+                                    {{item.taxes.igst?item.taxes.igst:0 | number : '1.0-2'}} % :
+                                    {{(item.totalTaxes?.igstAmount?item.totalTaxes.igstAmount:0) |
+                                    currency:'INR':true:'1.2-2'}}
+                                </p>
+                            </div>
+                        </td>
+                        <td class="total_amountvalue" data-label="Total Amount">
+                            <div class="tabledatalabel-right">
+                                <p> &#8377;{{item.finalAmount | number : '1.0-2'}} (With taxes)
+                                </p>
+                                <p>
+                                    &#8377;{{item.originalAmount | number : '1.0-2'}} (Without Taxes)
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="tabledatalabel-right" *ngIf="!isBasketCalculated"><i
+                                    class="fa fa-times removetxt_icon" aria-hidden="true" (click)="remove(item)"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class=" bg-danger" *ngIf="item.isErrorFound && !isBasketCalculated">
+                        <td colspan="6">{{item.isErrorMsg[0]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <section class="widget03 col-md-12 mb-2" widget="">
+        <div class="widget-body" *ngIf="!isBasketCalculated">
+            <form class="form-horizontal " role="form">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated my-2">
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12">Download Product List Template</h4>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="form-group">
+                                    <button class="Update mt-1"><a href="{{ fileDownloadData }}"
+                                            target="_blank">DOWNLOAD TEMPLATE</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12">Upload the Updated Template</h4>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="form-group">
+                                    <div class="upload-section mt-1">
+                                        <input #productFileUpload type="file" accept=".xls,.xlsx" class="mb-1"
+                                            id="files" name="uploadfile" (change)="fileUpload($event)" />
+
+                                        <input class="Update submitbtn px-2" type="button" value="SUBMIT"
+                                            (click)="onUploadButtonClick()">
+                                    </div>
+                                </div>
+                                <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage">
+                                </hs-message>
+                                <div *ngIf="hasCheckBoxValidation">
+                                    <label class="error_class">{{checkBoxValidationMessage}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <button class="processbotton_txt processdone_txt" (click)="onGenerateBack()" role="button">BACK</button>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <button class="processbotton_txt processdone_txt1 add_product" (click)="onNext()" *ngIf="!isBasketCalculated"
+            role="button">Next</button>
+    </div>
+
+    <div *ngIf="isBasketCalculated" class="col-lg-6 col-md-4"></div>
+    <div *ngIf="isBasketCalculated" class="col-lg-6 col-md-8">
+        <div>
+            <div class="row process_original mr-0"
+                *ngIf="supplierAdviseTrack.invoiceCompletionStatus==6 || supplierAdviseTrack.invoiceCompletionStatus==3">
+                <div class="col-md-5 col-sm-4 col-xs-6 total_txt">Original Amount (OA) :
+                    <p class="with_txt">Without Taxes</p>
+                </div>
+                <div class="col-md-7 col-sm-8 col-xs-6">
+                    {{orderDetails.payment.originalAmount|currency:'INR':true:'1.2-2'}} </div>
+                <!-- <ng-template [ngIf]="orderDetails.payment.otherDiscountAmount>0"> -->
+                <div class="col-md-5 col-sm-4 col-xs-6 total_txt">Other Discounts (OD) :</div>
+                <div class="col-md-7 col-sm-8 col-xs-6">
+                    <input type="radio" name="isDiscount" value="0" [checked]="otherDiscountMode == 0"
+                        (change)="checkDiscountSelection(0)"> % &nbsp;&nbsp;
+                    <input type="radio" name="isDiscount" value="1" [checked]="otherDiscountMode == 1"
+                        (change)="checkDiscountSelection(1)"> Value
+                    <div class="col-md-12 col-sm-12 col-xs-12 total_txt">
+                        <div class="row">
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 p-0">
+                                <label class="all_textboxtxt">
+                                    Discount in {{!otherDiscountMode?'%':'values'}} :
+                                </label>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 p-0">
+                                <!-- [(ngModel)]="otherDiscountAmountPercent"
+                                                [ngModelOptions]="{standalone: true}" -->
+                                <input type="number" id="percenageOtherDis" class="fname_discount_text" #otherDis
+                                    placeholder="Enter Discount %" [(ngModel)]="otherDiscountAmountPercent"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                    (keyup)="applyOtherDiscount(otherDis.value)" step="0.02"
+                                    *ngIf="!otherDiscountMode" />
+                                <input type="number" id="percenageOtherDis" class="fname_discount_text" #otherDisAmt
+                                    placeholder="Enter Discount values" [(ngModel)]="otherDiscountAmount"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                    (keyup)="applyOtherDiscount(otherDisAmt.value)" *ngIf="otherDiscountMode" />
+                            </div>
+
+                            <label for="datepicker" class="all_textboxtxt">
+                                <div class="row">
+                                    <div class="col-lg-10 col-md-8 col-sm-7 col-xs-12">Discount in
+                                        {{!otherDiscountMode?'values' :'%'}} (OD):
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-sm-5 col-xs-5">
+                                        {{!otherDiscountMode?this.otherDiscountAmount:otherDiscountAmountPercent}}
+                                    </div>
+                                </div>
+                            </label>
+
+                        </div>
+                        <!-- {{(orderDetails.payment.otherDiscountAmount?orderDetails.payment.otherDiscountAmount:0)|currency:'INR':true:'1.2-2'}} -->
+                    </div>
+                </div>
+                <!-- </ng-template> -->
+                <ng-template [ngIf]="orderDetails.payment.usedWalletAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-12 total_txt">Wallet Discount (WD) :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(orderDetails.payment.usedWalletAmount?orderDetails.payment.usedWalletAmount:0)|currency:'INR':true:'1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="orderDetails.payment.totalCashbackAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount (CA) :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(orderDetails.payment.totalCashbackAmount?orderDetails.payment.totalCashbackAmount:0)|currency:'INR':true:'1.2-2'}}
+                    </div>
+                </ng-template>
+                <!-- <div class="row m-0"> -->
+                <div class="col-md-5 col-sm-4 col-xs-6  total_txt">Delivery Charges (DC) :</div>
+                <div class="col-md-7 col-sm-8 col-xs-6">
+                    {{(orderDetails.deliveryAmount?orderDetails.deliveryAmount:0)|currency:'INR':true:'1.2-2'}}
+                </div>
+                <!-- </div> -->
+                <!-- <div class="row m-0"> -->
+                <div class="col-md-5 col-sm-4 col-xs-6  total_txt">Tax Payable (TP) :</div>
+                <div class="col-md-7 col-sm-8 col-xs-6">
+                    {{(orderDetails.payment.taxationAmount?orderDetails.payment.taxationAmount:0)
+                    |currency:'INR':true:'1.2-2'}}
+                </div>
+                <!-- </div> -->
+                <ng-template [ngIf]="orderDetails.payment.platformCharges">
+                    <!-- <div class="row m-0"> -->
+                    <div class="col-md-5 col-sm-4 col-xs-6  total_txt">Platform Charges:</div>
+                    <div class="col-md-7 col-sm-8 col-xs-6">
+                        {{(orderDetails.payment.platformCharges?orderDetails.payment.platformCharges:0)
+                        |currency:'INR':true:'1.2-2'}}
+                    </div>
+                    <!-- </div> -->
+                </ng-template>
+                <!-- <div class="row m-0"> -->
+                <div class="col-md-5 col-sm-4 col-xs-6  total_txt">Total Billing Amount :</div>
+                <div class="col-md-7 col-sm-8 col-xs-6">
+                    {{orderDetails.payment.finalAmount|currency:'INR':true:'1.2-2'}}
+                </div>
+
+                <!-- <ng-template [ngIf]="isInvoice">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Amount
+                            {{this.orderDetails.payment.transactionType == 2? 'Paid' : 'Payable'}}:
+                            <p class="with_txt">( OA + TP - OD + DC )</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            &#8377; {{this.orderDetails.payment.finalAmount |currency:'INR':true:'1.2-2'}}
+                        </div><br><br>
+                    </ng-template> -->
+                <div class="col-md-5 col-sm-4 col-xs-6  total_txt">Payment Status : </div>
+                <div class="col-md-7 col-sm-8 col-xs-6">
+                    <form action="#" class="color_cash">
+                        <input type="radio" name="paytype" value="0" checked (change)="selectPaymentStatus(0)">
+                        Unpaid &nbsp;&nbsp;
+                        <input type="radio" name="paytype" value="1" (change)="selectPaymentStatus(1)"> Paid
+                    </form>
+                </div>
+                <ng-template [ngIf]="paymentStatus">
+                    <div class="col-md-5 col-sm-4 col-xs-6  total_txt">Payment Mode : </div>
+                    <div class="col-md-7 col-sm-8 col-xs-6">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" value="0" (change)="selectPayMode(2)" checked> Cash
+                            <!-- &nbsp;&nbsp;<input type="radio" name="paymant" value="1" (change)="selectPayMode(5)">
+                            Online -->
+                            &nbsp;&nbsp;<input type="radio" name="paymant" value="2" id="other-payment"
+                                (change)="selectPayMode(9)"> Others
+                            <div class="other-paymentdetails" *ngIf="paymentModeIndex!=2 && paymentModeIndex!=5">
+                                <div class="row mb-1">
+                                    <div class="col-md-5 col-sm-6 col-xs-6 pr-0">
+                                        <select class="form-control" (change)="selectPayMode($event.target.value)">
+                                            <option value="0" disabled>Select</option>
+                                            <option value="1">Card</option>
+                                            <option value="8">PhonePe</option>
+                                            <option value="6">Google Pay</option>
+                                            <option value="7">PayTM</option>
+                                            <option value="9">DD</option>
+                                            <option value="10">CHEQUE</option>
+                                            <option value="11">NEFT</option>
+                                            <option value="12">UPI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5 col-sm-6 col-xs-6">
+                                        <input type="text" placeholder="Transaction Id" class="form-control"
+                                            [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+                <!-- </div> -->
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12"
+        *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 3 || supplierAdviseTrack.invoiceCompletionStatus == 6">
+
+        <button class="btn processbotton_txt processdone_txt1 add_product" (click)="confirmOrder()"
+            *ngIf="isBasketCalculated" role="button">Confirm Order</button>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12"
+        *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 2 || supplierAdviseTrack.invoiceCompletionStatus == 23 || supplierAdviseTrack.invoiceCompletionStatus == 0">
+        <button class="btn processbotton_txt processdone_txt1 add_product" (click)="SendQuotation()"
+            *ngIf="isBasketCalculated" role="button"> Send Quotation</button>
+    </div>
+
+    <!-- Manual batch update model -->
+    <div class="modal fade" id="updateTaxation" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Taxtion Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>CGST:</label>
+                            <input type="text" class="form-control" [(ngModel)]="tempTax.cgst"
+                                oninput="validity.valid||(value='');" maxlength="5" (keypress)="isNumber($event)">
+                        </div>
+                        <div class="col-md-4">
+                            <label>SGST:</label>
+                            <input type="text" class="form-control" [(ngModel)]="tempTax.sgst"
+                                oninput="validity.valid||(value='');" maxlength="5" (keypress)="isNumber($event)">
+                        </div>
+                        <div class="col-md-4">
+                            <label>IGST:</label>
+                            <input type="text" class="form-control" [(ngModel)]="tempTax.igst"
+                                oninput="validity.valid||(value='');" maxlength="5" (keypress)="isNumber($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                        (click)="updateItem('tax')">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Manual batch update model -->
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateStockdetails" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Stock Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Expiry Date:</label>
+                            <hs-datepicker [defautDate]="tempStockDetails.expiryDate"
+                                (onDateSubmit)="onDateSubmit($event)">
+                            </hs-datepicker>
+                        </div>
+                        <ng-template [ngIf]="showPackingInfo">
+                            <div class="col-md-4">
+                                <label>Package Type</label>
+                                <select name="PackageType" id="PackageType" class="form-control"
+                                    [(ngModel)]="tempPackingInformation.packageType">
+                                    <option value="{{tempPackingInformation.packageType?'package':'undefined'}}">
+                                        --Select Pack Type--</option>
+                                    <option value="Strip">Strip</option>
+                                    <option value="Bottle">Bottle</option>
+                                    <option value="Jar">Jar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Units In Package:</label>
+                                <input type="text" class="form-control" (keypress)="restrictingToOnlyNumberInputes($event)"
+                                    [(ngModel)]="tempPackingInformation.unitsInPackage">
+                            </div>
+                        </ng-template>
+                        <div class="col-md-4">
+                            <label>Batch No:</label>
+                            <input type="text" class="form-control" [(ngModel)]="tempStockDetails.batchNo">
+                        </div>
+                        <div class="col-md-4">
+                            <label>MRP:</label>
+                            <input (keypress)="restrictingToOnlyNumberInputes($event)" type="text" class="form-control" [(ngModel)]="tempStockDetails.netPrice">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Discount Price:</label>
+                            <input (keypress)="restrictingToOnlyNumberInputes($event)" type="text" class="form-control" [(ngModel)]="tempStockDetails.discountPrice ">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                        (click)="updateItem('stock')">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>

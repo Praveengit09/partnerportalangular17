@@ -1,0 +1,83 @@
+
+.Update{
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 0 .75em 0 0em !important;
+}
+.datepicker, .mat-form-field {
+    width: 100% !important;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    top: 5px;
+  }
+  .employee_edit{
+    color: #fff;
+    background-color: #14a9b5;
+    font-weight: bold;
+    font-size: 15px;
+  }
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 5px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }

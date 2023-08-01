@@ -1,0 +1,36 @@
+@import "../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../scss/variables";
+@import "../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../node_modules/bootstrap/scss/mixins";
+
+text {
+    font: 12px sans-serif;
+}
+svg {
+    display: block;
+}
+#chart1 svg {
+    margin: 0px;
+    padding: 0px;
+    height: 400px;
+    width: 100%;
+}
+.date_txt .datepicker, .date_txt .mat-form-field{
+    width: -webkit-fill-available !important;
+}
+.date_time_txt .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap {
+    border-top-color: rgba(0, 0, 0, 0.11);
+}
+.date_time_txt .datepicker, .mat-form-field{
+    width: -moz-available !important;
+}
+#chart1 svg .nv-bar{
+    //height: 320px;
+}
+@media only screen and (max-width: 414px) {
+    #chart1 .nvd3 text{
+        font-size: 8px;
+    }
+}
+
+

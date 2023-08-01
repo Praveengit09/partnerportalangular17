@@ -1,0 +1,38 @@
+@import "../../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+.nvd3 .nv-point-paths path {
+    fill: rgb(7, 7, 7) !important;
+    fill-opacity: 0.4 !important;
+    stroke-opacity: 1 !important;
+    stroke: rgb(5, 0, 0) !important;
+}
+
+.nvd3-svg {
+    height: 400px !important;
+}
+
+.reports-graphtable .table-responsive {
+    max-height: 408px;
+    border: 1px solid #ddd
+}
+
+.reports-graphtable .table th,
+.reports-graphtable .table td {
+    min-width: auto !important;
+    padding: 10px 5px !important;
+}
+
+.reports-graphtable .table tr th:not(:last-child),
+.reports-graphtable .table tr td:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+.reports-graphtable .table td {
+    font-size: 12px;
+}
+
+.text-center {
+    text-align: center;
+}

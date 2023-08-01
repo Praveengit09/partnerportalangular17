@@ -1,0 +1,115 @@
+.table_size .inventory_para{
+font-size: 14px;
+color: #5b5b5b;
+font-weight: 400;
+}
+.upload_inventory{
+    margin: 0px;
+    padding-bottom: 25px;
+    color: #5b5b5b;
+    font-size: 22px;
+}
+.template_upload{
+padding-left: 14px;
+}
+.number_uploadtxt{
+font-size: 60px;
+position: absolute;
+bottom: 5px;
+color: #9e9d9d;
+}
+.widget_updated{
+position: relative;
+margin-bottom: 45px;
+padding: 15px 20px;
+background: #fff;
+border-radius: 0.2rem;
+border: 2px solid #e6e6e6 !important;
+}
+.widget_txt {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 25px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: auto !important;
+    margin-top: 2px;
+}
+
+.widget_txt .patient_txt h4,.widget_txt  .patient_txt p{
+    margin: 0px;
+    font-weight: 400;
+
+}
+.widget-body { overflow-x: scroll; }
+.advice_text{
+    padding-left: 0px;
+    color: #14a9b5;
+}
+
+.error_class{
+    color:#ff6d6d;
+}
+.advice_text h2{
+     font-size: 30px;
+    color: #14a9b5;
+    font-weight: 500;
+}
+.widget-body {
+     overflow-x:hidden; 
+}
+ .search-result a{
+word-wrap: break-word;
+line-height: 20px;
+}
+.generictxt{
+z-index: 999999;
+}
+.Update {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin-top: 5px;
+}
+
+.Update12 {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ff6d6d;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+.Update12 a{
+    color: #fff;
+    text-decoration: none;
+    
+}
+ 
+ .upload_file{
+     width: 250px;
+ }
+ .successfully_upload{
+ width: 81%;
+ text-align: left;
+ margin-bottom: 0px;
+ font-size: 14px;
+ color: #5b5b5b;
+ line-height: 22px;
+ }
+.successfully_txt{
+    text-align: center;
+    text-transform: capitalize;
+    color: #078b07;
+}

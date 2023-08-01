@@ -1,0 +1,118 @@
+@import '../../../scss/variables';
+@import '../../../scss/theme.scss';
+
+.doctor_name h6,
+.docbooking h6 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0px;
+}
+
+.doctor_name p,
+.docbooking p {
+    font-weight: 500;
+    color: #000;
+    line-height: 19px;
+}
+
+.general_phy ul {
+    padding-left: 15px;
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+.general_phy ul li {
+    display: inline-block;
+    // float: left;
+    padding: 0px 6px 0px 0px;
+}
+
+.follow_txt {
+    color: #1dc8d5;
+}
+
+.new_txt {
+    color: #e64f40
+}
+
+.min_order span {
+    color: #1dc8d5;
+}
+
+.start_txt {
+    background-color: #fff;
+    border-color: #1dc8d5;
+    color: #1dc8d5;
+    border: 2px solid #1dc8d5;
+}
+
+.uplad-pres {
+    margin-top: 10px;
+}
+
+.image_circle {
+    width: 270px;
+}
+
+.image_circle .rounded-circle {
+    width: 100%;
+}
+
+.queue_widget table {
+    margin-bottom: 0;
+}
+
+.queueinfo_btn {
+    // background-color: #14a9b5;
+    background-color: $btn-bg-color;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    cursor: pointer;
+}
+
+#queueinfo .modal-dialog {
+    max-width: 100%;
+    margin: 0;
+    height: 100%;
+}
+
+#queueinfo .modal-content {
+    min-height: 100%;
+    border: none;
+    box-shadow: none;
+}
+
+#queueinfo nav {
+    padding: 5px 0;
+}
+
+.page-title {
+    // color: #14a9b5;
+    color: $title-color;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.logo-sm {
+    height: auto;
+}
+
+@media screen and (max-width: 600px) {
+    .queue_widget {
+        border: none !important;
+    }
+
+    .upload-presbtn {
+        text-align: center;
+    }
+}
+
+.service_column {
+    width: 170px
+}

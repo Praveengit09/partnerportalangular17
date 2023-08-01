@@ -1,0 +1,159 @@
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <h1 class="page-title">{{settleSubmitItem.pocName}} Payment</h1>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <button type="button" class="downloadsetel_txt btn btn-danger" (click)="exlDownload()">Download</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 final_tablereport">
+            <section class="widget table_pading" widget>
+
+                <div class="widget-body financial_report_tabletxt">
+
+                    <table class="table table-striped">
+                        <thead class="table_head">
+                            <tr>
+                                <th>Invoice Id</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Revenue</th>
+                                <th>Payable</th>
+                                <th>Receivable</th>
+                                <th>reconciled</th>
+                                <th>Pending Payment</th>
+                                <th>PAYMENT MODE</th>
+                                <th>PAYMENT STATUS</th>
+                                <th>Detail</th>
+                                <th>Received</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr><td>{{settleSubmitItem.periodicSummaryFinancialStatementList|json}}</td></tr> -->
+                            <!-- <ng-template *ngFor="let reconciliationList of reconciliationSummary.periodicSummaryFinancialStatementList"> -->
+                            <tr
+                                *ngFor="let settlePayment of settleSubmitItem.periodicFinancialStatementList;let settleIndex = index">
+                                <td>{{settlePayment.invoiceId}}</td>
+                                <td>{{settlePayment.invoiceFromDate | date}}</td>
+                                <td>{{settlePayment.invoiceToDate | date}}</td>
+                                <td>{{settlePayment.totalRevenue | currency:'INR':true:'1.2-2'}}</td>
+                                <td>{{settlePayment.totalPayableAmount | currency:'INR':true:'1.2-2'}}</td>
+                                <td>{{settlePayment.totalReceivableAmount | currency:'INR':true:'1.2-2'}}</td>
+                                <td>{{settlePayment.reconciledAmount | currency:'INR':true:'1.2-2'}}</td>
+                                <td>{{settlePayment.reconciliationPendingAmount | currency:'INR':true:'1.2-2'}}</td>
+                                <td>
+                                    <ng-container
+                                        *ngIf="settlePayment.invoiceId==settlePayment.payDetails.invoiceId">
+                                        {{paymentModeTypeEnum[settlePayment.payDetails.paymentMode]}}
+                                    </ng-container>
+                                </td>
+
+
+                                <td>
+                                    <ng-container
+                                    *ngIf="settlePayment.invoiceId==settlePayment.payDetails.invoiceId">
+                                        {{paymentStatusTypeEnum[settlePayment.payDetails.paymentStatus]}}
+                                    </ng-container>
+                                </td>
+                                <td><button class="btn  Updatereport"
+                                        (click)="settleSummary(settlePayment)">View</button></td>
+                                <td *ngIf="settlePayment.reconciliationPendingAmount==0">
+                                    <button class="btn  Updatereport reconcile_txt">Reconcile</button></td>
+                                <td *ngIf="settlePayment.reconciliationPendingAmount > 0">
+                                    <button class="btn  Updatereport" data-toggle="modal"
+                                        (click)="settlePaymentRecevied(settlePayment)">Reconcile</button></td>
+                            </tr>
+                            <!-- </ng-template> -->
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+            </section>
+        </div>
+        <div class="col-md-12">
+            <button type="button" class="btn back_buttontxt" (click)="backButton()">BACK</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="settleRecevied" role="dialog">
+    <div class="modal-dialog modal_payment col-md-8">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                <h4 class="modal-title">Reconciliation For invoice</h4>
+            </div>
+            <div class="modal-body">
+                <!-- <ng-controller *ngFor="let reconciliationInvoice of settleSubmitItem.periodicFinancialStatementList,let item =index"> -->
+
+
+                <div class="row settle_txt" *ngIf="settleRecocileUpdate">
+                    <div class="col-md-12"><label>Reconciled for Invoice Id:{{settleRecocileUpdate.invoiceId}}</label>
+                    </div>
+                    <div class="col-md-3" *ngIf="settleRecocileUpdate.pocPayable==true">
+                        <label>Recevied</label>
+                        <input type="text" class="form-control input-md"
+                            [(ngModel)]="settleRecocileUpdate.reconciliationPendingAmount"></div>
+                    <div class="col-md-3" *ngIf="settleRecocileUpdate.pocPayable==false">
+                        <label>Payable</label>
+                        <input type="text" class="form-control input-md" [(ngModel)]="payableAmount">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Status</label>
+                        <select class="form-control input-md" [(ngModel)]="settleRecocileUpdate.reconciliationStatus"
+                            [ngModelOptions]="{standalone:true}">
+                            <option value="0" selected>Not Applicable</option>
+                            <option value="1">Partial</option>
+                            <option value="2">completed</option>
+
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Payment Mode</label>
+                        <select class="form-control input-md" [(ngModel)]="settleRecocileUpdate.payDetails.paymentMode"
+                            [ngModelOptions]="{standalone:true}">
+                            <option value="0" selected>PAYMENT_PANDING</option>
+                            <option value="1">PAYMENTSMODE_CASH</option>
+                            <option value="2">PAYMENTSMODE_ONLINE</option>
+                            
+
+
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Payment Status</label>
+                        <select class="form-control input-md" [(ngModel)]="settleRecocileUpdate.payDetails.paymentMode"
+                            [ngModelOptions]="{standalone:true}">
+                            <option value="0" selected>PAYMENTSTATUS_NULL</option>
+                            <option value="1">PAYMENTSTATUS_INITATED</option>
+                            <option value="2">PAYMENTSTATUS_PENDING</option>
+                            <option value="2">PAYMENTSTATUS_FAIL</option>
+                            <option value="2">PAYMENTSTATUS_SUCCESS</option>
+
+
+                        </select>
+                    </div>
+                    <div class="col-md-12 comment-txt">
+                        <label>Comment</label><br>
+                        <textarea class="col-md-6 form-control input-md" [(ngModel)]="settleRecocileUpdate.comment">
+
+                                            </textarea>
+
+                    </div>
+                    <div class="col-md-2"><button type="submit" class="btn btn-danger" data-number="1"
+                            data-toggle="modal" (click)="settleSubmitRecocile()">Submit</button></div>
+
+
+
+                </div>
+                <!-- </ng-controller> -->
+            </div>
+
+        </div>
+    </div>
+</div>

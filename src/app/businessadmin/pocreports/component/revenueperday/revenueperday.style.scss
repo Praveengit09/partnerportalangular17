@@ -1,0 +1,66 @@
+@import "../../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+// DateRange Css code
+ .daterange{
+    padding: 5px 5px;
+ }
+ .range_date{
+    padding: 5px 10px;
+    border-radius: 4px;
+    border-right: none;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+ }
+ .date_ngx .md-drppicker.double{
+    width: 635px;
+ }
+ .date_ngx .md-drppicker .clear{
+    display: none;
+ }
+ .date_ngx .md-drppicker .ranges ul li button.active{
+    background-color: #2E6E91;
+ }
+ .date_ngx .md-drppicker td.active, .md-drppicker td.active:hover {
+    background-color: #2E6E91;
+ }
+ .date_ngx .md-drppicker .btn{
+    background-color: #2E6E91;
+ }
+ @media (max-width: 1024px){
+
+   .date_ngx .md-drppicker.double {
+       width: auto;
+   }
+   }
+ @media (max-width: 768px){
+    .date_ngx .md-drppicker.double {
+        width: auto;
+    }
+ }
+ @media (max-width: 640px){
+    .date_ngx .md-drppicker.double {
+        width: auto;
+    }
+ }
+
+ @media (max-width: 411px) {
+    .date_ngx .md-drppicker.double {
+        width: auto;
+    }
+ }
+@media (max-width: 350px) {
+        .transform_txt1{
+            svg .nv-controlsWrap .nv-legend{
+                transform: translate(-75px,5px) !important;
+            }
+            .nvd3-svg .tick text{
+                font-size: 9px;
+            }
+        }
+        .date_ngx .md-drppicker.double {
+            width: auto;
+        }
+       
+    }

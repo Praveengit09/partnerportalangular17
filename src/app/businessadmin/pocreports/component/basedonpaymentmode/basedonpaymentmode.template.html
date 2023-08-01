@@ -1,0 +1,19 @@
+<div class="widget-body">
+        <div class="pull-right row day7_txt">
+    
+          <!-- <div class="col-md-4 col-sm-4 col-xs-4"> -->
+            <!-- <select name="past_date" id="past_date" class="form-control state_select" (change)="onDateOptionChange($event.target.value)"
+              [(ngModel)]="dropDownIndexForPastDate" [ngModelOptions]="{standalone: true}">
+                      <option [value]=0 >Past 7 Days</option>
+                      <option [value]=1 >Past 15 Days</option>
+                      <option [value]=2> Past 30 Days</option>
+                    
+                    </select> -->
+          <!-- </div> -->
+        </div>
+        <div *ngIf="nvd32Data != undefined" class = 'transform_txt4'>
+          <div nvd3-chart [chart]="nvd32Chart" [datum]="nvd32Data">
+            <svg id="chart03"></svg>
+        </div>
+    </div>
+</div>

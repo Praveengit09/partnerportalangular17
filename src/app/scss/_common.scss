@@ -1,0 +1,172 @@
+@mixin circletxt_box {
+    font-size: 1.3em;
+    width: 1.3em;
+    height: 1.3em;
+    text-align: center;
+    line-height: 1.3em;
+    background: #666;
+    color: #fff;
+    border-radius: 0.9em;
+    cursor: pointer;
+}
+
+.add_patient,
+.addtxt_icon1 {
+    @include circletxt_box;
+    border: 1px solid #dd5826;
+    background-color: #dd5826;
+}
+
+.addtxt_icon2 {
+    @include circletxt_box;
+    border: 1px solid #43BAC4;
+    background-color: #43BAC4;
+}
+
+@mixin removecircle_box {
+    font-size: 1.3em;
+    width: 1.3em;
+    height: 1.3em;
+    text-align: center;
+    line-height: .75em;
+    background: #666;
+    color: #fff;
+    border-radius: 0.9em;
+    cursor: pointer;
+}
+
+.removetxt_icon {
+    @include removecircle_box;
+    border: 1px solid #dd5826;
+    background-color: #dd5826;
+}
+
+.tabledatalabel-right .removetxt_icon {
+    padding-top: 4px !important;
+    margin-top: 5px;
+}
+
+.page-title {
+    color: $title-color;
+    margin-bottom: 20px;
+}
+
+.button_addtxt {
+    background-color: $btn-bg-color;
+    color: #fff;
+    text-transform: uppercase !important;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    float: right;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    cursor: pointer;
+}
+
+.button_addtxt .add_txt {
+    margin-right: 7px;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #fff;
+}
+
+.button_addtxt .add_txt::before {
+    position: relative;
+    top: 3px;
+}
+
+.table th,
+.table td {
+    padding: 20px 15px !important;
+}
+
+.table_head th,
+.table_head1 th,
+.table th {
+    // background-color: #f7f9fd;
+    background-color: $table-bg-header;
+}
+
+.table_head1 th {
+    color: #8ec5d8;
+}
+
+// .table td {
+//     text-transform: capitalize;
+// }
+.table-striped tbody tr:nth-of-type(odd),
+.table-striped1 tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+
+.table-striped tbody tr:nth-of-type(even),
+.table-striped1 tbody tr:nth-of-type(even) {
+    background-color: #f9fbfd;
+}
+
+.table-striped tbody tr:nth-of-type(odd):hover,
+.table-striped tbody tr:nth-of-type(even):hover,
+.table-striped1 tbody tr:nth-of-type(odd):hover,
+.table-striped1 tbody tr:nth-of-type(even):hover {
+    background-color: #F0F3F7;
+}
+
+.table-striped1 {
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.table-striped1 th,
+.table-striped1 td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+
+@media screen and (max-width: 600px) {
+    .widget-shadow {
+        -webkit-box-shadow: 0px 1px 5px 1px #DDD;
+        -moz-box-shadow: 0px 1px 5px 1px #DDD;
+        box-shadow: 0px 1px 5px 1px #DDD;
+    }
+    .table-datalabel {
+        overflow: hidden;
+    }
+    .table-datalabel table thead {
+        display: none;
+    }
+    .table-datalabel table td {
+        display: block;
+        min-height: 47px;
+        width: 100% !important;
+        float: left;
+    }
+    .table-datalabel table td::before {
+        content: attr(data-label);
+        float: left;
+        width: 48%;
+        padding-right: 2%;
+    }
+    .table-datalabel table td .tabledatalabel-right {
+        width: 50%;
+        float: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+    .table-datalabel table tr td:last-child {
+        border-bottom: 3px solid #e0e0e0;
+    }
+    .table-datalabel table td .tabledatalabel-right .noscroll {
+        width: 100px;
+        display: inline-block;
+    }
+}

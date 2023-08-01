@@ -1,0 +1,221 @@
+<div class="table_size">
+  <ng-container *ngIf="enableVdcCustomTag">
+    <h1 class="page-title">Web Enquiries</h1>
+  </ng-container>
+  <ng-container *ngIf="!enableVdcCustomTag">
+    <h1 class="page-title">Enquiry Details</h1>
+  </ng-container>
+
+  <div class="row">
+    <div class="col-lg-6 orderIdmrgn">
+      <mat-form-field appearance="outline" class="search-orders">
+        <mat-label>Mobile Number</mat-label>
+        <input type="text" autocomplete="off" id="search" maxlength="12" (keyup)="onEnterPressed($event)" matInput
+          placeholder="Enter Mobile Number" (keypress)="validate($event,1)">
+        <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getLeadsWithMobile()"></i>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6 date">
+      <h6 class="sub-title">Filter by Date</h6>
+
+      <div class="row date_txt">
+        <div class="form-group  col-sm-4 ">
+          <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker"
+            (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts">
+          </datetime>
+        </div>
+        <div class="form-group col-sm-4 ">
+          <datetime [(value)]="endDate" [placeholder]="'End Date'" name="endDate" id="datepicker2"
+            (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts">
+          </datetime>
+        </div>
+        <div class="col-sm-4 sub-btn">
+          <button type="submit" class="btn btn-danger width-100" role="button" (click)="submit()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="autorefresh-refreshbutton filter-ordersbtn mb-1">
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#enquiryFormModal"
+          data-whatever="@mdo" (click)="resetForm()">Add Enquiry</button>
+        <auto-refresh (refreshEvent)="getBaseEnquiryDetails()" [componentName]="'enquiryListIndex'">
+        </auto-refresh>
+
+        <button type="button" class="btn btn-primary searchresult_resetbtn mr-1" role="button"
+          (click)="getBaseEnquiryDetails()">
+          <span class="glyphicon glyphicon-repeat"></span>
+          <span class="refresh_txt">REFRESH</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row buttonCounts" *ngIf='enableVdcCustomTag'>
+    <button type="button" class="notification paymentPendingOrders" id="CorporateWellness" role="button"
+      (click)="onStatusButtonSelect(1)">Corporate Wellness
+      <span class="inside-badge"><b>{{corporate}}</b></span>
+    </button>
+    <button type="button" class="notification cancelledOrders" id="NewsLetter" role="button"
+      (click)="onStatusButtonSelect(2)">News
+      Letter
+      <span class="inside-badge"><b>{{newsLetter}}</b></span>
+    </button>
+    <button type="button" class="notification addresschgd" id="HomeCollection" role="button"
+      (click)="onStatusButtonSelect(3)">Home
+      Collection
+      <span class="inside-badge"><b>{{homeCollection}}</b></span>
+    </button>
+    <button type="button" class="notification appOrders" id="Enquiry" role="button"
+      (click)="onStatusButtonSelect(4)">Enquiry
+      <span class="inside-badge"><b>{{enquiry || 0}}</b></span>
+    </button>
+    <button type="button" class="notification centerOrders" id="Reports" role="button"
+      (click)="onStatusButtonSelect(5)"> Reports
+      <span class="inside-badge"><b>{{reports}}</b></span>
+    </button>
+  </div>
+  <br>
+  <div class="row buttonCounts" *ngIf='enableVdcCustomTag'>
+    <button type="button" id="website" class="notification vendorRejectedOrders" role="button"
+      (click)="onSourceFilter(5)">Website
+      <span class="inside-badge"><b>{{websiteCount}}</b></span>
+    </button>
+    <button type="button" id="callCenter" class="notification phleboUnAssignedOrders" role="button"
+      (click)="onSourceFilter(3)">Call
+      Center
+      <span class="inside-badge"><b>{{callcenterCount}}</b></span>
+    </button>
+    <button type="button" id="App" class="notification vendorUnAssignedOrders" role="button"
+      (click)="onSourceFilter(1)">App
+      <span class="inside-badge"><b>{{appCount}}</b></span>
+    </button>
+  </div>
+
+  <div class="col-md-12">
+    <section class="widget table_pading hs-table" widget>
+      <div class="widget-body">
+        <hs-table [columns]="columns" [pagingList]="data" (clickEvent)="clickEventHandler($event)" [perPage]="perPage"
+          [total]="total" [dataMsg]="dataMsg" [componentId]="'enquirylist'" (pageClick)="onPage($event)">
+        </hs-table>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal fade" id="enquiryFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enquiry Form</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form [formGroup]="enquiryForm">
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name:</label>
+              <input type="text" class="form-control" id="name" formControlName="name" (keypress)="validate($event,0)">
+            </div>
+            <div class="form-group">
+              <label for="Email" class="col-form-label">Email:</label>
+              <input type="email" class="form-control" id="email" formControlName="email">
+            </div>
+            <div class="form-group">
+              <label for="mobileNo" class="col-form-label">Mobile No.:</label>
+              <input type="text" class="form-control" id="mobileNo" [(ngModel)]="formMobile" formControlName="mobileNo"
+                (keypress)="validate($event,1)">
+            </div>
+            <div class="form-group">
+              <label for="city">Select list:</label>
+              <select class="form-control" id="city" formControlName="city">
+                <option value="">select city</option>
+                <option *ngFor="let city of City" value={{city}}>{{ city }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="enquiryFor" class="col-form-label">Your Enquiry:</label>
+              <textarea class="form-control" id="enquiryFor" formControlName="enquiryFor"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" (click)="onSubmit()" data-dismiss="modal"
+            [disabled]="!enquiryForm.valid">Submit</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="enquiryStatusUpdateModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enquiry Status Form</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form [formGroup]="enquiryStatusForm">
+
+
+            <div class="form-group">
+              <label for="status">Status:</label>
+              <select class="form-control" id="status" formControlName="consumerInteractionStatus">
+                <option value="">select status</option>
+                <option *ngFor="let status of enquiryStatus" value={{status}}>{{ status }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="comment" class="col-form-label">Comment:</label>
+              <textarea class="form-control" id="comment" formControlName="consumerInteractedComments"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" (click)="onSubmitStatus()" data-dismiss="modal"
+            [disabled]="!enquiryStatusForm.valid">Submit</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="showConsumerEnquiryModel">
+    <div class="modal-dialog model_addtxt">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span class="close_txt" aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title">Interaction History</h4>
+        </div>
+        <div class="modal-body">
+          <div [innerHTML]="intractionHistory | sanitizeHtml">
+            <!-- {{intractionHistory}} -->
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+</div>
+<spinner-component></spinner-component>

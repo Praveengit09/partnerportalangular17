@@ -1,0 +1,73 @@
+<nav class="emp_navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="assets/mymedic/icons/logo_sm.png" class="d-inline-block align-top" alt="">
+    </a>
+
+</nav>
+          
+          <div class="emp_side-navbar">
+          <div class="nav_bar">
+            <input type="checkbox" name="" id="check">
+            <div class="container">
+              <label for="check">
+                <span><i class="fa fa-bars" id="bars" aria-hidden="true"></i></span>
+                <span><i class="fa fa-times" id="times" aria-hidden="true"></i></span>
+             
+              </label>
+              <div class="row employee_login mt-3">
+                <div class="col-md-4 col-xs-4 pr-0">                
+                    <span class="thumb-sm avatar float-xs-left">
+                        <img *ngIf="!user.employeeImageUrl" class="rounded-circle"
+                            src="../../../../assets/img/avatar.png" alt="..." />
+                        <img *ngIf="user.employeeImageUrl" class="rounded-circle"
+                            src="{{user.employeeImageUrl}}" alt="..." />
+                    </span>
+            
+
+                 </div>
+                <div class="col-md-8 col-xs-8 pl-0">
+                     <div class="row">
+                        <div class="col-xs-12">
+                           <h5><strong>{{user.employeeName}}</strong></h5>
+                        </div>
+                        <div class="col-xs-12">
+                          <span
+                          *ngIf="!(user.hasBusinessAdminRole || user.hasHSBusinessAdminRole || user.hasSuperAdminRole)">
+                          <div class="row" *ngIf="selectedRole != undefined">
+                              <div class="col-md-10">
+                                  <strong class="user_txt">{{selectedRole.label}}</strong>
+                              </div>
+                          </div> 
+                        </span>
+
+                        </div>
+                     </div>
+                </div>
+              </div>
+
+              
+              <div class="row" *ngIf="pocList[0]">
+                <div class="col-md-12">
+                    <span class="select-wrapper" *ngIf="selectedPOC">
+                        <select class="custom-selectbox" (change)="selectPoc($event.target.value)"
+                            [ngModel]="selectedPOC.pocId">
+                            <option *ngFor="let poc of pocList;let position = index" value="{{poc.pocId}}"
+                                [disabled]="isCorporateAdmin">{{poc.pocName}}</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+
+              <ul class="navbar-nav ">
+                <li class="nav-item">
+                  <a class="manage_emp">
+                    <i class="glyphicon glyphicon-dashboard pr-1"></i>
+                      <p class="mb-0">Manage Employees</p>
+                    </a>  
+                </li>
+              </ul>
+            </div>
+      </div>
+          </div> 
+
+<router-outlet></router-outlet>                                                     

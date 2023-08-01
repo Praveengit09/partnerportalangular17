@@ -1,0 +1,417 @@
+<div (click)="hideSearchResult()">
+    <div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+        <h1 class="page-title">Add Stock</h1>
+    </div>
+
+    <h4>Supplier Information</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget_txt supplier-info" widget="">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6" *ngIf="!isSupplierFefresh">
+                        <div class="form-group">
+                            <label>Supplier Name <sup class="sgst_txt">*</sup></label>
+                            <!-- <input id="supplier_name" class="form-control input-sm" placeholder="Supplier Name" autocomplete="off" [(ngModel)]="inventoryDetail.supplierName" (keyup)="searchSupplier(inventoryDetail.supplierName)" /> -->
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label>Supplier Name</mat-label>
+                                <input matInput id="supplier_name" class="form-control input-sm"
+                                    placeholder="Supplier Name" autocomplete="off"
+                                    [(ngModel)]="inventoryDetail.supplierName"
+                                    (keyup)="searchSupplier(inventoryDetail.supplierName)"
+                                    (focusout)="getSupplierId('')" />
+                            </mat-form-field> -->
+                            <!-- <div class="col-md-12" id="search-result">
+                                <div *ngFor="let search of supplierResult" (click)="getSupplierId(search.supplierName)"
+                                    class="search-result">
+                                    <a>{{search.supplierName}}</a>
+                                </div>
+                                <div *ngIf="supplierResult && supplierResult.length<=0" class="search-result"
+                                    (click)="getSupplierId('')">
+                                    <a>No Data Found</a>
+                                </div>
+                            </div> -->
+                            <hs-select [defaultSelectLabel]="'Supplier Name'" [selectColumns]="selectSupplierColumns"
+                                [defaultSelected]="inventoryDetail" [defaultSelectField]="'pocName'" [selectTotal]="supplierResultLength"
+                                [selectResults]="supplierResult" [isMatEnable]="isMatEnable" [multiCheckVarName]="'pocId'"
+                                (searchTrigger)="searchSupplier($event)" (selectTrigger)="getSupplierId($event)" >
+                            </hs-select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label>Supplier Invoice No <sup class="sgst_txt">*</sup></label>
+                            <!-- <input type="text" name="supplier_invoice_id" autocomplete="off" [(ngModel)]="inventoryDetail.supplierInvoicNo" id="invoice_number" class="form-control input-sm" placeholder="Invoice No"> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Invoice No</mat-label>
+                                <input matInput type="text" name="supplier_invoice_id" autocomplete="off" [(ngModel)]="inventoryDetail.supplierInvoicNo" id="invoice_number" class="form-control input-sm" placeholder="Invoice No">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label>Date<sup class="sgst_txt">*</sup></label>
+                            <datetime [(value)]="inventoryDetail.invoiceDate" [timepicker]="false" id="datepicker" [datepicker]="datepickerOpts1"></datetime>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label>Type<sup class="sgst_txt">*</sup></label>
+                            <!-- <select id="paymenttype" class="form-control" [(ngModel)]="inventoryDetail.type">
+                                    <option value="0">Select Type</option>
+                                    <option value=1>Cash</option>
+                                    <option value=2>Credit</option>
+                            </select> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Type</mat-label>
+                                <mat-select id="paymenttype" [(ngModel)]="inventoryDetail.type">
+                                    <mat-option value="0">Select Type</mat-option>
+                                    <mat-option value=1>Cash</mat-option>
+                                    <mat-option value=2>Credit</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label>Entry Number<sup class="sgst_txt">*</sup></label>
+                            <!-- <input type="text" name="entry_no" [(ngModel)]="inventoryDetail.entryNo" id="supplier_entry" class="form-control input-sm" placeholder="Entry Number"> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Entry Number</mat-label>
+                                <input matInput type="text" name="entry_no" [(ngModel)]="inventoryDetail.entryNo" id="supplier_entry" class="form-control input-sm" placeholder="Entry Number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label>Entry Date<sup class="sgst_txt">*</sup></label>
+                            <datetime [(value)]="inventoryDetail.entryDate" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <h4>Product Details</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading" widget>
+                <div class="widget-body">
+                    <div class="table-responsive">
+                        <table class="table product_table new_table table-striped">
+                            <thead>
+                                <tr class="table_head">
+                                    <th>Product Name</th>
+                                    <th>Batch No.</th>
+                                    <th>Expiry</th>
+                                    <th>MRP</th>
+                                    <th>Taxes</th>
+                                    <th>Purchase Rate</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of inventoryDetail.productInventoryDetails; let i=index" class="inventory_medic">
+                                    <td>{{product.productName}}</td>
+                                    <td>{{product.stockDetails.batchNo}}</td>
+                                    <td>{{getDate(product.stockDetails.expiryDate)}}</td>
+                                    <td> {{product.stockDetails.netPrice|currency:'INR':true:'1.2-2'}}</td>
+                                    <td>
+                                        <div>
+                                            <label>CGST %:&nbsp;</label>{{product.stockDetails.taxes.cgst}}
+                                        </div>
+                                        <div>
+                                            <label>SGST %:&nbsp;</label>{{product.stockDetails.taxes.sgst}}
+                                        </div>
+                                        <div>
+                                            <label>IGST %:&nbsp;</label>{{product.stockDetails.taxes.igst}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{product.purchaseRate|currency:'INR':true:'1.2-2'}}
+                                        <div>
+                                            <label>% Margin:&nbsp;</label>{{product.marginPercentage}}
+                                        </div>
+                                    </td>
+                                    <td>{{product.stockDetails.purchasedQuantity}}</td>
+                                    <td> {{product.finalAmount|currency:'INR':true:'1.2-2'}}</td>
+                                    <td>
+                                        <button class="btn btn-danger" (click)="editproduct(i)">Edit</button>
+                                        <button class="btn btn-danger remove-btn" (click)="remove(i)">Remove</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- add product code start here -->
+
+    <h4>Add New Product</h4>
+    <hr>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget_txt" widget="">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <label>Product Name<sup class="sgst_txt">*</sup></label>
+                        <hs-select *ngIf="resetProductNameComponent" [defaultSelectLabel]="'Product Name'" [selectColumns]="selectColumns" [defaultSelected]="selectedProduct" [defaultSelectField]="'productName'" [selectTotal]="productNameSelectTotal" [hardReset]="productNameHardReset"
+                            [selectResults]="productNameSearchResults" [multiCheckVarName]="'productId'" (searchTrigger)="productNameSearchTrigger($event)" (selectTrigger)="selectTrigger($event)">
+                        </hs-select>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Quantity<sup class="sgst_txt">*</sup></label>
+                            <input type="number" name="quantity" [(ngModel)]="selectedProduct.stockDetails.purchasedQuantity" id="quantity" class="form-control input-sm" placeholder="Quantity" min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Free<sup class="sgst_txt">*</sup></label>
+                            <input type="number" name="freeProductCount" [(ngModel)]="selectedProduct.freeProductCount" id="free" class="form-control input-sm" placeholder="Free" min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>MRP (per unit)<sup class="sgst_txt">*</sup></label>
+                            <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' name="mrp" [(ngModel)]="selectedProduct.stockDetails.netPrice" id="price" class="form-control input-sm" placeholder="Price" min="0" (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                (keyup)="onMarginCalculate()" (change)="onMarginCalculate()" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Purchase Rate (per unit)<sup class="sgst_txt">*</sup></label>
+                            <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' name="purchase_rate" [(ngModel)]="selectedProduct.purchaseRate" id="purchase_rate" class="form-control input-sm" placeholder="Purchase Rate" (keyup)="onMarginCalculate()"
+                                (keypress)="validation.decimalValueforTwoCharacters($event)" (change)="onMarginCalculate()" min="0" oninput="validity.valid||(value='');">
+                        </div>
+                        <div>
+                            <label>%
+                                Margin:&nbsp;</label>{{selectedProduct && selectedProduct.marginPercentage && selectedProduct.marginPercentage > 0?selectedProduct.marginPercentage:0}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Expiry<sup class="sgst_txt">*</sup></label>
+                            <hs-datepicker (onDateSubmit)="onDateSubmit($event)" [defautDate]="selectedProduct.stockDetails.expiryDate"></hs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Batch Number<sup class="sgst_txt">*</sup></label>
+                            <input type="text" name="batch_number" [(ngModel)]="selectedProduct.stockDetails.batchNo" id="batch_number" class="form-control input-sm" placeholder="Batch No" min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Rack<sup class="sgst_txt">*</sup></label>
+                            <input type="text" name="rack_number" [(ngModel)]="selectedProduct.stockDetails.rackNo" id="rack_number" class="form-control input-sm" placeholder="Rack No">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <b>Taxes</b>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Supplier CGST % <sup class="sgst_txt">*</sup></label>
+                            <input type="number" name="supp_cgst" [(ngModel)]="selectedProduct.supplierTaxes.cgst" id="purchase_rate" class="form-control input-sm" placeholder="Supplier CGST" min="0" (keypress)="validation.decimalValueforTwoCharacters($event)" step="0.01" (keyup)="validGst()">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Supplier SGST % <sup class="sgst_txt">*</sup></label>
+                            <input type="number" (keypress)="validation.decimalValueforTwoCharacters($event)" name="first_name" [(ngModel)]="selectedProduct.supplierTaxes.sgst" id="margin_percentage" class="form-control input-sm" placeholder="Supplier SGST" min="0" oninput="validity.valid||(value='');"
+                                step="0.01" (keyup)="validGst()">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Supplier IGST %</label>
+                            <input type="number" (keypress)="validation.decimalValueforTwoCharacters($event)" name="supp_igst" [(ngModel)]="selectedProduct.supplierTaxes.igst" id="vat" class="form-control input-sm" placeholder="Supplier IGST" min="0" oninput="validity.valid||(value='');"
+                                step="0.01" (keyup)="validGst()">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Seller CGST % <sup class="sgst_txt">*</sup></label>
+                            <input type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' name="seller_cgst" [(ngModel)]="selectedProduct.stockDetails.taxes.cgst" id="purchase_rate" class="form-control input-sm" placeholder="Seller CGST"
+                                min="0" (keypress)="validation.decimalValueforTwoCharacters($event)" oninput="validity.valid||(value='');" step="0.01" (keyup)="validGst()">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Seller SGST % <sup class="sgst_txt">*</sup></label>
+                            <input type="number" name="first_name" [(ngModel)]="selectedProduct.stockDetails.taxes.sgst" id="margin_percentage" class="form-control input-sm" placeholder="Seller SGST" min="0" (keypress)="validation.decimalValueforTwoCharacters($event)" oninput="validity.valid||(value='');"
+                                step="0.01" (keyup)="validGst()">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Seller IGST %</label>
+                            <input type="number" name="seller_igst" [(ngModel)]="selectedProduct.stockDetails.taxes.igst" id="vat" class="form-control input-sm" placeholder="Seller IGST" min="0" (keypress)="validation.decimalValueforTwoCharacters($event)" oninput="validity.valid||(value='');"
+                                step="0.01" (keyup)="validGst()">
+                        </div>
+                    </div>
+                </div>
+                <p class="ErrorMessage">{{addProductError}}</p>
+                <p class="ErrorMessage">{{addGstPercentError}}</p>
+                <input type="submit" class="Update" value="ADD PRODUCT" (click)="addProduct()">
+            </section>
+        </div>
+
+    </div>
+    <hr>
+    <!-- add product code end here -->
+
+
+    <h4>Additional Details</h4>
+    <div class="row">
+        <div class="col-lg-6">
+            <section class="widget_txt" widget="">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Discount %</label>
+                            <input type="number" name="first_name" [(ngModel)]="inventoryDetail.discountPercentage" id="discount" class="form-control input-sm" placeholder="Discount %" min="0" oninput="validity.valid||(value='');" (keyup)="validPercent()">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Ad. Disc</label>
+                            <input type="number" name="first_name" id="additionalDiscount" [(ngModel)]="inventoryDetail.additionalDiscount" class="form-control input-sm" placeholder="Ad. Disc" min="0" oninput="validity.valid||(value='');" (keyup)="validPercent()">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Cr. Note</label>
+                            <input type="text" name="first_name" id="crNote" [(ngModel)]="inventoryDetail.crNote" class="form-control input-sm" placeholder="Cr. Note">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Sch. Dis.</label>
+                            <input type="number" name="sch_discount" id="schDiscount" [(ngModel)]="inventoryDetail.schDiscount" class="form-control input-sm" placeholder="Sch. Dis." min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Dr. Note</label>
+                            <input type="text" name="first_name" id="drNote" [(ngModel)]="inventoryDetail.drNote" class="form-control input-sm" placeholder="Dr. Note">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>0 % Value</label>
+                            <input type="number" name="zero_value" id="zeroPercValue" [(ngModel)]="inventoryDetail.zeroPercValue" class="form-control input-sm" placeholder="0 % Value" min="0" oninput="validity.valid||(value='');" (keyup)="validPercent()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Other Amount</label>
+                            <input type="number" name="first_name" id="otherAmount" [(ngModel)]="inventoryDetail.otherAmount" class="form-control input-sm" placeholder="Other Amount" min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                </div>
+                <p class="ErrorMessage">{{addPercentError}}</p>
+            </section>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                            </div>
+                            <div class="row">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-md-5">Sub total</div>
+                        <div class="col-md-5">{{subTotal | currency:'INR':true:'1.2-2'}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">Disc. Amount</div>
+                        <div class="col-md-1">0.0</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">Adjust</div>
+                        <div class="col-md-1">0.0</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">Round</div>
+                        <div class="col-md-1">0.0</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-10">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">Total GST</div>
+                <div class="col-lg-4"> {{taxAmount | currency:'INR':true:'1.2-2'}}</div>
+                <!--<div class="col-lg-1"></div>-->
+                <div class="col-lg-3">Grand Total</div>
+                <div class="col-lg-3"> {{inventoryDetail.netAmount | currency:'INR':true:'1.2-2'}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <p class="ErrorMessage">{{supplierError}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5"><input type="submit" class="Update" value="UPDATE INVENTORY " (click)="updateInventory()"></div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal fade" id="successMessage" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" *ngIf="insertResult != undefined">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{insertResult.statusMessage}}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{successMessage}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

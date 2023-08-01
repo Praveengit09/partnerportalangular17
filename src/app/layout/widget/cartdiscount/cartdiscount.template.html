@@ -1,0 +1,238 @@
+<div class="col-md-12">
+    <p style="color:red" *ngIf="!onlyPayment && !isOldRecord">*NOTE : Either Coupon or Package can be applied</p>
+
+    <ng-template [ngIf]="showReferredBy">
+        <div class="row">
+            <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Referred By:</div>
+            <div class="col-md-7 col-sm-6 col-xs-6">
+                <hs-select [defaultSelectLabel]="'Search Center Name'" [defaultSelectField]="'pocName'"
+                    [selectColumns]="selectColumns" class="diagnostic-testsearch" [selectResults]="pocSearchList"
+                    (searchTrigger)="searchPocs($event)" (selectTrigger)="getPocName($event)"></hs-select>
+            </div>
+        </div>
+        &nbsp;&nbsp;
+    </ng-template>
+
+    <div class="row process_original" *ngIf="this.cartItemDetails!=undefined">
+        <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Original Amount (OA) :</div>
+        <div class="col-md-7 col-sm-6 col-xs-6">
+            {{currencySymbol}} {{cartItemDetails.payment.originalAmount | number : '1.2-2'}}</div>
+
+        <!-- PackageDiscount Block -->
+        <ng-template [ngIf]=" packageNamesShow && !onlyPayment && !isOldRecord">
+            <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Select a Package:</div>
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <select id="my_select option" *ngIf="packageList && packageList.length>1" [(ngModel)]="dropDownIndex"
+                    [ngModelOptions]="{standalone: true}" class="form-control"
+                    (change)="onDiscountDropDownChange($event.target.value)">
+                    <option *ngFor="let package of packageList;let i = index" [value]=i>
+                        {{package.packageName}}
+                    </option>
+                </select>
+                <div class="clearfix"></div>
+                <span *ngIf="statusMessage1" class="quantity_txt">{{statusMessage1}}</span>
+            </div>
+        </ng-template>
+
+
+
+        <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Package Discount (PD): </div>
+        <div class="col-md-7 col-sm-6 col-xs-6">
+            {{currencySymbol}}
+            {{(cartItemDetails.payment.packageDiscountAmount?cartItemDetails.payment.packageDiscountAmount:0)
+            | number : '1.2-2'}}
+        </div>
+
+        <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Package Name:</div>
+        <div class="col-md-7 col-sm-6 col-xs-6">
+            {{(cartItemDetails.userPackageId>0 && cartItemDetails.packageName!=null)?cartItemDetails.packageName:'NA'}}
+        </div>
+
+        <!-- CouponDiscount Block -->
+        <div class="col-md-12 col-sm-12 col-xs-12 process_form" *ngIf="!onlyPayment && !this.isOldRecord">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Enter a Coupon:</div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <input type="text" id="couponDiscount" class="coupon_discount_text" #couponDiscount
+                        placeholder="Enter Coupon" [(ngModel)]="couponCode" [ngModelOptions]="{standalone: true}"
+                        (keypress)="validation.noSpecialCharacters($event)" (keyup)="onKeyUp($event)" />
+                    <span id="searchclear" class="glyphicon glyphicon-remove-circle searchclear"
+                        (click)="resetCoupon()"></span>
+                    <button class="btn btn-primary followUpApply col-3 apply_btn mt-xs"
+                        (click)="applyCoupon()">Apply</button>
+                    <div class="clearfix"></div>
+                    <span *ngIf="statusMessage" class="quantity_txt">{{statusMessage}}</span>
+                </div>
+            </div>
+        </div>
+        <ng-template [ngIf]="this.couponDiscountAmount>0">
+            <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Coupon Discount:</div>
+            <div class="col-md-7 col-sm-6 col-xs-6">
+                {{currencySymbol}} {{this.couponDiscountAmount| number : '1.2-2'}}
+            </div>
+        </ng-template>
+
+        <!-- OtherDiscount Block -->
+        <ng-template [ngIf]="this.otherDiscountAmount>0 && isOldRecord">
+            <div class=" col-md-5 col-sm-6 col-xs-6 total_txt">Partner Discount:
+            </div>
+            <div class="col-md-7 col-sm-6 col-xs-6">
+                {{currencySymbol}} {{this.otherDiscountAmount| number : '1.2-2'}}
+            </div>
+        </ng-template>
+
+        <ng-template [ngIf]="!isOldRecord && (cartItemDetails.payment.finalAmount>0 || isOtherDiscount)">
+            <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Other Discount : </div>
+            <div class="col-md-7 col-sm-6 col-xs-6 form-group">
+                <input type="radio" name="isDiscountPercent" value="0" [checked]="otherDiscountMode == 0"
+                    (change)="checkDiscountSelection(0)"> % &nbsp;&nbsp;
+                <input type="radio" name="isDiscountValue" value="1" [checked]="otherDiscountMode == 1"
+                    (change)="checkDiscountSelection(1)"> Value
+                <div class="col-md-12 col-sm-12 col-xs-12 total_txt" *ngIf="otherDiscountMode == 0">
+                    <div class="row">
+                        <div class="col-md-12 pt-1 p-0">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-8 col-sm-7 col-xs-7">
+                                    <label class="all_textboxtxt">
+                                        Discount in % :
+                                    </label>
+                                </div>
+                                <div class="col-lg-6 col-md-4 col-sm-5 col-xs-5">
+                                    <input type="number" id="percenageOtherDis" class="fname_discount_text"
+                                        #percenageOtherDis placeholder="Enter Discount %"
+                                        [(ngModel)]="otherDiscountAmountPercent" [ngModelOptions]="{standalone: true}"
+                                        (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                        (keyup)="otherDiscountInputChanged()" step="0.02" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-0">
+                            <label for="datepicker" class="all_textboxtxt">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-8 col-sm-7 col-xs-7">Discount in Value (OD):
+                                    </div>
+                                    <div class="col-lg-6 col-md-4 col-sm-5 col-xs-5">
+                                        {{this.otherDiscountAmount}}</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 total_txt" *ngIf="otherDiscountMode == 1">
+                    <div class="row">
+                        <div class="col-md-12 pt-1 p-0">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-8 col-sm-7 col-xs-7">
+                                    <label class="all_textboxtxt">
+                                        Discount in Value (OD):
+                                    </label>
+                                </div>
+                                <div class="col-lg-6 col-md-4 col-sm-5 col-xs-5">
+                                    <input type="number" maxlength="3" class="fname_discount_text" #valueOtherDis
+                                        placeholder="value" name="anameDiscount" (keyup)="otherDiscountInputChanged()"
+                                        id="valueOtherDis" [(ngModel)]="otherDiscountAmount"
+                                        (keypress)="validation.decimalValueforTwoCharacters($event)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-0">
+                            <label class="all_textboxtxt">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-8 col-sm-7 col-xs-7">Discount in % :</div>
+                                    <div class="col-lg-6 col-md-4 col-sm-5 col-xs-5">
+                                        {{otherDiscountAmountPercent | number : '1.2-2'}}</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <p *ngIf="this.isError" class="ErrorMessage">Please enter valid discount amount</p>
+            </div>
+        </ng-template>
+
+        <ng-template [ngIf]="promotionalDiscount && promotionalDiscount>0">
+            <div class=" col-md-5 col-sm-6 col-xs-6 total_txt ">Promotional Discounts (OD): </div>
+            <div class=" col-md-7 col-sm-6 col-xs-6 ">
+                {{currencySymbol}} {{(this.promotionalDiscount?this.promotionalDiscount:'0.0') | number : '1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template
+            [ngIf]="cartItemDetails.payment.otherDiscountAmount && cartItemDetails.payment.otherDiscountAmount>0">
+            <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Total Discount Amount: </div>
+            <div class="col-md-7 col-sm-6 col-xs-6">
+                {{currencySymbol}}
+                {{(this.cartItemDetails.payment.otherDiscountAmount?this.cartItemDetails.payment.otherDiscountAmount:'0')
+                | number : '1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="cartItemDetails.payment.usedWalletAmount && cartItemDetails.payment.usedWalletAmount>0">
+            <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Wallet Amount Used: </div>
+            <div class="col-md-7 col-sm-6 col-xs-6">
+                {{currencySymbol}}
+                {{(this.cartItemDetails.payment.usedWalletAmount?this.cartItemDetails.payment.usedWalletAmount:'0') |
+                number : '1.2-2'}}
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="cartItemDetails.payment.taxationAmount && cartItemDetails.payment.taxationAmount>0">
+            <div class=" col-md-5 col-sm-6 col-xs-6 total_txt ">Tax Payable (TP) : </div>
+            <div class=" col-md-7 col-sm-6 col-xs-6 ">
+                {{currencySymbol}}
+                {{(this.cartItemDetails.payment.taxationAmount?this.cartItemDetails.payment.taxationAmount:0)
+                | number : '1.2-2'}}
+            </div>
+        </ng-template>
+
+        <ng-template [ngIf]="cartItemDetails.deliveryType && cartItemDetails.deliveryType == 2">
+            <div class=" col-md-5 col-sm-6 col-xs-6 total_txt ">Delivery Charges: </div>
+            <div class=" col-md-7 col-sm-6 col-xs-6 ">
+                {{currencySymbol}} {{(cartItemDetails.deliveryAmount?cartItemDetails.deliveryAmount:0) | number :
+                '1.2-2'}}
+            </div>
+        </ng-template>
+
+        <ng-template [ngIf]="cartItemDetails.payment.platformCharges && cartItemDetails.payment.platformCharges > 0">
+            <div class=" col-md-5 col-sm-6 col-xs-6 total_txt ">Platform Charges: </div>
+            <div class=" col-md-7 col-sm-6 col-xs-6 ">
+                {{currencySymbol}} {{(cartItemDetails.payment.platformCharges?cartItemDetails.payment.platformCharges:0)
+                | number : '1.2-2'}}
+            </div>
+        </ng-template>
+
+        <div class=" col-md-5 col-sm-6 col-xs-6 total_txt ">Total Amount Payable :
+            <p class=" with_txt ">(OA - PD - OD + TP)</p>
+        </div>
+        <div class=" col-md-7 col-sm-6 col-xs-6 ">
+            {{currencySymbol}} {{(this.cartItemDetails.payment.finalAmount?this.cartItemDetails.payment.finalAmount:0)|
+            number : '1.2-2'}}
+        </div>
+        <ng-template [ngIf]="postWalletAmount>0 && showPostWallet">
+            <div *ngIf="this.cartItemDetails.payment.usedPostWalletAmount >0 || this.cartItemDetails.payment.finalAmount>0"
+                class="col-md-10 col-sm-10 col-xs-10 total_txt">
+                <span>
+                    <input type="checkbox" name={{i}} id="checkPostWalletAmount" (click)="onPostWalletChecked()">
+                </span> &nbsp;&nbsp;
+                <label class=""> Use your {{currencySymbol}} {{postWalletAmount}} Post Wallet Amount</label>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="perWalletBal>0 && showWallet">
+            <div *ngIf="this.cartItemDetails.payment.finalAmount>0 || this.cartItemDetails.walletApply"
+                class="col-md-10 col-sm-10 col-xs-10 total_txt">
+                <span>
+                    <input type="checkbox" name={{i}} id="checkWalletAmount" (click)="onWalletChecked()">
+                </span> &nbsp;&nbsp;
+                <label class=""> Use your {{currencySymbol}} <input class="walletInput" type="number" id="WalletAmount"
+                        (keypress)="validation.noSpecialCharacters($event)" [ngModelOptions]="{standalone: true}"
+                        (keyup)="walletInputChanged()" [(ngModel)]="walletBalance" step="0.01"> Wallet balance</label>
+            </div>
+        </ng-template>
+        <span *ngIf="walletErrorMessage" class="ErrorMessage">{{walletErrorMessage}}</span>
+        <span
+            *ngIf="cartItemDetails.userPackageId && cartItemDetails.userPackageId>0  && cartItemDetails.payment.packageCashBackAmount>0"
+            class="quantity_txt1">Cashback of {{currencySymbol}} {{cartItemDetails.payment.packageCashBackAmount}} will
+            be
+            credited after successful Payment</span>
+        <span *ngIf="cartItemDetails.payment && cartItemDetails.payment.totalCashbackAmount>0"
+            class="quantity_txt1">Cashback of {{currencySymbol}} {{cartItemDetails.payment.totalCashbackAmount}} will be
+            credited after successful Payment</span>
+    </div>
+</div>

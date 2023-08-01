@@ -1,0 +1,87 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Order List</h1>
+    <!-- <h6 class="sub-title">Search orders</h6> -->
+    <!-- <div class="row all_tableh">
+
+        <div class="col-md-12">
+            <form (ngSubmit)="getDiagnosticAdvisesForPocBasedOnPhoneNumberOrId(search.value)">
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="radio" name="searchcriteria" id="orderId" value="orderId" checked
+                                    (change)="onSearchChange('orderId')">
+                                <label for="advice" class="radio_txt">Order ID</label>
+                                <input type="radio" name="searchcriteria" value="contactNo"
+                                    (change)="onSearchChange('contactNo')">
+                                <label for="contactNo" class="radio_txt">Mobile Number</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" name="search" #search class="serch_txt"
+                                    placeholder="Enter Search query" ngModel>
+                                <button type="submit" class="btn btn-danger width-100 mb-xs"
+                                    (click)="getDiagnosticAdvisesForPocBasedOnPhoneNumberOrId(search.value)">SEARCH</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 refresh-select">
+                        <div class="row">
+                            <div class="col-md-12"><button type="button"
+                                    class="btn btn-primary width-100 mb-xs reset_btn" role="button"
+                                    (click)="getRefreshedorderList(''); search.value=''"><span
+                                        class="glyphicon glyphicon-repeat"></span>REFRESH</button>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="selectwidth">
+                                    <auto-refresh (refreshEvent)="pageRefresh($event)"
+                                        [componentName]='diagnosticsListIndex'></auto-refresh>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+    <form action="#">
+        <div class="row">
+            <div class="col-xl-6 col-lg-12">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Order ID/Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Order ID/Mobile Number">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getDiagnosticAdvisesForPocBasedOnPhoneNumberOrId()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-12">
+                <div class="autorefresh-refreshbutton filter-ordersbtn datepicker-refreshbutton">
+                    <auto-refresh (refreshEvent)="pageRefresh($event)" [componentName]='diagnosticsListIndex'>
+                    </auto-refresh>
+                    <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="getRefreshedorderList('')">
+                        <span class="glyphicon glyphicon-repeat"></span>
+                        <span class="refresh_txt">REFRESH</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row mt-1">
+        <div class="col-lg-12"> <button type="button" class="btn btn-primary button_addtxt" role="button" (click)="onGenerateNewAdvise()"><i class="fa fa-plus add_txt" aria-hidden="true"></i>New Order</button>
+        </div>
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="diagnosticsList" (clickEvent)="clickEventHandler($event)" [componentId]="'diagnosticOrdersTable'" [perPage]="perPage" [total]="total" [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+                        Loading table...
+                    </hs-table>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<spinner-component></spinner-component>

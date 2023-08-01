@@ -1,0 +1,91 @@
+<div class="software_settings">
+    <div class="content_section">
+        <h1 class="page-title">Software Settings</h1>
+        <p>Let’s add services to your workplace.</p>
+    </div>
+
+    <span (click)="skipForNow()">Skip for now</span>
+    <h4 class="page-title pl-1">CDSS Options</h4>
+
+    <div class="form-row d-flex">
+        <div class="form-group col-xs-8 col-md-5 col-lg-4 pt-1">
+            <div>
+                <input type="checkbox" name="genres" class="applicable_check1" id="myCheckbox8"
+                    [(ngModel)]="pocDetails.cdssOptions.doctorSpecific"
+                    [checked]="pocDetails.cdssOptions.doctorSpecific">
+                <label for="myCheckbox8">DoctorSpecific</label>
+            </div>
+            <div>
+                <input type="checkbox" name="genres" class="applicable_check1" id="myCheckbox89"
+                    [(ngModel)]="pocDetails.cdssOptions.brandSpecific" [checked]="pocDetails.cdssOptions.brandSpecific">
+                <label for="myCheckbox89">BrandSpecific</label>
+            </div>
+            <div>
+                <input type="checkbox" name="genres" class="applicable_check1" id="myCheckbox98"
+                    [(ngModel)]="pocDetails.cdssOptions.brandDefaults" [checked]="pocDetails.cdssOptions.brandDefaults">
+                <label for="myCheckbox98">BrandDefaults</label>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="page-title pl-1">Can Doctor edit CDSS options?</h4>
+
+    <div class="form-row d-flex">
+        <div class="form-group col-md-3 pt-1 d-flex">
+            <input type="radio" value="0" name="cdss" [checked]="pocDetails.cdssOptions?.doctorEditable"
+                (change)="changeData('doctorEditable')">
+            <label>Yes</label>
+        </div>
+        <div class="form-group col-md-3 pt-1">
+            <input type="radio" value="1" name="cdss" [checked]="!pocDetails.cdssOptions?.doctorEditable"
+                (change)="changeData('doctorEditable')">
+            <label>No</label>
+        </div>
+    </div>
+    <h4 class="page-title pl-1">Scan & Upload Prescriptions</h4>
+
+    <div class="form-row d-flex">
+        <div class="form-group col-md-3 pt-1 d-flex">
+            <input type="radio" value="0" name="upload" [checked]="this.pocDetails.scanAndUploadPrescriptions"
+                (change)="changeData('scanAndUploadPrescriptions')">
+            <label>Yes</label>
+        </div>
+        <div class="form-group col-md-3 pt-1">
+            <input type="radio" value="1" name="upload" [checked]="!this.pocDetails.scanAndUploadPrescriptions"
+                (change)="changeData('scanAndUploadPrescriptions')">
+            <label>No</label>
+        </div>
+    </div>
+    <h4 class="page-title pl-1">Is Cash on Delivery available?</h4>
+
+    <div class="form-row d-flex">
+        <div class="form-group col-md-3 pt-1 d-flex">
+            <input type="radio" value="0" name="delivery" [checked]="this.pocDetails.payOnDeliveryAvailable"
+                (change)="changeData('payOnDeliveryAvailable')">
+            <label>Yes</label>
+        </div>
+        <div class="form-group col-md-3 pt-1">
+            <input type="radio" value="1" name="delivery" [checked]="!this.pocDetails.payOnDeliveryAvailable"
+                (change)="changeData('payOnDeliveryAvailable')">
+            <label>No</label>
+        </div>
+    </div>
+    <h4 class="page-title pl-1">Show brand header on Prescriptions/Reports</h4>
+
+    <div class="form-row d-flex">
+        <div class="form-group col-md-3 pt-1 d-flex">
+            <input type="radio" checked="checked" value="0" name="reports"
+                [checked]="this.pocDetails.pdfHeaderType  == 0" (change)="changeData('pdfHeaderType',0)">
+            <label>Yes</label>
+        </div>
+        <div class="form-group col-md-3 pt-1">
+            <input type="radio" value="reports" name="reports" [checked]="this.pocDetails.pdfHeaderType !=0"
+                (change)="changeData('pdfHeaderType',1)">
+            <label>No</label>
+        </div>
+    </div>
+    <div class="form-group col-sm-8 col-lg-5 pt-1 work_place_btn">
+        <button class="w-100" (click)=" onSaveWorkplace()">Save Workplace</button>
+    </div>
+
+</div>

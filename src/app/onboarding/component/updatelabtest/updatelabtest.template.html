@@ -1,0 +1,209 @@
+<div class="row">
+    <div class="col-md-12">
+        <section class="widget">
+
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <h1 class="page-title">Update/Edit Lab Tests</h1>
+                        <p>We are glad that you thought to try our {{environment}} Portal. Now that you have created
+                            your profile, let us complete it so that {{environment}} can keep a track of your health
+                            and fitness.</p>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="progress_indicator_wrapper">
+                        <a routerLink="/app/onboarding/personal/{{profileId}}" class="progress_indicator">
+                            <span class="ic_progress past"></span> PHR</a>
+                        <a routerLink="/app/onboarding/physical/{{profileId}}" class="progress_indicator">
+                            <span class="ic_progress past"></span> Physicals</a>
+                        <a routerLink="/app/onboarding/updatelabtest/{{profileId}}" class="progress_indicator active">
+                            <span class="ic_progress present"></span> Lab Tests</a>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <br />
+                <br />
+
+                <div class="col-md-12">
+                    <div class="well-block">
+                        <div class="well-title text-line">
+                            <h3>Update lab Test Results</h3>
+                        </div>
+                        <br />
+                        <form method="post" class="form" role="form" ngNativeValidate>
+
+                            <div *ngFor="let labTest of labTests;let i=index">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Sample Id/Barcode</label>
+                                        <div class="form-group">
+                                            <input name={{labTest.sampleId}} type="text" placeholder="Enter SampleId"
+                                                [(ngModel)]="labTest.sampleId" class="form-control input-md"
+                                                [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>{{labTest.name}}</label>
+                                        <div class="form-group">
+                                            <input name={{labTest.id}} id="{{labTest.id+'input'}}" type="text"
+                                                placeholder="Enter Value" [(ngModel)]="labTest.value" class="form-control input-md"
+                                                [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Unit</label>
+                                        <div class="form-group">
+                                            <input name={{i}} type="text" placeholder="Enter Unit" [(ngModel)]="labTest.unit"
+                                                class="form-control input-md" [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="submit" class="Update" value="UPDATE" (click)="updateLabTests()">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <input type="button" class="Update" value="UPLOAD TEST REPORTS" (click)="initUpload()">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="well-block">
+                        <div class="well-title text-line">
+                            <h3>Uploaded Tests</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <section class="widget table_pading updatelabtest_widget widget-shadow">
+                        <div class="widget-body">
+                            <div class="table-responsive table-datalabel">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr class="table_head">
+                                            <th>#</th>
+                                            <th>FileName</th>
+                                            <th>Uploaded On</th>
+                                            <th>Tests Included</th>
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let file of userReport.fileUrlList; let i = index">
+                                            <td data-label="#">
+                                                <div class="tabledatalabel-right">{{i+1}}</div>
+                                            </td>
+                                            <td data-label="FileName">
+                                                <div class="tabledatalabel-right upload_filename">{{(''+file.fileName).slice(0,70)}}</div>
+                                            </td>
+                                            <td data-label="Uploaded On" *ngIf="file.uploadedDate!=0 || file.uploadedDate!=undefined">
+                                                <div class="tabledatalabel-right">{{file.uploadedDate |
+                                                    date:'shortDate'}}</div>
+                                            </td>
+                                            <td data-label="Tests Included">
+                                                <div class="tabledatalabel-right">
+                                                    <ng-template [ngIf]="file && file.testList">
+                                                        <span *ngFor="let test of file.testList"> {{test.name}}&nbsp;</span>
+                                                    </ng-template>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="tabledatalabel-right"><button class="btn btn-danger remove-btn"
+                                                        (click)="remove(i)">Remove</button></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <p>Tests successfully updated</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="gotoDashBoard()">Go To Dashboard</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!--upload Reports Popup-->
+
+<div class="modal right fade" id="testResultsUploadModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title add_medtxt" id="myModalLabel">Upload Test Report</h4>
+                <p class="select_txt">Select the tests from the below list for which your are Uploading the report</p>
+            </div>
+            <div class="modal-body uploadtest_txt">
+                <form class="form-horizontal" class="form-horizontal" #fileUploadForm="ngForm" (ngSubmit)="uploadReports(fileUploadForm)">
+                    <hs-message [isError]="hasCheckBoxValidation" [show]="showMessage" [messages]="checkBoxValidationMessage"></hs-message>
+
+
+                    <h4 class="modal-title add_medtxt add_prescrib">Prescribed Test Lists</h4>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <label>
+                            <input type="checkbox" class="modalCheckbox" [checked]="isSelectedAll()" (click)="selectAllTestName($event)"> Select All
+                        </label>
+                    </div>
+                </div>
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-6 col-xs-6" *ngFor="let item of labTests; let i = index">
+                            <label>
+                                <input type="checkbox" name="testCheckBox{{i}}" class="modalCheckbox" (click)="checkedTestName($event, item)"
+                                    [(ngModel)]="item.isSelected"> {{item.name}}
+                            </label>
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <input #diagnosticFileUpload type="file" class="form-control" id="files" name="uploadfile" (change)="fileUpload($event)"
+                        multiple />
+                    <p class="select_only">Only pdf, png, jpg files are supported</p>
+                    <br />
+                    <input type="submit" class="Update" value="UPLOAD">
+                </form>
+            </div>
+        </div>
+        <spinner-component></spinner-component>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

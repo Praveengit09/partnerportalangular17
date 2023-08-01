@@ -1,0 +1,144 @@
+<div class="table_size">
+    <h1 class="page-title">Follow-up Discount Settings</h1>
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <h3>Manage Follow-up Discount</h3>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6 applicabletoall">
+
+            <input type="checkbox" name="genres" class="applicable_check" id="adventure_id"
+                [(ngModel)]="this.applicableToAll" (change)="applyTests()">
+            <label for="adventure_id" style="font-size:16px;">Applicable to all</label>
+        </div>
+    </div>
+    <section class="widget_emlopyee" *ngIf="this.applicableToAll">
+        <table class="table table-striped">
+            <thead class="container-fluid">
+                <tr class="row-name">
+                    <!-- style="width:70%" -->
+                    <th>
+                       <div class="row">
+                            <div class="col-md-6 col-xs-6">Discount Information</div>
+                            <div class="col-md-6 col-xs-6">
+                                <div class="doctor_check d-inline-block mr-3 mt-0">
+                                    <input type="checkbox" class="applydoc_checktxt" name="genres" value="adventure"
+                                        id="doctortext_id" [(ngModel)]="this.pocDetails.followUp.editableByAll">
+                                    <label for="doctortext_id" class="mb-0">Doctor Editable</label>
+                                </div>
+                                <button role="button" class="btn width-100 mb-xs botton_txtsave"
+                                    (click)="saveButton()">SAVE</button>
+                            </div>
+                       </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row-content">
+                    <td>
+                        <div>
+                            <div class="row" *ngFor="let item of locPocFollowUpDiscountList; let i=index">
+                                <div class="col-md-3 col-sm-3 col-xs-5 discount_poc">
+                                    <p>% Discount</p>
+                                    <input type="text" value="" class="discount_input"
+                                        [(ngModel)]="item.discountPercent">
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-4 discount_poc">
+                                    <p>Validity in days</p>
+                                    <input type="text" value="" class="discount_input" [(ngModel)]="item.validityDays">
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-3 discount_poc">
+                                    <span class="close_pocbtn" (click)="removeclick(i)">×</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-sm-5 col-xs-12 discount_poc mb-1" (click)="addApplyButton()">
+                            <div class="add_button_discount">
+                                <i aria-hidden="true" class="fa fa-plus addtxt_icon2"></i>
+                                <span class="add_pocdiscountxt">Add Discount</span>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-12 col-sm-12 col-xs-12 doctor_check">
+                            <input type="checkbox" class="applydoc_checktxt" name="genres" value="adventure"
+                                id="doctortext_id" [(ngModel)]="this.pocDetails.followUp.editableByAll">
+                            <label for="doctortext_id" style="font-size:16px;">Doctor Editable</label>
+                        </div>
+                        <button role="button" class="btn width-100 mb-xs botton_txtsave"
+                            (click)="saveButton()">SAVE</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="widget_emlopyee">
+        <table class="table table-striped">
+            <thead>
+                <tr class="row-name">
+                    <th style="width:30%">Doctors List</th>
+                    <th style="width:70%">Discount Information</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="fetchedDoctorList!=undefined && fetchedDoctorList.length>0 ">
+                <tr class="row-content" *ngFor="let doctor of fetchedDoctorList; let i=index ">
+                    <td>
+                        <div class="row">
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-xs-12" *ngIf=" !doctor.imageUrl">
+                                <div class="user"><img class="rounded-circle" src="assets/img/avatar.png"></div>
+                            </div>
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-xs-12" *ngIf="doctor.imageUrl">
+                                <div class="user"><img class="rounded-circle" src={{doctor.imageUrl}}></div>
+                            </div>
+                            <div class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-xs-12">
+                                <b class="doct_name_title"> {{doctor.title}} {{doctor.firstName}}
+                                    {{doctor.lastName?doctor.lastName:''}}</b>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngFor="let pocfee of doctor.employeePocMappingList; let k=index">
+                            <div *ngIf="this.pocDetails.pocId==pocfee.pocId">
+                                <div class="row"
+                                    *ngFor="let fee of pocfee.participationSettings.followupDiscountList; let j=index">
+                                    <div class="col-md-3 col-sm-3 col-xs-3 discount_poc">
+                                        <p>% Discount</p>
+                                        <input type="text" value="" class="discount_input"
+                                            [(ngModel)]="fee.discountPercent">
+
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-3 discount_poc">
+                                        <p>Validity in days</p>
+                                        <input type="text" value="" class="discount_input"
+                                            [(ngModel)]="fee.validityDays">
+
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-xs-1 discount_poc">
+                                        <span class="close_pocbtn" (click)="remove(i,k,j)">×</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 discount_poc">
+                                    <div class="add_button_discount" (click)="addButton(i,k)">
+                                        <i aria-hidden="true" class="fa fa-plus addtxt_icon2"></i>
+                                        <span class="add_pocdiscountxt">Add Discount</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 doctor_check"
+                                *ngIf="this.pocDetails.pocId==pocfee.pocId">
+                                <input type="checkbox" class="doctor_checktxt" name="genres" value="adventure"
+                                    id="doctor_id{{i}}"
+                                    [(ngModel)]="pocfee.participationSettings.doctorFollowupDiscountEditable">
+                                <label for="doctor_id{{i}}" style="font-size:16px;">Doctor Editable</label>
+                            </div>
+                        </div>
+                        <button role="button" class="btn width-100 mb-xs botton_txtsave"
+                            (click)="saveButtonDoctor(i)">SAVE</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</div>
+
+<spinner-component></spinner-component>

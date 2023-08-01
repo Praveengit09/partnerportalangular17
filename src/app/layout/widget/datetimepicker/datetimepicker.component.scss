@@ -1,0 +1,58 @@
+
+.w-150{
+    width: 150px;
+}
+input{
+  text-align: center;
+}
+
+.mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  width: -webkit-fill-available;
+}
+.glyphicon-record:hover{
+  color: #14A9B5;
+}
+.time12{
+  text-align: center;
+  margin-top: -15px;
+}
+.timeInput{
+  opacity: 0;
+}
+.defaultTime{
+  position: absolute;
+    right: 0;
+    top: 16px;
+}
+.datepicker, .mat-form-field {
+  width: 236px;
+}
+input[placeholder],
+[placeholder],
+*[placeholder] {
+	border:none !important;
+}
+::ng-deep .datepicker .mat-form-field-suffix {
+  top: 0.60em !important;
+}
+::ng-deep .mat-calendar-table, ::ng-deep.mat-calendar-table-header th, ::ng-deep .mat-calendar-body-cell, ::ng-deep .mat-calendar-body-label {
+  border: none !important;
+}
+::ng-deep .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+  height: auto !important;
+}
+::ng-deep .mat-form-field-infix {
+  border-top: none;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -6px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+  padding-top: 10px;
+}
+::ng-deep .mat-calendar-table th, ::ng-deep .mat-calendar-table td {
+  min-width: auto !important;
+}

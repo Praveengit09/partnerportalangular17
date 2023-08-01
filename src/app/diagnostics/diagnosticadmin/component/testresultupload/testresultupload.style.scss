@@ -1,0 +1,57 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/theme.scss';
+
+.widget_updated {
+    position: relative;
+    margin-bottom: 45px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    border: 2px solid #e6e6e6 !important;
+}
+
+// .template_upload {
+//     padding-left: 14px;
+// }
+
+.upload_inventory {
+    margin: 0px;
+    padding-bottom: 15px;
+    color: #5b5b5b;
+    font-size: 22px;
+}
+
+.Update {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    // border: solid 1px #ec6262;
+    background-color: $btn-danger-bg;
+    border: solid 1px $btn-danger-border;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin-top: 5px;
+}
+
+.UpdateButton {
+    width: 172px;
+    height: 17px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    width: 172px;
+    height: 40px;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    // border: solid 1px #ec6262;
+    background-color: $btn-danger-bg;
+    border: solid 1px $btn-danger-border;
+}
+#files {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}

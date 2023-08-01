@@ -1,0 +1,52 @@
+<div class="card-container">
+    <div class="card">
+        
+        <div class="front" *ngIf="this.consentOtpVerified == false">
+            <div class="card-header">
+                <h4>Past Prescriptions</h4>
+            </div>
+            <div class="card-body rightCard" *ngIf="this.consentVerified == true">
+                <ul class="list-unstyled list-group-flush">
+                    <li class="list-group-item" *ngFor="let pastPrescription of pastPrescriptions">
+                        <div *ngIf="pastPrescription.diagnosisList">
+                            <h6 *ngIf="pastPrescription.diagnosisList.length == 1">
+                                {{pastPrescription.diagnosisList[0].name}}
+                            </h6>
+                            <h6 *ngIf="pastPrescription.diagnosisList.length == 2 ">
+                                {{pastPrescription.diagnosisList[0].name}},
+                                {{pastPrescription.diagnosisList[1].name}}
+                            </h6>
+                            <h6 *ngIf="pastPrescription.diagnosisList.length  > 3 ">
+                                {{pastPrescription.diagnosisList[0].name}},
+                                {{pastPrescription.diagnosisList[1].name}} +{{pastPrescription.diagnosisList.length-2}}
+                            </h6>
+                        </div>
+
+                        <p class="pPast">{{pastPrescription.doctorTitle}} {{pastPrescription.doctorFirstName}}
+                            {{pastPrescription.doctorLastName}}</p>
+                        <p class="pPast">{{pastPrescription.pocDetails.pocName}}</p>
+                        <p class="pPast">{{convertToDate(pastPrescription.date)}}</p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            (click)="onClickPastPrescription.emit(pastPrescription)">Prescriptions</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            (click)="onClickTest.emit(pastPrescription)">Tests</button>
+
+                        <!-- <a class="btn btn-primary" href="#">Tests</a> -->
+                    </li>
+                </ul>
+                <button class="btn btn-danger mb-1 mr-1 float-right getMorePastPrescriptionBtn"
+                    (click)="getMorePastPrescription()" *ngIf="!endOfPastPrescriptions">More</button>
+                <p class="ml-2 noMorePastPrescription" *ngIf="endOfPastPrescriptions">No more prescriptions found</p>
+            </div>
+            <div class="card-body rightCard" *ngIf="this.consentVerified == false">
+
+                <p class="consent_txt">Patient consent is required to access past prescriptions</p>
+                <button class="btn btn-primary request_consent" (click)="this.onConsentRequestClickHandler()">Request
+                    Consent</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="this.showconsentpopup == true">
+    <requestconsent [isFromWizard]="isFromWizard" (onModalClose)='this.onModalClose()'></requestconsent>
+</div>

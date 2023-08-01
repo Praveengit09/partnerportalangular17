@@ -1,0 +1,15 @@
+<div *ngIf="!isDisable && refreshHSSelect">
+    <hs-select [defaultSelectLabel]="placeholder" [selectColumns]="selectColumns" [defaultSelected]="this.selectedPocVar"
+        [defaultSelectField]="'pocName'" [selectTotal]="pocListLength" [selectResults]="searchedPocList" [isOnBlurEffect]="true"
+        (searchTrigger)="searchPoc($event)" [isMatEnable]="isMatEnable" (selectTrigger)="onSelectPoc($event)"
+        style="display: inline-block;"></hs-select>
+    <!-- (keydown.backspace)="onKeydown($event)" class="docname_search" -->
+</div>
+<div *ngIf="isDisable">
+    <input *ngIf="!isMatEnable" type="text" [value]="(selectedPoc&&selectedPoc.pocName)||''" [disabled]="true" />
+    <mat-form-field *ngIf="isMatEnable" appearance="outline">
+        <mat-label>{{placeholder}}</mat-label>
+        <input matInput class="form-control hs-select" id="'mat-disabled'" autocomplete="off"
+            [value]="(selectedPoc&&selectedPoc.pocName)||''" [disabled]="true" placeholder="{{placeholder}}" />
+    </mat-form-field>
+</div>

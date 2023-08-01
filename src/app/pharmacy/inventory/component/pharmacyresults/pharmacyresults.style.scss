@@ -1,0 +1,105 @@
+.Update {
+    width: 132px;
+    height: 17px;
+   
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    float: none !important;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    text-transform: uppercase;
+  }
+
+  .pointer-cursor {
+    cursor: pointer;
+}
+
+.submit_txt{
+    padding: 5px 25px;
+    font-size: 18px;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+    background-color: #1dc8d5;
+    border-color: #1dc8d5;
+}
+
+.cart-widget .cart-widgeticon {
+    bottom          : 10px;
+    left            : 40%;
+    padding         : 15px 30px;
+    border-radius   : 8px;
+    box-shadow      : 0 7px 14px 0 rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width           : 91%;
+    max-width       : 200px;
+    position        : fixed;
+    z-index         : 1;
+    margin-left     : 16px;
+}
+
+.align-self-center {
+    align-self: center !important;
+    color     : #fff;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.cart-widget i.fa-angle-right {
+    border       : solid 2px #f10306;
+    font-size    : 20px;
+    padding      : 10px 18px;
+    border-radius: 50%;
+    width        : 44px;
+    height       : 44px;
+}
+
+.text-cart {
+    color: #f10306 !important;
+}
+
+.text-saved {
+    color    : #fab3b4;
+    font-size: 12px;
+}
+
+.cart-widget .rupes_txt {
+    border-left: 1px solid rgba(167, 167, 167, 0.3);
+}
+
+.cart-widget .cart-cnt {
+    color           : #fff;
+    background-color: #f10306;
+    position        : absolute;
+    border-radius   : 50%;
+    width           : 24px;
+    height          : 24px;
+    padding         : 3px 8px;
+    top             : -15px;
+    left            : 30px;
+}
+
+.cart-widget i.fa-shopping-cart {
+    font-size: 1.5rem;
+}
+
+.rupees_text {
+    color    : #a8a8a8;
+    font-size: 18px;
+    padding  : 5px 13px 5px;
+}
+
+.rupees_text hr {
+    margin-top   : 0px;
+    margin-bottom: 0px;
+    border       : 0;
+    border-top   : 1px solid rgba(0, 0, 0, 0.1);
+    position     : relative;
+    top          : 13px;
+}

@@ -1,0 +1,53 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">New Order Details</h1>
+</div>
+
+<div class="row">
+    <!-- <div class="col-lg-12 col-sm-12"> -->
+    <section class="newadd_patient col-md-4 col-sm-4 col-xs-4" widget="">
+        <div class="col-md-12 col-sm-12 col-xs-12 patient_txt patientpop">
+            <p>Patient
+                <i aria-hidden="true" class="fa fa-plus add_patient" data-toggle="modal"
+                    data-target="#registerPatientModal" data-backdrop="static" data-keyboard="false"></i>
+            </p>
+            <h4 *ngIf="cartItem.patientProfileDetails">
+                {{cartItem.patientProfileDetails.title?cartItem.patientProfileDetails.title+". ":''}}
+                {{cartItem.patientProfileDetails.fName}}
+                {{cartItem.patientProfileDetails.lName?cartItem.patientProfileDetails.lName:''}}
+            </h4>
+        </div>
+
+    </section>
+    <section *ngIf="cartItem!=null && cartItem.patientProfileDetails && cartItem.patientProfileDetails.profileId>0"
+        class="col-lg-8 col-sm-8 mt-2">
+        <div class="cart_deliveryaddress">
+            <select-address-dropdown [selectedAddress]="cartItem.deliveryAddress"
+                [profileId]="cartItem.patientProfileDetails.profileId"
+                [profileaddresses]=" cartItem.patientProfileDetails.contactInfo.addresses"
+                (onSelectAddress)="onSelectAddress($event)"></select-address-dropdown>
+        </div>
+    </section>
+    <!-- //</div> -->
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+    <medicinesales (calculateEvent)="onCalculateEvent($event)"></medicinesales>
+
+
+    <div class="width-100per">
+        <button mat-button role="button" class="submit_txt" value="Pay Now" (click)="onSubmitForCalculation()">Next</button>
+    </div>
+    <br>
+    <!-- ***************************************** -->
+    <div class="modal left " id="registerPatientModal">
+        <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+            <div class="modal-content patient-registerpopup">
+                <patientregister-component [isPatientFetch]='true' [componentId]="'registerPatientModal'"
+                    (closeModel)="closeModel('#registerPatientModal')" (onRegisterNewUser)="onRegisterNewUser($event)">
+
+                </patientregister-component>
+            </div>
+        </div>
+    </div>
+
+
+    <spinner-component></spinner-component>

@@ -1,0 +1,152 @@
+<div class="emp_proffesiondetails mt-2">
+ <div class="row mx-0">
+<div class="col-md-6 col-lg-6">
+    <div class="form-group">
+        <label class="control-label" for="name">Qualification
+            <sup class="sgst_txt">*</sup>
+        </label>
+        <input name="Qualification" type="text" placeholder="Enter Qualification "
+            [(ngModel)]="doctorDetail.qualificationName" class="form-control input-md">
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="name">Experience
+            <sup class="sgst_txt">*</sup>
+        </label>
+        <input name="Experience" type="text" placeholder="Enter Experience"
+            [(ngModel)]="doctorDetail.experience" class="form-control input-md"
+            (keypress)="validateNumberInputOnly($event)" (keydown)="validatecopyPast($event)"
+            onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false"
+            onDrop="return false">
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="name">Registration Number</label>
+        <input name="RegistrationNumber" type="text" placeholder="Enter Registration Number"
+            [(ngModel)]="doctorDetail.registrationNumber" class="form-control input-md">
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="name">Description
+        </label>
+        <input name="Description" type="text" placeholder="Enter Your Description"
+            [(ngModel)]="doctorDetail.description" class="form-control input-md">
+    </div>
+    <div class="form-group">
+        <label><input type="checkbox" [(ngModel)]="doctorDetail.digitizationQueueEnabled"
+                [checked]="doctorDetail.digitizationQueueEnabled"
+                value="doctorDetail.digitizationQueueEnabled">&nbsp;Enable digitization for uploaded
+            prescription</label>&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="form-group">
+        <label><input type="checkbox" [(ngModel)]="doctorDetail.sendDigitizedPrescriptionOnly"
+                [checked]="doctorDetail.sendDigitizedPrescriptionOnly"
+                value="doctorDetail.sendDigitizedPrescriptionOnly">&nbsp;Send digitized prescription
+            only</label>
+    </div>
+</div>
+<div class="col-md-6 col-lg-6">
+      <!--  card section -->
+      <section class="widget_emp" widget="">
+        <div class="row">
+
+            <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="this.doctorDetail.imageUrl!=undefined">
+                <img [src]="this.doctorDetail.imageUrl" class="employee_img2">
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3"
+                *ngIf="this.doctorDetail.gender=='Male' && this.doctorDetail.imageUrl==undefined">
+                <img alt="..." class="employee_img2" src="assets/img/default-avatar-male.png">
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3"
+                *ngIf="this.doctorDetail.gender=='Female' && this.doctorDetail.imageUrl==undefined">
+                <img alt="..." class="employee_img2" src="assets/img/default-avatar-female.png">
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3"
+                *ngIf="this.doctorDetail.gender=='Others' && this.doctorDetail.imageUrl==undefined">
+                <img alt="..." class="employee_img2" src="assets/img/default-avatar-others.png">
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <p class="prinston_txt2">{{doctorDetail.title}} {{doctorDetail.firstName}}
+                    {{doctorDetail.lastName?doctorDetail.lastName:''}}</p>
+                <p class="serial_number2" *ngIf="doctorDetail.type==0">Doctor</p>
+                <p class="serial_number2" *ngIf="doctorDetail.type==1">Expert</p>
+                <p class="serial_number2" *ngIf="doctorDetail.type==2">App User</p>
+                <p class="serial_number2" *ngIf="doctorDetail.type==3">Other</p>
+                <p class="serial_number2">{{doctorDetail.gender}}</p>
+                <p class="serial_number2">{{ doctorDetail.contactList}}</p>
+                <p class="serial_number2">Languages:</p>
+                <span *ngFor="let langList of doctorDetail.languages; let i =index;">
+                    {{langList.name}}{{doctorDetail.languages.length-1!=i?', ':''}}</span>
+                <p class="serial_number2">Email: {{doctorDetail.emailId}}</p>
+            </div>
+
+         </div>
+      </section>
+ 
+     
+
+   </div>
+</div>
+
+
+<h5 class="list_title3">Add Speciality
+    <sup class="sgst_txt">*</sup>
+    <a>
+        <i aria-hidden="true" class="fa fa-plus addtxt_icon2" data-toggle="modal"
+            data-target=".bde-example-modal-lh" (click)=" getspecialities()"></i>
+    </a>
+</h5>
+<div class="row contact_add2">
+    <div class="col-md-5">
+        <div *ngIf="serviceList!=undefined || serviceList == undefined">
+            <h6 *ngFor="let item of serviceList">{{item.serviceName}}</h6>
+        </div>
+    </div>
+
+</div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <button id="singlebutton" name="singlebutton" class="btn  Update" (click)="onEmployeeRole()">NEXT:POC And
+                Roles</button>
+        </div>
+    </div>
+</div>    
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+
+
+    <div class="modal fade bde-example-modal-lh" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3 class="modal-title">Service List</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row ">
+                    <!-- <div class="col-md-3 col-sm-6 update_packages "
+                        *ngFor="let selected of getSpecialityList;let i=index">
+                        <label class="checkbox-inline package_checkbox">
+                            <input type="checkbox" class="service_checked" name="testCheckBox"
+                                (click)="onValueCheckedd(selected)" id={{selected.id}} name={{i}}>
+                            <label class="" for={{selected.id}}>{{selected.text}}</label>
+                        </label>
+                    </div> -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 custom_chk"
+                        *ngFor="let selected of getSpecialityList;let i=index">
+                        <input type="checkbox" id={{selected.id}} name={{i}} (click)="onValueCheckedd(selected)" />
+                        <label for={{selected.id}}>{{selected.text}}</label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

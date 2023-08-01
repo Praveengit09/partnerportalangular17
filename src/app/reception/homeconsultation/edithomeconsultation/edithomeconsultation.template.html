@@ -1,0 +1,93 @@
+<h1 class="page-title">Order ID {{doctorHomeConsultTrack.orderId}}</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="info-head">Patient Information</h6>
+                <h5>{{doctorHomeConsultTrack.patientProfileDetails.title?doctorHomeConsultTrack.patientProfileDetails.title+". ":''}}
+                    {{doctorHomeConsultTrack.patientProfileDetails.fName?doctorHomeConsultTrack.patientProfileDetails.fName:''}}
+                    {{doctorHomeConsultTrack.patientProfileDetails.lName?this.doctorHomeConsultTrack.patientProfileDetails.lName:''}}
+                </h5>
+
+                <p>{{doctorHomeConsultTrack.deliveryAddress.address1}},<br>
+                    {{doctorHomeConsultTrack.deliveryAddress.address2}},<br>
+                    {{doctorHomeConsultTrack.deliveryAddress.cityName}},<br>
+                    {{doctorHomeConsultTrack.deliveryAddress.stateName}} -
+                    {{doctorHomeConsultTrack.deliveryAddress.pinCode}}</p>
+                <p>{{doctorHomeConsultTrack.patientProfileDetails.contactInfo.mobile}}</p>
+            </div>
+            <div class="col-md-6">
+
+                <h6 class="info-head">Service Information</h6>
+                <h5>{{this.doctorHomeConsultTrack.serviceName}}</h5>
+                <h6 class="info-head">Consultation Fee</h6>
+                <h5>{{this.doctorHomeConsultTrack.payment.finalAmount}}</h5>
+                <h6 class="info-head">Date & Time</h6>
+                <h5>{{fromTime|date:'shortTime'}},{{date|date}}</h5>
+            </div>
+        </div>
+
+        <div class="status-info mt-3">
+            <p>Edit Status</p>
+            <p class="mt-2">
+                <input type="radio" name="edit" (change)="checkConsultationMode(0)">Edit &
+                Approve&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="edit" [disabled]='disable == true'
+                    (change)="checkConsultationMode(1)">Approve&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="edit" (change)="checkConsultationMode(2)">Reject&nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- <input type="radio" name="edit" (change)="checkConsultationMode(3)" >Cancel -->
+            </p>
+            <div class="remarks-info mt-2">
+
+                <!-- <input type="text" placeholder="Desired Date" >
+                <input type="text" placeholder="Desired Time"> -->
+                <div class="row">
+                    <div class="col-lg-12" *ngIf='this.readonly'>
+                        <label class="validationCustom03">Date:</label>
+
+                        <datetime class="date-time-pointer-disable" [(value)]="date" (dateChange)="onDateSelected()"
+                            [datepicker]="datepickerOpts" [readonly]="true" [timepicker]="false"
+                            [datepicker]="{ icon: 'fa fa-calendar' }"></datetime>
+                    </div>
+
+                    <div class="col-lg-12 mt-1" *ngIf='this.readonly'>
+                        <label class="validationCustom03"> Time:</label>
+                        <datetime class="date-time-pointer-disable" [(value)]="fromTime"
+                            (valueChange)="onFromTimeSelected()" [datepicker]="false" [readonly]="true"
+                            [timepicker]="true"></datetime>
+
+
+                    </div>
+
+                    <div class="col-lg-12" *ngIf='!this.readonly'>
+                        <label class="validationCustom03">Date:</label>
+
+                        <datetime class=" date-time " [(value)]="date" (dateChange)="onDateSelected()"
+                            [datepicker]="datepickerOpts" [timepicker]="false"
+                            [datepicker]="{ icon: 'fa fa-calendar' }"></datetime>
+                    </div>
+                    <div class="col-lg-12 mt-1" *ngIf='!this.readonly'>
+                        <label class="validationCustom03"> Time:</label>
+                        <datetime class="date-time" [(value)]="fromTime" (valueChange)="onTime()"
+                            [datepicker]="false" [timepicker]="true"></datetime>
+                    </div>
+                </div>
+                <div class="mt-2 remarks-field">
+                    <input type="text" [(ngModel)]="remarks" placeholder="Remarks">
+                </div>
+
+            </div>
+
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage">
+            </hs-message>
+           
+
+
+            <button class="update-btn mt-1" [disabled] = 'isError == true' *ngIf='this.consultationModeIndex != 2' (click)="onUpdate()">Update</button>
+            <button class="update-btn mt-1" *ngIf='this.consultationModeIndex == 2' (click)="onUpdate()">Reject</button>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<spinner-component></spinner-component>

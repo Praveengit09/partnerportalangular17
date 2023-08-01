@@ -1,0 +1,84 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Login History</h1>
+
+    <form action="#">
+        <div class="row">
+            <div class="col-xl-6 col-lg-5">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Agent Name/ Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                        placeholder="Enter Agent Name/ Mobile Number">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getBasedOnAgentName()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                <div class="row">
+                    <div class="form-group col-sm-6 mb-0">
+                        <h6 class="sub-title">Start Date</h6>
+                        <datetime [(value)]="startDate" class="startdate" name="startDate" id="datepicker"
+                            [placeholder]="'Start Date'" [datepicker]="datepickerOpts"
+                            (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-6 mb-0">
+                        <h6 class="sub-title">End Date</h6>
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [placeholder]="'End Date'"
+                            [datepicker]="datepickerOpts" (dateChange)="endDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="autorefresh-refreshbutton filter-ordersbtn">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                    (click)="getRefreshedorderList()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="response" (clickEvent)="clickEventHandler($event)"
+                        [dataMsg]="dataMsg" [componentId]="'logisticcentral'" [perPage]="perPage" [total]="total"
+                        (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewlogindocs">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="page-title">Uploaded Images</h4>
+            </div>
+            <div class="modal-body">
+                <section class="newadd_process row" widget="">
+                    <div class="col-lg-12 prescription_scroll" *ngFor="let item of docs ; let i =index">
+                        <div
+                            *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                            <img alt=" " [attr.src]='item' class="image_clickpopup">
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

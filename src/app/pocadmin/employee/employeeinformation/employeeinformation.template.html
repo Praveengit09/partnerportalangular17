@@ -1,0 +1,207 @@
+<div class="emp_information">
+  <form ngNativeValidate='true' id="personalDetailForm">
+    <div class="form-group col-md-8 col-lg-6 pt-1" *ngIf="this.doctorDetails.contactList.length>0">
+      <label for="mob">Mobile <span>*</span> </label>
+      <input type="text" name="mobileNumber" placeholder="Employee’s mobile number" autocomplete="off"
+        (keyup)="onNumberChange($event.target.value)" (change)="onNumberChange($event.target.value)" maxlength="10"
+        (keypress)="validateNumberInputOnly($event)" [(ngModel)]="this.doctorDetails.contactList[0]"
+        class="form-control input-md" />
+    </div>
+    <div class="form-row d-flex">
+
+      <div class="form-group col-md-3 col-lg-2 pt-1 ">
+        <label for="emp-salutation">Salutation</label> <br>
+        <select class="form-control" (change)="onTitleChange($event.target.value)" [value]="doctorDetails.title">
+          <option value="undefined">select Title</option>
+          <option value="Mr.">Mr.</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Miss.">Miss.</option>]
+          <option value="Mrs.">Mrs.</option>
+          <option value="Dr.">Dr.</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-5 col-lg-4 pt-1">
+        <label for="fullname">First Name <span>*</span></label>
+        <input type="text" class="form-control" name="firstName" [(ngModel)]="doctorDetails.firstName"
+          placeholder="Eg: John ">
+      </div>
+    </div>
+
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="fullname">last Name </label>
+      <input type="text" class="form-control" name="lastName" [(ngModel)]="doctorDetails.lastName"
+        placeholder="Eg: Doe">
+    </div>
+
+
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="pharmacyName">Upload Employee's Photo</label> <br>
+
+      <div class="upload_file">
+        <input type="file" class=" col-md-2 profile_imgtxt" id="image" (change)="imageUpload($event)">
+        <p type="text" class="form-control col-md-9 profile_imgtxt12 upload_files_list" readonly>{{uploadFilesList}}</p>
+
+        <img src="assets/img/emp_upload.png" alt="logo">
+        <p class="pt-2">
+          <b class="">Drop your files here, or <span> browse files </span> to upload.</b>
+        </p>
+        <p class="mt-2 info-txt">
+          .pdf, .jpg & .png files are only supported. Max. <br> 3 files can be uploaded at a time.
+        </p>
+      </div>
+    </div>
+    <div class="form-group col-md-8 col-lg-6" *ngIf="doctorDetails.type==0||doctorDetails.type==1">
+      <label class="control-label" for="signature">Upload Doctor's Signature</label>
+      <div class="upload_image">
+        <input type="file" class="form-control profile_imgtxt mb-1" id="signature" (change)="signatureUpload($event)">
+        <p type="text" class="form-control profile_imgtxt12" readonly>{{uploadSignatureList}}</p>
+      </div>
+    </div>
+    <div class="form-group col-md-8 col-lg-6" *ngIf="doctorDetails.type==0||doctorDetails.type==1">
+      <label class="control-label" for="signature">Upload Doctor's Certificates</label>
+      <div class=" upload_image">
+        <input type="file" class="form-control profile_imgtxt mb-1" id="signature"
+          (change)="certificatesUpload($event)">
+        <p type="text" class="form-control profile_imgtxt12" readonly>{{uploadCertificatesList}}</p>
+      </div>
+    </div>
+
+
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="emp-type">Employee Type <span>*</span></label> <br>
+      <div class="" *ngIf="doctorDetails.empId && doctorDetails.empId>0">
+        <select class="form-control" [ngModelOptions]="{standalone : true}" (change)="onTypeChange($event.target.value)"
+          [(ngModel)]="doctorDetails.type">
+          <option value="undefined" selected>Please select</option>
+          <option value="0" *ngIf="saasSubscriber || this.empId==1 || doctorDetails.type==0" disabled>Doctor</option>
+          <option value="1" disabled>Expert</option>
+          <option value="2" disabled>App User</option>
+          <option value="3" disabled>Others</option>
+        </select>
+      </div>
+
+      <div class="col-md-8 col-lg-6" *ngIf="doctorDetails.empId == null || doctorDetails.empId ==undefined">
+        <select class="form-control" name="type" [ngModelOptions]="{standalone : true}"
+          (change)="onTypeChange($event.target.value)" [(ngModel)]="doctorDetails.type">
+          <option value="undefined" selected>Please select</option>
+          <option value="0" *ngIf="saasSubscriber || this.empId==1 ||doctorDetails.type==0">Doctor</option>
+          <option value="1">Expert</option>
+          <option value="2">App User</option>
+          <option value="3">Others</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="emp-gender">Sex <span>*</span></label> <br>
+      <select class="form-control" name="gender" [ngModelOptions]="{standalone : true}"
+        (change)="onGenderChange($event.target.value)" [(ngModel)]="doctorDetails.gender">
+        <option value="undefined" selected>Please select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+
+    <h5 class="list_title2 px-1" *ngIf="doctorDetails.type==0||doctorDetails.type==1">Select Languages
+      <a>
+        <i aria-hidden="true" class="fa fa-plus addtxt_icon2" data-toggle="modal"
+          data-target=".bde-example-modal-lh"></i>
+      </a>
+    </h5>
+    <div class="row contact_add2" *ngIf="doctorDetails.type==0||doctorDetails.type==1">
+      <div class="col-md-5">
+        <div *ngIf="lists!=undefined">
+          <p class="lan_title px-1" *ngFor="let item of lists">{{item}}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="emp_contact_email">Contact Email</label>
+      <input type="email" name="emailaddress" id="email" placeholder="For eg: Remedy Pharmacy"
+        [(ngModel)]="doctorDetails.emailId" class="form-control input-md" required />
+    </div>
+
+
+    <div class="form-row d-flex">
+      <div class="form-group col-md-8 col-lg-6 pt-1">
+
+        <label for="emp_alt_no">Alternate Contact Number(s)</label>
+        <div class="" *ngFor="let contact of this.doctorDetails.contactList;let i =index; trackBy:trackByFn">
+          <div class="contact_num mb-2" *ngIf="i>=1">
+            <input name="mobileNumber+{{i}}" id="phone+{{i}}" type="text" placeholder="Enter Contact Number"
+              [(ngModel)]="this.doctorDetails.contactList[i]" autocomplete="off" maxlength="10"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}"
+              title="Minimum 10 characters required" class="form-control input-md">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-3 col-md-3 col-lg-2 add_number_btn">
+        <a *ngIf="doctorDetails.contactList.length < 3" autocomplete="off"> <button class="w-100"
+            (click)="addApplyButton()">Add Number</button>
+        </a>
+
+      </div>
+    </div>
+
+
+    <div class="form-group col-md-8 col-lg-6 pt-1 work_place_role_btn"
+      *ngIf="doctorDetails.type==0  || doctorDetails.type==1 ">
+      <div class="form-group">
+        <button type="submit" id="singlebutton" name="singlebutton" class="w-100"
+          (click)="onNext('professional')">NEXT:Professional
+          Details</button>
+      </div>
+    </div>
+    <div class="form-group col-md-8 col-lg-6 pt-1 work_place_role_btn" *ngIf="doctorDetails.type==2">
+      <div class="form-group">
+        <button type="submit" id="singlebutton" name="singlebutton" class="w-100"
+          (click)="onNext('roleandpoc')">NEXT:Work Place And
+          Roles</button>
+      </div>
+    </div>
+    <div class="form-group col-md-8 col-lg-6 pt-1 work_place_role_btn"
+      *ngIf="doctorDetails.type==3 || doctorDetails.type==undefined">
+      <div class="form-group">
+        <button type="submit" id="singlebutton" name="singlebutton" class="w-100"
+          (click)="onNext('location')">NEXT:Location
+          Mapping</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+
+
+<div class="modal fade bde-example-modal-lh" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 class="modal-title">Language List</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row langauage_sel_text">
+          <div class="col-lg-2 col-md-3 col-sm-6 custom_chk" *ngFor="let language of languages;let i=index">
+            <input type="checkbox" id={{language.id}} name=testCheckBox (click)="getLangDetails(language)" />
+            <label for={{language.id}}>{{language.name}}</label>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

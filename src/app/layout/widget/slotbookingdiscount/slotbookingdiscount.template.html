@@ -1,0 +1,422 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12"
+        *ngIf="!((isDiagnosticHomeOrder && disableDiagnosticHomePackageDiscount) || (isDiagnosticWalkinOrder && disableDiagnosticWalkinPackageDiscount)) && !((isDiagnosticHomeOrder && disableDiagnosticHomeCouponDiscount) || (isDiagnosticWalkinOrder && disableDiagnosticWalkinCouponDiscount))">
+        <p style="color:red" *ngIf="!onlyPayment">*NOTE : Either Coupon or Package can be applied</p>
+    </div>
+
+    <ng-template [ngIf]="showReferredBy">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Referred By:</div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <hs-select [defaultSelectLabel]="'Search Center Name'" [defaultSelectField]="'pocName'"
+                        [selectColumns]="selectColumns" class="diagnostic-testsearch" [selectResults]="pocSearchList"
+                        (searchTrigger)="searchPocs($event)" (selectTrigger)="getPocName($event)"></hs-select>
+                </div>
+            </div>
+        </div>
+        <br />
+    </ng-template>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#">
+            <div class="row process_original" *ngIf="this.slotBookingDetails!=undefined">
+
+                <ng-template [ngIf]="enableClientBilling && diagnosticClientList  && diagnosticClientList.length>0">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Client:</div>
+                            <div class="col-md-7 col-sm-6 col-xs-6" *ngIf="firstClient == 1">
+                                <select id="my_client_select option"
+                                    *ngIf="diagnosticClientList && diagnosticClientList.length>0"
+                                    [(ngModel)]="dropDownIndex" [ngModelOptions]="{standalone: true}"
+                                    class="form-control" (change)="onClientChange($event.target.value)">
+                                    <option *ngFor="let diagnosticClient of diagnosticClientList;let i = index"
+                                        [value]=i>
+                                        {{diagnosticClient.clientName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-7 col-sm-6 col-xs-6" *ngIf="firstClient == 2">
+                                {{this.slotBookingDetails.clientName}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="documentList && documentList.length>0">
+                        <p>NOTE: {{slotBookingDetails.note ? slotBookingDetails.note: "Please upload the required
+                            documents"}}
+                        </p>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="documentList && documentList.length>0">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Document Type:</div>
+                            <div class="col-md-7 col-sm-6 col-xs-6">
+                                <select id="my_client_select option" [(ngModel)]="documentId"
+                                    [ngModelOptions]="{standalone: true}" class="form-control"
+                                    (change)="onClientDocType($event.target.value)">
+                                    <option value=-1>select</option>
+                                    <option *ngFor="let doc of documentList;let i = index" [value]=i>
+                                        {{doc.scanDocumentName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group" *ngIf="documentList && documentList.length>0">
+                        <p>Upload the Documents</p>
+                        <div class="row form-group">
+                            <div class="col-md-7 col-sm-6 col-xs-6 total_txt">
+                                <input #diagnosticFileUpload type="file" accept=".png,.jpg,.pdf" class="form-control"
+                                    id="files" name="uploadfile" multiple (change)="fileUpload($event)" />
+                            </div>
+                            <div class="col-md-5 col-sm-6 col-xs-6">
+                                <input class="Update" type="button" value="Upload" (click)="onUploadButtonClick()">
+                            </div>
+                        </div>
+                        <div *ngIf="hasCheckBoxValidation">
+                            <label class="error_class">{{checkBoxValidationMessage}}</label>
+                        </div>
+                        <div class="total_txt"
+                            *ngIf="slotBookingDetails.scanDocumentsList && slotBookingDetails.scanDocumentsList.length > 0">
+                            <h4 class="page-title">Uploaded Documents:</h4>
+                            <div class="clientdoc"
+                                *ngFor="let doc of slotBookingDetails.scanDocumentsList;let i = index">
+                                <p *ngIf="doc && doc.scanDocumentName && doc.scanDocuments && doc.scanDocuments.length > 0"
+                                    role="button" (click)="showClientDoc(i)">{{doc.scanDocumentName}} -
+                                    {{doc.scanDocuments.length? doc.scanDocuments.length : 0}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Original Bill Amount:</div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    {{currencySymbol}} {{slotBookingDetails.payment.originalAmount | number : '1.2-2'}}</div>
+
+                <!-- CouponDiscount Block -->
+                <div class="col-md-12 col-sm-12 col-xs-12 process_form"
+                    *ngIf="!onlyPayment && !((isDiagnosticHomeOrder && disableDiagnosticHomeCouponDiscount) || (isDiagnosticWalkinOrder && disableDiagnosticWalkinCouponDiscount))">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Enter the Coupon:</div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <input type="text" id="couponDiscount" class="coupon_discount_text" #couponDiscount
+                                placeholder="Enter Coupon" [(ngModel)]="couponCode"
+                                [ngModelOptions]="{standalone: true}"
+                                (keypress)="validation.noSpecialCharacters($event)" (keyup)="onKeyUp($event)" />
+                            <span id="searchclear" class="glyphicon glyphicon-remove-circle searchclear"
+                                (click)="resetCoupon()"></span>
+                            <button class="btn btn-primary followUpApply apply_btn"
+                                (click)="applyCoupon()">Apply</button>
+                            <div class="clearfix"></div>
+                            <span *ngIf="statusMessage" class="quantity_txt">{{statusMessage}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template [ngIf]="this.couponDiscountAmount>0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Coupon Discount:</div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}} {{this.couponDiscountAmount?this.couponDiscountAmount:0}}
+                    </div>
+                </ng-template>
+
+                <!-- PackageDiscount Block -->
+                <ng-template
+                    [ngIf]="!onlyPayment && packageNamesShow && !((isDiagnosticHomeOrder && disableDiagnosticHomePackageDiscount) || (isDiagnosticWalkinOrder && disableDiagnosticWalkinPackageDiscount))">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Select a Package:</div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        <select id="my_select option" *ngIf="packageList && packageList.length>1"
+                            [(ngModel)]="dropDownIndex" [ngModelOptions]="{standalone: true}" class="form-control"
+                            (change)="onDiscountDropDownChange($event.target.value)">
+                            <option *ngFor="let package of packageList;let i = index" [value]=i>
+                                {{package.packageName}}
+                            </option>
+                        </select>
+                        <div class="clearfix"></div>
+                        <span *ngIf="statusMessage1>0" class="quantity_txt">{{statusMessage1}}</span>
+                    </div>
+                </ng-template>
+
+                <ng-template [ngIf]="slotBookingDetails.userPackageId && slotBookingDetails.userPackageId>0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Package Discount: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}}
+                        {{(slotBookingDetails.payment.packageDiscountAmount?slotBookingDetails.payment.packageDiscountAmount:0)
+                        | number : '1.2-2'}}
+                    </div>
+
+
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Package: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{slotBookingDetails.userPackageId>0 &&
+                        slotBookingDetails.packageName!=null?slotBookingDetails.packageName:'NA'}}
+                    </div>
+                </ng-template>
+
+
+                <!-- FollowUpDiscount Block -->
+                <!-- (slotBookingDetails.payment.finalAmount>0 || isOtherDiscount) -->
+                <ng-template
+                    [ngIf]="!onlyPayment && followUpNameShow && isReception && slotBookingDetails.bookingType!=4 && slotBookingDetails.bookingType!=5">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Select Followup Discount:</div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        <select id="my_select option" *ngIf="followUpDiscount && followUpDiscount.length>1"
+                            [(ngModel)]="dropDownIndex1" [ngModelOptions]="{standalone: true}" class="form-control"
+                            (change)="onFollowUpChange($event.target.value)">
+                            <option *ngFor="let followUp of followUpDiscount;let i = index" [value]=i>
+                                {{(followUp.percent?followUp.percent+" % ":'')+followUp.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <ng-template
+                        [ngIf]="otherDiscountValue>0 && slotBookingDetails.bookingType!=4 && slotBookingDetails.bookingType!=5">
+                        <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Followup Discount (FD): </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            {{currencySymbol}} {{otherDiscountValue?otherDiscountValue:0 | number : '1.2-2'}}
+                        </div>
+                    </ng-template>
+                </ng-template>
+
+                <!-- <ng-template [ngIf]="otherDiscountValue>0 && slotBookingDetails.bookingType!=4 && slotBookingDetails.bookingType!=5">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Followup Discount (FD): </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}} {{otherDiscountValue?otherDiscountValue:0 | number : '1.2-2'}}
+                    </div>
+                </ng-template> -->
+                <!-- OtherDiscount Block -->
+
+                <ng-template
+                    [ngIf]="!((isDiagnosticHomeOrder && disableDiagnosticHomePartnerDiscount) || (isDiagnosticWalkinOrder && disableDiagnosticWalkinPartnerDiscount))">
+
+                    <ng-template [ngIf]="this.otherDiscountAmount>0 && isOldRecord">
+                        <div class=" col-md-5 col-sm-6 col-xs-6 total_txt">Additional Discount:
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            {{this.otherDiscountAmount|currency:currencyCode:true:'1.2-2'}}
+                        </div>
+                    </ng-template>
+
+                    <ng-template [ngIf]="!isOldRecord && (slotBookingDetails.payment.finalAmount>0 || isOtherDiscount)">
+                        <div class="col-md-5 col-sm-6 col-xs-6 total_txt" *ngIf="otherDiscountAmount && yodaCheck">
+                            Discount Reason:</div>
+                        <div class="col-md-7 col-sm-6 col-xs-6" *ngIf="otherDiscountAmount && yodaCheck">
+                            <section>
+                                <textarea name="message" id="discremarks" class="form-control" rows="2"
+                                    placeholder="Enter discount remarks...."
+                                    [(ngModel)]="slotBookingDetails.discountRemarks"></textarea>
+                            </section>
+                        </div>
+                        <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Additional Discount: </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6 form-group">
+                            <input type="radio" name="isDiscountPercent" value="0" [checked]="otherDiscountMode == 0"
+                                (change)="checkDiscountSelection(0)"> % &nbsp;&nbsp;
+                            <input type="radio" name="isDiscountValue" value="1" [checked]="otherDiscountMode == 1"
+                                (change)="checkDiscountSelection(1)"> Value
+                            <div class="col-md-12 col-sm-12 col-xs-12 total_txt" *ngIf="otherDiscountMode == 0">
+                                <div class="row">
+                                    <div class="col-md-12 pt-1 p-0">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-8 col-sm-7 col-xs-7">
+                                                <label class="all_textboxtxt">
+                                                    Discount in % :
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-6 col-md-4 col-sm-5 col-xs-5">
+                                                <input type="number" id="percenageOtherDis" class="fname_discount_text"
+                                                    #percenageOtherDis placeholder=" "
+                                                    [(ngModel)]="otherDiscountAmountPercent"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                                    (keyup)="otherDiscountInputChanged()" step="0.01" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 p-0">
+                                        <label for="datepicker" class="all_textboxtxt">
+                                            <div class="row">
+                                                <div class="col-lg-7 col-md-8 col-sm-7 col-xs-7">Discount in Value :
+                                                </div>
+                                                <div class="col-lg-5 col-md-4 col-sm-5 col-xs-5">
+                                                    {{this.otherDiscountAmount}}</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 total_txt" *ngIf="otherDiscountMode == 1">
+                                <div class="row">
+                                    <div class="col-md-12 pt-1 p-0">
+                                        <div class="row">
+                                            <div class="col-lg-7 col-md-8 col-sm-7 col-xs-7">
+                                                <label class="all_textboxtxt">
+                                                    Discount in Value :
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-5 col-md-4 col-sm-5 col-xs-5">
+                                                <input type="number" maxlength="3" class="fname_discount_text"
+                                                    #valueOtherDis placeholder="value" name="anameDiscount"
+                                                    (keyup)="otherDiscountInputChanged()" id="valueOtherDis"
+                                                    [(ngModel)]="otherDiscountAmount"
+                                                    (keypress)="validation.onlyDecimalValueTillTwoDigits($event)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 p-0">
+                                        <label class="all_textboxtxt">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-8 col-sm-7 col-xs-7">Discount in % :</div>
+                                                <div class="col-lg-6 col-md-4 col-sm-5 col-xs-5">
+                                                    {{otherDiscountAmountPercent | number : '1.2-2'}}</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="otherDiscountError" class="ErrorMessage">Please enter valid discount amount</p>
+                        </div>
+                    </ng-template>
+
+                </ng-template>
+
+                <ng-template [ngIf]="this.promotionalDiscount && this.promotionalDiscount > 0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Promotional Discount: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}} {{(this.promotionalDiscount?this.promotionalDiscount:'0.0') | number :
+                        '1.2-2'}}
+                    </div>
+                </ng-template>
+
+                <ng-template [ngIf]="this.privilegeCardDiscount && this.privilegeCardDiscount > 0">
+                        <div class="col-md-5 col-sm-6 col-xs-6 total_txt" *ngIf="slotBookingDetails.privilegeCardType != 31">Client Discount: </div>
+                        <div class="col-md-5 col-sm-6 col-xs-6 total_txt"*ngIf="slotBookingDetails.privilegeCardType == 31">B2B Discount: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}} {{(this.privilegeCardDiscount?this.privilegeCardDiscount:'0') | number :
+                        '1.2-2'}}
+                    </div>
+                </ng-template>
+
+                <ng-template [ngIf]="this.slotBookingDetails.payment.usedWalletAmount && this.slotBookingDetails.payment.usedWalletAmount>0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Wallet Amount Used: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}} {{(this.slotBookingDetails.payment.usedWalletAmount?this.slotBookingDetails.payment.usedWalletAmount:'0') | number : '1.2-2'}}
+                    </div>
+                </ng-template>
+
+                <ng-template
+                    [ngIf]="this.slotBookingDetails.payment.taxationAmount && this.slotBookingDetails.payment.taxationAmount != 0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Taxes: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}}
+                        {{(this.slotBookingDetails.payment.taxationAmount?this.slotBookingDetails.payment.taxationAmount:'0')}}
+                    </div>
+                </ng-template>
+
+                <ng-template
+                    [ngIf]="this.slotBookingDetails.payment.platformCharges && this.slotBookingDetails.payment.platformCharges != 0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Platform Fees: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}}
+                        {{(this.slotBookingDetails.payment.platformCharges?this.slotBookingDetails.payment.platformCharges:'0')}}
+                    </div>
+                </ng-template>
+
+                <ng-template
+                    [ngIf]="this.slotBookingDetails.deliveryAmount && this.slotBookingDetails.deliveryAmount != 0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Amount After Discount: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}} {{(slotBookingDetails.payment.finalAmount -
+                        this.slotBookingDetails.deliveryAmount)| number : '1.2-2'}}
+                    </div>
+                </ng-template>
+
+                <ng-template
+                    [ngIf]="this.slotBookingDetails.deliveryAmount && this.slotBookingDetails.deliveryAmount != 0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Home Collection Charges: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}}
+                        {{(this.slotBookingDetails.deliveryAmount?this.slotBookingDetails.deliveryAmount:'0') | number :
+                        '1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template
+                    [ngIf]="phleboVendorAssignment && this.slotBookingDetails.bookingSubType == 1 && this.slotBookingDetails.deliveryAmount == 0">
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">Home Collection Charges: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        {{currencySymbol}}
+                        {{(this.slotBookingDetails.deliveryAmount?this.slotBookingDetails.deliveryAmount:'0') | number :
+                        '1.2-2'}}
+                    </div>
+                </ng-template>
+
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    <h5>Total Amount Payable:</h5>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <h5>{{currencySymbol}} {{slotBookingDetails.payment.finalAmount | number : '1.2-2'}}</h5>
+                </div>
+                <ng-template [ngIf]="postWalletAmount>0 && showPostWallet">
+                    <div *ngIf="this.slotBookingDetails.payment.usedPostWalletAmount >0 || this.slotBookingDetails.payment.finalAmount>0"
+                        class="col-md-10 col-sm-10 col-xs-10 total_txt">
+                        <span>
+                            <input type="checkbox" name={{i}} id="checkPostWalletAmount"
+                                (click)="onPostWalletChecked()">
+                        </span> &nbsp;&nbsp;
+                        <label class=""> Use your {{currencySymbol}} {{postWalletAmount}} Post Wallet Amount</label>
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="perWalletBal>0 && showWallet">
+                    <div *ngIf="this.slotBookingDetails.payment.finalAmount>0 || this.slotBookingDetails.walletApply"
+                        class=" col-md-12 col-sm-12 col-xs-12
+                    process_form">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <span>
+                                    <input type="checkbox" name={{i}} id="checkWalletAmount"
+                                        (click)="onWalletChecked()">
+                                </span> &nbsp; <label class=""> Use your {{currencySymbol}}
+                                    <input class="walletInput" type="number" id="WalletAmount"
+                                        (keypress)="validation.noSpecialCharacters($event)"
+                                        [ngModelOptions]="{standalone: true}" (keyup)="walletInputChanged()"
+                                        [(ngModel)]="walletBalance" step="0.01">
+                                    Wallet balance</label>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+            <span *ngIf="walletErrorMessage" class="ErrorMessage">{{walletErrorMessage}}</span>
+             
+            <span
+                *ngIf="slotBookingDetails.userPackageId != undefined && slotBookingDetails.userPackageId>0 &&  slotBookingDetails.payment.packageCashBackAmount>0"
+                class="quantity_txt1">Cashback of
+                {{currencySymbol}} {{slotBookingDetails.payment.packageCashBackAmount}} will be credited after
+                successful
+                Payment</span>
+            <span *ngIf="slotBookingDetails.payment && slotBookingDetails.payment.totalCashbackAmount>0" class="quantity_txt1">Cashback of
+                {{currencySymbol}} {{slotBookingDetails.payment.totalCashbackAmount}} will be credited after
+                successful Payment</span>
+        </form>
+    </div>
+</div>
+
+<div id="docs" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="page-title">{{clientSubTypeName}}</h4>
+            </div>
+            <div class="modal-body" id="prescription-modal">
+                <div *ngFor="let doc of clientDoc;let i =index;">
+                    <span class="clientdoc">
+                        <p role="button" (click)="showDoc(i)">{{doc}} &nbsp; <i aria-hidden="true"
+                                class="fa fa-times removetxt_icon" id="removeButton" (click)="remove(i)"></i>
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

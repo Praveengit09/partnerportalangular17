@@ -1,0 +1,165 @@
+.video-consult {
+    .pagevideo-title {
+        color: #129faa;
+        margin-bottom: 35px;
+    }
+
+    .video_section {
+        margin: 0px;
+    }
+
+    .network-quality {
+        z-index: 1;
+        position: relative;
+        top: 20px;
+    }
+
+    .OT_subscriber {
+        height: 500px !important;
+        width: 100% !important;
+    }
+
+    .OT_placeholder_img {
+        height: 500px !important;
+        // width: 800px !important;
+        background-color: #3A3A3A;
+    }
+
+    .doctor_name h6 {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 0px;
+    }
+
+    .doctor_name p {
+        font-weight: 500;
+        color: #000;
+        line-height: 19px;
+    }
+
+    .video_circle {
+        background: #fff;
+        padding: 5px 0px
+    }
+
+    .video_circle .rounded-circle {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .upload_video {
+        color: #129faa;
+    }
+
+    .video_paratxt {
+        color: #000;
+        font-weight: 500;
+        font-size: 15px
+    }
+
+    .parent {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .image1 {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .primaryColor {
+        background-color: #5dc4bf !important;
+    }
+
+    .notifyDoctor {
+        margin-top: 15px;
+        margin-left: -15px;
+    }
+
+    .image2 {
+        position: absolute;
+        bottom: 0px;
+    }
+
+    .image3 {
+        position: absolute;
+        bottom: 10px;
+        left: 47%;
+    }
+
+    .btn-circle {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+        border: none;
+    }
+
+    .video_upload {
+        color: #fff;
+        background-color: #14a9b5;
+        border-color: #14a9b5;
+        padding: 5px 0px;
+        font-size: 14px;
+        border-radius: 5px;
+        width: 110px;
+    }
+    .video-present {
+        margin-top: -18px;
+    }
+
+    .min-maxbtn {
+        width: 265px;
+        padding: 5px;
+        text-align: right;
+        background: rgba(0, 0, 0, 0.4);
+        -webkit-transition-property: top, bottom, opacity;
+        transition-property: top, bottom, opacity;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s;
+        -webkit-transition-timing-function: ease-in;
+        transition-timing-function: ease-in;
+        top: -25px;
+        opacity: 0;
+    }
+    .min-maxbtn .fa {
+        color: #fff;
+        cursor: pointer;
+    }
+    .image2.isSelfNotVideoVisable .min-maxbtn {
+        display: block;
+        opacity: 1;
+    }
+    .image2:hover .min-maxbtn {
+        display: block;
+        opacity: 1;
+    }
+
+    app-publisher,
+    app-subscriber {
+        display: block;
+        // float: left;
+    }
+}
+.modelIdvideoprescriptionmodal {
+    margin: 0;
+    float: right;
+    width: 100%;
+}
+.prescriptionsummary_detail {
+    max-height: 500px;
+    overflow-y: auto;
+}
+.prescriptionsummary_detail table {
+    min-width: 100% !important;
+}
+
+@media screen and (min-width: 576px) {
+    .modelIdvideoprescriptionmodal {
+        width: 500px;
+    }
+}
+

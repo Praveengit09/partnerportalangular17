@@ -1,0 +1,100 @@
+.charts-info {
+    width: 100%;
+    padding: 10px;
+    float: left;
+    border-bottom: 2px solid #f1f1f1;
+    background: #f1f1f1;
+}
+.charts-info .user{
+    width: 52px;
+    height: 52px;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    float: left;
+}
+.charts-info  .user img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.charts-info .doctor_name, .charts-info .user-typing {
+    float: left;
+}
+.charts-info .queueName {
+    cursor: pointer;
+    color: #129faa;
+    margin-bottom: 2px;
+    margin-top: 7px;
+}
+#sent-messages {
+    height: calc(82vh - 124px); 
+    overflow-y: overlay;  
+}
+.pull-left div, .pull-right div {
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    color: #65767C;
+    font-weight: 600;
+}
+.pull-left div {
+   background: #ccc;
+}
+.pull-right div {
+   background:#E3F6FD;
+}
+.chat-msg-time {
+    padding-left: 12px;
+    font-size: 12px;
+    position: relative;
+    top: 5px;
+    font-weight: 300;
+}
+.charts-infocontainer {
+    height: 100%;
+}
+.send-msg-div {
+    padding: 0 15px;
+}
+.file_uploaded{
+    position: absolute;
+    bottom: 44px;
+    left: 45px;
+    cursor: pointer;
+}
+.send-msg-input {
+    width: 100%;
+    max-width: 100%;
+}
+.send-msg-input input {
+    border-radius: 30px;
+    width: 100%;
+    padding: 12px 30px;
+    border: none;
+    outline: none;
+}
+.attach_sendbtn {
+    position: absolute; 
+    right: 45px;
+    top: 12px;
+    
+       i{
+        cursor: pointer;
+       }
+}
+.attach-icon, .send_msg {
+    font-size: 18px;
+}
+.attach-icon {
+    margin-right: 12px;
+}
+#fileLoader {
+    display:none;
+}

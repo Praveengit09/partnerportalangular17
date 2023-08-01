@@ -1,0 +1,111 @@
+
+  <div class="row state_revenue">
+    <div class="col-lg-4 px-0 mt-2" *ngFor="let item of nvd3DataForGraph">
+    <div class="col-lg-12 all_card">
+      <div class="d-flex top_header">
+        <h1>{{item.pocState}}</h1>
+        <div *ngFor="let counts of statesPocCount">
+          <div *ngIf="counts.pocStateId==item.pocStateId">
+            <span>{{counts.pocCount}} Centers</span>
+          </div>
+        </div>
+      </div>
+      <div class="card state_revenue_card">
+        <div *ngFor="let report1 of statesTodayReport">
+          <div *ngIf="report1.pocStateId == item.pocStateId">
+            <div class="card revenue_card">
+              <p>Today's Revenue </p>
+              <div class="d-flex">
+                <h2>{{ report1.finalAmount | number:'1.1-1'}}</h2>
+                <div *ngIf="report1.percentageChange>=0">
+                  <h4 class="percentage_green">{{report1.percentageChange | number:'1.1-1'}}%</h4>
+                </div>
+                <div *ngIf="report1.percentageChange<0">
+                  <h4 class="percentage_red">{{report1.percentageChange | number:'1.1-1'}}%</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="!hasMatchingStateTodayReport(item.pocStateId)">
+          <div class="card revenue_card">
+            <p>Today's Revenue </p>
+            <div class="d-flex">
+              <h2>{{0 | number:'1.1-1'}}</h2>
+              <h4 class="percentage_green">{{0 | number:'1.1-1'}}%</h4>
+            </div>
+          </div>
+        </ng-container>
+        <div class="row">
+          <div class="col-xs-6">
+            <div *ngFor="let report2 of statesWeekReport">
+              <div *ngIf="report2.pocStateId == item.pocStateId">
+                <div class="card revenue_card">
+                  <p>This Week's Revenue</p>
+                  <div class="d-flex">
+                    <h5>{{report2.finalAmount | number:'1.1-1'}}</h5>
+                    <div *ngIf="report2.percentageChange>=0">
+                      <h5 class="percentage_green">{{report2.percentageChange | number:'1.1-1'}}%</h5>
+                    </div>
+                    <div *ngIf="report2.percentageChange<0">
+                      <h5 class="percentage_red">{{report2.percentageChange | number:'1.1-1'}}%</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="!hasMatchingStateWeekReport(item.pocStateId)">
+              <div class="card revenue_card">
+                <p>This Week's Revenue</p>
+                <div class="d-flex">
+                  <h5>{{0 | number:'1.1-1'}}</h5>
+                  <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-xs-6">
+            <div *ngFor="let report3 of statesMonthReport">
+              <div *ngIf="report3.pocStateId == item.pocStateId">
+                <div class="card revenue_card">
+                  <p>Month to Date</p>
+                  <div class="d-flex">
+                    <h5>{{report3.finalAmount | number:'1.1-1'}}</h5>
+                    <div *ngIf="report3.percentageChange>=0">
+                      <h5 class="percentage_green">{{report3.percentageChange | number:'1.1-1'}}%</h5>
+                    </div>
+                    <div *ngIf="report3.percentageChange<0">
+                      <h5 class="percentage_red">{{report3.percentageChange | number:'1.1-1'}}%</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="!hasMatchingStateMonthReport(item.pocStateId)">
+              <div class="card revenue_card">
+                <p>Month to Date</p>
+                <div class="d-flex">
+                  <h5>{{0 | number:'1.1-1'}}</h5>
+                  <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="card revenue_card">
+              <div class="widget-body">
+                <div *ngIf="item.nvd36Data != undefined" class='transform_txt002'>
+                  <div nvd3-chart [chart]="item.nvd36Chart" [datum]="item.nvd36Data">
+                    <svg [attr.id]="item.nvd36Id"></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

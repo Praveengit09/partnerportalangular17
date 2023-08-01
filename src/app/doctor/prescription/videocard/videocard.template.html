@@ -1,0 +1,131 @@
+<div class="video-card" id="video-card">
+    <div *ngIf="isCrossVisible">
+        <div class="card videoCard" id="videoCard" *ngIf="session">
+            <div class="card-header">
+                <h4 class="videoCardHeader d-inline-block">Video</h4>
+                <p class="pull-right d-inline-block mb-0 network-range">
+                    <span class="badge badge-success bg-success text-white" *ngIf="getNetworkChecked() && getVideoSupported() && getAudioSupported()">
+                        Network: Good
+                    </span>
+                    <span class="badge badge-warning bg-warning text-white" *ngIf="getNetworkChecked() && !getVideoSupported() && getAudioSupported()">
+                        Network: Poor
+                    </span>
+                    <span class="badge badge-danger bg-danger text-white" *ngIf="getNetworkChecked() && !getVideoSupported() && !getAudioSupported()">
+                        Network: Bad
+                    </span>
+                    <!-- <span class="custom-tooltip">i
+                        <span class="tooltiptext tooltip-top">Speed: 50mbps</span>
+                    </span> -->
+                </p>
+                <p *ngIf="this.enablevideorecord == true" class='pull-right d-inline-block rec-sec blink-txt mb-0'>
+                    <span>Rec</span>
+                </p>
+
+                <!-- 
+                <span class="pull-right badge badge-success bg-success text-white mr-2 hide-with-delay"
+                    *ngIf="isVideoConnected()">
+                    Connected
+                </span>
+                <span class="pull-right badge badge-danger bg-danger text-white mr-2 " *ngIf="!isVideoConnected()">
+                    Disconnected
+                </span> -->
+            </div>
+            <div class="card-body videoCardBody rightCard">
+                <div class="row">
+                    <ng-container *ngIf="(streams && streams.length == 1 || !streams || streams.length == 0)">
+                        <div class="col-md-12">
+                            <div class="videoCardBodySubscriber">
+                                <div *ngIf="(streams && streams.length>0)">
+                                    <app-subscriber *ngFor="let stream of bigstreams" [stream]="stream" [session]="session">
+                                    </app-subscriber>
+                                </div>
+
+
+                                <div *ngIf="!(streams && streams.length>0)" class="notStream">
+                                    <div class="spinner-container">
+                                        <div class="loader"></div>
+                                    </div>
+                                    <span class="patient-waiting-msg"> Waiting for patient to connect</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="(streams && streams.length > 1)">
+                        <div class="col-md-9">
+                            <div class="videoCardBodySubscriber">
+                                <div>
+                                    <app-subscriber *ngFor="let stream of bigstreams" [stream]="stream" [session]="session">
+                                    </app-subscriber>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="videotitle videoCardBodySubscriber pl-0 col-md-3">
+                            <div className="smallCard">
+                                <ul>
+                                    <li *ngFor="let stream of smallstreams" (click)="toggleVideo(stream.streamId,index)">
+                                        <app-subscriber [stream]="stream" [session]="session">
+                                        </app-subscriber>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="col-md-12">
+                        <div class="videoCardBodyPublisher">
+                            <app-publisher [session]="session" [maskVideoEnabled]="maskVideoEnabled" [muteAudio]="muteAudio" [muteVideo]="muteVideo" [changeCamera]="changeCamera">
+                            </app-publisher>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="video-footer" [class.full-screen-video-card-footer]="isVideoMax">
+                <div class="img-sec" (click)="onAudioToggle()">
+                    <div class='tool-tip' *ngIf="!muteAudio">
+                        <img src="assets/img/videoicons/ic_mic_on.png" alt='ic_mic_on' />
+                        <span class="tooltiptext">Turn off microphone</span>
+                    </div>
+                    <div class='tool-tip' *ngIf="muteAudio">
+                        <img src="assets/img/videoicons/ic_mic_off.png" alt='ic_mic_off' />
+                        <span class="tooltiptext">Turn on microphone</span>
+                    </div>
+                </div>
+                <div class="img-sec" (click)="onVideoToggle()">
+                    <div class='tool-tip' *ngIf="!muteVideo">
+                        <img src="assets/img/videoicons/ic_video_on.png" alt='ic_video_on' />
+                        <span class="tooltiptext">Turn off video</span>
+                    </div>
+                    <div class='tool-tip' *ngIf="muteVideo">
+                        <img src="assets/img/videoicons/ic_video_off.png" alt='ic_video_off' />
+                        <span class="tooltiptext">Turn on video</span>
+                    </div>
+                </div>
+                <div class="img-sec tool-tip">
+                    <img src="assets/img/videoicons/ic_change_camera.png" alt='ic_change_camera' (click)="onCameraChange()" />
+                    <span class="tooltiptext">Change camera</span>
+                </div>
+                <div class="img-sec" (click)="onBlurToggle()">
+                    <div class='tool-tip' *ngIf="!maskVideoEnabled">
+                        <img src="assets/img/videoicons/ic_blur.png" alt='ic_blur' />
+                        <span class="tooltiptext">Blur video</span>
+                    </div>
+                    <div class='tool-tip' *ngIf="maskVideoEnabled">
+                        <img src="assets/img/videoicons/ic_unblur.png" alt='ic_unblur' />
+                        <span class="tooltiptext">UnBlur video</span>
+                    </div>
+                </div>
+                <!-- <button type="button" class="reconnect-btn" (click)="onBlurToggle()">{{maskVideoEnabled?'Un-Blur':'Blur'}}</button> -->
+                <div class="img-sec tool-tip">
+                    <img src="assets/img/videoicons/ic_call_disconnect.png" alt='ic_call_disconnect' (click)="onStopButtonClick()" />
+                    <span class="tooltiptext">Leave call</span>
+                </div>
+                <button *ngIf="(!(streams.length>0))&&(isCrossVisible)&&(!isPrescriptionGenerated())" type="button" (click)="reNotifyCustomer()" class="reconnect-btn">Notify Patient</button>
+                <button *ngIf="((streams.length>0))&&(!isPrescriptionGenerated())" (click)="reconnectVideo()" type="button" class="reconnect-btn">Reconnect</button>
+                <button class="fullScreeVideoBtn" (click)="maxVideo()" type="button"><span
+                        class="fa fa-expand"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

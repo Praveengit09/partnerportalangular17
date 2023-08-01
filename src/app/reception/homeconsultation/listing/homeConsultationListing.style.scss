@@ -1,0 +1,91 @@
+.hide_btntxt {
+    padding: 5px 5px;
+    font-size: 13px;
+    border-radius: 9px;
+     
+    background-color: rgba(128, 128, 128, 0.54);
+    border-color: #1dc8d5;
+    border: none;
+    color: #fff;
+    width: 125px;
+    pointer-events: none;
+}
+
+.serch_txt85, .serch_txt{
+    padding: 6px 10px;
+     text-align: left;
+     border-radius: 4px;
+     border-width: 0px;
+     border: 1px solid #ddd;
+     text-align: left;
+     width: 235px;
+     height: 36px;
+     
+ }
+.all-textbox{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bck_tabcol {
+    background-color: #f7f9fd;
+}
+   
+    @media only screen and (min-width: 360px) {
+.serch_txt{
+    width: 175px;
+    }
+
+    }
+    @media only screen and (min-width: 568px){
+.serch_txt {
+    width: 160px;
+}
+}
+    @media only screen and (min-width: 1100px) {
+       .radio_txt {
+        padding-right: 0px;
+    }
+    .selectwidth{
+        width: 200px;
+    }
+    
+      .serch_txt{
+        width: 235px;
+        }
+}
+   @media only screen and (min-width: 992px){
+    .reset_btn{
+      margin-bottom: 7px;
+    }
+  } 
+  @media only screen and (max-width: 991px){
+    .reset-doctorslist .col-md-12:last-child{
+      order: 1;
+      margin: 20px 0 7px 0;
+    }
+    .reset-doctorslist .col-md-12:first-child{
+      order: 2;
+    }
+  }
+.float-right{
+    float: right;
+}
+.radio_txt {
+    width: auto;
+    font-size: 14px;
+}
+.reset-doctorslist {
+    margin: 15px 0;
+    text-align: right;
+}
+.reset-doctorslist .form-inline .form-control {
+    width: auto;
+    display: inline-block;
+}
+@media screen and (min-width: 1200px) {
+    .search-orders {
+        margin-top: 45px;
+    }
+}
+  

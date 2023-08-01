@@ -1,0 +1,175 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 *ngIf="!selectedProfileId || selectedProfileId == 0" class="page-title">Search Patient Profile</h1>
+
+    <form action="#">
+        <div class="row">
+            <div class="col-lg-6 mrgin">
+                <mat-form-field *ngIf="!selectedProfileId || selectedProfileId == 0" appearance="outline" class="search-orders">
+                    <mat-label>Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Mobile Number" (keypress)="validateNumberInputOnly($event)" maxlength="10">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getOrdersPerDate()"></i>
+                </mat-form-field>
+                <br>
+                <h1 *ngIf="selectedProfile" class="page-title">Patient History</h1>
+                <section class="widget_txt" *ngIf="selectedProfile">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-12">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-4 col-xs-4  total_txt">Patient Name </div>
+                                <div class="col-md-7 col-sm-8 col-xs-8">
+                                    {{ (selectedProfile.fName?selectedProfile.fName:'') + ' ' + (selectedProfile.lName?selectedProfile.lName:'') }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-4 col-xs-4  total_txt">Patient Mobile Number :</div>
+
+                                <div class="col-md-7 col-sm-8 col-xs-8">
+                                    {{selectedProfile.contactInfo.mobile || ''}}
+                                    <ng-container *ngIf="orderId.length > 0">
+                                        <a (click)="callUser()"><i class='fa fa-phone'></i></a>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-4 col-xs-4  total_txt">Gender:</div>
+
+                                <div class="col-md-7 col-sm-8 col-xs-8">{{selectedProfile.gender}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-4 col-xs-4  total_txt">Age:</div>
+
+                                <div class="col-md-7 col-sm-8 col-xs-8">
+                                    {{commonUtil.getAge(selectedProfile.dob).split(",")[0]+commonUtil.getAge(selectedProfile.dob).split(",")[1]}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-6">
+                        <h6 class="sub-title">Filter by date</h6>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <datetime [(value)]="startDate" name="startDate" id="datepicker" [placeholder]="'Start Date'" [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                                </datetime>
+                            </div>
+                            <div class="col-sm-6">
+                                <datetime [(value)]="endDate" name="endDate" id="datepicker" [placeholder]="'End Date'" [datepicker]="datepickerOpts" (dateChange)="endDateChoosen($event)" [timepicker]="false">
+                                </datetime>
+                            </div>
+
+                        </div>
+        
+              
+            </div>
+            <br>
+            <div class="col-xl-12 col-lg-12">
+                <div class="notesbtn row" *ngIf="profileId">
+                    <button type="button" class="btn btn-primary width-100" data-toggle="modal" data-target="#viewnote">
+                        View Notes
+                    </button>
+                    <button type="button" class="btn btn-primary width-100" data-toggle="modal" data-target="#updatenote">
+                        Add Notes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-md-12" *ngIf="revenueResponse">
+
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body table-responsive table-datalabel widget-shadow">
+                <table class="table table-border table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>Total Orders</th>
+                            <th>Total Prescriptions</th>
+                            <th>Total Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{revenueResponse.totalNoOfOrders}}</td>
+                            <td>{{revenueResponse.totalNoOfPrecriptions}}</td>
+                            <td>{{revenueResponse.totalRevenue | number:'1.2-2'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+<div class="row mt-1">
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="orderList" [componentId]="'getOrderHistory'" [perPage]="perPage" [total]="total" [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div *ngIf="selectedProfileId && selectedProfileId > 0" class="col-md-12 col-sm-12 col-xs-12 process_padding">
+    <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+</div>
+
+<div class="modal fade" id="updatenote" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="page-title">Note</h5>
+            </div>
+            <div class="modal-body">
+                <textarea rows="4" id="remarkArea" cols="50" [(ngModel)]='remark' class="form-control title_txt"></textarea>
+            </div>
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="reset()" data-dismiss="modal">Discard</button>
+                <button type="button" class="btn btn-primary" (click)="onUpdateNote()">Add Remark</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewnote">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="page-title">Remarks</h4>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="noteResponse.length >0">
+                    <div [innerHTML]="formattedDataString | sanitizeHtml">
+                    </div>
+                </div>
+                <div *ngIf="noteResponse.length == 0">
+                    no remarks found
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

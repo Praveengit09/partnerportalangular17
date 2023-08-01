@@ -1,0 +1,20 @@
+.radio_txt {
+    padding-right: 0px;
+}
+
+.selectwidth{
+    width: 200px;
+}
+
+.text_color{
+    min-height: 27px;
+    color: red;
+}
+.dropdown-menu {
+    font-size: 13px;
+    padding: 20px 15px;
+}
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0;
+    margin-bottom: 0 !important;
+}

@@ -1,0 +1,498 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+.cdss {
+  background-color: #82e3e9 !important;
+}
+
+.listOfcard {
+  background-color: #e8f1f4 !important;
+  height: auto;
+  min-height: 35px;
+  max-height: 152px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0px;
+}
+
+.listOfcard ul {
+  margin-bottom: 0;
+}
+
+.searchInput {
+  background: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: #999 !important;
+}
+
+.cardBodyItem {
+  margin-bottom: 0 !important;
+  margin-right: 5px;
+}
+
+.cardBodyItem .column:first-child {
+  padding: 0px 2px;
+}
+
+.card-body .column {
+  margin: 0 5px 0 0;
+  display: table;
+}
+
+a {
+  color: #999 !important;
+
+}
+
+.marginTop6 {
+  margin-top: 6px !important;
+}
+
+.noteLabel {
+  padding-left: 0px !important;
+}
+
+.wizard {
+  padding-bottom: 50px;
+}
+
+.rightCard {
+  height: 459px;
+  overflow: auto;
+  padding: 0px;
+}
+
+// .modal-dialog {
+//   max-width: 1000px !important;
+// }
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+#pastPrescriptionModel {
+  overflow-y: scroll;
+}
+
+.btn-primary {
+  color: #fff !important;
+  background-color: $btn-secondary !important;
+  border: 1px solid $btn-border-color !important;
+}
+
+.btn-danger {
+  background-color: #ff6d6d !important;
+  border: 1px solid #de4b4b !important;
+}
+
+h1 {
+  color: #129faa !important;
+  font-family: "proxima_novalight", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif" !important;
+  font-size: 1.875em !important;
+  margin-bottom: 20px !important;
+}
+
+.mb20 {
+  margin-bottom: 1.25rem;
+}
+
+h2 {
+  color: #333 !important;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif" !important;
+  font-size: 1.25em !important;
+}
+
+.card h4 {
+  color: #333;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif";
+  font-size: 1.082rem;
+  margin: 5px 0 0 0;
+}
+
+.card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  -webkit-box-shadow: 0 2px 6px 0 #ccc;
+  -moz-box-shadow: 0 2px 6px 0 #ccc;
+  box-shadow: 0 2px 6px 0 #ccc;
+  margin: 0 0 20px 0;
+}
+
+.card-header {
+  background-color: #fff;
+}
+
+.card-header .col-2 .form-check {
+  margin-top: 18px;
+  margin-left: 80px;
+}
+
+.col-3 .card-body {
+  background-color: #fff;
+  margin-bottom: 0;
+}
+
+.card-header .input-group {
+  border-bottom: 1px solid #ccc;
+}
+
+.card-header .form-control {
+  padding-left: 0;
+}
+
+.card .input-group-text {
+  background-color: #fff;
+}
+
+.card .input-group-text,
+.card .form-control {
+  border: none;
+  padding: 0 0.75rem;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: $btn-secondary;
+  border: 1px solid $btn-border-color;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: $btn-border-color;
+  border: 1px solid $btn-border-color;
+}
+
+.btn-danger {
+  background-color: #ff6d6d;
+  border: 1px solid #de4b4b;
+}
+
+.btn-danger:hover {
+  background-color: #de4b4b;
+  border: 1px solid #de4b4b;
+}
+
+.btn-outline-danger {
+  border: 1px solid #ff6d6d;
+  color: #ff6d6d;
+}
+
+.btn-outline-danger:hover {
+  border: 1px solid #ff6d6d;
+  background-color: #de4b4b;
+  color: #fff;
+}
+
+.card-body h5 {
+  color: #000;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif";
+  font-size: 0.938em;
+  margin-bottom: 0;
+}
+
+.card-body h6 {
+  color: #000;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif";
+  font-size: 0.875em;
+  margin-bottom: 0;
+}
+
+.card-body p {
+  font-size: 0.75em;
+}
+
+.card-body p.last {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.card-body p {
+  margin-bottom: 0.313em;
+}
+
+.custom_chk_btn .column .row .column>input[type="checkbox"] {
+  display: none;
+}
+
+.custom_chk_btn label {
+  border: 1px solid #e9f8fb;
+  padding: 3px 10px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 2px 3px -2px #999;
+  -moz-box-shadow: 1px 2px 3px -2px #999;
+  box-shadow: 1px 2px 3px -2px #999;
+  margin-top: 3px;
+  margin-bottom: 0;
+  background: #fdfdfd;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif";
+  font-weight: normal;
+}
+
+.custom_chk_btn label::after {
+  background-color: white;
+  border: 1px solid #ff6d6d;
+  color: white;
+  content: " ";
+  display: block;
+  height: 25px;
+  line-height: 28px;
+  position: absolute;
+  right: -2px;
+  text-align: center;
+  top: -2px;
+  transform: scale(0);
+  transition-duration: 0s;
+  width: 25px;
+}
+
+.check_family_item label {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.custom_chk_btn :checked+label {
+  outline: 2px solid #ff6d6d;
+  padding: 0 0 0 10px;
+  display: inline-block;
+}
+
+.custom_chk_btn :checked+label::after {
+  content: "\2713";
+  background-color: #ff6d6d;
+  transform: scale(1.15);
+  position: relative;
+  display: inline-block;
+  right: 0px;
+  top: 0px;
+  margin-left: 7px;
+}
+
+.first {
+  margin-top: 32px;
+}
+
+.column {
+  padding: 0 5px;
+  margin: 0 5px;
+}
+
+.custom_chk_nav .column_nav .row .column_nav>input[type="checkbox"] {
+  display: none;
+}
+
+.custom_chk_nav label {
+  border: 1px solid #e9f8fb;
+  padding: 20px 15px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 2px 3px -2px #999;
+  -moz-box-shadow: 1px 2px 3px -2px #999;
+  box-shadow: 1px 2px 3px -2px #999;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  background: #fdfdfd;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif";
+  font-weight: normal;
+  min-width: 115px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.custom_chk_nav label::before {
+  background-color: white;
+  border: 1px solid #ff6d6d;
+  color: white;
+  content: " ";
+  display: block;
+  height: 25px;
+  line-height: 28px;
+  position: absolute;
+  right: -2px;
+  text-align: center;
+  top: -2px;
+  transform: scale(0);
+  transition-duration: 0s;
+  width: 25px;
+}
+
+.check_family_item label {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.custom_chk_nav :checked+label {
+  outline: 2px solid #ff6d6d;
+}
+
+.custom_chk_nav :checked+label:before {
+  content: "\2713";
+  background-color: #ff6d6d;
+  transform: scale(0.9);
+}
+
+.column_nav {
+  padding: 0 5px;
+  margin: 5px 5px 0 5px;
+}
+
+.nav_list {
+  margin: 10px auto;
+}
+
+.btn-outline-primary {
+  min-width: 7.5rem;
+}
+
+.card-header {
+  padding: 5px 10px;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card-header+.list-group .list-group-item:first-child {
+  border-top: 0;
+}
+
+.card-footer {
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-footer:last-child {
+  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.row {
+  margin-left: 0px;
+}
+
+.col-md-12 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.form-check {
+  margin-bottom: 0 !important;
+}
+
+.list-inline-item:not(:last-child) {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 575px) {
+  .search-field {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .row {
+    margin-right: 0;
+  }
+}
+
+.add_doctor {
+  padding: 13px !important;
+  margin-bottom: 3px !important;
+}
+
+.doctors_name {
+  margin: 5px 12px;
+}
+
+.doctors_name .cardBodyItem {
+  height: 50px;
+}
+
+.doctors_name .custom_chk_btn :checked+label::after {
+  content: "\2713";
+  background-color: #ff6d6d;
+  transform: scale(1.15);
+  position: relative;
+  display: inline-block;
+  top: -40px;
+  right: 0;
+  left: 90px;
+  min-height: 45px;
+  margin-left: 7px;
+}
+
+.doctors_name .custom_chk_btn :checked+label::before {
+  margin-left: 15px;
+}
+
+.doctors_name label {
+  height: 48px;
+  margin-right: 15px;
+}
+
+#followUpcomments {
+  height: 60px
+}
+
+.btn-style {
+  // background: #1DC8D5;
+  background:$btn-secondary;
+  color: #fff;
+  // border: 1px solid #17ACB7;
+  border: 1px solid $btn-border-color;
+}
+
+.follow_up_padding {
+  padding: 5px;
+}
+
+.modal_border {
+  border: none !important;
+}
+
+.modal_shadow {
+  padding: 5px;
+  -webkit-box-shadow: 0 2px 6px 0 #ccc;
+  -moz-box-shadow: 0 2px 6px 0 #ccc;
+  box-shadow: 0 2px 6px 0 #ccc;
+}
+
+.add_btn {
+  background-color: #DF5B21;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.symptom_daig_txt ul {
+  padding-left: 0px;
+}

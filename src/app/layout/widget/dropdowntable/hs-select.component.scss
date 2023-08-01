@@ -1,0 +1,55 @@
+.bg-info {
+  color: white !important;
+  transition: none !important ;
+}
+
+.search-result {
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+  min-width: 200px;
+  display: block;
+}
+.search-result:last-child {
+  border-bottom: none;
+}
+.search-result td {
+  border-top: none;
+  display: table-cell;
+  min-height: auto;
+  width: auto !important;
+  float: none;
+  border-bottom: none;
+}
+.search_table {
+  right: 0;
+}
+.table_hs_search {
+  position: absolute;
+  z-index: 9;
+}
+.search_table .select_protab {
+  width: 100%;
+  max-height: 200px;
+  overflow-x: hidden;
+  table-layout: fixed;
+  overflow-y: auto;
+  display: block;
+  border-bottom: 1px solid gray;
+}
+.search-text {
+  border-top: 1px solid gray;
+}
+.editprocess_widget
+  .widget-body
+  .editprocess_widget
+  .searchtable_prescription
+  .newadvice_table
+  .search_table
+  .table_hs_search {
+  position: relative !important;
+  z-index: 9;
+}

@@ -1,0 +1,372 @@
+@mixin rectangularBox {
+    background-color: #fff;
+    box-shadow      : 0.10px 0.10px 1px 1px #888888;
+}
+
+.thumb img {
+    height: 63px;
+    width : 63px;
+}
+
+.thumb {
+    @include rectangularBox;
+    margin: 10px 10px 40px 15px;
+    width : 100%;
+}
+
+.list-inline-item:not(:last-child) {
+    margin-right: 5px;
+  }
+
+.row {
+    margin-left: 0px;
+}
+
+.custom_chk_btn {
+    margin-bottom: 5px !important;
+  }
+  
+  .custom_chk_btn label {
+    border: 1px solid #e9f8fb;
+    padding: 3px 10px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    margin-top: 3px;
+    margin-bottom: 0;
+    background: #fdfdfd;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+      "sans-serif";
+    font-weight: normal;
+  }
+  
+  .custom_chk_btn label::after {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+  }
+  
+  .check_family_item label {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .custom_chk_btn :checked+label {
+    outline: 2px solid #ff6d6d;
+    padding: 0 0 0 10px;
+    display: inline-block;
+  }
+
+  .custom_chk_btn .column .row .column>input[type="checkbox"] {
+    display: none;
+  }
+  
+  .custom_chk_btn {
+    margin-bottom: 5px !important;
+  }
+
+.column {
+    padding: 2px 0px;
+    margin: 0px 5px;
+}
+
+.ailment_text {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+}
+  
+.custom_chk_btn .column .row .column>input[type="checkbox"] {
+    display: none;
+}
+
+.patientname {
+    font-weight: 800;
+}
+.diagnostic_popup ul{
+    padding-left: 0px;
+}
+
+.patient_name {
+    margin: 0px;
+}
+
+.patient_name .patient_box,
+.pharmacy_diago {
+    background-color: #fff;
+    box-shadow      : 0.1px 0.1px 5px 2px #88888824;
+    padding         : 15px 15px;
+    border-radius   : 4px;
+}
+
+.image_size {
+    width: 100%;
+}
+
+.patient_title {
+    padding-top: 5px;
+}
+
+.pharmacy_diago {
+    max-width: 49%;
+}
+
+.top-title {
+    color      : #14a9b5;
+    font-weight: 600;
+}
+
+.hr_padding {
+    padding: 0px;
+}
+
+.hr_padding hr {
+    border-top: 1px solid #e6e4e46e;
+}
+
+.mode_txt {
+    font-weight: 600;
+}
+
+.pharmacy_bgc {
+    background-color: #dfe0e240;
+}
+
+.btn-pharmacy {
+    width           : 100%;
+    background-color: #ff6d6d;
+    color           : #fff;
+    text-transform  : uppercase;
+}
+
+// diago////////////////////////////
+.diago_ml {
+    margin-right: 24px;
+}
+
+.float_left {
+    float: left;
+}
+.float_right {
+    float: right;
+}
+
+.form-custom-setting {
+    margin-left: 0px;
+}
+.modal-dialog ul li{
+    list-style: none;
+}
+
+.address {
+    @include rectangularBox;
+    margin: 0 0 20px 17px;
+}
+
+.edit {
+    float: right;
+}
+
+.error {
+    color: red;
+}
+
+#success .modal-body ul {
+    padding-left: 0px;
+}
+
+#success .modal-body ul li {
+    list-style: none;
+}
+
+
+
+@media screen and (min-width: 280px) {
+    .pharmacy_diago {
+        max-width    : 100%;
+        margin-bottom: 20px;
+    }
+
+    .diago_ml {
+        margin-right: 0px;
+    }
+}
+
+@media screen and (min-width: 360px) {
+    .pharmacy_diago {
+        max-width    : 100%;
+        margin-bottom: 20px;
+    }
+
+    .diago_ml {
+        margin-right: 0px;
+    }
+}
+.custom_chk_btn .column .row .column>input[type="checkbox"] {
+    display: none;
+  }
+  
+  .custom_chk_btn label {
+    border: 1px solid rgb(233, 248, 251);
+    padding: 3px 10px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    margin-top: 3px;
+    margin-bottom: 0;
+    background: #fdfdfd;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+      "sans-serif";
+    font-weight: normal;
+  }
+  
+  .custom_chk_btn label::after {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+  }
+  
+  .check_family_item label {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .custom_chk_btn :checked+label {
+    outline: 2px solid #ff6d6d;
+    padding: 0 0 0 10px;
+    display: inline-block;
+  }
+  
+  .custom_chk_btn :checked+label::after {
+    content: "\2713";
+    background-color: #ff6d6d;
+    transform: scale(1.15);
+    position: relative;
+    display: inline-block;
+    right: 0px;
+    top: 0px;
+    margin-left: 7px;
+  }
+  
+  .first {
+    margin-top: 32px;
+  }
+  
+  .column {
+    padding: 0 5px;
+    margin: 0 5px;
+  }
+  
+  .custom_chk_nav .column_nav .row .column_nav>input[type="checkbox"] {
+    display: none;
+  }
+  
+  .custom_chk_nav label {
+    border: 1px solid #e9f8fb;
+    padding: 20px 15px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background: #fdfdfd;
+    font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+      "sans-serif";
+    font-weight: normal;
+    min-width: 115px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .custom_chk_nav label::before {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+  }
+  
+  .check_family_item label {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .custom_chk_nav :checked+label {
+    outline: 2px solid #ff6d6d;
+  }
+  
+  .custom_chk_nav :checked+label:before {
+    content: "\2713";
+    background-color: #ff6d6d;
+    transform: scale(0.9);
+  }
+
+  .DiagCheckbox{
+    display: grid;
+  }
+
+  .pharCheckbox{
+    display: grid;
+  }
+
+
+@media screen and (min-width: 1024px) {
+    .pharmacy_diago {
+        max-width    : 49%;
+        margin-bottom: 0px;
+    }
+
+    .diago_ml {
+        margin-right: 15px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    .diago_ml {
+        margin-right: 21px;
+    }
+}
+

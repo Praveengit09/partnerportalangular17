@@ -1,0 +1,96 @@
+ 
+.basic_information{
+    margin-left: 30%;
+    padding: 6rem 2rem;
+
+.content_section{
+    padding: 0px 15px;
+}
+.page-title{
+     font-weight: 600;
+}
+span{
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+p{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #41484D;
+    margin-bottom: 2rem;
+}
+label{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #41484D;
+}
+input{
+    border: 1px solid #EDEEF0;
+    border-radius: 4px;
+}
+input::file-selector-button{
+    visibility: hidden;
+}
+::placeholder {
+    color: #859098;
+  }
+
+.d-flex{
+    display: flex;
+}
+.add-another-no-btn button{
+    color: #187CA8;
+    border: 1px solid #187CA8;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+.work_place_btn button{
+    padding: 8px 16px;
+    border: none;
+    background: #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+img{
+    position: absolute;
+    right: 23px;
+    top: 50px;
+    width: 20px;
+}
+}
+@media only screen and (max-width: 1000px) and (min-width: 769px)  {
+    .basic_information{
+        margin-left: 35%;
+    }
+}
+@media only screen and (max-width: 768px) {
+   
+    .basic_information{
+        margin-left: 0%;
+        .d-flex{
+            flex-direction: column;
+         }
+    }
+    
+  }
+  @media only screen and (max-width: 575px) {
+    .basic_information{
+        padding: 7rem 1rem;
+        padding-bottom: 1.2rem;
+        span{
+            top: 85px;
+       }
+    }
+    
+  }

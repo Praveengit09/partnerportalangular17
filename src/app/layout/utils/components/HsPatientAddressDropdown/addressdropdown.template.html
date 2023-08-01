@@ -1,0 +1,193 @@
+<!-- <h2>addressdropdown</h2> -->
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <p> <b>Select Delivery Address</b> </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5 col-md-5 col-md-5">
+        <div class="form-group">
+            <select class="form-control" id="addressType" [(ngModel)]="selectedAddressIndex"
+                (change)="onAddressSelect($event.target.value)">
+                <option value="-1" disabled>Select Address</option>
+                <option *ngFor="let address of suggetionAddressList; let i = index" [value]="i+1">
+                    {{address.label}}</option>
+                <option value="0">Add New</option>
+            </select>
+        </div>
+    </div>
+</div>
+<section *ngIf="editAddress && editAddress?.addressId>0">
+    <div class="row">
+        <div class="col-md-4 address">
+            <p class="edit" (click)="modifyAddress(editAddress)">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </p>
+            <p></p>
+            <p>{{editAddress.address1}}, {{editAddress.address2}}
+            </p>
+            <p>{{editAddress.cityName}}, {{editAddress.stateName}} -
+                {{editAddress.pinCode}} </p>
+        </div>
+    </div>
+</section>
+<hs-message [isError]="isError" [show]="errMsg.length" [messages]="errMsg"></hs-message>
+
+<!-- Update Address Model -->
+<div class="modal fade" tabindex="-1" role="dialog" id="editAddModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-md-12">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title update_addresstxt">Update Address</h4>
+            </div>
+            <div class="modal-body update_addressbody">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Type</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" id="addressType" [(ngModel)]="editAddress.addressType"
+                                (change)="selectedAddressType()">
+                                <option value="-1" disabled>Select Type</option>
+                                <option value="0">Home</option>
+                                <option value="1">Office</option>
+                                <!-- <option value="3">Emergency</option> -->
+                                <option value="2">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <section *ngIf="editAddress?.addressType == 2">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Name of this address</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="editAddress.label"
+                                    placeholder="Address name">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 1</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 1"
+                                [(ngModel)]="editAddress.address1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 2</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 2"
+                                [(ngModel)]="editAddress.address2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Pin Code</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" maxlength="6" class="form-control" placeholder="Enter PIN Code"
+                                [(ngModel)]="editAddress.pinCode" (keyup)="searchByPinCode($event.target.value, true)"
+                                (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Area</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="locationIndex"
+                                [ngModelOptions]="{standalone : true}" *ngIf="localityResponse"
+                                (change)="onLocationChange()">
+                                <option *ngFor="let locationArea of localityResponse;let j = index" [ngValue]=j>
+                                    {{locationArea.name}}</option>
+                            </select>
+                            <input class="form-control" id="disabledInputArea" type="text" *ngIf="!localityResponse"
+                                [(ngModel)]="editAddress.areaName" placeholder="Area" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>City</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputcity" type="text"
+                                [(ngModel)]="editAddress.cityName" placeholder="City" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>State</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputstate" type="text"
+                                [(ngModel)]="editAddress.stateName" placeholder="State" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="errorMessagePopup.length" [show]="errorMessagePopup.length"
+                [messages]="errorMessagePopup">
+            </hs-message>
+            <div class="modal-footer save_border">
+                <button type="button" class="btn btn-default save_address" (click)="saveAddress()">Save Address</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  popup model end here -->

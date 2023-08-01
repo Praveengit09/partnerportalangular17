@@ -1,0 +1,89 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/theme.scss';
+
+.table_size .inventory_para {
+    font-size: 14px;
+    color: #5b5b5b;
+    font-weight: 400;
+}
+
+.widget-body {
+    overflow-x: scroll;
+}
+
+.widget-body {
+    overflow-x: hidden;
+}
+
+.widget_updated {
+    position: relative;
+    margin-bottom: 45px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    border: 2px solid #e6e6e6 !important;
+}
+
+
+
+.upload_inventory {
+    margin: 0px;
+    padding-bottom: 25px;
+    color: #5b5b5b;
+    font-size: 22px;
+}
+
+.Update12 {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    // border: solid 1px #ff6d6d;
+    background-color: $btn-danger-bg;
+    border: solid 1px $btn-danger-bg;
+    padding: 5px 15px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+
+.Update12 a {
+    color: #fff;
+    text-decoration: none;
+
+}
+.validationCustom03 {
+    width: 100%;
+}
+
+ .datepicker, .mat-form-field, .btn {
+    min-width: 160px !important;
+    width: 100% !important;
+}
+
+.dropdown-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.dropdown-list ul {
+    overflow: inherit;
+}
+.dropdown-list ul.item2 {
+    max-height: 100% !important;
+}
+@media screen and (min-width:576px) and (max-width:991px){
+    .btn{
+        margin-top: 18px;
+    } 
+}
+@media screen and (min-width:992px) {
+    .selectcentre{
+        margin-top: 5px;
+    }
+}
+@media screen and (min-width:1200px){
+    .btn{
+        margin-top: 20px;
+    } 
+}

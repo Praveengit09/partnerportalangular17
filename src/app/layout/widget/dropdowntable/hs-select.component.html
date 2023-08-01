@@ -1,0 +1,28 @@
+<div class="newadvice_table" id="{{searchComponentId}}" (mouseleave)="mouseLeaveEvent()">
+
+    <mat-form-field *ngIf="isMatEnable" appearance="outline">
+        <mat-label>{{defaultSelectLabel}}</mat-label>
+        <input matInput class="form-control hs-select" id="{{fieldId}}" placeholder="{{placeholder}}" autocomplete="off" [(ngModel)]="selectedProduct" #searchBox (keyup)="search(searchBox.value, $event)" (blur)="onBlur()" (keydown)="eventHandler($event, focusable)"
+            [disabled]="disable" placeholder="{{defaultSelectLabel}}" />
+    </mat-form-field>
+    <input *ngIf="!isMatEnable" class="form-control hs-select" autocomplete="off" [(ngModel)]="selectedProduct" #searchBox id="{{fieldId}}" (keyup)="search(searchBox.value, $event)" (blur)="onBlur()" (keydown)="eventHandler($event, focusable)" [disabled]="disable"
+        placeholder="{{defaultSelectLabel}}" />
+    <div class="search_table" id={{tableId}} #focusable>
+        <div class="table_hs_search">
+            <table class="select_protab select_protab{{tableId}}" #focustable>
+                <tbody class="hs_table_tbody">
+                    <tr *ngFor="let object of selectResults;let i=index" [class.bg-info]="eventIndex==i" id='HSSelectTableRow{{tableId}}{{i}}' (click)="selected(object)" class="search-text search-result search-text{{i}}" (mouseover)="mouseEnterEvent(i)">
+                        <td *ngFor="let column of selectColumns" [class.bg-info]="eventIndex==i">
+                            <span *ngIf="column.filter!='action'">{{getDisplayString(object, column)}} &nbsp;</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf=" selectResults && selectResults.length <= 0 && searchingData && searchingData.length>2&& isDataFetched && !isSelected" id='HSSelectTableRow{{tableId}}0' class="search-text search-result search-text0 ">
+                        <td>
+                            <span>No Data Found</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

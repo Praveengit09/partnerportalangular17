@@ -1,0 +1,181 @@
+<!--<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>-->
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Invoice ID {{pharmacyAdviseTrack?.invoiceId}}</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt2" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Patient </p>
+                <h4>{{pharmacyAdviseTrack.patientProfileDetails?.title?pharmacyAdviseTrack.patientProfileDetails?.title+'.
+                    ':''}}
+                    {{pharmacyAdviseTrack.patientProfileDetails?.fName}}
+                    {{pharmacyAdviseTrack.patientProfileDetails?.lName?pharmacyAdviseTrack.patientProfileDetails?.lName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4> {{pharmacyAdviseTrack.doctorDetail?pharmacyAdviseTrack.doctorDetail?.title:""}}
+                    {{pharmacyAdviseTrack?.doctorDetail?.firstName}}
+                    {{pharmacyAdviseTrack?.doctorDetail?.lastName?pharmacyAdviseTrack.doctorDetail?.lastName:''}}</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt"
+                *ngIf="pharmacyAdviseTrack?.orderId!=undefined && pharmacyAdviseTrack?.orderId!=null">
+                <p>Order ID</p>
+                <h4>{{pharmacyAdviseTrack?.orderId}}</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt mt-1"
+                *ngIf="pharmacyAdviseTrack?.inPatientNo!=undefined && pharmacyAdviseTrack?.inPatientNo!=null">
+                <p>Inpatient Number</p>
+                <h4>{{pharmacyAdviseTrack?.inPatientNo}}</h4>
+            </div>
+
+        </section>
+    </div>
+</div>
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12 perscripton_txt">
+            Prescription
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading invoice_widget" widget>
+                <div class="widget-body table-datalabel widget-shadow">
+                    <table class="table table-striped">
+                        <thead class="table_head">
+                            <tr class="table_head">
+                                <th style="width: 16%;">Product Code</th>
+                                <th style="width: 13%;">Medicine Name</th>
+                                <th style="width:13%;">Composition</th>
+                                <th>Package</th>
+                                <th class="">Quantity</th>
+                                <th style="width:11%;">Unit MRP ( &#8377; )
+                                    <p class="with_txt">Without Taxes</p>
+                                </th>
+                                <th style="width:11%;">Total Taxes ( &#8377; )
+                                </th>
+                                <th>Final Amount</th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngFor="let item of pharmacyAdviseInfoList; let i = index">
+
+                            <tr *ngIf="item.productName">
+                                <td data-label="Product Code">
+                                    <div class="tabledatalabel-right">
+                                        {{item.productCode || 0}}
+                                        <p class='schedule_txt'>Schedule:{{item?.schedule}}</p>
+                                        <p class='schedule_txt'>Expiry
+                                            Date:{{item?.stockDetails?.expiryDate | date:'MMM y'}}</p>
+                                    </div>
+                                </td>
+                                <td data-label="Medicine Name">
+                                    <div class="tabledatalabel-right">
+                                        {{item?.productName||''}}
+                                        <p class='schedule_txt' style="color:blue;">Batch
+                                            No:{{item?.stockDetails.batchNo}}</p>
+                                        <p class='schedule_txt'>Rack:{{item?.stockDetails?.rackNo}}</p>
+                                    </div>
+                                </td>
+                                <td data-label="Composition">
+                                    <div class="tabledatalabel-right">{{item.genericMedicine?.genericMedicineName||''}}
+                                    </div>
+                                </td>
+                                <td data-label="Package">
+                                    <div class="tabledatalabel-right">{{item?.drugForm||''}}/{{item?.packageSoldLoose?
+                                        'Loose' :
+                                        item?.packingInformation?.packageType }} </div>
+                                </td>
+                                <td data-label="Quantity">
+                                    <div class="tabledatalabel-right">{{item?.quantity||0}}</div>
+                                </td>
+                                <td data-label="Unit MRP ( &#8377; )">
+                                    <div class="tabledatalabel-right">
+                                        &#x20B9;{{(item?.stockDetails?.grossPrice ||item?.grossPrice | number :
+                                        '1.0-2')||0}}</div>
+                                </td>
+
+                                <td data-label="Total Taxes ( &#8377; )">
+                                    <div class="tabledatalabel-right"> &#x20B9;{{ item?.totalTaxes?.igstAmount>0?
+                                        item?.totalTaxes?.igstAmount:(item?.totalTaxes?.cgstAmount +
+                                        item?.totalTaxes?.sgstAmount)
+                                        | number : '1.0-2'}}</div>
+                                </td>
+                                <td data-label="Final Amount">
+                                    <div class="tabledatalabel-right">
+                                        &#x20B9;{{item?.stockDetails?.netPrice * item?.quantity || item?.netPrice *
+                                        item?.quantity | number : '1.0-2'}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+
+            <div class="container">
+                <div class="row process_original">
+
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Original Amount (OA) :
+                        <p class="with_txt">Without Taxes</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{pharmacyAdviseTrack.payment.originalAmount|currency:'INR':true:'1.2-2'}} </div>
+
+                    <ng-template
+                        [ngIf]="pharmacyAdviseTrack.payment.platformCharges && pharmacyAdviseTrack.payment.platformCharges > 0">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Platform Charges:</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            {{(pharmacyAdviseTrack.payment.platformCharges?pharmacyAdviseTrack.payment.platformCharges:0)
+                            |currency:'INR':true:'1.2-2'}}
+                        </div>
+                    </ng-template>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Tax Payable (TP) :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(pharmacyAdviseTrack.payment.taxationAmount?pharmacyAdviseTrack.payment.taxationAmount:0)
+                        |currency:'INR':true:'1.2-2'}}</div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Billing Amount :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{pharmacyAdviseTrack.payment.finalAmount|currency:'INR':true:'1.2-2'}}
+                    </div>
+                    <!-- <ng-template> -->
+                    <!-- <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount Paid :</div> -->
+                    <!-- <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(pharmacyAdviseTrack.payment.amountPaid?pharmacyAdviseTrack.payment.amountPaid:0)|currency:'INR':true:'1.2-2'}}
+                    </div> -->
+                    <!-- </ng-template> -->
+                    <!-- <ng-template [ngIf]="showCartPayable && !isInvoice">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Payable Amount :</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            {{(+pharmacyAdviseTrack.payment.finalAmount -
+                            +(pharmacyAdviseTrack.payment.amountPaid?pharmacyAdviseTrack.payment.amountPaid:0))|currency:'INR':true:'1.2-2'}}
+                        </div>
+                    </ng-template> -->
+                    <!-- <ng-template [ngIf]="isInvoice"> -->
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Amount
+                        {{this.pharmacyAdviseTrack.payment.paymentStatus == 1? 'Paid' : 'Payable'}}:
+                        <p class="with_txt">( OA + TP - OD + DC )</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{this.pharmacyAdviseTrack.payment.finalAmount |currency:'INR':true:'1.2-2'}}
+                    </div><br><br>
+                    <!-- </ng-template> -->
+                </div>
+            </div>
+            <button role="button" class="submit_txt prient_txt" value="Submit" (click)="onPrintButtonClick()"><i
+                    class="fa fa-print" aria-hidden="true"></i>PRINT</button>
+            <button role="button" class="submit_txt " value="Submit" (click)="onBackButtonClick()">Back</button>
+        </form>
+    </div>
+</div>

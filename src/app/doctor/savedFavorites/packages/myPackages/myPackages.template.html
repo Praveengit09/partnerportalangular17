@@ -1,0 +1,80 @@
+<h1 class="page-title">My Packages</h1>
+<div class="row">
+    <div class="col-lg-12" *ngIf="selectedPocMapping.participationSettings.canEditPackages"><button
+            class="button_addtxt" role="button" type="button" (click)="add_package()">Add More
+            Packages</button></div>
+    <div class="col-lg-12">
+        <section class="widget table_pading packages_widget widget-shadow">
+            <div class="widget-body table-responsive table-datalabel">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>#</th>
+                            <th>Package Name</th>
+                            <th>Service Line</th>
+                            <th>Cost</th>
+                            <th>Valid Till</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of this.displayDoctorPackages; let i =index">
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{((this.indexOfPage - 1) *
+                                    this.noOfReportsPerPage)+(i+1)}}</div>
+                            </td>
+                            <td data-label="Package Name" class="profile-image">
+                                <div class="tabledatalabel-right">
+                                    <div class="row">
+                                        <!-- <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                                            <img alt="" class="" src="assets/img/avatar.png">
+                                        </div> -->
+                                        <div *ngIf="item.portalBannerUrl"
+                                            class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <img alt="" class="" src="{{item.portalBannerUrl}}">
+                                        </div>
+                                        <div *ngIf="!item.portalBannerUrl"
+                                            class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                                            <img alt="" class="" src="assets/img/avatar.png">
+                                        </div>
+                                        <div class="col-xl-10 col-lg-9 col-md-8 col-sm-8 col-xs-12 doctor_name">
+                                            <h5>{{item.name}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Service Line">
+                                <div class="tabledatalabel-right">{{item.serviceLine}}</div>
+                            </td>
+                            <td data-label="Cost">
+                                <div class="tabledatalabel-right">{{this.currency}}{{item.finalPrice}}</div>
+                            </td>
+                            <td data-label="Valid Till">
+                                <div class="tabledatalabel-right">1 Year</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <nav aria-label="Page navigation pull-right" *ngIf="doctorPackages?.length>noOfReportsPerPage">
+            <ul class="pagination pull-right">
+                <li class="page-item" *ngIf="indexOfPage!=1" [class.disabled]="indexOfPage==1">
+                    <a class="page-link" tabindex="-1" (click)="changePageIndex(indexOfPage-1)">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" [class.currentPage]="indexOfPage==(i+1)"
+                        *ngFor="let j of getNumberOfPages();let i=index" (click)="changePageIndex(i+1)">
+                        {{i+1}}
+                    </a>
+                </li>
+                <li class="page-item" *ngIf="indexOfPage!=(getNumberOfPages().length)"
+                    [class.disabled]="indexOfPage==(getNumberOfPages().length)">
+                    <a class="page-link" (click)="changePageIndex(indexOfPage+1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

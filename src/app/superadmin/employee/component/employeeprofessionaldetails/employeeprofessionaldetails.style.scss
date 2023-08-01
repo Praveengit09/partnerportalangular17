@@ -1,0 +1,262 @@
+input[type=number] {
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.list_title3 {
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.contact_add2 {
+  margin: 0px;
+}
+
+.brand_list_title {
+  color: #43BAC4;
+  font-weight: 500;
+}
+
+.sgst_txt {
+  font-size: 23px;
+  top: -1px;
+  color: #ff0000;
+}
+
+.other_discount .quantity_txt {
+  padding: 0px;
+  margin: 0px;
+  color: #ff0000;
+  text-align: left;
+  padding-right: 100px;
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.employee_img2 {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #fafbfa;
+}
+
+.widget_emp {
+  box-shadow: 0px 0px 4px 1px #e6e6e6;
+  margin-top: 20px;
+  padding: 30px 25px;
+}
+
+.prinston_txt2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  margin: 0px;
+}
+
+.serial_number2 {
+  margin-bottom: 0px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.Update {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+  padding: 5px 30px;
+  text-transform: uppercase;
+  color: #fff !important;
+}
+
+/////radio button css start here ///
+
+.service_checked[type="checkbox"]:checked+label::after {
+  content: '';
+  position: absolute;
+  width: 2.2ex;
+  height: 1.3ex;
+  background: transparent;
+  top: 0.6ex;
+  left: 0.4ex;
+  border: 3px solid #68c7d0;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.service_checked[type="checkbox"] {
+  line-height: 2.1ex;
+}
+
+.service_checked[type="radio"],
+.service_checked[type="checkbox"] {
+  position: absolute;
+  left: -999em;
+}
+
+.service_checked[type="checkbox"]+label {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  top: 10px;
+}
+
+.service_checked[type="checkbox"]+label::before {
+  content: "";
+  display: inline-block;
+  vertical-align: -25%;
+  height: 3ex;
+  width: 3ex;
+  background-color: white;
+  border: 1px solid rgb(166, 166, 166);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+  margin-right: 0.5em;
+}
+
+
+
+
+.emp_type label {
+
+  display: inline-block;
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.emp_type input {
+  opacity: 0;
+}
+
+.outside {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1DC8D5;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: none;
+}
+
+.inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background: #1DC8D5;
+  left: 3px;
+  top: 3px;
+  -webkit-transform: scale(0, 0);
+  transform: scale(0, 0);
+}
+
+.no-transforms .inside {
+  left: auto;
+  top: auto;
+  width: 0;
+  height: 0;
+}
+
+input:checked+.outside .inside {
+  -webkit-animation: radio-select 0.1s linear;
+  animation: radio-select 0.1s linear;
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+
+.no-transforms input:checked+.outside .inside {
+  width: 10px;
+  height: 10px;
+}
+
+////radio button css end here ///
+/////////////  PRODUCTS css start here ////
+
+.right {
+  float: right;
+  border-bottom: 2px solid #4B8E4B;
+}
+
+.thumbnail {
+  opacity: 0.70;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.thumbnail:hover {
+  opacity: 1.00;
+  box-shadow: 0px 0px 10px #4bc6ff;
+}
+
+.line {
+  margin-bottom: 5px;
+}
+
+.img_pocpartner {
+  width: 100%;
+  margin-top: 15px;
+}
+
+///
+.update_packages {
+  max-width: 22.3%;
+  margin-left: 19px;
+  margin-bottom: 30px;
+  box-shadow: 0px 1px 1px 1px rgba(216, 208, 208, 0.2196078431372549);
+}
+
+.modal-title_poc {
+  font-weight: 600px;
+}
+
+.Update {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+  padding: 5px 30px;
+  text-transform: uppercase;
+  color: #fff !important;
+}
+
+.team-box {
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+}
+
+.team-box:hover {
+  border: 1px solid #ea6c56;
+}
+
+.package_checkbox {
+  margin-left: 18px;
+}
+
+//
+/////////////  PRODUCTS css start here ////

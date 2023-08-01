@@ -1,0 +1,943 @@
+@import "../../../scss/variables";
+// @import "../../../../assets/jeevone/themes/theme.scss";
+@import "../../../scss/theme.scss";
+
+.doctor_agetxt {
+    width: 75px !important;
+}
+
+.doctor_agetxt {
+    width: 75px !important;
+}
+
+.appointment_txt {
+    padding: 0px 45px 60px 43px !important;
+}
+
+/* --------------  PHR Checkbox Styles Starts   -----------------*/
+
+.walkin {
+    margin-right: 15px;
+    padding: 10px 33px;
+    background-color: $btn-walk-color;
+}
+
+.custom_chk input[type="radio"] {
+    display: none;
+}
+
+.quantity::-webkit-inner-spin-button,
+.quantity::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.other_discount .quantity_txt {
+    padding: 0px;
+    margin: 0px;
+    color: #ff0000;
+    text-align: left;
+    padding-right: 100px;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.other_discount .quantity_txt sup {
+    font-size: 18px;
+    top: -1px;
+}
+
+.custom_chk label {
+    border: 1px solid #e9f8fb;
+    padding: 16px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    margin-top: 15px;
+    margin-bottom: 0;
+    background: #FDFDFD;
+    font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+    font-weight: normal;
+}
+
+.custom_chk label::before {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+}
+
+.ailment_text {
+    font-size: 18x;
+    font-weight: 600;
+    text-align: left;
+}
+
+.text_margin {
+    margin: 0px;
+}
+
+.custom_chk :checked+label,
+.reset-checkbox :checked+label {
+    outline: 2px solid #FF6D6D;
+}
+
+.custom_chk :checked+label:before,
+.reset-checkbox :checked+label:before {
+    content: "\2713";
+    background-color: #FF6D6D;
+    transform: scale(0.9);
+}
+
+.other-textbox {
+    margin-left: 12%;
+}
+
+.custom-chk1+label+.checkbox-group {
+    display: none;
+}
+
+.custom-chk1:checked+label+.checkbox-group {
+    display: block;
+}
+
+.checkbox-group {
+    padding: 10px;
+    border-bottom: 1px solid #FF6D6D;
+    border-left: 1px solid #FF6D6D;
+    border-right: 1px solid #FF6D6D;
+    background: #fff9f9;
+}
+
+
+
+/*--------------  PHR Checkbox Styles Ends     -----------------*/
+
+.datepik_bor {
+    border: 1px solid #000 !important;
+    padding: 5px 15px;
+    background-color: #EBF2F9;
+}
+
+.form-line {
+    border-left: 1px solid #B29999;
+}
+
+.header_color {
+    color: $title-color;
+}
+
+.widget_txt {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: 100px;
+    margin-top: 10px;
+}
+
+.widget_txt .patient_txt h4,
+.widget_txt .patient_txt p {
+    margin: 0px;
+    font-weight: 400;
+}
+
+.input_gender {
+    width: 58px;
+    height: 58px;
+    cursor: pointer;
+    display: block;
+}
+
+.gender_txt {
+    list-style: none;
+}
+
+.gender_txt li {
+    list-style: none;
+    float: left;
+    display: inline;
+}
+
+#resendotp {
+    color: #0074d9
+}
+
+.input_label {
+    margin-right: 25px;
+}
+
+.input_label>input {
+    visibility: hidden;
+    position: absolute;
+}
+
+.gender_inline .input_label {
+    display: inline-block;
+}
+
+.input_label>input.male+span {
+    background: url('../../../../assets/img/partner/sprite.png') -68px -222px transparent;
+}
+
+.input_label>input.male:checked+span {
+    background: url('../../../../assets/img/partner/sprite.png') -68px -152px transparent;
+}
+
+.input_label>input.female+span {
+    background: url('../../../../assets/img/partner/sprite.png') 0 -222px transparent;
+}
+
+.input_label>input.female:checked+span {
+    background: url('../../../../assets/img/partner/sprite.png') 0 -152px transparent;
+}
+
+.input_label>input.others+span {
+    background: url('../../../../assets/img/partner/sprite.png') -136px -222px transparent;
+}
+
+.input_label>input.others:checked+span {
+    background: url('../../../../assets/img/partner/sprite.png') -136px -152px transparent;
+}
+
+.gender_txt {
+    padding-left: 0px;
+}
+
+.what_txt {
+    font-weight: 600;
+}
+
+.Update {
+    float: right;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    background-color: $btn-danger-bg;
+    border: solid 1px  $btn-danger-border;
+    // border: solid 1px #ec6262;
+    padding: 10px 33px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin-right: 20px;
+}
+
+.modal-body {
+    position: relative;
+    padding: 0px 15px 60px 15px !important;
+}
+
+body>[uib-modal-window]:not([modal-render]) {
+    display: none;
+}
+
+.model_txt1 {
+    float: right;
+    display: inline-table;
+    right: 0px;
+    width: 500px;
+    overflow-y: scroll;
+}
+
+#recption-3 {
+    overflow-y: scroll;
+}
+
+.Update:focus,
+.Update:hover {
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+}
+
+.date_line {
+    border-bottom: 1px solid #eeeeee !important;
+}
+
+.error_massage {
+    display: none;
+}
+
+.model_txt1 {
+    float: right;
+    right: -17px;
+    width: 500px;
+    display: inline-table;
+}
+
+#recption-3 {
+    overflow-y: scroll;
+}
+
+.Update:focus,
+.Update:hover {
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+}
+
+.date_line {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.error_massage {
+    display: none;
+}
+
+.form-group p {
+    padding-bottom: 0px;
+}
+
+.patient_add {
+    border: none;
+    background-color: transparent;
+}
+
+.patient_add .fa-plus {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #14a9b5;
+    padding-top: 5px;
+    text-align: center;
+    color: #fff;
+    background-color: #14a9b5;
+    margin-top: 15px;
+}
+
+.input_label .gender {
+    color: #333;
+    opacity: 0.7;
+    font-weight: normal;
+}
+
+.input_label .male {
+    margin-left: 14px;
+}
+
+.input_label .female {
+    margin-left: 7px;
+}
+
+.input_label .others {
+    margin-left: 9px;
+}
+
+.input_label input:checked+span {
+    font-weight: bold;
+}
+
+.order_list ul {
+    list-style: none;
+}
+
+.order_list ul li {
+    display: inline;
+    float: left;
+    border-left: 1px solid #000;
+    padding: 15px 40px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.model_txt {
+    float: right;
+    right: 0px;
+    width: 400px;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    min-height: 100%;
+    margin: 0 auto;
+    bottom: 0;
+}
+
+//*/////////////////////*//
+.doctor_txt {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.radio-inline {
+    background-color: rgba(114, 92, 92, 0.07);
+    margin: 0px;
+    padding-top: 8px;
+    padding-bottom: 5px;
+}
+
+.doctor_txtpage {
+
+    font-size: 12px;
+    line-height: 16px;
+}
+
+
+/*Right*/
+.modal.right .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.left.in .modal-dialog,
+.modal.right.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+//*-----packages-------------*//
+.modal-header {
+    border-bottom: none;
+}
+
+.change-cursor {
+    cursor: wait;
+}
+
+.submit_txt {
+    float: left;
+}
+
+.Update1_doctor {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #14a9b5;
+    border: solid 1px #14a9b5;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+
+.consoul_line {
+    border-bottom: 1px solid rgb(222, 222, 222);
+    padding-bottom: 30px;
+}
+
+.paytxt_info {
+    padding-bottom: 17px !important;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.consultation_txt {
+    width: 155px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.consul_package {
+    width: 100px;
+    border: none;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.doctor_input {
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.edit_txt:hover,
+.edit_txt:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.appoint_txt {
+    width: 100%;
+    padding: 8px 10px !important;
+    border: 1px solid #eee;
+}
+
+.editxt_doc {
+    font-weight: 600;
+}
+
+.doctor_input:focus {
+    outline: none;
+}
+
+.edit_txt {
+    border: none;
+    background-color: $title-color;
+    color: #fff;
+    padding: 5px 28px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.text-line {
+    background-color: transparent;
+    color: $title-color;
+    outline: none;
+    outline-style: none;
+    outline-offset: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #eeeeee 1px;
+    padding: 3px 5px 3px 0px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.check_add {
+    background-color: #ff6d6d;
+
+    color: #fff;
+    padding: 7px 30px;
+    font-weight: 600;
+    border: none;
+}
+
+.check_add:focus {
+    outline: none;
+}
+
+.mobile_txt {
+    width: 63%;
+    padding: 6px 5px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+.date_birth .form-inline .input-group {
+    width: 100%;
+}
+
+.date_birth .form-control {
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.paycon_txt {
+    background-color: transparent;
+    color: $title-color;
+    outline: none;
+    outline-style: none;
+    outline-offset: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+
+    width: 100%;
+    font-size: 18px;
+}
+
+.mark_txt {
+    font-size: 12px !important;
+    padding: 10px !important;
+    cursor: pointer;
+}
+
+.residule_txt {
+    font-size: 12px !important;
+    background-color: #14a9b5 !important;
+    border-color: #14a9b5 !important;
+    padding: 12px 10px !important;
+    margin-left: 15px !important;
+}
+
+.cancelslot_txt {
+    background-color: transparent;
+    // color: #ff6d6d !important;
+    font-size: 12px !important;
+    background-color: $title-color !important;
+    border-color: $title-color !important;
+    padding: 12px 10px !important;
+    margin-left: 15px !important;
+    margin-right: 0 !important;
+    cursor: pointer;
+}
+
+.total_book {
+    width: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+.payment-status-pending {
+    margin-top: -4px;
+    color: #FF6D6D;
+    margin-bottom: 0;
+}
+
+.custom_chk input[type="checkbox"] {
+    display: none;
+}
+
+.add_medtxt {
+    padding: 0px;
+    font-size: 30px;
+    color: $title-color;
+    font-weight: 500;
+}
+
+.hspresion {
+    color: #343434;
+}
+
+.close_txt {
+    font-size: 40px;
+}
+
+@media screen and (max-width: 1297px) {
+    .order_list ul li {
+        padding: 15px 19px
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    .order_list ul li {
+        padding: 15px 15px
+    }
+
+    .order_list ul {
+        padding: 0px;
+    }
+
+    .datetime_txt {
+        padding-bottom: 10px;
+    }
+
+}
+
+
+
+
+/* --------------  PHR Checkbox Styles Starts   -----------------*/
+.patientname {
+    width: 100%;
+}
+
+.custom_chk label .patientname ul {
+    padding-left: 0px;
+    list-style: none;
+    margin-bottom: 0px;
+
+}
+
+.custom_chk label .patientname ul li {
+    word-wrap: break-word;
+    line-height: 20px;
+    font-size: 12px;
+
+}
+
+.patientdetail-expired-slot {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.patientdetail {
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+}
+
+.slot_booktxt label {
+    width: 174px;
+    padding: 10px !important;
+    min-height: 104px;
+    height: auto !important;
+}
+
+.sloat_size {
+    height: 80px !important;
+}
+
+.walk_reception {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.editdate_txt {
+    margin-top: 25px;
+}
+
+.editdoc_txt {
+    margin-bottom: 3px;
+}
+
+.continuedisabled {
+    background-color: #808080 !important;
+    border-color: #808080 !important;
+}
+
+.patientage {
+    text-align: center;
+    margin-top: -18px;
+    margin-bottom: -9px;
+}
+
+.slotBooked {
+    text-align: center;
+    margin-top: -10px;
+}
+
+@media only screen and (min-width: 320px) {
+    .widget_txt {
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .widget_txt {
+        height: 100px;
+    }
+
+    @media screen and (max-width: 414px) {
+        .datetime_txt {
+            z-index: 0;
+            padding: 5px 7px;
+        }
+
+    }
+
+    .payment-status {
+        margin-top: -4px;
+        color: $title-color;
+    }
+
+}
+
+.payment-status {
+    margin-top: -4px;
+    color: $title-color;
+    margin-bottom: 0;
+}
+
+.payment-statu {
+    margin-top: -4px;
+    color: $title-color;
+    margin-left: 64px;
+}
+
+.slot-disabled {
+    background-color: #dddddd !important;
+    cursor: not-allowed !important;
+}
+
+.slot-booked {
+    background-color: #b5ffed !important;
+}
+
+.payment-error {
+    color: #ff0000
+}
+
+.refresh1 {
+    margin-right: 15px;
+    padding: 10px 19px;
+    background-color: $btn-secondary;
+}
+
+.refresh1-continue {
+    float: right;
+}
+
+.slot-booked-pending-payment {
+    background-color: #f9e7e5 !important;
+}
+
+.slot-booked-paid {
+    background-color: #e5fafc !important;
+}
+
+@media screen and (max-width: 964px) {
+    .order_list ul li {
+        padding: 0px 20px;
+        font-size: 12px;
+
+    }
+
+    .widget_txt {
+        height: 170px;
+    }
+
+    .order_list ul {
+        padding-top: 15px;
+        padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .order_list ul li {
+        padding: 0px 5px;
+        font-size: 11px;
+    }
+}
+
+.patientMobile {
+    margin-top: -17px;
+    margin-bottom: 0rem;
+    font-size: 12px;
+}
+
+.dgbooking {
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+}
+
+.patient-gen {
+    margin-left: -10px;
+}
+
+.patient-list>li {
+    line-height: normal !important;
+}
+
+.btn-refresh-align {
+    position: fixed;
+    z-index: 1;
+    right: 0px;
+    bottom: 18px;
+}
+
+.btn-refresh-align .walkin {
+    display: none;
+}
+
+@media screen and (max-width: 410px) {
+    .walkin {
+        margin-right: 14px;
+        padding: 10px 23px;
+    }
+
+    .Update {
+        padding: 10px 20px;
+        margin-right: 20px;
+    }
+
+    .patient-list .col-xs-10 {
+        flex: 0 0 81.6%;
+        max-width: 81.6%;
+    }
+
+    .slot_booktxt label {
+        width: 100%;
+        padding: 10px 5px !important;
+    }
+}
+
+.other-paymentdetails {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.other-paymentdetails input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: calc(2.5rem - 2px);
+}
+
+#other-payment:checked~.other-paymentdetails {
+    display: block !important;
+}
+
+.fname_discount_text {
+    max-width: 65px;
+    width: 100%;
+    font-size: 13px;
+    text-align: left;
+    padding-left: 8px;
+}
+
+.all_textboxtxt {
+    width: 100%;
+}
+
+#cancelModal .modal-content {
+    width: 368px;
+    height: 120px;
+}
+
+@media screen and (max-width: 575px) {
+    .model_txt1 {
+        width: 100%;
+    }
+
+    .slot_booktxt label {
+        height: 145px !important;
+    }
+
+    .payment-status-pendin {
+        float: none;
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 359px) {
+    .appointment_orderlist {
+        padding: 10px 12px;
+    }
+
+    .appointment_orderlist .order_list ul {
+        float: left;
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .pull-right .refresh1,
+    .pull-right .walkin,
+    .pull-right .Update {
+        padding: 10px 13px;
+    }
+
+    .pull-right .Update {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .model_addtxt {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0;
+    }
+}
+
+.patient_token {
+    font-size: 12px;
+    margin-top: -15px;
+}
+
+.print-pdf {
+    max-height: 820px;
+    height: auto;
+}

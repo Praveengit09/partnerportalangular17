@@ -1,0 +1,93 @@
+.total_txt {
+    font-weight: 500;
+}
+
+.quantity_txt {
+    padding: 0px;
+    margin: 0px;
+    color: green;
+    text-align: left;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+.ErrorMessage {
+    color: red;
+}
+.walletInput{
+    height: 20px;
+    width: 50px;
+}
+.quantity_txt1 {
+    padding: 0px;
+    margin: 0px;
+    color: green;
+    text-align: left;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+.all_textboxtxt {
+    font-size: 14px;
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .process_form .from_txt {
+        width: auto;
+    }
+}
+
+.process_form .from_txt {
+    width: 540px;
+}
+
+.process_form .from_txt,
+.process_form .processsubmit_txt {
+    float: right;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.searchclear {
+    position: absolute;
+    top: 9px;
+    margin-left: -20px;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.apply_btn {
+    margin-left: 5px;
+}
+
+.ErrorMessage {
+    color: red;
+}
+
+.fname_discount_text {
+    width: 100%;
+}
+
+#couponDiscount {
+    height: 36px;
+}
+
+.process_original .col-md-5, .process_original .col-md-7 {
+    margin-bottom: 25px;
+    line-height: 20px;
+}
+
+@media screen and (max-width: 408px) {
+    #couponDiscount {
+        width: 100%;
+    }
+    .searchclear {
+        right: 20px;
+        top: 11px;
+    }
+}

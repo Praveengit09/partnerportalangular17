@@ -1,0 +1,20 @@
+::ng-deep .datepicker, .mat-form-field {
+    width: 100% !important;
+    min-width: 160px !important;
+}
+.submit_btn {
+    margin: 5px 0;
+}
+.float-right {
+    float: right;
+}
+::ng-deep .datepicker, .mat-form-field{
+    width: 100% !important;
+    min-width: 160px;
+    max-width: 200px;
+}
+@media only screen and(max-width:575px){
+    .submit_btn {
+        margin-bottom: 20px ;
+    }
+}

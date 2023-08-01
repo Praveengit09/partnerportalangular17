@@ -1,0 +1,70 @@
+@import '../../../scss/variables';
+@import '../../../scss/theme.scss';
+
+.samplecollection-widget .widget-shadow {
+    -webkit-box-shadow: 0px 1px 5px 1px #DDD;
+    -moz-box-shadow: 0px 1px 5px 1px #DDD;
+    box-shadow: 0px 1px 5px 1px #DDD;
+}
+.samplecollection-widget .widget-shadow .row .col-md-6 {
+    margin-bottom: 10px;
+}
+.samplecollection-widget .add-btn {
+    // background-color: #14a9b5;
+    background-color: $btn-bg-color;
+    color: #fff;
+}
+.samplecollection-widget .removetxt_icon {
+    position: absolute;
+    right: 28px;
+    width: 17px;
+    height: 17px;
+    font-size: 12px;
+    padding: 0;
+    margin-right: 0;
+    z-index: 1;
+}
+.samplecollection-widget .btn {
+    border: none;
+    outline: none;
+}
+.text-right {
+    text-align: right;
+}
+.errorMessages {
+    margin: 10px 0;
+    padding: 8px 15px;
+    color: #B94A48;
+    background-color: #F2DEDE;
+    border: 2px solid #EED3D7;
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.samplecol-submitbtn {
+    padding-top: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 15px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+.select_poc ul {
+    list-style-type: none;
+}
+.select_poc ul li {
+    margin-bottom: 10px;
+}
+@media screen and (max-width:575px){
+    .selectBrand-mrg{
+        margin-top: 5px;
+    }
+    
+}
+select{
+    padding: 5px;
+}

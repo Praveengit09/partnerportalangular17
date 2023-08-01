@@ -1,0 +1,456 @@
+@import "../../../../scss/variables";
+ul#horizontal-list {
+  list-style: none;
+  margin: 0px;
+  font-size: 16px;
+  padding: 0;
+  display: inline-block;
+    }
+    ul#horizontal-list li {
+      display: inline;
+      margin-right: 5px;
+      float: left;
+  }
+  .text_details{
+  font-size: 16px;
+  }
+    .new_text{
+      padding: 20px;
+      box-shadow: 3px 3px 5px 6px #eceaea
+    }
+    .weekdays_titlt{
+      margin-top: 0px !important;
+    }
+    .alert-success1{
+      background-color: #fff;
+      color:#000;
+    }
+    .redBG {
+      background-color: #F0F8FB;
+      padding: 5px;
+    }
+    .create_dia_title{
+      margin-left: 15px;
+        color: #1DC8D5;
+    }
+    .lab_text{
+      margin-left: 15px;
+      font-size: 1.3rem;
+    }
+    .lab_text1{
+     
+      font-size: 1.3rem;
+    }
+    .Update12{
+     margin-top: 20px;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      border-radius: 2px;
+      background-color: #ff6d6d;
+      border: solid 1px #ec6262;
+      padding: 5px 30px;
+      text-transform: uppercase;
+      color: #fff !important;
+    }
+    .Update123{
+      margin-left: 15px;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      border-radius: 2px;
+      background-color: #14A9B5;
+      border: solid 1px #14A9B5;
+      padding: 5px 30px;
+      text-transform: uppercase;
+      color: #fff !important;
+    }
+    .Update1234{
+      
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      color: #ffffff;
+      border-radius: 2px;
+      background-color: #1DC8D5;
+      border: solid 1px #1DC8D5;
+      padding: 5px 30px;
+      text-transform: uppercase;
+      color: #fff !important;
+    }
+      .done_txt {
+        background-color: $btn-secondary;
+        border-color: $btn-secondary;
+      }
+    
+      .bootstrap-timepicker {
+        position: relative;
+      }
+      .bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu {
+        left: auto;
+        right: 0;
+      }
+      .bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu:before {
+        left: auto;
+        right: 12px;
+      }
+      .bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu:after {
+        left: auto;
+        right: 13px;
+      }
+      .bootstrap-timepicker .input-group-addon {
+        cursor: pointer;
+      }
+      .bootstrap-timepicker .input-group-addon i {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+      }
+      .bootstrap-timepicker-widget.dropdown-menu {
+        padding: 4px;
+      }
+      .bootstrap-timepicker-widget.dropdown-menu.open {
+        display: inline-block;
+      }
+      .bootstrap-timepicker-widget.dropdown-menu:before {
+        border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        content: "";
+        display: inline-block;
+        position: absolute;
+      }
+      .bootstrap-timepicker-widget.dropdown-menu:after {
+        border-bottom: 6px solid #FFFFFF;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        content: "";
+        display: inline-block;
+        position: absolute;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-left:before {
+        left: 6px;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-left:after {
+        left: 7px;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-right:before {
+        right: 6px;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-right:after {
+        right: 7px;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-top:before {
+        top: -7px;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-top:after {
+        top: -6px;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-bottom:before {
+        bottom: -7px;
+        border-bottom: 0;
+        border-top: 7px solid #999;
+      }
+      .bootstrap-timepicker-widget.timepicker-orient-bottom:after {
+        bottom: -6px;
+        border-bottom: 0;
+        border-top: 6px solid #ffffff;
+      }
+      .bootstrap-timepicker-widget table {
+        width: 100%;
+        margin: 0;
+      }
+      .bootstrap-timepicker-widget table td {
+        text-align: center;
+        height: 30px;
+        margin: 0;
+        padding: 2px;
+      }
+      .bootstrap-timepicker-widget table td:not(.separator) {
+        min-width: 30px;
+      }
+      .bootstrap-timepicker-widget table td span {
+        width: 100%;
+      }
+      .bootstrap-timepicker-widget table td a {
+        border: 1px transparent solid;
+        width: 100%;
+        display: inline-block;
+        margin: 0;
+        padding: 8px 0;
+        outline: 0;
+        color: #333;
+      }
+      .bootstrap-timepicker-widget table td a:hover {
+        text-decoration: none;
+        background-color: #eee;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border-color: #ddd;
+      }
+      .bootstrap-timepicker-widget table td a i {
+        margin-top: 2px;
+        font-size: 18px;
+      }
+      .bootstrap-timepicker-widget table td input {width: 25px;margin: 0;text-align: center;border:none}
+      .bootstrap-timepicker-widget .modal-content {
+        padding: 4px;
+      }
+      @media (min-width: 768px) {
+        .bootstrap-timepicker-widget.modal {
+          width: 200px;
+          margin-left: -100px;
+        }
+        .new_text {
+          margin: 15px;
+        }
+      }
+      @media (max-width: 767px) {
+        .bootstrap-timepicker {
+          width: 100%;
+        }
+        .bootstrap-timepicker .dropdown-menu {
+          width: 100%;
+        }
+        .scheduledetail {
+          margin: 0;
+        }
+        .custom_chk23 {
+          margin-right: -1px;
+        }
+      }
+      
+    /////////////////////////////
+    /* --------------  PHR Checkbox Styles Starts   -----------------*/
+    
+    .custom_chk23 {
+      margin-left: -1px;
+      margin-bottom: 10px;
+      margin-top: -7px;
+    }
+    .custom_chk23 input[type="checkbox"] {
+      display: none;
+    }
+    .custom_chk23  label {
+      border: 1px solid #e9f8fb;
+      padding: 16px;
+      display: block;
+      position: relative;
+      cursor: pointer;
+      -webkit-box-shadow: 1px 2px 3px -2px #999;
+      -moz-box-shadow: 1px 2px 3px -2px #999;
+      box-shadow: 1px 2px 3px -2px #999;
+      margin-top: 15px;
+      margin-bottom:0;
+      background: #FDFDFD;
+      font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+      font-weight: normal;
+    
+    }
+    .custom_chk23  label::before {
+      background-color: white;
+      border: 1px solid #ff6d6d;
+      color: white;
+      content: " ";
+      display: block;
+      height: 17px;
+      line-height: 14px;
+      position: absolute;
+      right: -3px;
+      text-align: center;
+      top: -3px;
+      transform: scale(0);
+      transition-duration: 0s;
+      width: 21px;
+    }
+    .ailment_text{
+    font-size: 18x;
+    font-weight: 600;
+    text-align: left;
+    }
+    .text_margin{
+      margin: 0px;
+    }
+    
+    .custom_chk23 :checked+label, .reset-checkbox :checked+label {
+      outline: 2px solid #FF6D6D;
+    }
+    .custom_chk23 :checked+label:before, .reset-checkbox :checked+label:before {
+      content: "\2713";
+      background-color: #FF6D6D;
+      transform: scale(0.9);
+    }
+    .other-textbox{
+      margin-left: 12%;
+    }
+    .custom_chk23+label+.checkbox-group {
+    display:none;
+    }
+    .custom_chk23:checked+label+.checkbox-group {
+    display:block;
+    }
+    .checkbox-group {
+      padding: 10px;
+      border-bottom: 1px solid #FF6D6D;
+      border-left: 1px solid #FF6D6D;
+      border-right: 1px solid #FF6D6D;
+      background: #fff9f9;
+    }
+    
+    .role_size1{
+      height: 46px !important;
+      min-width: 65px !important;
+      float: left;
+      width: 100%;
+      text-align: center;
+      }
+    
+    /*--------------  PHR Checkbox Styles Ends     -----------------*/
+    
+    .applicable_check[type="checkbox"]:checked + label::after {
+      content: '';
+      position: absolute;
+      width: 2.2ex;
+      height: 1.3ex;
+      background: transparent;
+      top: 0.6ex;
+      left: 0.4ex;
+      border: 3px solid #ff6d6d;
+      border-top: none;
+      border-right: none;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+    
+    .applicable_check[type="checkbox"] {
+      line-height: 2.1ex;
+    }
+    
+    .applicable_check[type="radio"],
+    .applicable_check[type="checkbox"] {
+       position: absolute;
+       left: -999em;
+    }
+    
+    .applicable_check[type="checkbox"] + label {
+       position: relative;
+       overflow: hidden;
+       cursor: pointer;
+    }
+    
+    .applicable_check[type="checkbox"] + label::before {
+      content: "";
+      display: inline-block;
+      vertical-align: -25%;
+      height: 3ex;
+      width: 3ex;
+      background-color: white;
+      border: 1px solid rgb(166, 166, 166);
+      border-radius: 4px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
+      margin-right: 0.5em;
+    }
+  
+  @media screen and (min-width: 1200px) {
+    .custom_chk23 {
+      margin-right: 26px;
+    }
+  }
+  
+  .datepicker, .mat-form-field {
+    width: 100% !important;
+    max-width: 236px;
+  }
+  
+  .diagnostic-tests {
+    border: 1px solid #a9a9a9;
+    background: #fff;
+    padding: 0 !important;
+  }
+  
+  .diagnostic-tests span {
+    padding: 10px;
+  }
+  .diagnostic-tests label {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .diagnostic-tests label::before {
+    background: #ff6d6d;
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .cardBodyItem {
+    margin-right: 15px;
+    margin-bottom: 5px;
+  }
+  
+  .cardBodyItem :checked+label {
+    outline: 2px solid #ff6d6d;
+  }
+  
+  .cardBodyItem label {
+    position: relative;
+    cursor: pointer;
+    background: #ffffff;
+    min-width: 172px;
+    text-align: center;
+    padding: 12px 50px 11px 10px;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    color: rgba(51, 51, 51, 0.8);
+    text-transform: uppercase;
+    line-height: 17px;
+  }
+  
+  .cardBodyItem label::before {
+    color: rgba(206, 206, 206, 0.52);
+    display: block;
+    height: 40px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: 0;
+    width: 40px;
+    content: "x";
+    border-left: 1px solid;
+    border-color: rgba(206, 206, 206, 0.52);
+    font-size: 14px;
+    padding-top: 7px;
+  }
+  
+  .cardBodyItem input[type="checkbox"] {
+    display: none;
+  }
+  .schedule-area {
+    color: #625c5c;
+    font-size: 14px;
+  }
+  .edit-icon {
+    float: right;
+    margin-right: 15px;
+    opacity: .2;
+    margin-top: 3px;
+    cursor: pointer;
+  }
+  .validationCustom03 {
+    width: 100%;
+  }
+  .area_namesList {
+    max-height: 100px;
+    overflow-y: auto;
+    border: 1px solid #e6e6e6;
+    padding: 5px;
+  }
+    

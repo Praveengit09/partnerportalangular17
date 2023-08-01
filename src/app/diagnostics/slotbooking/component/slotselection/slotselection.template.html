@@ -1,0 +1,608 @@
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<h1 *ngIf="slotBookingDetails.bookingSubType ==1" class="page-title">Home Sample Collection Booking</h1>
+<h1 *ngIf="slotBookingDetails.bookingSubType !=1" class="page-title">Walk-in Booking</h1>
+<div class="row">
+
+    <div class="col-lg-8">
+        <section class="newadd_process doctor_patient_cart row" widget="">
+
+            <div class="col-md-6 col-sm-6 col-xs-12 process_txt patientpop user_padding_left">
+                <p>Patient Details
+                    <i *ngIf="!(selectedRegisteredProfile && selectedRegisteredProfile.selfProfile && selectedRegisteredProfile.selfProfile.fName) && !(slotBookingDetails && slotBookingDetails.patientProfileDetails && slotBookingDetails.patientProfileDetails.fName)" aria-hidden="true"
+                        class="fa fa-plus add_patient" (click)="openModal('#registerPatientModal')"></i>
+                </p>
+                <ng-container *ngIf="slotBookingDetails.patientProfileDetails">
+                    <h4 class="mb-2">
+                        {{slotBookingDetails.patientProfileDetails.title?slotBookingDetails.patientProfileDetails.title+". ":''}} {{slotBookingDetails.patientProfileDetails.fName}} {{slotBookingDetails.patientProfileDetails.lName?slotBookingDetails.patientProfileDetails.lName:''}} {{slotBookingDetails.patientProfileDetails.gender? ', ' + slotBookingDetails.patientProfileDetails.gender:''}} {{ageString ? ', ' + ageString: ''}}
+                    </h4>
+                   
+                </ng-container>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12 patient_txt doctorserch_padding_left" *ngIf="!this.doctorName">
+                <doctor-search (doctorListSearchEvent)="setSelectedDoctorDetails($event)" [pocId]='pocId' [empId]='this.slotBookingDetails.empId' [city]='city'>
+                </doctor-search>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 patient_txt doctorserch_padding_left" *ngIf="this.doctorName">
+                <p class="all_textboxtxt docname_label" for="Test">Doctor Name <i aria-hidden="true" role="button" class="glyphicon glyphicon-edit" (click)="onEditDoc()"></i></p>
+                <h4 class="mb-2">
+                    {{this.doctorName}}
+                </h4>
+            </div>
+
+        </section>
+
+        <section *ngIf="enableInvoiceSplitting && enableClientSelection">
+            <div class="row bbuser">
+                <div class="col-md-6 col-sm-6">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 user_padding_left">
+                            <p>
+                                <b>Is B2B User:</b>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 user_padding_left">
+                            <form action="#">
+                                <input type="radio" name="b2buser" value="1" [checked]="isb2bUser" (change)="checkb2bUser(1)"> Yes &nbsp;
+                                <input type="radio" name="b2buser" value="0" [checked]="!isb2bUser" (change)="checkb2bUser(0)"> No
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div *ngIf="isb2bUser" class="row clientdrpdwn">
+                        <div class="col-md-12 col-sm-12 col-xs-12 client_padding_left">
+                            <p>
+                                <b>Client:</b>
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 client-selection client_padding_left">
+                            <select id="my_client_select option" *ngIf="diagnosticClientList && diagnosticClientList.length>0" [(ngModel)]="clientIndex" [ngModelOptions]="{standalone: true}" class="form-control" (change)="onClientChange($event.target.value)">
+                                <option value=-1>select</option>
+                                <option *ngFor="let diagnosticClient of diagnosticClientList;let i = index" [value]=i>
+                                    {{diagnosticClient.clientName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+        <section *ngIf="enablePincode && isCentralBooking && slotBookingDetails.bookingSubType == 0">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <b>Enter Pincode</b>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <input type="text" (keyup)="searchBasedonPincode($event)" id="pinCode" placeholder="Enter Pincode" [(ngModel)]="pinCode">
+                </div>
+            </div>
+            <br>
+        </section>
+        <div class="row">
+            <div class="col-md-6 col-sm-6" *ngIf="slotBookingDetails.bookingSubType ==1 &&
+            selectedRegisteredProfile!=undefined &&
+            selectedRegisteredProfile!=null &&
+            selectedRegisteredProfile.selfProfile!=undefined &&
+            selectedRegisteredProfile.selfProfile!=null &&
+            selectedRegisteredProfile.selfProfile.profileId>0">
+
+                <section>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                            <h5>
+                                <b>Select Delivery Address</b>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-md-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <select class="form-control" id="addressType" [(ngModel)]="selectedId" [ngModelOptions]="{standalone:true}" (change)="setSelectedAddress($event.target.value)">
+                                    <option value="-1">Select Address</option>
+                                    <option *ngFor="let address of
+                                selectedProfileAddress; let i= index" [value]="i+1">
+                                        {{address.label}}</option>
+                                    <option value="0">Add New</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section *ngIf="slotBookingDetails!=undefined &&
+                slotBookingDetails!=null &&
+                slotBookingDetails.deliveryAddress!=undefined &&
+                slotBookingDetails.deliveryAddress!=null &&
+                slotBookingDetails.deliveryAddress.addressId>0">
+                        <div class="row">
+                            <div class="col-md-12 address ">
+                                <div class="select_address">
+                                    <p role="button" class="edit edit_icon" (click)="modifyAddress(slotBookingDetails.deliveryAddress)">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </p>
+
+
+                                    <p>{{slotBookingDetails.deliveryAddress.address1}}, {{slotBookingDetails.deliveryAddress.address2}}
+                                    </p>
+                                    <p>{{slotBookingDetails.deliveryAddress.areaName}}</p>
+                                    <p>{{slotBookingDetails.deliveryAddress.cityName}}, {{slotBookingDetails.deliveryAddress.stateName}} - {{slotBookingDetails.deliveryAddress.pinCode}} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+            <!-- ////////////////////////////////////////// -->
+            <div class="col-md-6 col-sm-6">
+                <section *ngIf="isCentralBooking || isReceptionPrescription">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <h5>
+                                <b>Select Diagnostic Center</b>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-md-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <select class="form-control" id="pocSelection" [(ngModel)]="selectedPocId" (change)="setSelectedPocDetails($event.target.value)" *ngIf="!isReceptionPrescription">
+                                    <option value="-1">Select Center</option>
+                                    <option *ngFor="let poc of diagnosticPocList;
+                                    let i= index" [value]="i">
+                                        {{poc.pocName}}</option>
+                                </select>
+                                <input type="text" class="form-control" *ngIf="isReceptionPrescription" [(ngModel)]="pocName" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 advice_text" *ngIf="slotBookingDetails.convertedDocumentUrlList!=null && slotBookingDetails.convertedDocumentUrlList.length>0">
+        <h4>Prescription Documents</h4>
+    </div>
+
+    <div class="col-lg-12" *ngIf="slotBookingDetails.convertedDocumentUrlList!=null && slotBookingDetails.convertedDocumentUrlList.length>0">
+        <section class="newadd_process  row" widget="">
+            <div class="col-lg-12 prescription_scroll" *ngFor="let item of slotBookingDetails.convertedDocumentUrlList ; let i =index">
+                <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                    <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup" data-toggle="modal" data-target="#sliderimagepopup">
+                </div>
+                <div *ngIf="item.includes('pdf')">
+                    <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')" class="image_clickpdf">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <br>
+    <div class="col-lg-12 row text_area_padding">
+        <div class="col-md-8 col-sm-12 col-xs-12 text_area_padding" *ngIf="enableInvoiceSplitting || enableMapsLink">
+            <section>
+                <textarea name="message" id="orderremarks" class="form-control" rows="3" placeholder="Please add remarks / notes if any . . ." [(ngModel)]="slotBookingDetails.orderRemarks"></textarea>
+            </section>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2" *ngIf="srfTest">
+            <p><b>SRF-ID: <input type="text" class="form-control" [(ngModel)]="slotBookingDetails.srfId"
+                        placeholder="enter srf id"></b></p>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+                        <h4>Add Diagnostic Tests</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <hs-select [defaultSelectLabel]="'Search Diagnostic Tests'" [selectColumns]="selectColumns" class="diagnostic-testsearch" [selectTotal]="searchTestsTotal" [selectResults]="searchedTests" (searchTrigger)="searchTests($event)" (selectTrigger)="getTestName($event)"></hs-select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body card_body_padding table-responsive">
+                <!-- <div class="list-inline" *ngIf="slotBookingDetails != undefined
+                    && slotBookingDetails.serviceList!=undefined">
+
+                    <div class="list-inline-item" *ngFor="let item of
+                        slotBookingDetails.serviceList; let i= index">
+                        <!-- <textarea readonly class="cardBodyItem" rows="2" id="comment{{item.serviceId}}" value={{item.serviceName}} [(ngModel)]="item.serviceName"></textarea> -->
+                <!-- <div class="cardBodyItem diagnostic-tests">
+                            <span id="comment{{item.serviceId}}">{{item.serviceName}}</span>
+                            <i class="fa fa-times remove_txt" aria-hidden="true" ></i>
+                        </div> --
+                        <div class="cardBodyItem diagnostic-tests" (click)="remove(i)">
+                            <input id="comment{{item.serviceId}}" type="checkbox" value="true">
+                            <label class="testLabel">
+                                {{item.serviceName + " (" + "Rs."+ item.netPrice
+                                + ")"}}
+                            </label>
+                        </div>
+                    </div>
+                </div> -->
+                <table class="table table-border table-striped hs_tabletxt table_margin ">
+                    <thead>
+                        <tr class="table_head">
+                            <th>Service Name</th>
+                            <th>Precaution</th>
+                            <th>Price</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="slotBookingDetails != undefined
+                            && slotBookingDetails.serviceList!=undefined">
+                        <tr *ngFor="let item of
+                                slotBookingDetails.serviceList; let i= index">
+                            <td data-label="Service Name">{{item.serviceName}}</td>
+                            <td data-label="Service Name">
+                                {{item.precaution}}
+                            </td>
+                            <td data-label="Net Price"><span>&#8377; {{item.netPrice | number : '1.2-2'}}</span>
+                            </td>
+                            <td class="remove">
+                                <i aria-hidden="true" class="fa fa-remove removetest" (click)="remove(i)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="suggestedPackages.length">
+        <div class="col-lg-12">
+            <h2 class="page-title mt-1">Suggested Tests</h2>
+        </div>
+        <div class="row selected_slot margin_left mt--5">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" *ngFor="let pack of suggestedPackageList; let i= index">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">{{pack.serviceName}}</p>
+                        <div class="card-body card-suggestion">
+                            <p class="amount">&#8377;{{pack.netPrice | number: '1.2-2'}}</p>
+                            <div class="btn ml-2" (click)="onAddPackage(i)" *ngIf="!pack.isBooked">BOOK</div>
+                            <div class="btn btnbooked ml-2" (click)="onAddPackage(i)" *ngIf="pack.isBooked">BOOKED</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-12 mt-1" *ngIf="suggestedPackages.length>6">
+            <button type="button" class="btn btn-primary w-100" (click)="onClickViewMore()">
+                view {{ this.viewMore ? 'less ' : 'more ' }}<i class="fa fa-arrow-circle-{{ this.viewMore ? 'up' : 'down' }}" aria-hidden="true"></i>
+            </button>
+        </div>
+       
+       
+       
+    </ng-container>
+
+    <div class="col-lg-12 slotinfo-sec">
+        <h2 class="page-title order_txt mt-3 mb-0">Select Slots</h2>
+        <h6 class="col-md-12 mb-2">Slots can be booked only for {{availableSlotDays}} days from current date (if available)
+            <sup class="sgst_txt">*</sup>
+        </h6>
+        <div class="row">
+            <div class="col-sm-4 col-xl-3">
+                <!-- <label for="select_date">Select Date</label> -->
+                <datetime name="slotDate" [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="this.slotDate" (dateChange)="onDateSelected()">
+                </datetime>
+            </div>
+            <div class="col-sm-4 col-xl-3">
+                <!-- <label for="select_slot">Select Slot</label> -->
+                <!-- <select class="form-control" id="timeSelection" (change)="onTimeSelected($event.target.value)">
+                    <option *ngFor="let eachTime of slotTimeList" [value]="eachTime.startTime">{{eachTime.label}}
+                    </option>
+                </select> -->
+                <ng-container *ngIf="!spotBooking">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Slot</mat-label>
+                        <mat-select id="timeSelection" (selectionChange)="onTimeSelected($event.value,1)" [(ngModel)]="dropDownIndex">
+                            <mat-option *ngFor="let eachTime of slotTimeList" [value]="eachTime.startTime">
+                                {{eachTime.label}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="spotBooking">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Spot Booking Slot</mat-label>
+                        <mat-select id="timeSelection" (selectionChange)="onSpotTimeSelected($event.value,1)" [(ngModel)]="spotBookingdropDownIndex">
+                            <mat-option *ngFor="let eachTime of spotBookingTimeList" [value]="eachTime.timeValue">
+                                {{eachTime.label}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </ng-container>
+            </div>
+            <!-- <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Price" [(ngModel)]="this.price"
+                    (keypress)="validation.onlyNumbers($event)" disabled>
+            </div> -->
+
+            <div class="col-sm-4 col-xl-3">
+                <button type="button" class="btn btn-danger width-200" (click)="continueToPayment()">{{"CONTINUE "+"
+                    (Rs."+this.price+")"}}</button>
+            </div>
+            <div class="col-sm-4 col-xl-3">
+                <ng-container *ngIf="!spotBooking && enableSpotBook">
+                    <button type="button" (click)="enableSpotBooking(true)" class="btn btn-primary spotbkg">Enable Spot
+                        Booking</button>
+                </ng-container>
+                <ng-container *ngIf="spotBooking">
+                    <button type="button" (click)="enableSpotBooking(false)" class="btn btn-danger width-100">Disable
+                        Spot
+                        Booking</button>
+                </ng-container>
+            </div>
+        </div>
+        <ng-container *ngIf="splitSlots">
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-xl-3 page-title">
+                    <h5>Select slot for post-prandial tests :</h5>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <ng-container *ngIf="!spotBooking">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Select a Slot</mat-label>
+                            <mat-select id="timeSelection" (selectionChange)="onTimeSelected($event.value,2)" [(ngModel)]="dropDownIndex2">
+                                <mat-option *ngFor="let eachTime of slotTimeList" [value]="eachTime.startTime">
+                                    {{eachTime.label}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+                    <ng-container *ngIf="spotBooking">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Select Spot Booking Slot</mat-label>
+                            <mat-select id="timeSelection" (selectionChange)="onSpotTimeSelected($event.value,2)" [(ngModel)]="spotBookingdropDownIndex2">
+                                <mat-option *ngFor="let eachTime of spotBookingTimeList" [value]="eachTime.timeValue">
+                                    {{eachTime.label}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <!-- <div class="modal left fade" id="myrecption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+        data-backdrop="static" data-keyboard="false">
+
+
+        <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document" id="registerPatientModal">
+            <div class="modal-content patient-registerpopup">
+                <patientregister-component (onRegisterNewUser)="onRegisterNewUser($event)"
+                (closeModel)="closeModel('#registerPatientModal')"></patientregister-component>
+            </div>
+        </div>
+    </div> -->
+    <div class="modal left" id="registerPatientModal">
+        <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+            <div class="modal-content patient-registerpopup">
+                <patientregister-component (closeModel)="closeModel('#registerPatientModal')" (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Address Model -->
+<div class="modal fade" tabindex="-1" role="dialog" id="updateAddress"  data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Update Address</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Type</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" id="addressType" [(ngModel)]="editAddress.addressType" (change)="selectedAddressType()">
+                                <option value="-1">Select Type</option>
+                                <option value="0">Home</option>
+                                <option value="1">Office</option>
+                                <!-- <option value="3">Emergency</option> -->
+                                <option value="2">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <section *ngIf="editAddress.addressType == 2">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Name of this address</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-5 col-md-5">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="editAddress.label" placeholder="Address name">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 1</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 1" [(ngModel)]="editAddress.address1">
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="!enableMapsLink">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Address Line 2</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Address Line 2"
+                                    [(ngModel)]="editAddress.address2">
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="enableMapsLink">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Maps Link</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Maps Link"
+                                    [(ngModel)]="editAddress.mapsLink">
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Landmark &nbsp;</b><i aria-hidden="true" role="button" class="glyphicon glyphicon-edit" (click)="onClickEditAddressLandmark()"></i>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <ng-container *ngIf="!isEdit">
+                                <input type="text" class="form-control" placeholder="Enter Landmark" [(ngModel)]="editAddress.landmark" [disabled]="true">
+                            </ng-container>
+                            <ng-container *ngIf="isEdit">
+                                <hs-locationsearch-autocomplete [address]="this.editAddress.landmark" (onChooseAddress)="onChooseAddress($event)"></hs-locationsearch-autocomplete>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Pin Code</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" maxlength="6" class="form-control" placeholder="Enter PIN Code" [(ngModel)]="editAddress.pinCode" (keyup)="searchByPinCode($event.target.value,true)" (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Area</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="locationIndex" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse" (change)="onLocationChange()">
+                                <option value=-1>Select Area</option>
+                                <option *ngFor="let locationArea of
+                                    localityResponse;let j= index" [ngValue]=j>
+                                    {{locationArea.name}}</option>
+                            </select>
+                            <input class="form-control" id="disabledInputArea" type="text" *ngIf="!localityResponse" [(ngModel)]="editAddress.areaName" placeholder="Area" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>City</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputcity" type="text" [(ngModel)]="editAddress.cityName" placeholder="City" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>State</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputstate" type="text" [(ngModel)]="editAddress.stateName" placeholder="State" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="isErrorPopup" [show]="showMessagePopup" [messages]="errorMessagePopup"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="saveAddress()">Save Address</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="prescription-modal">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop" *ngIf="prescriptionType=='img'">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group image_download">
+                    <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

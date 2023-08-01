@@ -1,0 +1,282 @@
+@import '../../../scss/variables';
+@import '../../../scss/theme.scss';
+
+.model-lg {
+  max-width: 657px !important;
+}
+
+.vital_modelView_bg {
+  filter: brightness(0.5);
+}
+
+.errormes {
+  padding-left: 20px;
+}
+
+.mandatoryclass {
+  padding-left: 50px;
+}
+
+.ageclass {
+  padding-left: 33px;
+}
+
+.date_txt {
+  padding-right: 25px;
+}
+
+.weight_txt {
+  border: none !important;
+  background-color: transparent;
+  padding-top: 34px;
+}
+
+.vitals-text {
+  // color: #14a9b5;
+  color: $title-color;
+}
+
+.border_text {
+  border: 1px solid #F0F0F0;
+}
+
+.rounded-circle {
+  height: 42px;
+  width: 42px;
+  margin-top: 10px;
+}
+
+.widget_txt {
+  position: relative;
+  margin-bottom: 35px;
+  padding: -1px 20px;
+  background: #fff;
+  border-radius: 0.2rem;
+
+  margin-top: 10px;
+
+}
+
+.widget_txt .patient_txt h4,
+.widget_txt .patient_txt p {
+  margin: 0px;
+  font-weight: 400;
+
+}
+
+.errormsg {
+  color: #ff0000;
+}
+
+.Update {
+  width: 172px;
+  height: 17px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  width: 172px;
+  height: 40px;
+  border-radius: 2px;
+  // background-color: #ff6d6d;
+  // border: solid 1px #ec6262;
+  background-color: $btn-danger-bg;
+  border: solid 1px $btn-danger-border;
+}
+
+.hide_btntxt {
+  padding: 5px 5px;
+  font-size: 13px;
+  border-radius: 9px;
+
+  background-color: rgba(128, 128, 128, 0.54);
+  border-color: #1dc8d5;
+  border: none;
+  color: #fff;
+  width: 125px;
+  pointer-events: none;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+@media screen and (max-width: 767px) {
+  .apt_detail {
+    border-top: 1px solid #F0F0F0;
+  }
+
+  .weight_txt {
+    padding-top: 0;
+    float: right;
+  }
+}
+
+
+.btn-serch {
+  color: #fff;
+  background-color: #dd5826;
+  border-color: #dd5826;
+  padding: 5px 20px;
+  margin-top: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+
+}
+
+.vital-widget {
+  -webkit-box-shadow: 0 2px 6px 0 #ccc;
+  -moz-box-shadow: 0 2px 6px 0 #ccc;
+  box-shadow: 0 2px 6px 0 #ccc;
+  padding: 5px 12px;
+
+  .glyphicon-stats {
+    cursor: pointer;
+  }
+}
+
+.float-right {
+  float: right;
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+#dvital_modelView .modal-dialog {
+  max-width: 700px;
+}
+
+#dvital_modelView .modal-dialog .dropdown {
+  text-align: right;
+}
+
+
+#dvital_modelView .modal-dialog .dropdown .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+
+.vital-consent {
+  // margin: 7px 17px 0px 249px;
+}
+
+.vital-consent_modal_width {
+  width: 40em
+}
+
+.vital-consent .verify_btn {
+  color: #fff;
+  // background-color: #14a9b5;
+  background-color: $title-color;
+  border-color: transparent;
+  padding: 6px 0px;
+  font-size: 14px;
+  width: 100px;
+  margin-left: 20px;
+  margin-top: 22px;
+  border-radius: 4px;
+  // /* margin: 24px 0px 0px 20px;
+
+}
+
+
+.vital-consent .otp-sec {
+
+  margin: 0px 0px 30px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.vitalotpinput {
+  height: 40px !important;
+  width: 50px !important;
+  padding: 0;
+  border-radius: 4px;
+  border: solid 2px #c5c5c5;
+  text-align: center;
+  // font-size: 19px;
+  margin-top: 22px;
+}
+
+
+
+.vital-consent .vitalotpinput:last-child {
+  margin-right: 0;
+}
+
+
+
+
+@media screen and (min-width: 360px) and (max-width:511px) {
+  .vital-consent p {
+    // margin: 0px 0px 0px -238px;
+  }
+
+  .vital-consent {
+    // margin: 8px 2px 0px 261px;
+  }
+
+  .vital-consent .otp-sec {
+    // margin: 0px 0px 30px -245px;
+  }
+
+  .vital-consent .verify_btn_margin {
+    margin: 24px 0px 0px 81px;
+  }
+
+  .vital-consent .vitalotpinput {
+
+    border-radius: 4px;
+    border: solid 1px #c5c5c5;
+    text-align: center;
+    width: 30px !important;
+    height: 38px !important;
+    margin: 16px 0px 0px 8px;
+    // font-size: 32px;
+  }
+
+
+}
+
+
+@media screen and (min-width: 512px) and (max-width:640px) {
+  .vital-consent p {
+    margin: 2px 0px 0px -215px;
+    ;
+  }
+
+  .vital-consent {
+    margin: 8px 2px 0px 261px;
+  }
+
+  .vital-consent .otp-sec {
+    // margin: 0px 0px 31px -209px;
+  }
+
+  .vital-consent .verify_btn_margin {
+
+    margin: 13px 0px 0px 123px;
+  }
+
+
+
+
+}
+
+@media screen and (min-width: 641px) and (max-width:860px) {
+  .vital-consent {
+    margin: 7px 17px 0px 59px;
+
+  }
+}
+.vital-consent p{
+  text-align: center;
+}

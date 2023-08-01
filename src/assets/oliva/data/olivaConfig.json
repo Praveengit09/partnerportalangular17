@@ -1,0 +1,345 @@
+{
+    "name": "Oliva Clinic",
+    "appId": 44,
+    "website": "https://olivaclinic.com/",
+    "websiteLabel": "olivaclinic.com",
+    "email": "support@olivaclinic.com",
+    "contactnumber": "9205487587",
+    "iconspath": "assets/oliva/icons/",
+    "facebook": "https://www.facebook.com/olivaclinic/",
+    "twitter": "https://twitter.com/olivaclinic",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "internalFinanicalReports": false,
+        "centralHomeCare": false,
+        "digiReception": false,
+        "onboardingPartner": false,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": false,
+        "enableInPatientBilling": false,
+        "enableSaaSManagement": false,
+        "enableOtPatientBilling": false,
+        "enablePresGenerationChanges":false
+
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "emailPrimaryConsumerLogin": false
+    },
+    "doctorOptions": {
+        "enableDoctorWidgets": true,
+        "enableDoctorShareCard": true,
+        "enableDoctorChat": false,
+        "enableFixedNextBtn": false,
+        "enableDoctorDefaultDashboard": true,
+        "enablePrescriptionAutoSave": true,
+        "disableDoctorWaitingTime": false,
+        "disablePromotionalDiagnosis": true,
+        "disablePrintVideoPresc": true,
+        "enableDeletePrescription": true,
+        "disableFollowupConsultation": false,
+        "enableClickCall": true,
+        "enableBlurVideo": true,
+        "enableMedicineGenericName": false,
+        "enableMandatoryMedRoute": false,
+        "enableWHOQuestionnaire": true,
+        "enableDoctorNotes": true,
+        "addButtonAtLast": true,
+        "enableDefaultFollowup": true,
+        "doctorNextSlotDateAvailableEnabled": true,
+        "showPatientDeviceInfo": true,
+        "enableUserDial": true,
+        "enableBaseMedicineIndicator": true,
+        "enablevideorecord": true,
+        "enableProductList": true,
+        "enableCustomDoctorQueue": false,
+        "enableOtpBasedConsent": false,
+        "enableKaleyraVideo": true,
+        "doctorFrequencyList": [{
+                "value": "1",
+                "display": "Daily"
+            },
+            {
+                "value": "2",
+                "display": "Alternate Days"
+            },
+            {
+                "value": "2",
+                "display": "Twice a Week"
+            },
+            {
+                "value": "7",
+                "display": "Once in a week"
+            },
+            {
+                "value": "14",
+                "display": "Once in 2 weeks"
+            },
+            {
+                "value": "30",
+                "display": "Once in a month"
+            },
+            {
+                "value": "60",
+                "display": "Once in 2 months"
+            },
+            {
+                "value": "90",
+                "display": "Once in 3 months"
+            },
+            {
+                "value": "3",
+                "display": "Once in 3 days"
+            },
+            {
+                "value": "4",
+                "display": "Once in 4 days"
+            },
+            {
+                "value": "5",
+                "display": "Once in 5 days"
+            },
+            {
+                "value": "6",
+                "display": "Once in 6 days"
+            },
+            {
+                "value": "8",
+                "display": "Once in 8 days"
+            },
+            {
+                "value": "9",
+                "display": "Once in 9 days"
+            },
+            {
+                "value": "10",
+                "display": "Once in 10 days"
+            },
+            {
+                "value": "11",
+                "display": "Once in 11 days"
+            },
+            {
+                "value": "12",
+                "display": "Once in 12 days"
+            },
+            {
+                "value": "13",
+                "display": "Once in 13 days"
+            },
+            {
+                "value": "15",
+                "display": "Once in 15 days"
+            },
+            {
+                "value": "16",
+                "display": "Once in 16 days"
+            },
+            {
+                "value": "17",
+                "display": "Once in 17 days"
+            },
+            {
+                "value": "18",
+                "display": "Once in 18 days"
+            },
+            {
+                "value": "19",
+                "display": "Once in 19 days"
+            },
+            {
+                "value": "20",
+                "display": "Once in 20 days"
+            },
+            {
+                "value": "21",
+                "display": "Once in 21 days"
+            },
+            {
+                "value": "22",
+                "display": "Once in 22 days"
+            },
+            {
+                "value": "23",
+                "display": "Once in 23 days"
+            },
+            {
+                "value": "24",
+                "display": "Once in 24 days"
+            },
+            {
+                "value": "25",
+                "display": "Once in 25 days"
+            },
+            {
+                "value": "26",
+                "display": "Once in 26 days"
+            },
+            {
+                "value": "27",
+                "display": "Once in 27 days"
+            },
+            {
+                "value": "28",
+                "display": "Once in 28 days"
+            },
+            {
+                "value": "29",
+                "display": "Once in 29 days"
+            },
+            {
+                "value": "31",
+                "display": "Once in 31 days"
+            },
+            {
+                "value": "32",
+                "display": "Once in 32 days"
+            },
+            {
+                "value": "33",
+                "display": "Once in 33 days"
+            },
+            {
+                "value": "34",
+                "display": "Once in 34 days"
+            },
+            {
+                "value": "35",
+                "display": "Once in 35 days"
+            },
+            {
+                "value": "36",
+                "display": "Once in 36 days"
+            },
+            {
+                "value": "37",
+                "display": "Once in 37 days"
+            },
+            {
+                "value": "38",
+                "display": "Once in 38 days"
+            },
+            {
+                "value": "39",
+                "display": "Once in 39 days"
+            },
+            {
+                "value": "40",
+                "display": "Once in 40 days"
+            },
+            {
+                "value": "41",
+                "display": "Once in 41 days"
+            },
+            {
+                "value": "42",
+                "display": "Once in 42 days"
+            },
+            {
+                "value": "43",
+                "display": "Once in 43 days"
+            },
+            {
+                "value": "44",
+                "display": "Once in 44 days"
+            },
+            {
+                "value": "45",
+                "display": "Once in 45 days"
+            },
+            {
+                "value": "46",
+                "display": "Once in 46 days"
+            },
+            {
+                "value": "47",
+                "display": "Once in 47 days"
+            },
+            {
+                "value": "48",
+                "display": "Once in 48 days"
+            },
+            {
+                "value": "49",
+                "display": "Once in 49 days"
+            },
+            {
+                "value": "50",
+                "display": "Once in 50 days"
+            },
+            {
+                "value": "51",
+                "display": "Once in 51 days"
+            },
+            {
+                "value": "52",
+                "display": "Once in 52 days"
+            },
+            {
+                "value": "53",
+                "display": "Once in 53 days"
+            },
+            {
+                "value": "54",
+                "display": "Once in 54 days"
+            },
+            {
+                "value": "55",
+                "display": "Once in 55 days"
+            },
+            {
+                "value": "56",
+                "display": "Once in 56 days"
+            },
+            {
+                "value": "57",
+                "display": "Once in 57 days"
+            },
+            {
+                "value": "58",
+                "display": "Once in 58 days"
+            },
+            {
+                "value": "59",
+                "display": "Once in 59 days"
+            }
+        ]
+    },
+    "pharmacyOptions": {
+        "enableStockValidation": false
+    },
+    "productOptions": {
+        "enableStockValidation": false,
+        "showPatientDeviceInfo": true
+    },
+    "firebaseConfig": {
+        "apiKey": "AIzaSyBa8a7ix1zagfk7k3z7uaRSbeapeXRjlH8",
+        "authDomain": "mymedic-portal.firebaseapp.com",
+        "databaseURL": "https://mymedic-portal.firebaseio.com",
+        "projectId": "mymedic-portal",
+        "storageBucket": "mymedic-portal.appspot.com",
+        "messagingSenderId": "297135873595",
+        "appId": "1:297135873595:web:c07990111daff5f1df861e",
+        "measurementId": "G-Q5MDRRR407"
+    },
+    "QA_URLS": {
+        "HSIGNZ_SERVER_URL": "https://api-qa.healthsignz.net/QA3HSignzAppServices/",
+        "POZ_SERVER_URL": "https://api-qa.healthsignz.net/QA3POZAppServices/",
+        "SEARCH_SERVER_URL": "https://api-qa.healthsignz.net/search/",
+        "CHAT_SERVER_URL": "https://api-qa.healthsignz.net/"
+    },
+    "UAT_URLS": {},
+    "LIVE_URLS": {
+        "HSIGNZ_SERVER_URL": "https://api-server.olivaclinic.com/HSignzAppServices/",
+        "POZ_SERVER_URL": "https://api-server.olivaclinic.com/POZAppServices/",
+        "SEARCH_SERVER_URL": "https://api-search.olivaclinic.com/",
+        "CHAT_SERVER_URL": "https://api-chat.olivaclinic.com/"
+    }
+}

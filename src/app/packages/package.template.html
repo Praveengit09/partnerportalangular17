@@ -1,0 +1,425 @@
+<div class="row packages" *ngIf="packageList.length>0">
+    <div class="col-sm-6">
+        <ul class="package-list">
+            <li *ngFor="let selectedpackage of packageList;let i = index" id="package{{i}}" class="packageCheckId" (click)=onViewPackage(selectedpackage,i)>
+                <div class="package_thumb"><img src="{{selectedpackage.portalThumbnailUrl}}" class="img-responsive packagelist_img"></div>
+                <div class="package_detail">
+                    <h3>{{selectedpackage.name}}</h3>
+                    <small>Validity - {{selectedpackage.validityDays | day2year}}</small>
+                    <p class="package_desc">{{selectedpackage.description}}</p>
+                    <p class="cost">&#x20b9;{{selectedpackage.finalPrice!=undefined ? selectedpackage.finalPrice : 0}}
+
+                    </p>
+                    <div class="clearfix"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-6 package-listdetail">
+        <div *ngIf="selectedpackage">
+            <div class="package_details_img"><img src="{{selectedpackage.portalDetailsUrl}}" class="img-responsive" alt="" /></div>
+            <div class="package_info package_description">
+                <h2>{{selectedpackage.name}}</h2>
+                <p>{{selectedpackage.description}}</p>
+                <ul class="cost_buy">
+                    <li>
+                        <h5>&#x20b9; {{selectedpackage.finalPrice!=undefined ? selectedpackage.finalPrice : 0}} <span class="strike">&#x20b9; {{selectedpackage.actualPrice!=undefined ?
+                                selectedpackage.actualPrice : 0}}</span></h5>
+                    </li>
+                    <li>&#x20b9;{{selectedpackage.discountPrice!=undefined ? selectedpackage.discountPrice : 0}}<span>
+                            ({{((selectedpackage.actualPrice - selectedpackage.finalPrice) /
+                            selectedpackage.actualPrice) *
+                            100 | number:'1.0-0'}} % OFF)</span></li>
+                    <li><a href="#" class="btn buynow_btn" role="button" data-toggle="modal" data-target="#registerUserModal" (click)="buyPackage()">Buy Now</a></li>
+                </ul>
+            </div>
+
+            <ol class="package_explained">
+                <li *ngIf="selectedpackage.benefitList && selectedpackage.benefitList.length > 0" class="package_info benefit_info">
+                    <h3>Benefits That You'll Get</h3><span *ngIf="selectedpackage.benefitList.length > noOfReportsPerPage" class="active-slide">{{indexOfPage}}/{{getNumberOfPages().length}}</span>
+                    <p class="info">Major features of this packages (Indicators)</p>
+                    <div *ngFor="let benefits of displayBenefitList" class="benefits_detail">
+                        <div class="benefit_thumb">
+                            <img src="assets/img/package/benefits_icon.png" class="img-responsive">
+                        </div>
+                        <div class="benefit_content">
+                            <p>{{benefits.title}}</p>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <nav aria-label="Page navigation example" *ngIf="selectedpackage.benefitList.length > noOfReportsPerPage">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item">
+                                <a class="page-link" [class.currentPage]="indexOfPage==(i+1)" *ngFor="let j of getNumberOfPages();let i=index" (click)="changePageIndex(i+1)"><span></span></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </li>
+                <li *ngIf="selectedpackage.testList" class="package_info test_info">
+                    <h3>Tests Included</h3>
+                    <p class="info">{{selectedpackage.testList.length}} Lab are included in this package</p>
+                    <ul class="testlists">
+                        <li *ngFor="let tests of selectedpackage.testList | slice:0:10" class="test-list">
+                            <span>{{tests.title}}</span></li>
+                        <div *ngIf="isMoreClicked">
+                            <li *ngFor="let tests of selectedpackage.testList | slice:10" class="test-list">
+                                <span>{{tests.title}}</span></li>
+                        </div>
+                    </ul>
+                    <span *ngIf="selectedpackage.testList.length > 10 && this.isMoreClicked == false" class="testlistmore_less view_info" (click)="moreClickChange($event)">View More</span>
+                    <span *ngIf="selectedpackage.testList.length > 10 && this.isMoreClicked == true" class="testlistmore_less view_info" (click)="moreClickChange($event)">View less</span>
+
+                </li>
+                <li *ngIf="selectedpackage.freeConsultationsList.length > 0" class="package_info consult_info">
+                    <h3>Consultations</h3>
+                    <div class="card-columns">
+                        <div *ngFor="let freeconsult of selectedpackage.freeConsultationsList; let i = index">
+                            <div *ngIf="selectedpackage.freeConsultationsList[i].serviceTypeName!='Investigation' && selectedpackage.freeConsultationsList[i].serviceTypeName!='Investigations'">
+                                <div class="card">
+                                    <div class="card-img"><img src="{{freeconsult.serviceList[0].imageUrl}}"></div>
+                                    <div class="card-block">
+                                        <h4 class="card-title"><span *ngFor="let services of freeconsult.serviceList">{{services.serviceName}}</span>
+                                        </h4>
+                                        <p class="card-text">
+                                            {{(freeconsult.freeCount==-1)?'Unlimited':freeconsult.freeCount}} Free <span *ngFor="let services of freeconsult.serviceList">{{services.serviceName}}</span> every {{freeconsult.daysLimit}} days</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li *ngIf="selectedpackage.discountsList.length > 0" class="package_info offer_discount">
+                    <h3>Offers & Discounts</h3>
+                    <ul>
+                        <li *ngFor="let discounts of selectedpackage.discountsList">
+                            <div class="discount_thumb" *ngIf='discounts && discounts?.serviceList'><img src="{{discounts?.serviceList[0]?.imageUrl}}"></div>
+                            <div class="discount_detail">
+                                <h4 *ngIf="discounts.serviceTypeId == 2">Diagnostics</h4>
+                                <h4 *ngIf="discounts.serviceTypeId == 3">Consultations</h4>
+                                <!-- <h4 *ngIf="discounts.serviceTypeId == 4">Wellness</h4> -->
+                                <p *ngFor="let services of discounts.serviceList"><span>{{discounts.discountPercent}}%
+                                        OFF on {{services.serviceName}}</span> within {{discounts.daysLimit}} days</p>
+                                <a *ngIf="discounts.serviceTypeId == 3" class="view_info" (click)="viewSpecialists(selectedpackage)">View
+                                    Specialists</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="selectedpackage.usageList" class="package_info">
+                    <h6>How to use?</h6>
+                    <ul class="usage_info">
+                        <li *ngFor="let uses of selectedpackage.usageList; let i = index" class="row">
+                            <div class="col-xl-1 col-lg-2 col-md-2 col-xs-2"><span>{{i+1}}</span></div>
+                            <div class="col-xl-11 col-lg-10 col-md-10 col-xs-10 usage_infodetail">{{uses.content}}</div>
+                        </li>
+                    </ul>
+
+
+                    <ul class="cost_buy">
+                        <li>
+                            <h5>&#x20b9; {{selectedpackage.finalPrice!=undefined ? selectedpackage.finalPrice : 0}}
+                                <span class="strike">&#x20b9; {{selectedpackage.actualPrice!=undefined ?
+                                    selectedpackage.actualPrice : 0}}</span></h5>
+                        </li>
+                        <li>&#x20b9;{{selectedpackage.discountPrice!=undefined ? selectedpackage.discountPrice : 0}}<span>
+                                ({{((selectedpackage.actualPrice - selectedpackage.finalPrice) /
+                                selectedpackage.actualPrice) *
+                                100 | number:'1.0-0'}} % OFF)</span></li>
+                        <li><a href="#" class="btn buynow_btn" role="button" data-toggle="modal" data-target="#registerUserModal" (click)="buyPackage()">Buy Now</a></li>
+                    </ul>
+                </li>
+            </ol>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Package list ends here -->
+
+<!-- Package summary modal starts here -->
+<div class="modal right  modal_scroll" id="packageSummayModal" *ngIf="selectedpackage">
+    <div *ngIf="selectedRegisteredProfile">
+        <div class="modal-dialog model_txt1">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span class="close_txt"
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title add_medtxt">Order Summary</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <!-- action="#" #signupForm="ngForm" (ngSubmit)="registerUser(signupForm)">-->
+                        <div class="form-group">
+                            <p>Package Name</p>
+                            <h5 class="hspresion">{{selectedpackage.name}}</h5>
+                        </div>
+                        <div class="form-group">
+                            <div *ngIf="selectedpackage.maxProfiles == 1">
+                                <p>This package is applicable to</p>
+                                <!--<div *ngFor="let profile of selectedRegisteredProfile.selectedProfile">-->
+                                <h5 class="hspresion">
+                                    {{selectedRegisteredProfile.selectedProfile.title?selectedRegisteredProfile.selectedProfile.title+". ":''}} {{selectedRegisteredProfile.selectedProfile.fName}} {{selectedRegisteredProfile.selectedProfile.lName?selectedRegisteredProfile.selectedProfile.lName:''}}
+                                </h5>
+                            </div>
+                            <!--</div>-->
+                            <div *ngIf="!selectedDoctor && selectedpackage.personalDoctorType>0">
+                                <button class="patient_add" role="button" data-toggle="modal" data-target="#packageSummayModal" (click)="selectPersonalDoctor()"><i
+                                        aria-hidden="true" class="fa fa-plus"></i></button>Select Your personal Doctor
+                            </div>
+                            <div *ngIf="selectedDoctor">
+                                On Personal Doctor
+                                <label class="radio-inline row">
+                                    <div class="col-md-9 col-sm-6 col-xs-6" (click)="onPesonalDoctorClick(selectedDoctor)">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-6 col-xs-6"><img alt="doctor" class="doctor_txt"
+                                                    src="{{selectedDoctor.imageUrl?selectedDoctor.imageUrl:'assets/img/avatar.png'}}">
+                                            </div>
+                                            <div class="col-md-8 col-sm-8 col-xs-8 doctor_txtpage">
+                                                {{selectedDoctor.title}}&nbsp;{{selectedDoctor.firstName}}&nbsp;{{selectedDoctor.lastName?selectedDoctor.lastName:''}}<br>
+                                                {{selectedDoctor.qualificationName}}, {{selectedDoctor.experience}}
+                                                Years<br>
+                                                {{(selectedDoctor.pocList!=null && selectedDoctor.pocList.length>0 &&
+                                                selectedDoctor.pocList[0]!=null &&
+                                                selectedDoctor.pocList[0].address!=null)?selectedDoctor.pocList[0].address.address1:''}},
+                                                {{(selectedDoctor.pocList!=null && selectedDoctor.pocList.length>0 &&
+                                                selectedDoctor.pocList[0]!=null &&
+                                                selectedDoctor.pocList[0].address!=null)?selectedDoctor.pocList[0].address.address2:''}}<br>
+                                                {{getCityNameById(selectedDoctor.state, selectedDoctor.city)}},
+                                                {{getStateNameById(selectedDoctor.state)}}</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <p>Package Validity</p>
+                            <h5 class="hspresion">{{packagePurchaseDate | date}} - {{packageEndDate | date}}</h5>
+                        </div>
+                        <!-- <div class="form-group gender_inline">
+                        </div> -->
+
+                        <div class="form-group ">
+                            <ng-template [ngIf]="this.basketRequest.cartItemList[0].parentProfileId>0">
+                                <app-cartdiscount [parentProfileId]="this.basketRequest.cartItemList[0].parentProfileId" [cartItemDetails]="this.basketRequest.cartItemList[0]" (calculateDiscount)="onCalculateDiscount($event)" [discountType]="this.discountType" [pocId]="this.pocId">
+                                </app-cartdiscount>
+                            </ng-template>
+
+                        </div>
+                        <div class="form-group mt-2" *ngIf="selectedpackage.finalPrice != 0">
+                            <!--*ngIf="this.receptionRole != permissionRole.label" >-->
+                            <h6>Payment Mode</h6>
+                            <form>
+                                <input type="radio" name="payment" value="cash" (change)="onPaymentModeChange('cash')" checked>&nbsp; Cash
+                                <input type="radio" name="payment" value="card" (change)="onPaymentModeChange('mobile')">&nbsp;Mobile
+                                <input type="radio" name="payment" value="Mobile" id="other-payment" (change)="onPaymentModeChange('Others')">&nbsp; Others
+                                <div class="other-paymentdetails">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <select class="form-control" (change)="onPaymentChange($event.target.value)">
+                                                <option value="0">Select</option>
+                                                <option value="1">Card</option>
+                                                <option value="2">PhonePe</option>
+                                                <option value="3">Google Pay</option>
+                                                <option value="4">Paytm</option>
+                                                <option value="11">NEFT</option>
+                                                <option value="12">UPI</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input type="text" placeholder="Transaction Id" [ngModelOptions]="{standalone: true}" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <hs-message [isError]="popupIsError" [show]="popupShowMessage" [messages]="popupErrorMessage">
+                        </hs-message>
+
+
+                        <button class="Update" (click)="buyPackageForProfile()" data-toggle="modal">Purchase</button>
+                    </form>
+                </div>
+                <!-- <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message> -->
+                &nbsp;
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- Package summary modal ends here -->
+
+<!-- Select personal doctor modal starts here -->
+<div class="modal right  modal_scroll pdscroll" id="selectPersonalDoctorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt1">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="close_txt"
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title add_medtxt">Select your personal Doctor</h5>
+            </div>
+            <div class="modal-body" *ngIf="selectedpackage">
+                <spinner-component></spinner-component>
+                <form action="#">
+                    <div class="form-group">
+                        <label for="sel1">Select the Medical branch</label>
+                        <select class="form-control" id="sel1" [(ngModel)]="selectedService" (change)="onChange($event)" [ngModelOptions]="{standalone: true}">
+                            <option value="0">Select Specialization</option>
+                            <option *ngFor="let consul of consultation" [value]="consul.serviceId">
+                                {{consul.serviceName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">{{doctorMSG}}</label>
+                        <form>
+                            <div *ngFor="let doctor of doctorList">
+                                <label class="radio-inline row">
+                                    <div class="col-md-9 col-sm-6 col-xs-6">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-6 col-xs-6"><img alt="doctor" class="doctor_txt"
+                                                    src="{{doctor.imageUrl?doctor.imageUrl:'assets/img/avatar.png'}}">
+                                            </div>
+                                            <div class="col-md-8 col-sm-8 col-xs-8 doctor_txtpage">
+                                                {{doctor.title}}&nbsp;{{doctor.firstName}}&nbsp;{{doctor.lastName?doctor.lastName:''}}<br>
+                                                {{doctor.qualificationName}}, {{doctor.experience}} Years<br>
+                                                {{(doctor.pocList!=null && doctor.pocList.length>0 &&
+                                                doctor.pocList[0]!=null &&
+                                                doctor.pocList[0].address!=null)?doctor.pocList[0].address.address1:''}},
+                                                {{(doctor.pocList!=null && doctor.pocList.length>0 &&
+                                                doctor.pocList[0]!=null &&
+                                                doctor.pocList[0].address!=null)?doctor.pocList[0].address.address2:''}}<br>
+                                                {{getCityNameById(doctor.state, doctor.city)}},
+                                                {{getStateNameById(doctor.state)}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-2"><input type="radio"
+                                            [(ngModel)]="selectedDoctor" [ngModelOptions]="{standalone: true}"
+                                            [value]="doctor"></div>
+                                </label><br>
+                            </div>
+                        </form>
+                    </div>
+                    <hs-message [isError]="popupIsError" [show]="popupShowMessage" [messages]="popupErrorMessage"></hs-message>
+
+                    <button class="Update" (click)="updatePersonalDoctor()">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- Select personal doctor modal ends here -->
+
+<!-- Selected package details modal starts here -->
+<div class="modal right " id="packageDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+
+    <div class="popup modal-content ">
+        <div class="container-fluid">
+            <!--<div class="row">-->
+            <div class="col-sm-12" *ngIf="selectedpackage">
+                <button type="button" class="close" data-dismiss="modal"><span class="close_txt"
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <div class="package_details_image"><img src="{{selectedpackage.portalBannerUrl}}" class="img-responsive" alt="" />
+                    <h4>{{selectedpackage.name}}</h4>
+                </div>
+                <div class="quote_text">
+                    <h2>{{selectedpackage.description}}</h2>
+                </div>
+                <ul class=" package_invative_icon">
+                    <li *ngFor="let displayDetail of selectedpackage.displayDetails">
+                        <ul class="row">
+                            <li class="col-md-2 col-sm-2 col-xs-2 yoga_icon">
+                                <ul>
+                                    <li>
+                                        <img src="{{displayDetail.imageURL}}" alt=""></li>
+                                    <li class="verticalLine"></li>
+                                </ul>
+                            </li>
+                            <li class="col-md-10 col-sm-10 col-xs-10 life_txt">
+                                <h5>{{displayDetail.title}}</h5>
+                                <p>{{displayDetail.content}}</p>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <div class="row">
+                    <div class="benefit_txt col-md-12">
+                        <h4>Some of the Benefits & Features of this package are;</h4>
+                    </div>
+                </div>
+                <div *ngFor="let newDescription of selectedpackage.packageDisplayDescription" class="freeconsul_txt col-md-12">
+                    <h5>{{newDescription.title}}</h5>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let description of newDescription.content">{{description}}</li>
+
+                    </ul>
+                </div>
+
+                <div class="validity_txt col-md-12">
+                    <h4>Validity</h4>
+                    <ul class="list-unstyled">
+                        <li>{{selectedpackage.validityDays}} Days from the Date of Purchase</li>
+                    </ul>
+                </div>
+
+                <div class="price_popup col-md-12">
+                    <h3><span class="strike">&#x20b9; {{selectedpackage.actualPrice!=undefined ?
+                            selectedpackage.actualPrice : 0}}</span>&#x20b9; {{selectedpackage.finalPrice!=undefined ? selectedpackage.finalPrice : 0}}<span class="pull-right rotateObj"><img
+                                src="assets/img/discount_star_packages.png" alt="">
+                            <h6>{{offPercent}}%</h6>
+                            <p>OFF</p>
+                        </span></h3>
+
+                </div>
+                <div class="buynow_packtxt col-md-12"><a href="#" class="btn buynow_pack" role="button" data-toggle="modal" data-target="#registerUserModal" (click)="buyPackage()">Buy Now</a></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Selected package details modal ends here -->
+
+<!-- Register user modal starts here -->
+<div class="modal right modal_scroll" id="registerUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="popup modal-content ">
+        <patientregister-component (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+    </div>
+</div>
+<!-- Register user modal ends here -->
+
+<div class="modal " id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Order Successful</h4>
+            </div>
+            <div class="modal-body" *ngIf="basketRequest ">
+                <p>Complete the payment through BillDesk.</p>
+            </div>
+            <!--     
+            <div class="modal-body" *ngIf="basketRequest && hasReceptionRole == true ">
+                
+                        <p>{{this.basketRequest.cartItemList[0].productList[0].productName}} order placed successfully, Complete the payment in Bill desk</p>
+    
+                
+            </div> -->
+
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onPrintButtonClick()">Print
+                    Invoice</button> -->
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<spinner-component></spinner-component>

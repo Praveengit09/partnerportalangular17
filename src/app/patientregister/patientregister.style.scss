@@ -1,0 +1,599 @@
+@import "../scss/variables";
+@import "../scss/theme.scss";
+.button_disp {
+text-align: center;
+display: inline-block;
+position: absolute;
+}
+
+.uploadFile{
+    width: 100%;
+    text-align: center;
+    margin-top: -31px !important;
+    width: 100%;
+    height: 31px !important;
+    display: inherit;
+    border-radius: 6px;
+    color: rgba(51, 51, 51, 0.65) !important;
+    background-image: linear-gradient(#f2f2f2, #d4d4d4);
+}
+.uploadthumbnail{
+    height: 60px;
+}
+
+.file-upload{
+    display:block;
+    text-align:center;
+  }
+  .file-upload .file-select{
+    display:block;
+    color: #34495e;
+    cursor:pointer;
+    text-align:left;
+    background:#FFFFFF;
+    position:relative;
+}
+  .file-upload .file-select .file-select-button{
+    display: block;
+    width: 130px;
+    height: 36px;
+    color: rgba(51, 51, 51, 0.65) !important;
+    background-image: linear-gradient(#f2f2f2, #d4d4d4);
+    padding:0 10px;
+    display:inline-block;
+    line-height:36px;
+    border: 1px solid #979797;
+    text-align: center;
+  }
+  .file-upload .file-select .file-select-name{
+    line-height:38px;
+    display:inline-block;
+    padding:0 10px;
+  }
+  .file-upload .file-select input[type=file]{
+    z-index:100;
+    cursor:pointer;
+    position:absolute;
+    height: 25%;
+    width: 31%;
+    top:0;
+    left:0;
+    opacity:0;
+    filter:alpha(opacity=0);
+    height: 100%;
+}
+  .file-upload .file-select.file-select-disabled{
+    opacity:0.65;
+  }
+  .namelink{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #129faa;
+}
+.remove{
+    margin-left: -20px;
+    color: #dc3545;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.input_gender {
+	width: 58px;
+	height: 58px;
+	cursor: pointer;
+    display: block;
+    outline: none;
+}
+.sgst_txt{
+    font-size: 23px;
+    top: -1px;
+    color: #ff0000;
+  }
+.gender_txt{
+list-style: none;
+}
+.button_disp{
+display: inline;
+}
+.field_empty{
+color: #fff;
+font-size: 17px;
+background-color: #ff6d6d;
+padding: 10px;
+margin-bottom: 15px;
+border-radius: 6px;
+
+}
+.geneter_otp{
+    margin-top: 60px;
+}
+.submit_updatedtxt .Update{
+    margin-top: 60px;
+    margin-right: 0px;
+}
+.modal-header{
+    border-bottom: transparent;
+}
+.error_Messages {
+    list-style-type: none;
+    margin: -14px 10px 14px 5px;
+    padding: 8px 35px 8px 14px;
+    color: #B94A48;
+    background-color: #F2DEDE;
+    border: 2px solid #EED3D7;
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+}
+.close_txt{
+font-size: 45px;
+}
+.select_txt{
+color: red;
+float: left;
+margin-top: -8px;
+}
+.add_medtxt {
+    padding: 0px;
+    font-size: 30px;
+    color: $title-color;
+    font-weight: 500;
+}
+.input-group{
+    width: 100% !important;
+}
+.input-group.date .input-group-addon{
+    width: 50px;
+}
+.gender_txt li{
+list-style: none;
+float: left;
+display: inline;
+}
+#resendotp{
+    color: #0074d9
+}
+.input_label {
+	margin-right: 25px;
+}
+.input_label > input {
+	visibility: hidden;
+	position: absolute;
+}
+.gender_inline .input_label {
+    display: inline-block;
+}
+.input_label > input.male + span {
+	background: url('../../assets/img/partner/sprite.png') -68px -222px transparent;
+}
+.input_label > input.male:checked + span {
+	background: url('../../assets/img/partner/sprite.png')  -68px -152px transparent;
+}
+.input_label > input.female + span {
+	background: url('../../assets/img/partner/sprite.png')  0 -222px transparent;
+}
+.input_label > input.female:checked + span {
+	background: url('../../assets/img/partner/sprite.png') 0 -152px transparent;
+}
+.input_label > input.others + span {
+	background: url('../../assets/img/partner/sprite.png') -136px -222px transparent;
+}
+.input_label > input.others:checked + span {
+	background: url('../../assets/img/partner/sprite.png') -136px -152px transparent;
+}
+.input_label .input_male:focus {
+    background: url('../../assets/img/partner/sprite.png')  -68px -152px transparent !important;
+}
+.input_label .input_female:focus {
+    background: url('../../assets/img/partner/sprite.png') 0 -152px transparent!important;
+}
+.input_label .input_others:focus {
+    background: url('../../assets/img/partner/sprite.png') -136px -152px transparent!important;
+}
+.gender_txt{
+    padding-left: 0px;
+}
+.what_txt{
+    font-weight: 600;
+}
+.Update {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    // border: solid 1px #ec6262;
+    background-color: $btn-danger-bg;
+    border: solid 1px  $btn-danger-border;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin:5px;
+}
+.modal-body {
+    position: relative;
+    padding: 0px 15px 80px 15px !important;
+}
+.Update:focus,.Update:hover {
+    color: #fff;
+    text-decoration:none;
+}
+.date_line{
+    border-bottom: 1px solid #878787;
+}
+.error_massage{
+display: none;
+}
+.form-group p{
+padding-bottom: 0px;
+}
+.relation_txt{
+width : 175px;
+padding-left: 0px;
+margin-bottom: 12px;
+}
+.add_familymembertxt{
+    padding-bottom: 40px;
+}
+.patient_add{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    margin-top: 20px;
+}
+.patient_add_icon{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // background-color: #1dc8d5;
+    background-color: $btn-secondary;
+    margin-top: 15px;
+        p{
+            padding-left: 4px;
+            font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin: 5px;
+        }
+}
+.patient_add .fa-plus{
+    width: 40px;
+    height: 40px;
+    // border: 1px solid #1DC8D5;
+    border: 1px solid  $btn-secondary;
+    text-align: center;
+    color: #fff;
+    // background-color: #1DC8D5;
+    background-color: $btn-secondary;
+    margin-top: 15px;
+    font-size: 30px;
+}
+
+.input_label .gender {
+	color: #333;
+	opacity: 0.7;
+	font-weight: normal;
+}
+.input_label .male {
+	margin-left:14px;
+}
+.input_label .female {
+	margin-left:7px;
+}
+.input_label .others {
+	margin-left:9px;
+}
+.input_label input:checked + span {
+	font-weight: bold;
+}
+.custom_chk input[type="checkbox"] {
+    display: none;
+}
+.custom_chk input[type="radio"] {
+    display: none;
+}
+.custom_chk  label {
+    border: 1px solid #e9f8fb;
+    padding: 16px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+	margin-top: 15px;
+	margin-bottom:0;
+	background: #FDFDFD;
+	font-family: 'proxima_novaregular', Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	font-weight: normal;
+    height: auto;
+
+}
+
+.custom_chk  label::before {
+    background-color: white;
+    border: 1px solid #ff6d6d;
+    color: white;
+    content: " ";
+    display: block;
+    height: 25px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: -2px;
+    transform: scale(0);
+    transition-duration: 0s;
+    width: 25px;
+}
+
+.custom_chk :checked+label, .reset-checkbox :checked+label {
+    outline: 2px solid #FF6D6D;
+}
+.custom_chk :checked+label:before, .reset-checkbox :checked+label:before {
+    content: "\2713";
+    background-color: #FF6D6D;
+    transform: scale(0.9);
+}
+
+.custom-chk1+label+.checkbox-group {
+  display:none;
+}
+.custom-chk1:checked+label+.checkbox-group {
+  display:block;
+}
+.checkbox-group {
+	padding: 10px;
+	border-bottom: 1px solid #FF6D6D;
+	border-left: 1px solid #FF6D6D;
+	border-right: 1px solid #FF6D6D;
+	background: #fff9f9;
+}
+.NoVisits{
+    float: right;
+}
+.resendOTPleft{
+    cursor: pointer;
+}
+.resendOTPright{
+    cursor: pointer;
+    float: right;
+}
+.ageBox{
+    width: 60%;
+    display: -webkit-inline-box;
+}
+.ageInline{
+    display: inline;
+}
+.next_btn {
+    position: fixed;
+    bottom: 15px;
+    z-index: 1;
+    right: 15px;
+}
+.gold_member {
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+       margin-right: -10px;
+    img{
+    width: 30px;
+    height: 30px;
+    } 
+}
+//  /*--------------  PHR Checkbox Styles Ends     -----------------*/
+
+
+.input_lis {
+	width: 40px;
+	height: 40px;
+    display: block;
+    outline: none;
+}
+
+.lis-text {
+    color:  #034366;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+// Patient Register style
+.patient_modal .modal-body{
+    padding: 0px 20px !important;
+}
+::ng-deep .modal.in .modal-dialog {
+    transform: none;
+}
+.close_btn{
+    position: absolute;
+    right: 11px;
+    top: 20px;
+}
+
+.Default_profile{
+    height: 80px;
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    .left_arrow>span{
+        order: 2px solid #393185;
+        font-size: 50px;
+        color: #393185;
+    margin-left: 30px;
+    }
+}
+.prof_shadow{
+    box-shadow:0px 4px 2px rgba(0, 0, 0, 0.1) ;
+}
+.profile_txt{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: -0.04em;
+        color: #393185;
+        margin-top: 32px;
+}
+.text_header{
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 20px;
+letter-spacing: -0.04em;
+color: #393185;
+}
+.back-color{
+    background-color:  #F5F5F5;
+}
+.user_image{
+    height: 64px;
+    width: 64px;
+    img{
+        height: 100%;
+        width:100%;
+        border-radius: 50%;
+    }
+}
+.user_card{
+  display: flex;
+  justify-content: space-between;
+    padding: 8px 0px;
+    border-bottom: 1px solid #F4F3FB;
+}
+.user1{
+    border:none;
+}
+.user_detail{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #626C74;
+    justify-content: space-between;
+}
+#i{
+    background-color: #393185;
+    height: 20px;
+    width: 20px;
+    accent-color: #393185;
+}
+.i{
+    margin-top: 3px;
+    background-color: #393185;
+    height: 20px;
+    width: 20px;
+    accent-color: #393185;
+}
+
+.flex_style{
+    display: flex;
+    flex-direction: row;
+}
+ .button1{
+    padding: 0px 19px 19px;
+ } 
+.sub_btn{
+    background: #009794;
+    color: #F9F9FA;
+    border: 1px solid #00ADA9;
+    border-radius: 8px;
+}
+.create_box{
+    ///width: 448px;
+    background: #F4F3FB;
+    border: 1px solid #DDDBF2;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.create_new{
+    padding: 10px 10px 10px 20px;
+
+}
+.cont_text{
+    font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+color: #626C74;
+}
+@media(max-width: 575px){
+    .profile_sec{
+        width: 100%;
+    }
+}
+@media (min-width: 576px) {
+    .user_card{
+        margin-left: 10px;
+    }
+    .profile_txt{
+        margin-left: 20px;
+
+    }
+    .user_image{
+        margin-left: 10px;
+    }
+    .create_new {
+        padding: 10px 10px 10px 10px;
+    }
+}
+
+
+//Pop-up Page style
+.prof_text{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    color: #393185;
+    padding-bottom: 10px;
+    padding-top: 10px
+}
+.black_txt{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.04em;
+    color: #41484D;
+}
+.user_header{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #41484D;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+.drop-down{
+    background: #FFFFFF;
+    border: 1px solid #BBB7E5;
+    border-radius: 8px;
+    // padding: 0px 12px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #626C74;
+}
+.sub_detail .dropdown-menu.show{
+    width: 100%;
+}
+.relation_text{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #626C74;
+
+}

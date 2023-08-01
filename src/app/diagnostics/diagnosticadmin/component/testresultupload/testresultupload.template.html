@@ -1,0 +1,71 @@
+<div class="table_size">
+    <p style="color:red">*NOTE : This is the page where you can upload the Reports and Excel.Please follow the
+        steps
+        mentioned
+        below :-<br />
+        1. Upload the pdf reports which is to be sent and click submit.<br />
+        2. Upload the Excel sheet which is to be having the reports data and click submit.<br />
+        3. Click on Done.</p>
+    <div class="col-md-10 col-sm-12 col-xs-12 widget_updated p-2">
+        <div class="row template_upload">
+            <h4 class="upload_inventory col-md-12">Upload the Reports</h4>
+            <div class="col-md-12"><input type="checkbox" name="pdf" [(ngModel)]="this.isPdf">isPdf</div>
+            <div class="mt-1 col-lg-8">
+                <div class="form-group row">
+                    <div class="col-md-8 col-sm-8">
+                        <input #diagnosticFileUpload type="file" accept=".png,.pdf,.jpg,.jpeg" id="files" class="form-control"
+                    name="uploadfile" (change)="fileUpload($event,false)" multiple />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <button class="submitbtm btn btn-primary ml-1" type="button"
+                        (click)="onUploadButtonClick(false)">SUBMIT</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row template_upload">
+            <h4 class="upload_inventory col-md-12 mt-2">Upload the Updated Template</h4>
+            <div class="col-lg-8">
+                <div class="form-group row">
+                    <div class="col-md-8 col-sm-8">
+                        <input #diagnosticExcelUpload type="file" accept=".xls,.xlsx" id="files" name="uploadfile" class="form-control"
+                            (change)="fileUpload($event,true)" />
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <button class="submitbtm btn btn-primary ml-1" type="button"
+                            (click)="onUploadButtonClick(true)">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <label for="reportType" class="upload_inventory mt-2 col-md-12">Report Type</label>
+            <div class="col-md-12">
+                <input type="radio" name="reportType" value="Complete Report" [checked]="!this.isPartial"
+                    (change)="checkedReportType(false)"> Complete Report
+                &nbsp;&nbsp;
+                <input type="radio" name="reportType" value="Partial Report" [checked]="this.isPartial"
+                    (change)="checkedReportType(true)"> Partial Report
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <input type="checkbox" name="partnerProcessedSample"
+                [(ngModel)]="this.partnerProcessedSample">PartnerProcessedSample
+        </div>
+
+        <div class="mt-1">
+            <input type="button" class="Update submitbtmn" value="DONE" (click)="submitData()">
+        </div>
+
+        <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+        <div *ngIf="hasCheckBoxValidation">
+            <label class="error_class">{{checkBoxValidationMessage}}</label>
+        </div>
+
+    </div>
+</div>
+<spinner-component></spinner-component>

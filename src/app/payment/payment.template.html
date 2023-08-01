@@ -1,0 +1,25 @@
+<div class="table_size">
+    <h1 class="page-title">Invoice List </h1>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+    <div class="row">
+        <div class="col-md-12">
+            <datetime class="datePayment" [(value)]="date" [datepicker]="datepickerOpts" [timepicker]="false"
+                [datepicker]="{ icon: 'fa fa-calendar' }" (dateChange)="getPaymentList()"></datetime>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-lg-12">
+            <section class="" widget>
+                <div class="">
+                    <hs-table [columns]="columns" [pagingList]="paymentDeskList" [isStaticPaging]="true"
+                        [canSearchTableData]="true" (clickEvent)="clickEventHandler($event)"  [dataMsg]="dataMsg"
+                        [componentId]="'paymentQueueData'" [total]="(paymentDeskList.length)?paymentDeskList.length:0">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

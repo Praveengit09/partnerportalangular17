@@ -1,0 +1,41 @@
+<div class="row template_upload">
+    <div class="col-sm-12">
+        <h1 class="page-title">Assign Packages</h1>
+    </div>
+
+    <!-- <div class="col-md-10 col-sm-10 col-xs-10">
+        <div class="form-group">
+            <div>
+                <input #diagnosticFileUpload type="file" accept=".xls,.xlsx" class="form-control" id="files" name="uploadfile" (change)="fileUpload($event)" />
+                <input class="Update submitbtm" type="button" value="SUBMIT" (click)="onUploadButtonClick()">
+            </div>
+        </div>
+        <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+        <div *ngIf="hasCheckBoxValidation">
+            <label class="error_class">{{checkBoxValidationMessage}}</label>
+        </div>
+    </div> -->
+    <div class="col-sm-10">
+        <div class="widget_updated">
+            <form class="form-horizontal" role="form">
+                <div class="emplate_upload">
+                    <h4 class="upload_inventory">Link Packages to Consumers</h4>
+                    <a class="Update12 btn btn-primary" href="https://s3.ap-south-1.amazonaws.com/healthsignzdev/registration.xlsx"
+                            target="_blank">DOWNLOAD TEMPLATE</a>
+                    <p class="successfully_upload">Please download the community information template provided
+                        in this page. Fill the Template with data.Upload the template by using the form below
+                        once you have updated the community information. </p>
+                    <div class="form-group">
+                        <input #diagnosticFileUpload type="file" accept=".xls,.xlsx" class="form-control" id="files"
+                            name="uploadfile" (change)="fileUpload($event)" />
+                        <input class="Update submitbtm" type="button" value="Upload" (click)="onUploadButtonClick()">
+                    </div>
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                    <div *ngIf="hasCheckBoxValidation">
+                        <label class="error_class">{{checkBoxValidationMessage}}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

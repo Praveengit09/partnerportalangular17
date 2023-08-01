@@ -1,0 +1,13 @@
+<div class="form-group dropdown">
+    <label *ngIf="!isMatEnable" for="Test" class="all_textboxtxt docname_label">{{label}}</label> &nbsp;
+    <div>
+        <hs-select [defaultSelectLabel]="defaultSelectLabel" [selectColumns]="selectColumns"
+            [defaultSelected]="doctorsList" [defaultSelectField]="'doctorName'" [selectTotal]="searchTestsTotal"
+            [selectResults]="searchedTests" (searchTrigger)="searchTests($event)" [isMatEnable]="isMatEnable"
+            (selectTrigger)="getTestName($event)" style="display: inline-block;" (keydown.backspace)="onKeydown($event)"
+            class="docname_search"></hs-select>
+        <span *ngIf='!disablePocSpecificDoctors && enableAddNew'>
+            &nbsp;<i aria-hidden="true" class="fa fa-plus add_patient" (click)="updateDoctorName()"></i>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+
+// .mat-form-field-appearance-outline .mat-form-field-infix {
+//     padding: 1em 0 0 0 !important;
+// }
+.order-mrgn {
+    margin-top: 6px;
+}
+
+.submit-btn {
+    margin-top: 8px;
+}
+
+
+
+@media screen and (min-width:992px) {
+    .order-mrgn {
+        margin-top: 25px;
+    }
+
+}
+
+@media screen and (min-width:1200px) {
+    .filter-payment {
+        margin-top: 9px;
+    }
+}
+
+.datepicker {
+    min-width: 145px !important;
+    width: 100% !important;
+}
+
+
+
+.edit_btn {
+    background-color: #14a9b5;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    margin-right: 5px;
+    float: right;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    cursor: pointer;
+  
+}

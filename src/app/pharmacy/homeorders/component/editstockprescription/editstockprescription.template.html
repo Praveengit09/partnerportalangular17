@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6 editprocessid_text">
+        <h1 class="page-title">{{processOrderDetails.orderId}}</h1>
+    </div>
+</div>
+<div class="col-lg-12">
+    <section class="newadd_editprocess row" widget="">
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt patientpop">
+            <p>Patient</p>
+            <h4>{{processOrderDetails.cartItem.patientProfileDetails.title?processOrderDetails.cartItem.patientProfileDetails.title+". ":''}}
+                {{processOrderDetails.cartItem.patientProfileDetails.fName}}
+                {{processOrderDetails.cartItem.patientProfileDetails.lName?processOrderDetails.cartItem.patientProfileDetails.lName:''}}
+            </h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt editprocess_jpg">
+            <p>Delivery Area &amp; Address</p>
+            <h4 class="processorder_address"> {{processOrderDetails.address}}
+            </h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt editprocess_jpg">
+            <p>Prescription Documents</p>
+            <h4>{{processOrderDetails.cartItem.proofDocumentUrlList!=null && processOrderDetails.cartItem.proofDocumentUrlList.length>0?'Available':'Not Available'}}
+            </h4>
+        </div>
+
+    </section>
+</div>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="col-md-12 col-sm-12 col-xs-12 editprocessid_text editprescription_text"
+    *ngIf="processOrderDetails.cartItem.proofDocumentUrlList!=null && processOrderDetails.cartItem.proofDocumentUrlList.length>0">
+    <h2>Prescription Documents</h2>
+</div>
+
+<!-- <div class="col-lg-12"
+    *ngIf="processOrderDetails.cartItem.proofDocumentUrlList!=null && processOrderDetails.cartItem.proofDocumentUrlList.length>0">
+    <section class="newadd_process newadd_processcroll  row" widget="">
+        <div class="col-lg-4 prescription_scroll"
+            *ngFor="let item of processOrderDetails.cartItem.proofDocumentUrlList ; let i =index">
+            <div *ngIf="item.substring((item.lastIndexOf('.') + 1)).toString() != 'pdf'">
+                <img alt=" " src='{{item}}' (click)="sliderImage(item)" class="image_clickpopup" data-toggle="modal"
+                    data-target="#sliderimagepopup">
+            </div>
+            <div *ngIf="item.substring((item.lastIndexOf('.') + 1)).toString() == 'pdf'">
+                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item)"
+                    class="image_clickpdf">
+            </div>
+        </div>
+    </section>
+</div> -->
+<div class="col-lg-12"
+    *ngIf="processOrderDetails.cartItem.convertedDocumentUrlList!=null && processOrderDetails.cartItem.convertedDocumentUrlList.length>0">
+    <section class="newadd_process  row" widget="">
+        <div class="col-lg-12 prescription_scroll"
+            *ngFor="let item of processOrderDetails.cartItem.convertedDocumentUrlList ; let i =index">
+            <div *ngIf="item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup"
+                    data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+            <div *ngIf="item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() == 'pdf'">
+                <embed width="100%" height="100%" id="pdfEmbed" />
+                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')"
+                    class="image_clickpdf" data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+        </div>
+    </section>
+</div>
+
+<medicinesales (calculateEvent)="onCalculateEvent($event)"></medicinesales>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 editprocess_form">
+        <form action="#" class="from_txt" novalidate="">
+            <div class="row edit_process">
+                <!--<ng-template [ngIf]="processOrderDetails.cartItem.parentProfileId>0">
+                    <app-cartdiscount [parentProfileId]="processOrderDetails.cartItem.parentProfileId"
+                        [cartItemDetails]="processOrderDetails.cartItem" [discountType]="discountType"
+                        [pocId]="this.pocId" [isOldRecord]="oldRecord">
+                    </app-cartdiscount>
+
+                </ng-template> -->
+                <div class="col-md-2 col-sm-2 col-xs-4 editprocess_padding">
+                    <button role="button" class="editprocessbotton_txt editprocessdone_txt"
+                        (click)="onGenerateBack()">BACK</button>
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-8">
+                    <button class="editprocesssubmit_txt" role="button" (click)="onSubmitForCalculation()">NEXT</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- sliderImage -->
+<!-- <div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                                " data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank" download>Download</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="prescription-modal">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop" *ngIf="prescriptionType=='img'">
+                    </div>
+                    <div id="pdfView3" class="pdf" *ngIf="prescriptionType!='img'">
+                        <object class="embed_tool" width="100%" height="100%" id="pdfView2"
+                            (clikc)="hideToolBar($event)" type="application/pdf"> </object>
+                    </div>
+                    <div class="form-group image_download">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank" *ngIf="processOrderDetails.actionStatus != actionStatus.NOT_DELEVERED
+                        && processOrderDetails.actionStatus != actionStatus.PENDING_VENDOR_APPROVAL">Download</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  popup model end here -->
+<spinner-component></spinner-component>

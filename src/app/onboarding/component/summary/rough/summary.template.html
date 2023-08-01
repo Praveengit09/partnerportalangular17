@@ -1,0 +1,218 @@
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+        <div class="card-container manual-flip">
+            <div class="card">
+                <div class="front">
+
+                    <div class="user">
+                        <img class="img-circle"
+                            [src]="registrationVo.profilePic ?registrationVo.profilePic : 'assets/img/partner/Profile-Ashley-Callahan.jpg'" />
+                    </div>
+                    <div class="content">
+                        <div class="main">
+                            <h3 class="name">{{registrationVo.title?registrationVo.title+". ":''}}
+                                {{registrationVo.fName}} {{registrationVo.lName?registrationVo.lName:''}}</h3>
+                            <p class="profession"><span
+                                    *ngIf="registrationVo.age">{{registrationVo.age}},</span>{{registrationVo.gender}}
+                            </p>
+                            <p class="text-center">Risk Profile Hypertention</p>
+                            <p class="text-center beck_txt">{{registrationVo.social.handle}}</p>
+                            <p class="hi-center">{{registrationVo.social.about}}</p>
+                        </div>
+                        <div class="row">
+                            <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <button class="ondoarded_txt " role="button" type="submit" value="onboarded"
+                                    (click)="onViewReportClick()"> VIEW REPORT </button></div>
+                            <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12 uploadtxt"><button
+                                    class="ondoarded_txt upload_txt" role="button" type="submit" value="upload"
+                                    (click)="onViewReportClick()">DOWNLOAD REPORT</button></div>
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                <p class="getyour_txt">Get your complete<br>
+                                    <b>PERSONAL HEALTH REPORT</b><br> with 100% PHR completion</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- end front panel -->
+
+                <!-- end back panel -->
+            </div>
+            <!-- end card -->
+
+
+        </div>
+        <!-- end card-container -->
+        <div class="family-container manual-flip">
+            <div class="card">
+                <div class="family_txt">
+
+                    <div class="col-lg-12 col-md-12 family_member">
+                        <h3>Family Members</h3>
+                    </div>
+                    <ul>
+                        <li *ngFor="let familyMember of familyMemberList">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="user">
+                                        <img class="img-circle family_img"
+                                            [src]="registrationVo.profilePic ?registrationVo.profilePic : 'assets/img/partner/Profile-Ashley-Callahan.jpg'">
+                                    </div>
+                                </div>
+                                <div class="col-md-8 gregory">
+                                    <p> <b class="gregory_txt">{{familyMember.title?familyMember.title+". ":''}}
+                                            {{familyMember.fName}} {{familyMember.lName?familyMember.lName:''}}</b>
+                                        <br> <span
+                                            *ngIf="registrationVo.age">{{registrationVo.age}},</span>{{familyMember.gender}}
+                                        <br>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==0">
+                                            Self
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==1">
+                                            Spouse
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==2">
+                                            Mother
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==3">
+                                            Father
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==4">
+                                            Daughter
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==5">
+                                            Son
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==6">
+                                            Mother-inLaw
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==7">
+                                            Father-inLaw
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==8">
+                                            Sibling
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==9">
+                                            GrandMother
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==10">
+                                            GrandFather
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==11">
+                                            Daughter-inLaw
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==12">
+                                            Son-inLaw
+                                        </span>
+                                        <span class="brand-txt" *ngIf="familyMember.relationShip==13">
+                                            Others
+                                        </span>
+                                        <br> Risk Profile<b> Hypertention</b></p>
+                                </div>
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+                <!-- end front panel -->
+
+                <!-- end back panel -->
+            </div>
+            <!-- end card -->
+
+
+        </div>
+        <!-- end family-container -->
+
+        <div class="family-container manual-flip">
+            <div *ngFor="let phrCategories of phr.phr;let i = index;">
+                <div class="card" *ngIf="phrCategories.title !='TestDetail'">
+                    <div class="general_txt">
+
+                        <div class="col-lg-12 col-md-12 general_info">
+                            <h3>{{phrCategories.title}}</h3>
+                        </div>
+                        <div *ngFor="let activity of phrCategories.activities">
+                            <div *ngIf="activity.text!='Address'&& activity.text!='Emergency Contact'">
+                                <ul>
+                                    <div *ngFor="let question of activity.question">
+                                        <div *ngIf="question.componentId == 0 || question.componentId == 4 ">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-6">{{question.desc}}</div>
+                                                    <div class="col-md-6 gregory">
+                                                        <b>{{getAnswer(question.componentId,question)}}</b>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                        <div *ngIf="question.componentId == 2 || question.componentId == 1">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-6">{{question.desc}}</div>
+                                                    <div class="col-md-6 gregory">
+                                                        <b>{{question.ans}}</b>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                        <div *ngIf="question.componentId == 5 && question.ans !=''">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-6">{{question.desc}}</div>
+                                                    <div class="col-md-6 gregory">
+                                                        <b>{{getAnswer(question.componentId,question)}}</b>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end front panel -->
+
+                    <!-- end back panel -->
+                </div>
+                <!-- end card -->
+
+
+            </div>
+        </div>
+        <!-- end card-container -->
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content generic_pupop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+
+            </div>
+            <div class="modal-body">
+                <h1 class="select_batch">Choose a Report to View</h1>
+                <table class="table table-striped custab">
+                    <thead>
+                        <tr>
+                            <th>Report Names</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let file of fileUrlList; let i = index">
+                        <td><a [href]="file.fileUrl" target="_blank">{{file.fileName}}</a></td>
+                    </tr>
+                </table>
+
+            </div>
+            <!--<div class="modal-footer">
+                <input type="submit" class="Update" value="ADD MEDICINE">
+            </div>-->
+        </div>
+    </div>
+</div>

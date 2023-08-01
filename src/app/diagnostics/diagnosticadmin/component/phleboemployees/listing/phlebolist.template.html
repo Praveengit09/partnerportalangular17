@@ -1,0 +1,76 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Phlebotomists List</h1>
+
+
+    <form action="#">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="filter-orders">
+                    <div class="filter-content">
+                        <div class="filter_txt">
+                            <h6 class="sub-title">Filter by City</h6>
+                            <select class="form-control" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}" *ngIf="cityResponse" (change)="onCityChange($event.target.value)">
+                                <option value=0> select</option>
+                                <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="filter_txt ">
+                            <h6 class="sub-title">Filter by state</h6>
+                            <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone : true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+                                <option value=0> select</option>
+                                <option *ngFor="let location of stateResponse;let i = index" [value]=i+1>
+                                    {{location.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="datePayment mr-1">
+                    <datetime [(value)]="startDate" name="startDate" id="datepicker" [placeholder]="'Select Date'" [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                    </datetime>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="responseList" (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg" [componentId]="'phlebolist'">
+                    Loading table...
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+<spinner-component></spinner-component>
+
+
+<div class="modal fade" id="updatecashcollection" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="popup" *ngIf="phleboOrder.cashCollected">
+                    <p>Please confirm that Rs.{{phleboOrder.cashCollected}}/- is collected from {{phleboOrder.firstName +' ' + phleboOrder.lastName}}
+                    </p>
+                </div>
+                <div class="popup" *ngIf="!phleboOrder.cashCollected">
+                    <p>{{phleboOrder.firstName +' ' + phleboOrder.lastName}} has collected Rs.{{phleboOrder.cashCollected}}/- </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="updateCashCollectionsStatus()" *ngIf="phleboOrder.cashCollected">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

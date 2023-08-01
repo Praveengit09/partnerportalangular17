@@ -1,0 +1,216 @@
+@import "../../../scss/variables";
+@import "../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../node_modules/bootstrap/scss/mixins";
+@import "../../../scss/theme.scss";
+.reportGraph {
+    border: 1px solid #ccc;
+}
+
+.reports {
+    margin-bottom: 11px;
+    color: #FFF;
+    // background-color: #1DC8D5;
+    background-color: $btn-secondary;
+    // border: 1px solid #17ACB7;
+    border: 1px solid $btn-border-color;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d !important;
+    pointer-events: none;
+    cursor: auto;
+    border-color: #dee2e6;
+}
+
+.page-link {
+    margin: 0 0 0 -1px !important;
+    line-height: 1.25;
+    color: #007bff !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0 !important;
+}
+
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.currentPage {
+    background-color: #eeeeee;
+}
+
+
+.float-right {
+    float: right;
+}
+
+.link-name {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #129faa;
+}
+
+.tbody th,
+.tbody td {
+    font-weight: 300 !important;
+    color: #333;
+}
+
+.modal-dialog {
+    max-width: 1000px;
+}
+
+@media screen and (max-width: 359px) {
+    .reports {
+        padding: 2px 5px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 360px) and (max-width: 392px) {
+    .reports {
+        padding: 3px 7px;
+    }
+}
+
+.reports_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .reports_widget {
+        border: none !important;
+    }
+}
+
+#patientPHRModelLongTitle {
+    display: inline-block;
+}
+
+.report-consent {
+    margin: 7px 17px 0px 249px;
+}
+
+.report-consent .report-consent_modal_width {
+    width: 40em
+}
+
+
+.report-consent .verify_btn {
+    color: #fff;
+    // background-color: #14a9b5;
+    background-color: $title-color;
+    border-color: transparent;
+    padding: 7px 0px;
+    font-size: 14px;
+    width: 100px;
+    border-radius: 4px;
+    margin-top: 16px;
+
+}
+
+
+.report-consent .otp-sec {
+
+    margin: 0px 0px 30px 0px;
+}
+
+.report-consent .reportsotpinput {
+    height: 40px !important;
+    width: 50px !important;
+    padding: 0;
+    border-radius: 4px;
+    border: solid 2px #c5c5c5;
+    text-align: center;
+    margin-top: 22px;
+}
+
+// .close {
+//     margin-top: -30px !important;
+// }
+
+.report-consent .reportsotpinput:last-child {
+    margin-right: 0;
+}
+
+
+.report-consent .verify {
+    margin: 7px 17px 0px 22px;
+
+
+}
+
+@media screen and (min-width: 360px) and (max-width:510px) {
+    .report-consent p {
+        margin: 0px 0px 10px -238px;
+    }
+
+    .report-consent {
+        margin: 8px 2px 0px 261px;
+    }
+
+    .report-consent .otp-sec {
+        margin: 0px 0px 30px -245px;
+    }
+
+    .report-consent .verify_btn_margin {
+        margin: 24px 0px 0px 81px;
+    }
+
+    .report-consent .reportsotpinput {
+
+        border-radius: 4px;
+        border: solid 1px #c5c5c5;
+        text-align: center;
+        width: 30px !important;
+        height: 38px !important;
+        margin: 16px 0px 0px 8px;
+        // font-size: 32px;
+    }
+
+
+}
+
+
+@media screen and (min-width: 511px) and (max-width:640px) {
+    .report-consent p {
+        margin: 0px 0px 10px -238px;
+
+    }
+
+    .report-consent {
+        margin: 8px 2px 0px 261px;
+    }
+
+    .report-consent .otp-sec {
+        margin: 0px 0px 31px -209px;
+    }
+
+    .report-consent .verify_btn_margin {
+
+        margin: 13px 0px 0px 123px;
+    }
+
+
+
+
+}
+
+@media screen and (min-width: 641px) and (max-width:860px) {
+    .report-consent {
+        margin: 7px 17px 0px 59px;
+
+    }
+}
+
+::ng-deep .report-consent .otp-input {
+    width: 45px !important;
+    height: 40px !important;
+    margin-top: 22px;
+}

@@ -1,0 +1,281 @@
+<h1 class="page-title">Slot Queue</h1>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<!-- <h6 class="sub-title">Search orders</h6> -->
+<!-- <div class="row all_tableh">
+    <div class="col-md-12">
+        <form (ngSubmit)="getDiagnosticAdvisesForPocBasedOnPhoneNumberOrId(search.value)">
+            <div class="row">
+                <div class="col-lg-9  col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="radio" id="orderId" value="orderId" name="searchcriteria" checked (change)="onSearchChange(1)">
+                            <label for="advice" class="radio_txt">Order ID</label>
+                            <input type="radio" name="searchcriteria" value="contactNo" (change)="onSearchChange(2)">
+                            <label for="contactNo" class="radio_txt">Mobile Number</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" id="searchBox" name="search" #search class="serch_txt" placeholder="Enter Search query" ngModel>
+                            <button type="submit" class="btn btn-danger width-100 mb-xs" (click)="getDiagnosticAdvisesForPocBasedOnPhoneNumberOrId(search.value)">SEARCH</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 refresh-select reset-calender">
+                    <div class="row">
+                        <div class="col-md-12"><button type="button" class="btn btn-primary width-100 mb-xs reset_btn" role="button" (click)="getRefreshedorderList(''); search.value=''"><span
+                                    class="glyphicon glyphicon-repeat"></span>REFRESH</button>
+                        </div>
+                        <div class="col-md-12">
+                            <auto-refresh  (refreshEvent)="pageRefresh($event)" [componentName]='diagnosticsListIndex'></auto-refresh> 
+                            <datetime class="datePayment" [(value)]="startDate" name="startDate" id="datepicker" [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false"></datetime>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> -->
+<!-- <div class="form-group col-md-3 input_date">
+        <label for="strength" class="all_textboxtxt">Select Date</label>
+       <datetime [(value)]="startDate" name="startDate" id="datepicker" [datepicker]="datepickerOpts" (ngModelChange)="startDateChoosen($event)" [timepicker]="false"></datetime>
+    </div> -->
+
+
+<!-- <div class="col-md-3 col-sm-12 col-xs-12"></div> -->
+<!-- </div> -->
+
+<form action="#">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12">
+            <mat-form-field appearance="outline" class="search-orders">
+                <mat-label>Order ID/Mobile Number</mat-label>
+                <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                    placeholder="Enter Order ID/Mobile Number">
+                <i class="fa fa-search" aria-hidden="true" matSuffix
+                    (click)="getDiagnosticAdvisesForPocBasedOnPhoneNumberOrId()"></i>
+            </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-12">
+            <div class="autorefresh-refreshbutton filter-ordersbtn datepicker-refreshbutton">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                    (click)="getRefreshedorderList('')">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+                <datetime class="datePayment" [(value)]="startDate" name="startDate" id="datepicker"
+                    [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                </datetime>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row mt-1">
+    <div class="col-lg-12"> <button type="button" class="btn btn-primary button_addtxt" role="button"
+            (click)="onGenerateNewAppointment()"><i class="fa fa-plus add_txt" aria-hidden="true"></i>New
+            Appointment</button></div>
+    <!-- <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="slotBookingDetails" [sort]="sorting" (buttonClick)="onButtonClicked($event)" (imageClick)="onImageClicked($event)" [componentId]="'diagnosticOrdersTable'" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+
+            </div>
+        </section>
+    </div> -->
+    <!-- <div class="table_size"> -->
+    <!-- <div class="row"> -->
+    <!-- <div class="col-lg-12">
+        <section class="widget table_pading" widget="">
+            <div class="widget-body table-responsive">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head tabledoc_head">
+                            <th>#</th>
+                            <th>Order ID</th>
+                            <th>Patient Information</th>
+                            <th>Slot Information</th>
+                            <th>Test Information</th>
+                            <th>Payment Status</th>
+                            <th>Cancel</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="slotBookingDetails">
+                        <tr class="doctor_serial" *ngFor="let queue of slotBookingDetails;let i =index;">
+                            <td>{{i+1}} </td>
+                            <td>
+                                <p>{{queue.orderId}}</p>
+                            </td>
+                            <td>
+                                <span *ngIf="queue.patientProfileDetails">
+                                    <p>{{queue.patientProfileDetails.fName?queue.patientProfileDetails.fName:""}}&nbsp;
+                                        {{queue.patientProfileDetails.lName}}<p>
+                                            <p>{{queue.patientProfileDetails.gender}},&nbsp;{{commonUtil.getAge(queue.patientProfileDetails.dob)}}
+                                            </p>
+                                            <p>{{(queue.patientProfileDetails && queue.patientProfileDetails.contactInfo)?queue.patientProfileDetails.contactInfo.mobile:''}}</p>
+                                </span>
+                            </td>
+                            <td>{{queue.slotDate | date:"dd-MMM-yyyy"}} &nbsp; {{queue.slotTime | date:"hh:mm a"}}</td>
+                            <td>
+                                <p *ngFor="let service of queue.serviceList">{{service.serviceName}}</p>
+                            </td>
+                            <td (click)="paymentClick(queue)">
+                                <p *ngIf="queue.payment.paymentStatus == 0"><button class="btn width-100 mb-xs done_txt paymentStatus{{queue.payment.paymentStatus}}">Not
+                                        Paid</button></p>
+                                <p *ngIf="queue.payment.paymentStatus == 1"><button class="btn width-100 mb-xs done_txt paymentStatus{{queue.payment.paymentStatus}}">Paid</button>
+                                </p>
+                                <p *ngIf="queue.payment.paymentStatus == 2"><button class="btn width-100 mb-xs done_txt paymentStatus{{queue.payment.paymentStatus}}">Pending</button>
+                                </p>
+                            </td>
+                            <td class="image_circle">
+                                <p *ngIf="queue.cancellationStatus == 1"><button class="btn hide_btndigo width-100 mb-xs ">Cancelled</button></p>
+                                <p *ngIf="queue.cancellationStatus == 0 && queue.invoiceCompletionStatus==1"><button class="btn btn-danger width-100 mb-xs" (click)="cancelAppoinment(queue)">Cancel</button></p>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div> -->
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="slotBookingDetails" [sort]="sorting"
+                    (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg"
+                    [componentId]="'diagnosticsslotqueueList'" [perPage]="perPage" [total]="total"
+                    (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+
+            </div>
+        </section>
+    </div>
+    <!-- </div> -->
+</div>
+
+<!--Cancellation Confirmation popup starts here-->
+<div class="modal fade" id="cancel_confirm">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content" *ngIf="adviceDetails!=undefined">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title add_medtxt text-line">Cancel Appointment</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" #signupForm="ngForm">
+                    <div class="form-group">
+                        <h5 class="paycon_txt"> Booking Details</h5>
+                    </div>
+
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">{{adviceDetails.serviceName}}</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{adviceDetails.serviceName}}</p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Date</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">
+                            {{adviceDetails.pickupDate | date:'d/MMMM/yyyy'}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Time Slot </p>
+
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{adviceDetails.pickupTime | date:"hh:mm a"}}
+                        </p>
+                        <!-- commonUtil.convertTimeStampToDate(adviceDetails.slotTime) -->
+                    </div>
+
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Patient Information</p>
+                    </div>
+
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Name</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{(adviceDetails.patientProfileDetails?.title?(adviceDetails.patientProfileDetails?.title+". "):'')}}
+                            {{adviceDetails.patientProfileDetails?.fName}}
+                            {{adviceDetails.patientProfileDetails?.lName?(adviceDetails.patientProfileDetails?.lName):''}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Age</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{common.getAge(adviceDetails.patientProfileDetails.dob).split(",")[0]+common.getAge(adviceDetails.patientProfileDetails.dob).split(",")[1]}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Gender </p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{adviceDetails.patientProfileDetails.gender}}</p>
+                    </div>
+
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Payment Information</p>
+                    </div>
+
+                    <div class="form-group consoul_line row">
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Test Charges</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{adviceDetails.payment.originalAmount}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Promotional Discount</p>
+                         <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{adviceDetails.payment.otherDiscountAmount}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Package Discount</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{adviceDetails.payment.packageDiscountAmount}}</p>    
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Grand Total</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{adviceDetails.payment.finalAmount}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Payment Status</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.paymentStatus==1">Payment Done</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.paymentStatus==0">
+                            Payment Pending</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.paymentStatus==1">Payment Mode
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==0">
+                            Not defined</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==1">
+                            Card</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==2 && adviceDetails.payment.paymentStatus!=0">
+                            Cash</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==3">
+                            Online</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==4">
+                            Package</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==5">
+                            Mobile</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==6">
+                            GooglePay</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==7">
+                            Paytm</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==8">
+                            PhonePay</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><a class="btn Update cancelslot_txt" data-toggle="modal"
+                                (click)="cancelSlot()">Cancel
+                                Slot</a></div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<spinner-component></spinner-component>

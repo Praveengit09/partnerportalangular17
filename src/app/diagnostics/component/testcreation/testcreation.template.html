@@ -1,0 +1,153 @@
+<h1 class="page-title">Search And Update Price</h1>
+<form action="#">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12 test-creation">
+
+            <hs-select [defaultSelectLabel]="'Search Test Name'" [defaultSelectField]="'serviceName'"
+                [selectColumns]="selectTestName" class="diagnostic-testsearch" [selectResults]="serviceNameSearchList"
+                (searchTrigger)="searchTests($event)" (selectTrigger)="getSearchTestName($event)"></hs-select>
+        </div>
+    </div>
+    <div class="card-body col-xl-6 col-lg-12" *ngIf="selectedTest != undefined">
+        <div class="list-inline">
+            <div class="row">
+                <h4 class="col-4">Test Name:</h4>
+                <h5 class="col-8 col-8 mt-1 pl-1 test_name">
+                    {{selectedTest.serviceName}}</h5>
+            </div>
+            <section>
+                <div class="row" id="testprice">
+                    <h4 class="col-md-12 pl-0">Test Display Price</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 col-xs-3 pl-0 mt-2">MRP</div>
+                            <div class="col-md-10 col-sm-10 col-xs-9 mt-1 pl-1 test_name">
+                                <input *ngIf="isTestVisible" class="form-control" [(ngModel)]="selectedTest.grossPrice"
+                                    [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                    (keyup)="onEnterPressedTest($event.target.value)"
+                                    (keydown)="onEnterdownTest($event.target.value)" [checked]="isTestVisible">
+
+                                <input *ngIf="!isTestVisible" class="form-control"
+                                    [(ngModel)]="selectedTest.walkinOrderPriceDetails.grossPrice"
+                                    [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                    (keyup)="onEnterPressedTest($event.target.value)" [checked]="isTestVisible"
+                                    (keydown)="onEnterdownTest($event.target.value)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 col-xs-3 pl-0 mt-2">Sale Price</div>
+                            <div class="col-md-10 col-sm-10 col-xs-9 mt-1 pl-1 test_name">
+                                <input *ngIf="isTestVisible" class="form-control" [(ngModel)]="selectedTest.netPrice"
+                                    [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                    (keyup)="onEnterPressed($event.target.value)"
+                                    (keydown)="onEnterdownTest($event.target.value)" [checked]="isTestVisible">
+
+                                <input *ngIf="!isTestVisible" class="form-control"
+                                    [(ngModel)]="selectedTest.walkinOrderPriceDetails.netPrice"
+                                    [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                    (keyup)="onEnterPressed($event.target.value)"
+                                    (keydown)="onEnterdownTest($event.target.value)" [checked]="isTestVisible">
+                            </div>
+                            
+                            <div class="offset-md-2 col-md-10 col-sm-10 col-xs-10 SalePrice_txt" *ngIf="isTestVisible">
+                                <p *ngIf="this.selectedTest.grossPrice < this.selectedTest.netPrice">
+                                    <sup>*</sup>MRP should be greater than or Sale Price
+                                </p>
+                            </div>
+                            <div class="offset-md-2 col-md-10 col-sm-10 col-xs-10 SalePrice_txt" *ngIf="!isTestVisible">
+                                <p
+                                    *ngIf="this.selectedTest.walkinOrderPriceDetails.grossPrice < this.selectedTest.walkinOrderPriceDetails.netPrice">
+                                    <sup>*</sup>MRP should be greater than or Sale Price
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <div class="row">
+                <h4 class="col-md-12 pl-0">Walk-in Price</h4>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-3 pl-0 mt-2">MRP</div>
+                        <div class="col-md-10 col-sm-10 col-xs-9 mt-1 pl-1 test_name">
+                            <input class="form-control" [(ngModel)]="selectedTest.walkinOrderPriceDetails.grossPrice"
+                                [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                (keyup)="onEnterPressedWalkIn($event.target.value)" [checked]="!isTestVisible">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-3 pl-0 mt-2">Sale Price</div>
+                        <div class="col-md-10 col-sm-10 col-xs-9 mt-1 pl-1 test_name">
+                            <input class="form-control" [(ngModel)]="selectedTest.walkinOrderPriceDetails.netPrice"
+                                [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                (keyup)="onEnterPressedWalkIn($event.target.value)" [checked]="!isTestVisible">
+                        </div>
+                        
+                        <div class="offset-md-2 col-md-10 col-sm-10 col-xs-10 SalePrice_txt">
+                            <p
+                                *ngIf="this.selectedTest.walkinOrderPriceDetails.grossPrice < this.selectedTest.walkinOrderPriceDetails.netPrice">
+                                <sup>*</sup>MRP should be greater than or Sale Price
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="selectedTest.homeCollections!=0">
+                <h4 class="col-md-12 pl-0">Home Collection Price</h4>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-3 pl-0 mt-2">MRP</div>
+                        <div class="col-md-10 col-sm-10 col-xs-9  mt-1 pl-1 test_name">
+                            <input class="form-control" [(ngModel)]="selectedTest.homeOrderPriceDetails.grossPrice"
+                                [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                (keyup)="onEnterPressed($event.target.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-3 pl-0 mt-2">Sale Price</div>
+                        <div class="col-md-10 col-sm-10 col-xs-9 mt-1 pl-1 test_name">
+                            <input class="form-control" [(ngModel)]="selectedTest.homeOrderPriceDetails.netPrice"
+                                [ngModelOptions]="{standalone:true}" (keypress)="validateNumberInputOnly($event)"
+                                (keyup)="onEnterPressed($event.target.value)">
+                        </div>
+                        
+                        <div class="offset-md-2 col-md-10 col-sm-10 col-xs-10 SalePrice_txt">
+                            <p
+                                *ngIf="this.selectedTest.homeOrderPriceDetails.grossPrice < this.selectedTest.homeOrderPriceDetails.netPrice">
+                                <sup>*</sup>MRP should be greater than or Sale Price
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6 col-sm-12 update_btn">
+                    <button type="button" class="btn button_update col-md-4 col-sm-12" role="button"
+                        (click)="updateTestCreation()">
+                        Update
+                    </button>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <button type="button" class="btn btn-danger float-right cencel_txt col-md-4 col-sm-12" role="button"
+                        (click)="updatesCancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hs-message [isError]="isErrorTest" [show]="showMessageTest" [messages]="errorMessageTest">
+    </hs-message>
+</form>
+<spinner-component></spinner-component>

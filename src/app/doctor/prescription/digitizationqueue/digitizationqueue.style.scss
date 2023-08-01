@@ -1,0 +1,44 @@
+.view-btn {
+    border-radius: 15px;
+    background-color: #1dc8d5;
+    border: solid 1px #edf0f5;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+.view-btn-disabled {
+    border-radius: 15px;
+    border: solid 1px #edf0f5;
+    color: black;
+    text-transform: uppercase;
+}
+.cancel-btn{
+    border-radius: 15px;
+    background-color: #ff0000;
+    border: solid 1px #edf0f5;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+.datepicker, .mat-form-field {
+    width: 100% !important;
+    min-width: 125px;    
+}
+.error-msg {
+    color: #ff0000;
+}
+@media screen and (max-width: 575px) {
+    .datepicker input {
+        text-align: left !important;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-flex {
+        padding: 0 0 0 0.50em !important;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-suffix {
+        width: 32px !important;
+    }
+}
+.search-orders{
+    margin-top: 27px !important;
+}
+.searchresult_resetbtn{
+    margin-bottom: 10px;
+}

@@ -1,0 +1,240 @@
+@import "../vitalsreading/vitalsreading.style.scss";
+@import '../../../scss/variables';
+@import '../../../scss/theme.scss';
+
+.card h4 {
+  color: #859098;
+  font-size: 1.082rem;
+  margin: 5px 0 0 0;
+
+}
+
+.card-border {
+  border: 1px solid #B6BCC1;
+  padding: 5px;
+
+}
+
+.row_margin {
+  margin-left: -15px !important;
+}
+
+.row_margin .vital-widget {
+  padding: 5px 12px 10px !important;
+}
+
+.heading_one {
+  padding: 0px 5px;
+}
+
+.card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-header {
+  background-color: #fff;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.card-header .input-group {
+  border-bottom: 1px solid #ccc;
+}
+
+.card-header .form-control {
+  padding-left: 0;
+}
+
+.card .input-group-text {
+  background-color: #fff;
+}
+
+.card .input-group-text,
+.card .form-control {
+  border: none;
+  padding: 0 0.25rem;
+}
+
+.custom_chk_btn .column .row .column>input[type="checkbox"] {
+  display: none;
+}
+
+.custom_chk_btn {
+  margin-bottom: 5px !important;
+}
+
+.custom_chk_btn label {
+  border: 1px solid #e9f8fb;
+  padding: 3px 10px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 2px 3px -2px #999;
+  -moz-box-shadow: 1px 2px 3px -2px #999;
+  box-shadow: 1px 2px 3px -2px #999;
+  margin-top: 3px;
+  margin-bottom: 0;
+  background: #fdfdfd;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif";
+  font-weight: normal;
+}
+
+.custom_chk_btn label::after {
+  background-color: white;
+  border: 1px solid #ff6d6d;
+  color: white;
+  content: " ";
+  display: block;
+  height: 25px;
+  line-height: 28px;
+  position: absolute;
+  right: -2px;
+  text-align: center;
+  top: -2px;
+  transform: scale(0);
+  transition-duration: 0s;
+  width: 25px;
+}
+
+.check_family_item label {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.custom_chk_btn :checked+label {
+  outline: 2px solid #ff6d6d;
+  padding: 0 0 0 10px;
+  display: inline-block;
+}
+
+.custom_chk_btn :checked+label::after {
+  content: "\2713";
+  background-color: #ff6d6d;
+  transform: scale(1.15);
+  position: relative;
+  display: inline-block;
+  right: 0px;
+  top: 0px;
+  margin-left: 7px;
+}
+
+.column {
+  padding: 2px 0px;
+  margin: 0px 5px;
+}
+
+.custom_chk_nav .column_nav .row .column_nav>input[type="checkbox"] {
+  display: none;
+}
+
+.custom_chk_nav label {
+  border: 1px solid #e9f8fb;
+  padding: 20px 15px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-box-shadow: 1px 2px 3px -2px #999;
+  -moz-box-shadow: 1px 2px 3px -2px #999;
+  box-shadow: 1px 2px 3px -2px #999;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  background: #fdfdfd;
+  font-family: "proxima_novaregular", Gotham, "Helvetica Neue", Helvetica, Arial,
+    "sans-serif";
+  font-weight: normal;
+  min-width: 115px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.custom_chk_nav label::before {
+  background-color: white;
+  border: 1px solid #ff6d6d;
+  color: white;
+  content: " ";
+  display: block;
+  height: 25px;
+  line-height: 28px;
+  position: absolute;
+  right: -2px;
+  text-align: center;
+  top: -2px;
+  transform: scale(0);
+  transition-duration: 0s;
+  width: 25px;
+}
+
+.check_family_item label {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.custom_chk_nav :checked+label {
+  outline: 2px solid #ff6d6d;
+}
+
+.custom_chk_nav :checked+label:before {
+  content: "\2713";
+  background-color: #ff6d6d;
+  transform: scale(0.9);
+}
+
+.card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card-header+.list-group .list-group-item:first-child {
+  border-top: 0;
+}
+
+.card-footer:last-child {
+  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.row {
+  margin-left: 0px;
+}
+
+.form-check {
+  margin-bottom: 0 !important;
+}
+
+.list-inline-item:not(:last-child) {
+  margin-right: 5px;
+}
+
+.ailment_text {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.listOfcard {
+  background-color: #e8f1f4 !important;
+  height: auto;
+  min-height: 35px;
+  max-height: 152px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0px;
+}
+
+.listOfcard ul {
+  margin-bottom: 0;
+}

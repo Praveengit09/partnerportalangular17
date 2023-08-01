@@ -1,0 +1,71 @@
+table {
+    min-width: 600px;
+}
+table p {
+    margin-bottom: 0;
+}
+.img-responsive {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+.doctor_img {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.doctor_img, .doctor_detail {
+    float: left;
+}
+.doctor_detail {
+    text-transform: capitalize;
+}
+.doctor_detail h6 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+    color: #129faa;
+}
+.doctor_detail p {
+    margin-bottom: 0;
+}
+table p.distance {
+    color: #ff6d6d;
+}
+table p.pocname {
+    color: #000;
+    font-weight: 700;
+}
+.justify-content-end {
+    -webkit-box-pack: end!important;
+    -ms-flex-pack: end!important;
+    justify-content: flex-end!important;
+}
+.pagination {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+}
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px!important;
+    line-height: 1.25;
+    background-color: #fff;
+    border: 1px solid #dee2e6 !important;
+}
+.page-link.currentPage{
+    background: #2199e8;
+    color: #fefefe !important;
+}

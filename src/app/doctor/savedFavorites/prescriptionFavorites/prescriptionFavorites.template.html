@@ -1,0 +1,438 @@
+<h1 class="page-title">Prescription Favorites</h1>
+<div class="row">
+    <div class="col-lg-12 info-sec">
+        <div class="row">
+
+            <div class="col-lg-6 col-sm-6 col-xs-12 department dropdown">
+                <div class="selectLabel">Select Department</div>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="serviceList" data-toggle="dropdown"
+                    (click)="saveCheck('#serviceList')" (mouseover)="toggleDropdown('#serviceList')"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{selectedService.serviceName}} <span class="caret"></span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="serviceList">
+                    <button class="dropdown-item" *ngFor="let service of serviceList;let i=index"
+                        (click)="onClickServiceList(service,i)" type="button">
+                        {{service.serviceName}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-xs-12 dropdown module">
+                <div class="selectLabel">Select Module</div>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="moduleList" data-toggle="dropdown"
+                    (click)="saveCheck('#moduleList')" (mouseover)="toggleDropdown('#moduleList')" aria-haspopup="true"
+                    aria-expanded="false">
+                    {{moduleName}} <span class="caret"></span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="moduleList">
+                    <button class="dropdown-item" *ngFor="let module of moduleList;let i=index"
+                        (click)="onClickModuleList(module,i)" type="button">
+                        {{(i+1)+'. '+module}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card" *ngIf="moduleIndex==0">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-12 mb-xs">
+                        <h4>1. Symptoms (Presenting Complaints)</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupSymptons"
+                            (keyup)="searchForMoreSymptoms($event)" placeholder="Search for more Symptoms">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="displaySymptoms.length==0&&addSuggestedSymptom.length<2">
+                    Search and add Symptoms
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedSymptom!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addSymptom" [checked]="false" [value]="false" name="symptoms"
+                                (click)="addSuggestedSymptoms()" />
+                            <label for="addSymptom">Add "{{addSuggestedSymptom}}" as Symptom</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let symptom of displaySymptoms;let i=index">
+                        <ng-template [ngIf]="symptom && symptom.name">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="symptom{{i}}" name="symptoms"
+                                    (click)="onClickPresentingComplaints(symptom,i)" [value]="symptom.isSelected"
+                                    [checked]="symptom.isSelected" />
+                                <label for="symptom{{i}}">{{symptom.name}}</label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="moduleIndex==1">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <h4>2. Clinical Examination</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupClinicalExamination"
+                            (keyup)="searchForMoreClinicalExaminations($event)"
+                            placeholder="Search for more Clinical Examinations">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="displayClinicalExaminations.length==0&&addSuggestedClinicalExamination.length<2">
+                    Search and add Clinical Examinations
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedClinicalExamination!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addClinicalExamination" [checked]="false" [value]="false"
+                                (click)="addSuggestedClinicalExaminations()" name="symptoms" />
+                            <label for="addClinicalExamination">Add "{{addSuggestedClinicalExamination}}" as Clinical
+                                Examination</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item"
+                        *ngFor="let clinicalExamination of displayClinicalExaminations;let i=index">
+                        <ng-template [ngIf]="clinicalExamination && clinicalExamination.name">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="clinicalExamination{{i}}" name="clinicalExaminations"
+                                    (click)="onClickClinicalExaminations(clinicalExamination,i)"
+                                    value="{{clinicalExamination.isSelected}}"
+                                    [checked]="clinicalExamination.isSelected" />
+                                <label for="clinicalExamination{{i}}">{{clinicalExamination.name}}</label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="moduleIndex==2">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <h4>3. Diagnosis</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupDiagnosis"
+                            (keyup)="searchForMoreDiagnoses($event)" placeholder="Search for more Diagnosis">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="displayDiagnoses.length==0&&addSuggestedDiagnoses.length<2">
+                    Search and add Diagnosis
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedDiagnoses!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addDiagnoses" [checked]="false" [value]="false" name="diagnoses"
+                                (click)="addSuggestedDiagnosess()" />
+                            <label for="addDiagnoses">Add "{{addSuggestedDiagnoses}}" as Diagnosis</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let diagnosis of displayDiagnoses;let i=index">
+                        <ng-template [ngIf]="diagnosis && diagnosis.name">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="diagnosis{{i}}" name="diagnosis"
+                                    (click)="onClickColumDiagnosis(diagnosis,i)" [value]="diagnosis.isSelected"
+                                    [checked]="diagnosis.isSelected" />
+                                <label for="diagnosis{{i}}">{{diagnosis.name}}</label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="moduleIndex==3">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <h4>4. Medicines</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupMedicines"
+                            (keyup)="searchForMoreMedicines($event)" placeholder="Search for more Medicines">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="displayMedicines.length==0&&addSuggestedMedicine.length<2">
+                    Search and add Medicines
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedMedicine!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addMedicine" [checked]="false" [value]="false" name="medicines"
+                                (click)="addSuggestedMedicines()" />
+                            <label for="addMedicine">Add "{{addSuggestedMedicine}}" as Medicine</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let medicine of displayMedicines;let i=index">
+                        <ng-template [ngIf]="medicine && medicine.productName">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="medicine{{i}}" name="medicines"
+                                    (click)="onClickMedicines(medicine,i)" [value]="medicine.isSelected"
+                                    [checked]="medicine.isSelected" />
+                                <label for="medicine{{i}}"
+                                    [class.brandName]="(medicine.productName!=undefined||medicine.productName!=null)">
+                                    <div class="ailment_text">{{medicine.productName}}
+                                        {{medicine.medicineStrength?('('+medicine.medicineStrength+')'):''}}
+                                    </div>
+                                    <div class="ailment_text" *ngIf="medicine.brandName">{{medicine.brandName}}
+                                    </div>
+                                </label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="moduleIndex==4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <h4>5. Investigations</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupInvestigations"
+                            (keyup)="searchForMoreInvestigations($event)" placeholder="Search for more Investigations">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="displayInvestigations.length==0&&addSuggestedInvestigation.length<2">
+                    Search and add Investigations
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedInvestigation!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addInvestigation" [checked]="false" [value]="false"
+                                (click)="addSuggestedInvestigations()" name="investigations" />
+                            <label for="addInvestigation">Add "{{addSuggestedInvestigation}}" as Investigation</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let investigation of displayInvestigations;let i=index">
+                        <ng-template [ngIf]="investigation && investigation.serviceName">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="investigation{{i}}" name="investigations"
+                                    (click)="onClickInvestigations(investigation,i)" [value]="investigation.isSelected"
+                                    [checked]="investigation.isSelected" />
+                                <label for="investigation{{i}}">{{investigation.serviceName}}</label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="moduleIndex==5">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <h4>6. {{procedurePrescriptionLabel ?
+                            procedurePrescriptionLabel: 'Procedure'}}</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupProcedure"
+                            (keyup)="searchForMoreProcedures($event)" placeholder="Search for more Procedures">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="displayProcedures.length==0&&addSuggestedProcedure.length<2">
+                    Search and add {{procedurePrescriptionLabel ?
+                    procedurePrescriptionLabel: 'Procedure'}}s
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedProcedure!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addProcedure" [checked]="false" [value]="false"
+                                (click)="addSuggestedProcedures()" name="procedures" />
+                            <label for="addProcedure">Add "{{addSuggestedProcedure}}" as {{procedurePrescriptionLabel ?
+                                procedurePrescriptionLabel: 'Procedure'}}</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let procedure of displayProcedures;let i=index">
+                        <ng-template [ngIf]="procedure && procedure.serviceName">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="procedure{{i}}" name="procedures"
+                                    (click)="onClickProcedures(procedure,i)" [value]="procedure.isSelected"
+                                    [checked]="procedure.isSelected" />
+                                <label for="procedure{{i}}">{{procedure.serviceName}}</label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="moduleIndex==6">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <h4>7. {{nonMedicationPrescriptionLabel?
+                            nonMedicationPrescriptionLabel:'Non-Medication'}}</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupNonMedication"
+                            (keyup)="searchForMoreNonMedication($event)" placeholder="Search for more Non-Medications">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="displayNonMedications.length==0&&addSuggestedNonMedication.length<2">
+                    Search and add {{nonMedicationPrescriptionLabel?
+                    nonMedicationPrescriptionLabel:'Non-Medication'}}s
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedNonMedication!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addNonMedication" [checked]="false" [value]="false"
+                                (click)="addSuggestedNonMedications()" name="nonMedications" />
+                            <label for="addNonMedication">Add "{{addSuggestedNonMedication}}" as
+                                {{nonMedicationPrescriptionLabel?
+                                nonMedicationPrescriptionLabel:'Non-Medication'}}</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let nonMedication of displayNonMedications;let i=index">
+                        <ng-template [ngIf]="nonMedication && nonMedication.title">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="nonMedication{{i}}" name="nonMedications"
+                                    (click)="onClickNonMedications(nonMedication,i)" [value]="nonMedication.isSelected"
+                                    [checked]="nonMedication.isSelected" />
+                                <label for="nonMedication{{i}}">{{nonMedication.title}}</label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+        <div class="card" *ngIf="!disableImmunization && moduleIndex==7">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <h4>8. Immunization</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input type="text" class="form-control searchInput" id="inlineFormInputGroupImmunization"
+                            (keyup)="searchForMoreImmunization($event)" placeholder="Search for more Immunizations">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-lg-center  col-form-label-lg watermark"
+                    *ngIf="dispayImmunizations.length==0&&addSuggestedImmunization.length<2">
+                    Search and add Immunizations
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedImmunization!=''">
+                        <div class="cardBodyItem">
+                            <input type="checkbox" id="addImmunization" name="immunizations" [checked]="false"
+                                [value]="false" (click)="addSuggestedImmunizations()" />
+                            <label for="addImmunization">Add "{{addSuggestedImmunization}}" as Immunization</label>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let immunization of dispayImmunizations;let i=index">
+                        <ng-template
+                            [ngIf]="immunization && immunization.genericMedicine && immunization.genericMedicine.genericMedicineName">
+                            <div class="cardBodyItem">
+                                <input type="checkbox" id="immunization{{i}}" name="immunizations"
+                                    (click)="onClickImmunizations(immunization,i)" [value]="immunization.isSelected"
+                                    [checked]="immunization.isSelected" />
+                                <label
+                                    for="immunization{{i}}">{{immunization.genericMedicine.genericMedicineName}}</label>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer CardfooterColor">
+                <button class="btn bg-white float-right width-100" [disabled]="!isNotSavedChanges" (click)="save()">
+                    Save
+                </button>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+<div class="modal" style=" overflow-y: auto !important" id="saveAlertmodelId" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.width]="'auto'" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                Do you want to save changes?
+            </div>
+            <div class="modal-body row" style="text-align: center">
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px"
+                        (click)="save();hideModel('#saveAlertmodelId');changeServiceList();changeOfModule()">Yes</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px" (click)="discardChanges()">No</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

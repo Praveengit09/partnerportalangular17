@@ -1,0 +1,49 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Download SampleInfo Excel</h1>
+    <p class="inventory_para">This is the page where you can download the SampleInfo Excel.You can select the date and POC to get filtered excel</p>
+    <section class="widget03" widget="">
+        <form class="form-horizontal " role="form">
+            
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="widget_updated">
+                        <div class="row template_upload">
+                            <div class="col-lg-6 col-sm-12 col-xl-6">
+                                <h6 class="validationCustom03">Filter by Date</h6>
+                            <div class="row form-group">
+                                <div class="col-sm-6">
+                                    <!-- <label class="validationCustom03">From Date:</label> -->
+                                    <datetime name="fromDate" [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="this.fromDate" ></datetime>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- <label class="validationCustom03">To Date:</label> -->
+                                    <datetime name="toDate" [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="this.toDate" ></datetime>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-xl-3 selectcentre">
+                                    <h6 class="validationCustom03">Select Centre:</h6>
+                                    <ng-multiselect-dropdown-angular7 [placeholder]="'Select Centre'" [data]="pocList" [settings]="dropdownSettings" (onSelect)="onSelectPoc($event)" [(ngModel)]="this.selectedPocList" name="something" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll()"
+                                        (onDeSelect)="onPocDeSelect($event)">
+                                    </ng-multiselect-dropdown-angular7>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xl-3 mt-1">
+                                    <div class="form-group">
+                                        <a class=" btn Update12" type="button" value="DOWNLOAD" (click)="onDownloadButtonClick()">DOWNLOAD
+                                                EXCEL</a>
+                                    
+                                    </div>
+                                </div>
+                    </div>
+                    
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            
+        </form>
+    </section>
+</div>
+<spinner-component></spinner-component>

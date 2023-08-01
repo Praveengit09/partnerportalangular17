@@ -1,0 +1,47 @@
+<h1 class="page-title">Manage Slot Buffer</h1>
+<div class="row slot-bufferwidget">
+    <div class="col-md-2">
+        <p><b class="doct_name_title">Buffer Timings</b></p>
+    </div>
+    <div class="col-md-10">
+        <div class="slot-buffer">
+            <div class="row" *ngFor="let item of locBufferTimeList; let i=index">
+                <div class="col-xl-2 col-md-4 col-sm-3 col-xs-4 discount_poc">
+                    <select id="unit" name="unit" class="form-control" [(ngModel)]='item.bufferType'
+                        [ngModelOptions]="{standalone: true}" (change)="onChangeType($event.target.value,i)">
+                        <!-- <option *ngFor="let unit of bufferTypes;let j = index" [value]=j>{{unit}}
+                            </option> -->
+                        <option value="defaultValue">Default</option>
+                        <option value="gte">>=</option>
+                        <option value="lte"><=</option>
+                        <option value="gt">></option>
+                        <option value="lt"><</option>
+                        <option value="eq">=</option>
+                    </select>
+                </div>
+                <div *ngIf="!item.showOnlyBufferTime" class="col-xl-2 col-md-2 col-sm-3 col-xs-3 discount_poc">
+                    <input type="text" value="" placeholder="Time in hrs" class="discount_input"
+                        [(ngModel)]="item.timeValue">
+                </div>
+                <div *ngIf="item.showOnlyBufferTime" class="col-xl-2 col-md-2 col-sm-3 col-xs-3 discount_poc">
+                </div>
+                <div class="col-xl-2 col-md-2 col-sm-3 col-xs-3 discount_poc">
+                    <input type="text" value="" placeholder="BufferTime in hrs" class="discount_input"
+                        [(ngModel)]="item.value">
+                </div>
+                <div *ngIf="i>0" class="col-xl-1 col-md-1 col-sm-3 col-xs-2 discount_poc">
+                    <span class="close_pocbtn" (click)="removeclick(i)">×</span>
+                </div>
+            </div>
+            <div class="discount_poc" >
+                <div class="add_button_discount">
+                    <i aria-hidden="true" class="fa fa-plus addtxt_icon2" (click)="addApplyButton()"></i>
+                    <span class="add_pocdiscountxt">Add Buffer </span>
+                </div>
+            </div>
+        </div>
+        <button role="button" class="btn width-100 mb-xs botton_txtsave" (click)="saveSlotBufferDetails()">SAVE</button>
+    </div>
+</div>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<spinner-component></spinner-component>

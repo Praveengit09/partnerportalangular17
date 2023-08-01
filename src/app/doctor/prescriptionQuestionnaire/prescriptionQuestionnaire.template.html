@@ -1,0 +1,62 @@
+<div class="modal" style=" overflow-y: auto !important" id="prescriptionQuestionnaireModel" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" *ngIf="viewQuestionnaire && prescriptionQuestionnaire">
+                {{prescriptionQuestionnaire.title}}
+                <button type="button" class="close btn_close" data-dismiss="modal" aria-label="Close"
+                    (click)="this.closeModal()">
+                    Close <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="viewQuestionnaire && prescriptionQuestionnaire">
+                <div class="modal-body card-group">
+                    <div *ngIf="!prescriptionQuestionnaire.activities || prescriptionQuestionnaire.activities.length <  1"
+                        style="margin-left:40%">
+                        No Questions Data Found
+                    </div>
+                    <div class="w-100" *ngFor="let activity of prescriptionQuestionnaire.activities">
+
+                        <div class="">
+                            <ul class="list-group" *ngFor="let question of activity.question">
+                                <li class="list-group-item list-group-flush"
+                                    *ngIf="question.calcuatedAnswer != '' && question.calcuatedAnswer != undefined && question.calcuatedAnswer != null && question.calcuatedAnswer != 'NaN' ">
+
+                                    <div>
+                                    {{question.text}}
+                                        <div class=" font-weight-bold"> {{question.calcuatedAnswer }} &nbsp;
+                                            {{question.unit}}
+                                        </div>
+                                    </div>
+
+
+                                </li>
+                                <li class="list-group-item list-group-flush"
+                                    *ngIf="question.calcuatedAnswer == '' || question.calcuatedAnswer == undefined || question.calcuatedAnswer == null || question.calcuatedAnswer == 'NaN' ">
+
+                                    <div>
+                                        {{question.text}}
+                                        <div class=" font-weight-bold"> Not Answered
+                                        </div>
+                                    </div>
+
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default"  data-dismiss="modal" aria-label="Close">
+                          Ok
+                    </button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<spinner-component></spinner-component>

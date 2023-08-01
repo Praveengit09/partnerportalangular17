@@ -1,0 +1,122 @@
+@import '../../scss/variables';
+@import '../../scss/theme.scss';
+
+.medicine-sales .widget-body {
+  overflow-x: scroll;
+  width : 100%;
+}
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: transparent;
+  opacity: 1;
+}
+.pack-type {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.editprocessid_text h2 {
+  font-size: 30px;
+  // color: #14a9b5;
+  color: $title-color;
+  font-weight: 500;
+}
+
+.editprocess_widget {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  background: #fff;
+  border-radius: 0.2rem;
+}
+
+.editprocess_widget .table,
+.selectbatch_widget .table {
+  margin-bottom: 0px;
+}
+
+.editprocess_widget .admin_order input {
+  padding-left: 10px;
+}
+
+.editprocess_widget tbody tr td {
+  max-width: initial !important;
+}
+
+.schedule_txt {
+  margin-bottom: 0px !important;
+  font-size: 11px;
+}
+
+.editprocess_widget
+  .widget-body
+  .editprocess_widget
+  .searchtable_prescription
+  hs-select
+  .newadvice_table
+  .search_table
+  .table_hs_search {
+  position: relative !important;
+  z-index: 9;
+}
+
+.table th,
+.table td {
+  opacity: 1 !important;
+  font-size: 1rem;
+}
+
+.edit_link {
+  float: right;
+}
+tr.addproduct_errormsg {
+  background: transparent !important;
+}
+tr.addproduct_errormsg td {
+  border-top: none;
+  padding: 0 !important;
+}
+.editprocess_widget .table-striped tr.addproduct_errormsg td {
+  padding: 0 !important;
+}
+.table-responsive {
+  overflow-x: auto !important;
+}
+.medicine-sales .table-responsive::-webkit-scrollbar {
+  background-color: #ffffff;
+}
+.medicine-sales .table-responsive::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+}
+
+@media screen and (min-width: 601px) {
+  .editprocess_widget .table {
+    border-bottom: 2px solid #e6e6e6 !important;
+    min-width: 1105px !important;
+  }
+  .medicine-sales .widget-body {
+    border-top: 2px solid #e6e6e6 !important;
+  }
+  .editprocess_widget .addemptyspace {
+    height: 137px;
+  }
+  .editprocess_widget .table-striped td input {
+    width: 100px;
+  }
+  .selectbatch_widget .table-stripednew {
+    min-width: 640px !important;
+  }
+}
+.newadvice_body {
+  padding: 25px !important;
+}
+.barcode_widget {
+  position: relative;
+}
+.barcode_icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}

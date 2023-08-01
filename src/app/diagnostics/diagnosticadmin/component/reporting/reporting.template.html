@@ -1,0 +1,61 @@
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<h1 class="page-title">Reporting Orders</h1>
+<div class="row">
+    <div class="col-xl-6 col-md-12 col-lg-6 col-sm-12">
+        <mat-form-field appearance="outline" class="search-orders">
+            <mat-label>Name/Mobile Number</mat-label>
+            <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput placeholder="Name/Mobile Number">
+            <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getOrderListWithMobileOrName()"></i>
+        </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+        <h6 class="sub-title">Filter by Date</h6>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <datetime [(value)]="startDate" [placeholder]="'Start Date'" name="startDate" id="datepicker" (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="form-group  col-sm-6">
+                <datetime [(value)]="endDate" [placeholder]="'End Date'" name="endDate" id="datepicker2" (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+        </div>
+
+        <ng-container *ngIf="phleboVendorAssignment && !isVendor">
+        <div class="col-12 filter-bypoc mb-1">
+            <h6 class="sub-title">Filter by Vendor</h6>
+            <select class="form-control select_poc" [(ngModel)]="indexForVendor" [ngModelOptions]="{standalone : true}" (change)="onVendorSelect($event.target.value)">
+            <option value=0>Select all Vendor</option>
+            <option *ngFor="let vendor of vendorListDetails;let i = index" [value]=i+1>{{vendor.pocName}}</option>
+        </select>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!phleboVendorAssignment">
+        <div class="col-12 filter-bypoc mb-1">
+            <h6 class="sub-title">Filter by POC</h6>
+            <select class="form-control select_poc" *ngIf="pocRolesList?.length > 0" [(ngModel)]="indexForPOC" [ngModelOptions]="{standalone : true}" (change)="onPOCSelect($event.target.value)">
+            <option value=0>Select all POC</option>
+            <option *ngFor="let poc of pocRolesList;let i = index" [value]=i+1>{{poc.pocName}}</option>
+        </select>
+        </div>
+    </ng-container>
+
+    </div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-12 mb-1 text-right">
+        <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="getRefreshedorderList()">
+            <span class="glyphicon glyphicon-repeat"></span>
+            <span class="refresh_txt">REFRESH</span>
+        </button>
+    </div>
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="deliveryDetailsOfEmployeeList" [componentId]="'deliveryDetailsOfEmployeeListTable'" [perPage]="perPage" [total]="total" [dataMsg]="dataMsg"[enableDownload]="true" (pageClick)="onPage($event)">
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

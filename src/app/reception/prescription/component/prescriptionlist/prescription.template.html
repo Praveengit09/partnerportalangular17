@@ -1,0 +1,62 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Prescription List</h1>
+
+    <form>
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-sm-6 order-mrgn">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="mobileNumber" placeholder="Enter Mobile Number" maxlength="10" (keypress)="validateNumberInputOnly($event)">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="onSearch()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-sm-6 search_doctor_name filter-payment">
+                <label>Doctor Name<sup class="sgst_txt">*</sup></label>
+                <hs-select [defaultSelectLabel]="'Doctor Name'" [selectColumns]="selectColumns" [defaultSelectField]="'firstName'" [selectTotal]="docListTotal" [selectResults]="prescriptionDoctorList" [multiCheckVarName]="'empId'" (searchTrigger)="getListOfPrescriptionDoctors($event)"
+                    (selectTrigger)="onDocSelect($event)">
+                </hs-select>
+            </div>
+            <div class="col-xl-6 col-lg-12">
+                <h6>Filter by Date</h6>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <datetime [(value)]="startDate" name="startDate" id="datepicker" [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [timepicker]="false" (dateChange)="endDateChoosen($event)" [datepicker]="datepickerOpts">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-4 submit-btn">
+                        <button class="btn btn-danger  sub_txt width-100" type="button" id="inpatient" (click)="onSearch()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 autorefresh-refreshbutton mb-1">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="onRefresh()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [sort]="sorting" [pagingList]="patientListForPrecription" (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg" [componentId]="'precriptionListTable'" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

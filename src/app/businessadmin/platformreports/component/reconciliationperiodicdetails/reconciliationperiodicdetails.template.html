@@ -1,0 +1,116 @@
+<div class="table_size">
+    <!-- <hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message> -->
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h1 class="page-title">{{reconciliationDetail.pocName}}</h1>
+        <div class="row">
+            <div class="col-lg-12 final_tablereport">
+                <section class="widget table_pading" widget>
+
+                    <div class="widget-body">
+
+                        <table class="table table-striped">
+                            <thead class="table_head">
+                                <tr>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Revenues</th>
+                                    <th>Payables</th>
+                                    <th>Receivables</th>
+                                    <th>Settled Amount</th>
+                                    <th>Pending Payment</th>
+                                    <th>Type</th>
+                                    <th>Invoice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <ng-controller > -->
+                                <!-- <tr><td>{{invoicePriodicList|json}}</td></tr> -->
+                                <tr class="invoice_tr">
+                                    <td>{{reconciliationDetail.invoiceFromDate | date}}</td>
+                                    <td>{{reconciliationDetail.invoiceToDate | date}}</td>
+                                    <td>{{((reconciliationDetail!=null && reconciliationDetail.totalRevenue!=undefined)? reconciliationDetail.totalRevenue:0)|currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>{{((reconciliationDetail!=null && reconciliationDetail.totalPayableAmount!=undefined)? reconciliationDetail.totalPayableAmount:0)|currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>{{((reconciliationDetail!=null && reconciliationDetail.totalReceivableAmount!=undefined) ? reconciliationDetail.totalReceivableAmount:0)| currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>{{((reconciliationDetail!=null && reconciliationDetail.reconciliationAmount!=undefined)? reconciliationDetail.reconciliationAmount:0)|currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>{{((reconciliationDetail!=null && reconciliationDetail.reconciliationPendingAmount!=undefined)? reconciliationDetail.reconciliationPendingAmount:0)|currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>{{invoiceTypeEnum[reconciliationDetail.invoiceType]}}</td>
+                                    <td>
+                                        <!-- <ng-container [ngIf]="isShow"> -->
+                                        <div class="slotsnumber" (click)="onImageClicked()"><img
+                                                src="assets/img/partner/pdf_icon_read.png"></div>
+                                        <!-- </ng-container> -->
+                                    </td>
+
+                                </tr>
+                                <!-- </ng-controller> -->
+                                <!-- </tr> -->
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+
+                </section>
+
+            </div>
+        </div>
+        <!----------------------------------Item Table------------------>
+        <div class="row">
+
+            <div class="col-lg-12 final_tablereport">
+
+                <h1 class="page-title">Financial Item Details</h1>
+                <section class="widget table_pading" widget>
+                    <div class="widget-body">
+
+                        <table class="table table-striped period_txt">
+                            <thead class="table_head">
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Revenues</th>
+                                    <th>Payables</th>
+                                    <th>Receivables</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let summaryList of reconciliationDetail.summaryTransactionsList">
+                                    <!-- //<td>{{selectPeriodic.summaryTransactionsList|json}}</td> -->
+                                    <td>{{summaryList.invoiceTypeLabel}}</td>
+                                    <td>{{((summaryList != null && summaryList.totalRevenue != undefined)?summaryList.totalRevenue:0)|currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>{{((summaryList!=null && summaryList.totalPayableAmount!=undefined)?summaryList.totalPayableAmount:0)|currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>{{((summaryList != null && summaryList.totalReceivableAmount != undefined)?summaryList.totalReceivableAmount:0)|currency:'INR':true:'1.2-2'}}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn view_reconciliation" (click)="viewReconciliation(summaryList)"> View</button>
+                                    </td>
+                                </tr>
+                                <!-- </tr> -->
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </section>
+
+
+
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn back_button"
+                    (click)="backButton()">Back</button>
+            </div>
+        </div>
+
+    </div>
+</div>

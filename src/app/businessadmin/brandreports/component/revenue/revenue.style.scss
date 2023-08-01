@@ -1,0 +1,12 @@
+@import "../../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+.transform_txt002{
+    svg .nv-controlsWrap {
+        display: none;
+    } .tick{
+        display:none;
+    }
+    
+} 

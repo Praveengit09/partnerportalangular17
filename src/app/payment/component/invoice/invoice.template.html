@@ -1,0 +1,303 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Order : {{finalPaymentList.orderId}}</h1>
+
+    <p class="sub-title">{{todayDate}}</p>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading payment_invoicewidget">
+
+                <div class="table-responsive table-datalabel widget-shadow">
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head">
+                                <th>#</th>
+                                <th class="">
+                                    Category
+                                </th>
+                                <th class="sort-default">
+                                    <span class="sort-default1" *ngIf="showDoctorDescription">Doctor's
+                                        Description</span>
+
+                                    <!-- <span class="sort-default1" *ngIf="finalPaymentList.cartItemList != undefined">Doctor's
+                                        Description</span> -->
+
+
+                                </th>
+
+                                <th class="sort-default">
+                                    <span *ngIf="showItemDescription">
+                                        Item Description</span>
+                                </th>
+                                <th class="">
+                                    <span *ngIf="showItemDescription ">
+                                        Quantity
+                                    </span>
+                                </th>
+                                <th class="">
+                                    Cost ({{currencySymbol}})
+                                </th>
+                                <th class="sort-default">
+                                    Package Discount
+                                </th>
+                                <th class="sort-default">
+                                    Other Discount
+                                </th>
+                                <th class="sort-default">
+                                    <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined && finalPaymentList.slotBookingDetailsList[0] != null">
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList[0].payment.usedWalletAmount">Wallet
+                                        amount</span>
+                                        
+                                    </span>
+                                    <span *ngIf="finalPaymentList.cartItemList != undefined && finalPaymentList.cartItemList[0] != null">
+                                        <span *ngIf="finalPaymentList.cartItemList[0].payment.usedWalletAmount">Wallet
+                                        amount</span>
+                                       
+                                    </span>
+                                </th>
+                                <th class="sort-default">
+                                    <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined && finalPaymentList.slotBookingDetailsList[0] != null">
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList[0].payment.usedPostWalletAmount">
+                                        Post Wallet</span>
+                                    </span>
+                                    <span *ngIf="finalPaymentList.cartItemList != undefined && finalPaymentList.cartItemList[0] != null">
+                                        <span *ngIf="finalPaymentList.cartItemList[0].payment.usedPostWalletAmount">
+                                        Post Wallet</span>
+                                    </span>
+                                </th>
+                                <th class="sort-default">
+                                    Platform Charges
+                                </th>
+                                <th class="">
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table_head">
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">1</div>
+                                </td>
+                                <td data-label="Category" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList && finalPaymentList.slotBookingDetailsList.length>0">Consultation</span>
+                                        <span *ngIf="finalPaymentList.cartItemList && finalPaymentList.cartItemList.length>0">Package</span>
+                                    </div>
+                                </td>
+                                <td data-label="Doctor's
+                                Description" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined">
+                                            <span
+                                                *ngIf="finalPaymentList.slotBookingDetailsList && finalPaymentList.slotBookingDetailsList[0]!=undefined && finalPaymentList.slotBookingDetailsList[0]!=null && finalPaymentList.slotBookingDetailsList[0].doctorDetail != undefined && finalPaymentList.slotBookingDetailsList[0].doctorDetail != null">
+                                                {{(finalPaymentList.slotBookingDetailsList[0].doctorDetail.title ? finalPaymentList.slotBookingDetailsList[0].doctorDetail.title : '')+"
+                                                "+(finalPaymentList.slotBookingDetailsList[0].doctorDetail.firstName ? finalPaymentList.slotBookingDetailsList[0].doctorDetail.firstName : '')+"
+                                                "+(finalPaymentList.slotBookingDetailsList[0].doctorDetail.lastName ? 
+                                                finalPaymentList.slotBookingDetailsList[0].doctorDetail.lastName : '')}}
+
+                                            </span>
+                                        </span>
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList == undefined">
+                                            <span
+                                                *ngIf="finalPaymentList.cartItemList && finalPaymentList.cartItemList[0]!=undefined && finalPaymentList.cartItemList[0]!=null && finalPaymentList.cartItemList[0].doctorDetail != undefined && finalPaymentList.cartItemList[0].doctorDetail != null">
+                                                {{(finalPaymentList.cartItemList[0].doctorDetail.title ? finalPaymentList.cartItemList[0].doctorDetail.title : '')+"
+                                                "+(finalPaymentList.cartItemList[0].doctorDetail.firstName ? finalPaymentList.cartItemList[0].doctorDetail.firstName : '')+"
+                                               "+(finalPaymentList.cartItemList[0].doctorDetail.lastName ? 
+                                                finalPaymentList.cartItemList[0].doctorDetail.lastName : '')}}</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Quantity" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <!-- <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined"></span> -->
+                                        <span *ngIf="showItemDescription">
+                                            {{finalPaymentList.cartItemList[0]?.productList[0]?.productName}}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Quantity" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined"></span>
+                                        <span *ngIf="showItemDescription">{{finalPaymentList?.cartItemList[0]?.productList[0]?.quantity}}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Cost" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList.totalOriginalAmount | number :
+                                        '1.2-2'}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Package Discount" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList.totalPackageDiscountAmount | number :
+                                            '1.2-2'}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Other Discount" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{finalPaymentList.totalOtherDiscountAmount | number :
+                                            '1.2-2'}}</span>
+                                    </div>
+                                </td>
+                                <td data-label="Wallet Amount" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span *ngIf="finalPaymentList.cartItemList != undefined && finalPaymentList.cartItemList[0] != null">
+                                            <span *ngIf="finalPaymentList.cartItemList[0].payment.usedWalletAmount">
+                                                {{ finalPaymentList.cartItemList[0].payment.usedWalletAmount | number :
+                                                '1.2-2'}}</span>
+                                        </span> 
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined && finalPaymentList.slotBookingDetailsList[0] != null">
+                                            <span *ngIf="finalPaymentList.slotBookingDetailsList[0].payment.usedWalletAmount">
+                                                {{finalPaymentList?.slotBookingDetailsList[0]?.payment?.usedWalletAmount | number :
+                                                '1.2-2'}}</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Post Wallet" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span *ngIf="finalPaymentList.cartItemList != undefined && finalPaymentList.cartItemList[0] != null">
+                                            <span *ngIf="finalPaymentList.cartItemList[0].payment.usedPostWalletAmount">
+                                                {{ finalPaymentList.cartItemList[0].payment.usedPostWalletAmount | number :
+                                                '1.2-2'}}</span>
+                                        </span>
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined && finalPaymentList.slotBookingDetailsList[0] != null">
+                                            <span *ngIf="finalPaymentList.slotBookingDetailsList[0].payment.usedPostWalletAmount">
+                                                {{finalPaymentList?.slotBookingDetailsList[0]?.payment?.usedPostWalletAmount | number :
+                                                '1.2-2'}}</span>
+                                        </span>                                      
+                                    </div>
+                                </td>
+                                <td data-label="Platform Charges" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        <span *ngIf="finalPaymentList.cartItemList != undefined && finalPaymentList.cartItemList[0] != null">
+                                            <span
+                                                *ngIf="finalPaymentList.cartItemList[0].payment">
+                                                {{ finalPaymentList.cartItemList[0].payment.platformCharges | number :
+                                                '1.2-2'}}</span>
+                                        </span>
+                                        <span *ngIf="finalPaymentList.slotBookingDetailsList != undefined && finalPaymentList.slotBookingDetailsList[0] != null">
+                                            <span *ngIf="finalPaymentList.slotBookingDetailsList[0].payment">
+                                                {{finalPaymentList?.slotBookingDetailsList[0]?.payment?.platformCharges | number :
+                                                '1.2-2'}}</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td data-label="Total" class="admin_order">
+                                    <div class="tabledatalabel-right">
+                                        {{finalPaymentList.totalFinalAmount | number : '1.2-2'}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </section>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="from_txt">
+                <div class="row">
+
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12 total_txt">Grand Total</div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" name="package" class="form-control">
+                </div><br><br><br>-->
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                        {{finalPaymentList && finalPaymentList.orderPaymentStatus==1?'Total Paid Amount':'Total payable amount'}}
+                    </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        <span>{{currencySymbol}} {{finalPaymentList.totalFinalAmount | number : '1.2-2'}}</span>
+                    </div><br><br><br>
+                </div>
+                <div class="row" *ngIf="finalPaymentList.orderPaymentStatus !=1">
+                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment mode: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-12 paymode_cash">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" value="0" [checked]="paymentModeIndex == 2" (change)="checkPaymentModeSelection(2)"> Cash &nbsp;&nbsp;
+                            <input type="radio" name="paymant" value="1" [checked]="paymentModeIndex == 5" (change)="checkPaymentModeSelection(5)"> Mobile &nbsp;&nbsp;
+                            <input type="radio" name="paymant" value="2" id="other-payment" [checked]="paymentModeIndex == 0 || paymentModeIndex == 1 || paymentModeIndex > 5" (change)="checkPaymentModeSelection(0)"> Others
+                            <div class="other-paymentdetails">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                        <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                            <option value="0">Select</option>
+                                            <option value="1" selected="{{paymentModeIndex == 1?'selected':''}}">Card
+                                            </option>
+                                            <option value="8" selected="{{paymentModeIndex == 8?'selected':''}}">PhonePe
+                                            </option>
+                                            <option value="6" selected="{{paymentModeIndex == 6?'selected':''}}">Google
+                                                Pay</option>
+                                            <option value="7" selected="{{paymentModeIndex == 7?'selected':''}}">PayTM
+                                            </option>
+                                            <option value="11" selected="{{paymentModeIndex == 11?'selected':''}}">NEFT
+                                            </option>
+                                            <option value="12" selected="{{paymentModeIndex == 12?'selected':''}}">UPI
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <input type="text" placeholder="Transaction Id" [ngModelOptions]="{standalone: true}" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br><br><br>
+                </div>
+                <div class="row" *ngIf="finalPaymentList.orderPaymentStatus !=1">
+                    <div class="col-md-5 col-sm-6 col-xs-12"></div>
+                    <div class="col-md-7 col-sm-6 col-xs-12">
+                        <button class="submit_txt" role="button" value="Pay Now" (click)="makePayment()">PAY
+                            NOW</button>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="showPrintOption">
+                    <!-- <div class="col-md-8"></div> -->
+                    <div class="col-md-5 col-sm-6 col-xs-6">
+
+                    </div>
+                    <div class="col-md-7 col-sm-6 col-xs-6">
+                        <div *ngIf="paymentDeskListResponse.slotBookingDetailsList != undefined && paymentDeskListResponse.slotBookingDetailsList.length > 0 && paymentDeskListResponse.slotBookingDetailsList[0]">
+                            <a class="btn print-btn mr-2 pl-0" (click)="showPdf(paymentDeskListResponse.slotBookingDetailsList[0])"><span
+                                    class="glyphicon glyphicon-print"></span>&nbsp;PRINT</a>
+                        </div>
+                        <div class="total_txt" *ngIf="paymentDeskListResponse.cartItemList != undefined && paymentDeskListResponse.cartItemList.length > 0 && paymentDeskListResponse.cartItemList[0]">
+                            <a class="btn print-btn mr-2 pl-0" (click)="showPdf(paymentDeskListResponse.cartItemList[0])"><span
+                                    class="glyphicon glyphicon-print"></span>&nbsp;PRINT</a>
+                        </div>
+                        <button class="submit_txt" (click)="goTopaymentDesk()">HOME</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Payment Done</h4>
+            </div>
+            <div class="modal-body">
+                <p>Your payment has been successfully done!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<spinner-component></spinner-component>

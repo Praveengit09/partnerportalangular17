@@ -1,0 +1,240 @@
+<div class="autorefresh-refreshbutton">
+    <button class="btn queueinfo_btn mr-0 mb-1" (click)="openModal('#queueinfo')">Screen View</button>
+</div>
+
+<section class="widget table_pading queue_widget" widget="">
+    <div class="widget-body table-responsive table-datalabel widget-shadow">
+        <table class="table table-hover table-striped hs_tabletxt">
+            <thead>
+                <tr class="table_queue">
+                    <th>#</th>
+                    <th>Patient Name</th>
+                    <th>Patient Mobile No</th>
+                    <th>Token</th>
+                    <th class="sort-default">Service Type</th>
+                    <th>Consultation Type</th>
+                    <th>Slot Booked</th>
+                    <th>Wait Time (in Mins)</th>
+                    <th *ngIf="scanAndUploadPrescriptions">Upload Prescription</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table_queue" *ngFor="let item of patientConsultationQueueList; let i=index">
+                    <td data-label="#" class="general_phy">
+                        <div class="tabledatalabel-right">{{i+1}}</div>
+                    </td>
+                    <td data-label="Patient Name" class="general_phy image_circle">
+                        <div class="tabledatalabel-right">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div
+                                        *ngIf="item.patientProfilePic==null || item.patientProfilePic==undefined ||  item.patientProfilePic=='' ">
+                                        <img alt="here" class="rounded-circle" style="height:57px; width: 57px;"
+                                            src="../../../../assets/img/avatar.png">
+                                        <!-- </div>
+                                    <div *ngIf="queue.patientProfilePic!=undefined"> -->
+                                        <!-- {{item.patientProfilePic}}> -->
+                                    </div>
+                                    <div
+                                        *ngIf="item.patientProfilePic!=null && item.patientProfilePic!=undefined && item.patientProfilePic!='' ">
+                                        <img alt="..." class="rounded-circle" style="height:57px; width: 57px;"
+                                            src="{{item.patientProfilePic}}">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <span>{{item.patientTitle?item.patientTitle+'. ':''}}
+                                        {{(''+item.patientFirstName).slice(0,25)}}
+                                        {{item.patientLastName?(''+item.patientLastName).slice(0,25):''}}</span>
+                                    <div class="row">
+                                        <ul>
+                                            <li>{{item.patientGender}}, {{item.patientAge}}</li>
+                                            <li *ngIf="item.typeOfAppointment == 1" class="follow_txt">Follow-up</li>
+                                            <li *ngIf="item.typeOfAppointment == 0" class="new_txt">New</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-label="Patient Mobile No" class="general_phy">
+                        <div class="tabledatalabel-right"><span>{{item.patientContactNumber}}</span></div>
+                    </td>
+                    <td data-label="Patient Token No" class="general_phy">
+                        <div class="tabledatalabel-right"><span>{{item.appointmentToken}}</span></div>
+                    </td>
+                    <td data-label="Service Type" class="general_phy service_column">
+                        <div class="tabledatalabel-right">
+                            <!-- <span>{{getServiceName(item.serviceId)}}</span> -->
+                            <span *ngIf="selectedDoctor != undefined">
+                                <span *ngFor="let service of selectedDoctor.serviceList">
+                                    <span *ngIf="item.serviceId == service.serviceId">{{service.serviceName}}</span>
+                                </span>
+                            </span>
+                            <ul style="padding-left: 0px;">
+                                <li style="width: 100%"></li>
+                                <li style="width: 100%">
+                                    Visits({{item.visitDetails!=null?item.visitDetails.noOfVisits:'-'}}),</li>
+                                <li style="width: 100%">{{currencySymbol}}
+                                    {{(item.visitDetails?item.visitDetails.revenue:0) |number : '1.2-2'}}</li>
+                                <li *ngIf="(doctorServiceType && doctorServiceType.get(item.serviceId) && doctorServiceType.get(item.serviceId).serviceName)"
+                                    style="width: 100%">{{doctorServiceType.get(item.serviceId).serviceName}}</li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td data-label="Consultation Type" class="docbooking general_phy">
+                        <div class="tabledatalabel-right">
+                            <h6>{{subType[item.bookingSubType]}}</h6>
+                        </div>
+                    </td>
+                    <td data-label="Slot Booked" class="general_phy">
+                        <div class="tabledatalabel-right">
+                            <span>{{item.slotTime | date:'shortTime'}}</span>
+                            <ul style="padding-left: 0px;">
+                                <span>{{item.time | date:'shortTime'}}</span>
+                                <p *ngIf="item.visitDetails!=null && item.visitDetails.noOfVisits > 1 ">Last on
+                                    {{item.visitDetails.lastVisitedDate | date: 'dd/MM/yyyy'}}</p>
+                                <p
+                                    *ngIf="item.visitDetails== undefined || item.visitDetails==null || item.visitDetails.noOfVisits <= 1">
+                                    NA</p>
+                            </ul>
+                        </div>
+                    </td>
+                    <td data-label="Wait Time (in Mins)" class="min_order general_phy">
+                        <div class="tabledatalabel-right">
+                            <span>
+                                <a *ngIf="item.waitingTime>0 && item.bookingSubType!=2">
+                                    {{item.waitingTime | number:'1.0-0'}}
+                                </a>
+                                <a *ngIf="item.waitingTime < 0  && item.bookingSubType!=2">0</a>
+                            </span>
+                            <!-- <span>
+                                <a *ngIf="getWaitingTime(item)>0">
+                                    {{getWaitingTime(item) | number:'1.0-0'}}
+                                </a>
+                                <a *ngIf="getWaitingTime(item) < 0">0</a>
+                            </span> -->
+                        </div>
+                    </td>
+                    <!-- <td class="general_phy" *ngIf="scanAndUploadPrescriptions">
+                        <button class="btn btn-info uplad-pres" data-toggle="modal" data-target="#uploadPrescription" (click)="getQueue(item)">Upload Prescription</button>
+                    </td> -->
+                    <td class="general_phy upload-presbtn" *ngIf="scanAndUploadPrescriptions">
+                        <button class="btn btn-info uplad-pres"
+                            (click)="getQueue(item);uploadFilesList=[];successMsg='';successColor='black';openModelWithOutClose('uploadPrescription')">Upload
+                            Prescription</button>
+                        <button *ngIf="printBlankLetterHead" class="btn btn-info uplad-pres"
+                            (click)="convertToPdf(item);uploadFilesList=[];successMsg='';successColor='black';">
+                            Print BlankLetterHead</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Screen View Modal -->
+<div class="modal" id="queueinfo" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-toggle="modal" data-dismiss="modal" aria-label="Close" class="close" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a class="nav-link"><img class="logo_icon logo-md ml-0" src="{{getAssertsLogoPath()+'logo.png'}}"
+                        alt="..." /></a>
+                <a class="nav-link"><img class="logo_icon logo-sm ml-0" src="{{getAssertsLogoPath()+'logo_sm.png'}}"
+                        alt="..." /></a>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1 class="page-title mt-1 mb-1">Consultation Queue Status</h1>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="autorefresh-refreshbutton mt-1 mb-1">
+                            <auto-refresh (refreshEvent)="pageRefresh()" [componentName]='consultationQueueIndex'>
+                            </auto-refresh>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="widget table_pading queue_widget" widget="">
+                    <div class="widget-body table-responsive table-datalabel">
+                        <table class="table table-hover table-striped hs_tabletxt">
+                            <thead>
+                                <tr class="table_queue">
+                                    <th>#</th>
+                                    <th>Patient Details</th>
+                                    <th>Doctor Details</th>
+                                    <th>Slot Booked</th>
+                                    <th>Wait Time (in Mins)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table_queue" *ngFor="let queue of waitingPatientDetailsList; let i=index">
+                                    <td data-label="#" class="general_phy">
+                                        <div class="tabledatalabel-right">{{i+1}}</div>
+                                    </td>
+                                    <td data-label="Patient Details" class="general_phy image_circle">
+                                        <div class="tabledatalabel-right">
+                                            <span>{{queue.patientTitle?queue.patientTitle+'. ':''}}
+                                                {{(''+queue.patientFirstName).slice(0,25)}}
+                                                {{queue.patientLastName?(''+queue.patientLastName).slice(0,25):''}}</span><br>
+                                            <span>{{queue.patientGender}}, {{queue.patientAge}}</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="Doctor Details">
+                                        <div class="tabledatalabel-right">Dr. {{queue.doctorFirstName}}
+                                            {{queue.doctorLastName?queue.doctorLastName:''}}</div>
+                                    </td>
+                                    <td data-label="Slot Booked" class="general_phy">
+                                        <div class="tabledatalabel-right">
+                                            <span>{{queue.time | date:'shortTime'}}</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="Wait Time (in Mins)" class="min_order general_phy">
+                                        <div class="tabledatalabel-right">
+                                            <span>{{queue.waitingTime | number:'1.0-0'}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Upload Prescription modal-->
+<div class="modal fade" id="uploadPrescription" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border: none">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>Close
+                </button>
+                <!-- <h4 class="modal-title">Upload Prescription</h4> -->
+            </div>
+            <uploadcard (isNgOnItTriggered)="ngOnInit()"></uploadcard>
+            <!-- <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" aria-describedby="fileHelp" (change)="fileUpload($event)">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger" [disabled]="!uploadFilesList" (click)="upload()">
+                            UPLOAD </button>
+                    </div>
+                </form>
+                <span [style.color]="successColor">{{successMsg}}</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

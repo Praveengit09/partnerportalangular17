@@ -1,0 +1,42 @@
+.receipt-pdf {
+    .doctors-details-pdf {
+        p {
+            font-size: 1rem;
+            margin-bottom: 0px;
+        }
+    }
+
+    .hs-details-heading {
+        font-size: 1rem;
+        margin-bottom: 0px;
+        font-weight: 700;
+    }
+
+    .hs-details {
+        font-weight: 400;
+    }
+
+    .bottom-border {
+        border: none;
+        height: 1px;
+        background: black;
+    }
+
+    .patient-details-pdf {
+        min-height: 1250px;
+        height: 100%;
+    }
+
+    .hospital-logo {
+        display: inline-flex;
+
+        h4 {
+            padding-top: 20px;
+            padding-left: 10px;
+        }
+    }
+    .paddingLeftRight{
+        padding:25px;
+    }
+    
+}

@@ -1,0 +1,25 @@
+<div class="container">
+    <main id="content" class="widget-login-container" role="main">
+        <div class="row">
+            <div class="col-xl-4 col-md-6 col-xs-10 offset-xl-4 offset-md-3 offset-xs-1">
+                <section class="widget widget-login animated fadeInUp">
+                    <header>
+                        <h3>Select Centre</h3>
+                    </header>
+                    <div class="widget-body">
+                        <form class="login-form mt-lg">
+                            <div class="form-group" *ngFor="let poc of pocList; let position = index">
+                                <input type="radio" name="pocName" (change)="selectPoc(poc,position)" id={{poc.pocId}} value={{poc.pocId}}><label for={{poc.pocId}}> {{poc.pocName}}</label>
+                            </div>
+                            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer class="page-footer">
+        2023 &copy; {{environment}} Partner Manager.
+    </footer>
+</div>
+<spinner-component></spinner-component>

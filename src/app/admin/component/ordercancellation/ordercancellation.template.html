@@ -1,0 +1,238 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Cancellation List</h1>
+    <!-- <h6 class="sub-title">Search orders</h6> -->
+
+    <div class="row all_tableh">
+        <!--<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+
+            <form action="#">
+
+                <h6 class="sub-title">Search orders</h6>
+                <input type="radio" id="checkOrderId" name="searchcriteria" value="orderId" checked (change)="onSearchChange('orderId')">
+                <label for="advice" class="radio_txt">Order ID</label>
+                <input type="radio" id="checkMobile" name="searchcriteria" value="contactNo" (change)="onSearchChange('contactNo')">
+                <label for="advice" class="radio_txt">Mobile Number</label>
+                <input type="text" id="searchBox" name="search" #search class="serch_txt" placeholder="Enter Search query">
+                <button type="button" class="btn btn-danger width-100 mb-xs search_btn" (click)="getCancellationListBasedOnPhnNoOrId(search.value)">
+        SEARCH
+          </button>
+                <button type="button" class="btn btn-primary width-100 mb-xs search_btn" role="button" (click)="getRefreshedorderList()">Refresh</button>
+            </form>
+            <p *ngIf="isCorrectMobile" class="enter_error">Enter Valid 10 digit Number..!</p>
+        </div>
+
+        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+
+            <div class="filter_txt">
+                <h6 class="sub-title">Filter by Area</h6>
+                <form>
+                    <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse" (change)="onLocationChange($event.target.value)">
+                        <option value = 0 >Select Area</option>
+                        <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j+1>{{locationArea.name}}</option>
+      </select>
+                </form>
+            </div>
+
+            <div class="filter_txt select_city">
+                <h6 class="sub-title">Filter by City</h6>
+                <form>
+                    <select class="form-control" *ngIf="cityResponse" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}" (change)="onCityChange($event.target.value)">
+              <option value = 0 >Select City</option>
+              <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}</option>
+          </select>
+
+                </form>
+            </div>
+
+            <div class="filter_txt">
+                <h6 class="sub-title">Filter by State</h6>
+                <form>
+                    <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone : true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+            <option value = 0 >Select State</option>     
+            <option *ngFor="let loc of stateResponse;let i = index" [value]=i+1>{{loc.name}}</option>
+         </select>
+
+                </form>
+            </div>
+
+        </div>-->
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary width-100 mb-xs reset_btn" role="button" (click)="getRefreshedorderList()"><span class="glyphicon glyphicon-repeat"></span><span class="reset_txt">REFRESH</span></button>
+                </div>
+                <div class="col-lg-5 col-md-12">
+                    <div class="row">
+                        <!-- <div class="col-md-12">
+                            <input type="radio" id="checkOrderId" name="searchcriteria" value="orderId" checked (change)="onSearchChange('orderId')">
+                            <label for="advice" class="radio_txt">Order ID</label>
+                            <input type="radio" id="checkMobile" name="searchcriteria" value="contactNo" (change)="onSearchChange('contactNo')">
+                            <label for="advice" class="radio_txt">Mobile Number</label>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-10 col-xs-8">
+                                    <input type="text" id="searchBox" name="search" #search class="serch_txt" placeholder="Enter Search query">
+                                </div>
+                                <div class="col-md-4 col-sm-2 col-xs-4">
+                                    <button type="button" class="btn btn-danger width-100 mb-xs search_btn" (click)="getCancellationListBasedOnPhnNoOrId(search.value)">
+                                            SEARCH</button>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline" class="search-orders">
+                                <mat-label>Order ID/Mobile Number</mat-label>
+                                <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Order ID/Mobile Number">
+                                <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getCancellationListBasedOnPhnNoOrId()"></i>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-7 col-md-12">
+                    <div class="filter_txt select_city">
+                        <h6 class="sub-title">Filter by Area</h6>
+                        <form>
+                            <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse" (change)="onLocationChange($event.target.value)">
+                                    <option value = 0 >Select Area</option>
+                                    <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j+1>{{locationArea.name}}</option>
+                  </select>
+                        </form>
+                    </div>
+
+                    <div class="filter_txt">
+                        <h6 class="sub-title">Filter by City</h6>
+                        <form>
+                            <select class="form-control" *ngIf="cityResponse" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}" (change)="onCityChange($event.target.value)">
+                          <option value = 0 >Select City</option>
+                          <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}</option>
+                      </select>
+
+                        </form>
+                    </div>
+
+                    <div class="filter_txt">
+                        <h6 class="sub-title">Filter by State</h6>
+                        <form>
+                            <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone : true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+                        <option value = 0 >Select State</option>     
+                        <option *ngFor="let loc of stateResponse;let i = index" [value]=i+1>{{loc.name}}</option>
+                     </select>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p *ngIf="isCorrectMobile" class="enter_error">Enter Valid 10 digit Number..!</p>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="orderHistoryRemarkList" [sort]="sorting" [componentId]="'orderHistoryRemarkListTable'" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)" (clickEvent)="clickEventHandler($event)">
+                        Loading table...
+                    </hs-table>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="modal-2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Cancellation Remarks</h4>
+                <hr>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label for="descrip">Description</label><br>
+                    <textarea rows="4" id="remarkArea" cols="50" name="remark" #remark class="form-control title_txt"></textarea>
+                    <button type="button" class="btn-serch" value="serch" (click)="onRemarkSubmit(remark.value)">Submit</button>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                <h4 class="modal-title">Order Details</h4>
+                <hr>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Order Id:</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{orderId_Hyper}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Customer Details:</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{customerDetails_Hyper}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Centre Details</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{pocs_Hyper}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Doctor Name</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{docName_Hyper}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Booked Date</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{bookingDates_Hyper | date:'mediumDate'}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Slot Date</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{slotDate_Hyper | date:'mediumDate'}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Slot Time</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{slotTime_Hyper | date:'mediumTime'}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Payment Status</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{payStatus_Hyper}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label for="descrip">Payment Type</label></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8 medicine_detail">
+                            <span class="medicine_txt">{{payType_Hyper}}</span>
+                        </div>
+                    </div>
+
+
+                </form>
+                <button type="button" class="btn btn-serch" data-dismiss="modal">CLOSE</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

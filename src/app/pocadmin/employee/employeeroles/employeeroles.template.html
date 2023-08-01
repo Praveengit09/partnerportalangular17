@@ -1,0 +1,166 @@
+<div class="emp_roles">
+  <div class="row ml-0">
+    <div class="col-md-11 col-lg-10 emp_poc_roles">
+
+      <div class="emp_profile">
+        <div class="profile_pic">
+          <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="this.doctorDetails.imageUrl!=undefined">
+            <img [src]="this.doctorDetails.imageUrl" class="employee_img2">
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3"
+            *ngIf="this.doctorDetails.gender=='Male' && this.doctorDetails.imageUrl==undefined">
+            <img alt="..." class="employee_img2" src="assets/img/default-avatar-male.png">
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3"
+            *ngIf="this.doctorDetails.gender=='Female' && this.doctorDetails.imageUrl==undefined">
+            <img alt="..." class="employee_img2" src="assets/img/default-avatar-female.png">
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3"
+            *ngIf="this.doctorDetails.gender=='Others' && this.doctorDetails.imageUrl==undefined">
+            <img alt="..." class="employee_img2" src="assets/img/default-avatar-others.png">
+          </div>
+
+        </div>
+        <div class="about_profile">
+          <h5>{{doctorDetails.title}} {{doctorDetails.firstName}}
+            {{doctorDetails.lastName?doctorDetails.lastName:''}}</h5>
+          <p class="serial_number2" *ngIf="doctorDetails.type==0">Doctor</p>
+          <p class="serial_number2" *ngIf="doctorDetails.type==1">Expert</p>
+          <p class="serial_number2" *ngIf="doctorDetails.type==2">App User</p>
+          <p class="serial_number2" *ngIf="doctorDetails.type==3">Other</p>
+          <p> {{doctorDetails.gender}}</p>
+          <p>{{ doctorDetails.contactList}}</p>
+          <p class="profile_email">{{doctorDetails.emailId}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+         <button type="submit" class="button_addtxt add_medicine" value="Associate New POC" data-toggle="modal"
+             (click)="newPoc()">
+             Associate POC</button>
+       </div>
+     </div>
+      <hr class="first_hr">
+      <div>
+        <div class="workplc_details p-2" *ngFor="let selPoc of doctorJoinedPocList;let pocIndex=index">
+
+          <div class="add_roles mt-3">
+            <h2>Employee Roles</h2>
+            <button class="add_roles_btn" value="edit roles" (click)="onEditpoc(pocIndex)" data-toggle="modal">Add
+              Roles</button>
+          </div>
+          <div class=" col-sm-12">
+            <div class="row edit_setting">
+              <div class="col-xs-12 pl-0 pb-2">
+                <p class="emp_poc_name">{{selPoc.pocName}}</p>
+                <div class="col-md-6 col-sm-6 col-xs-6 chiller_cb;">
+
+                  <label for="myCheckbox1">Mark as Default</label>&nbsp;
+                  <input id="myCheckbox1" type="checkbox" class="slectOne" (change)="onValueCheckedd(selPoc)"
+                      [checked]="defaultPocId==selPoc.pocId">
+              </div>
+              </div>
+
+              <div class="col-xs-12 emp_btn_group pl-0">
+                  <button type="button" *ngFor="let roles of selPoc.roleIdName">{{roles}}</button>
+                  
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- is -->
+        <div>
+          <div class="row mapping_list" *ngIf="!isSuperAdmin">
+            <ng-container *ngFor="let selPoc of doctorJoinedPocList;let pocIndex=index">
+              <ng-container *ngIf="selPoc.pocId == this.pocId">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                  <div class="add_roles mt-3">
+                    <h2>Employee Roles</h2>
+                    <button class="add_roles_btn" role="button" value="edit Test" (click)="onEditpoc(pocIndex)"
+                      data-toggle="modal">Add
+                      Roles</button>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="row edit_setting">
+                      <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p class="about_profile">{{selPoc.pocName}}</p>
+                      </div>
+
+                      <div class="row emp_btn_group">
+                        <div class="col-sm-3 col-md-3 col-lg-2">
+                          <p *ngFor="let roles of selPoc.roleIdName">{{roles}}</p>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                 
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+
+        </div>
+      </div>
+      <div class="form-group col-md-8 col-lg-6 pt-1 pl-0 pr-0 next_work_place_btn">
+        <button id="singlebutton" name="singlebutton" class="btn  Update" (click)="onLocationmapping()">NEXT:Location
+          Mapping</button>
+        </div>
+        
+      </div>
+      <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+      
+    <div class="modal fade" id="myModal47" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" (click)="closePopUp()">&times;</button>
+            <h4 class="modal-title">Associated POC</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row form-group">
+            </div>
+            <div class="row custom_chk slot_booktxt">
+              <div class="col-md-2 col-xs-6 col-sm-6 custom_chk" *ngFor="let role of roleList;let i=index">
+                <span *ngIf="!isSuperAdmin && !saasSubscriber">
+                  <div *ngIf="role.type==0 || role.type==1">
+                    <input type="checkbox" id={{i}} name={{i}} (click)="getRoleDetails(role,i)" disabled checked />
+                    <label class="role_size slot-disabled" for={{i}}>
+                      <p>{{role.roleName}}</p>
+                    </label>
+                  </div>
+                  <div *ngIf="role.type!=0 && role.type!=1">
+                    <input type="checkbox" id={{i}} name={{i}} (click)="getRoleDetails(role,i)"
+                      [disabled]="(doctorDetails.type==EmployeeType.DOCTOR  || doctorDetails.type==1)&& role.roleId==3" />
+                    <label class="role_size" for={{i}}>
+                      <p>{{role.roleName}}</p>
+                    </label>
+                  </div>
+                </span>
+                <span *ngIf="isSuperAdmin || saasSubscriber">
+                  <div>
+                    <input type="checkbox" id={{i}} name={{i}} (click)="getRoleDetails(role,i)"
+                      [checked]="(doctorDetails.type==EmployeeType.DOCTOR  || doctorDetails.type==1)&& role.roleId==3"
+                      [disabled]="(doctorDetails.type==EmployeeType.DOCTOR  || doctorDetails.type==1)&& role.roleId==3" />
+                    <label class="role_size" for={{i}}
+                      [class.doctorButton]="(doctorDetails.type==EmployeeType.DOCTOR || doctorDetails.type==1)&& role.roleId==3">
+                      <p>{{role.roleName}}</p>
+                    </label>
+                  </div>
+                </span>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="btnGetValue" Value="Get Value" (click)="updateRole()"
+              [disabled]="this.tempIndex == -1">Done</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- <spinner-component></spinner-component> -->

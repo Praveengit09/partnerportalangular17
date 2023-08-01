@@ -1,0 +1,12 @@
+.delivery_txt{
+    padding: 15px 0px;
+}
+.product_table{
+    border:2px solid #ddd;
+}
+@media screen and (max-width: 320px){
+    .product_table thead{
+        font-style:0.8rem ;
+    }
+
+}

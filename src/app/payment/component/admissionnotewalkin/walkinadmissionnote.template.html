@@ -1,0 +1,218 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">New Order Details</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="newadd_patient" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                <p>Patient
+                    <i aria-hidden="true" class="fa fa-plus add_patient" data-toggle="modal"
+                        data-target="#registerPatientModal" data-backdrop="static" data-keyboard="false"></i>
+                </p>
+                <h4 class="mb-3" *ngIf="selectedRegisteredProfile">
+                    {{selectedRegisteredProfile.selectedProfile.title?selectedRegisteredProfile.selectedProfile.title+".
+                    ":''}} {{selectedRegisteredProfile.selectedProfile.fName}} {{
+                    selectedRegisteredProfile.selectedProfile.lName?selectedRegisteredProfile.selectedProfile.lName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <div class="md-input">
+                    <input class="md-form-control patient_row" type="text" [(ngModel)]="this.doctorFirstName">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Doctor First Name</label>
+                </div>
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <div class="md-input">
+                    <input class="md-form-control patient_row" type="text" [(ngModel)]="this.doctorLastName">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Doctor Last Name</label>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<div class="modal left " id="registerPatientModal">
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component (closeModel)="closeModel('#registerPatientModal')"
+                (onRegisterNewUser)="onRegisterNewUser($event)">
+            </patientregister-component>
+        </div>
+    </div>
+</div>
+
+
+<div class="table_size">
+
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12 perscripton_txt">
+            {{admissionNotePrescriptionLabel ?
+                admissionNotePrescriptionLabel : 'Admission Notes'}}
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <button type="submit" class="button_addtxt add_medicine" (click)="onChangeTest()"
+                value="{{admissionNotePrescriptionLabel ?
+                   'Add '+ admissionNotePrescriptionLabel : 'Add Admission Note'}}">
+                <i class="fa fa-plus add_txt" aria-hidden="true"></i>Add {{admissionNotePrescriptionLabel ?
+                    admissionNotePrescriptionLabel : 'Admission Notes'}}</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading walkinmiscellaneous_widget widget-shadow " widget>
+
+                <div class="widget-body table-datalabel">
+                    <table class="table new_table table-striped">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="head_dogo">#</th>
+                                <th class="">{{admissionNotePrescriptionLabel ?
+                                    admissionNotePrescriptionLabel : 'Admission Notes'}} Name</th>
+                                <th class="">Amount</th>
+                                <th>&nbsp;</th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngIf=" cartItemList[0] != undefined">
+
+                            <tr *ngFor="let item of cartItemList[0].serviceList; let i = index">
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Admission Note Name">
+                                    <div class="tabledatalabel-right">
+                                        <input type="text" class="fname_45txt" placeholder="{{admissionNotePrescriptionLabel ?
+                                            admissionNotePrescriptionLabel + ' Name': 'Admission Note Name'}}"
+                                            value={{item.serviceName}} [(ngModel)]="item.serviceName" />
+                                    </div>
+                                </td>
+                                <td data-label="Amount">
+                                    <div class="tabledatalabel-right">
+                                        {{currencySymbol}}
+                                        <input type="text" min="0" class="noscroll" placeholder=""
+                                            value={{item.grossPrice}} [(ngModel)]="item.grossPrice"
+                                            (keyup)="onChangeAmount()" (change)="onChangeAmount()" maxlength="10"
+                                            (keypress)="validateNumberInputOnly($event)" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="tabledatalabel-right"><i class="fa fa-times removetxt_icon"
+                                            aria-hidden="true" (click)="remove(i)"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+            <div class="row">
+
+                <ng-template [ngIf]="this.admissionnoteAdviseTrack.cartItemList[0].parentProfileId>0">
+                    <br>
+                    <br>
+                    <app-cartdiscount [parentProfileId]="this.admissionnoteAdviseTrack.cartItemList[0].parentProfileId"
+                        [cartItemDetails]="this.admissionnoteAdviseTrack.cartItemList[0]" [discountType]="discountType"
+                        [pocId]="this.pocId">
+                    </app-cartdiscount>
+                </ng-template>
+
+                <ng-template [ngIf]="this.admissionnoteAdviseTrack.cartItemList[0].payment.finalAmount>0">
+                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt paymode_txt">Payment mode: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-12 paymode_cash">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" value="0" checked
+                                (change)="checkPaymentModeSelection(2)"> Cash &nbsp;&nbsp;
+                            <input type="radio" name="paymant" value="1" (change)="checkPaymentModeSelection(5)"> Mobile
+                            &nbsp;&nbsp;
+                            <input type="radio" name="paymant" id="other-payment"
+                                (change)="checkPaymentModeSelection(1)"> Others
+                            <div class="other-paymentdetails">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                        <select class="form-control" (change)="onPaymentChange($event.target.value)">
+                                            <option value="0">Select</option>
+                                            <option value="1">Card</option>
+                                            <option value="2">PhonePe</option>
+                                            <option value="3">Google Pay</option>
+                                            <option value="4">Paytm</option>
+                                            <option value="11">NEFT</option>
+                                            <option value="12">UPI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <input type="text" [(ngModel)]="transactionId"
+                                            [ngModelOptions]="{standalone: true}" placeholder="Transaction Id"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+
+                <br>
+                <br>
+            </div>
+            <button role="button" class="submit_txt" value="Submit" (click)="onFinalSubmit()">Submit</button>
+            <div hs-notification></div>
+        </form>
+    </div>
+</div>
+<br>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="modal right " id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title add_medtxt" id="myModalLabel">Add {{admissionNotePrescriptionLabel ?
+                    admissionNotePrescriptionLabel : 'Admission Note'}}</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" class="form-horizontal">
+                    <div class="form-group dropdown walkin_txt">
+                        <label for="Test" class="all_textboxtxt">{{admissionNotePrescriptionLabel ?
+                            admissionNotePrescriptionLabel : 'Admission Notes'}} Name</label>
+                        <hs-select [defaultSelectLabel]="'Enter Name'" [selectColumns]="selectColumns"
+                            [defaultSelected]="cartItem" [defaultSelectField]="'serviceName'"
+                            [selectTotal]="searchItemsTotal" [selectResults]="cartItemSearchList"
+                            (searchTrigger)="searchTests($event)" (selectTrigger)="getTestName($event)"
+                            (searchTrigger)="searchTests($event)"></hs-select>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity" class="all_textboxtxt">Amount</label>
+                        <input type="text" *ngIf="cartItem!=undefined" [(ngModel)]="searchedTestAmount"
+                            class="form-control" placeholder="Enter value" name="testAmount" id="testAmount">
+
+                    </div>
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                    <input type="button" class="Update" value="{{admissionNotePrescriptionLabel ?
+                       'Add ' + admissionNotePrescriptionLabel : 'Add Admission Notes'}}" (click)="addNewTest()">
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

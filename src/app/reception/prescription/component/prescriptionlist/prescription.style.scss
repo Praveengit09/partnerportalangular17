@@ -1,0 +1,53 @@
+
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+
+// .mat-form-field-appearance-outline .mat-form-field-infix {
+//     padding: 1em 0 0 0 !important;
+// }
+.order-mrgn {
+    margin-top: 6px;
+}
+.submit-btn{
+    margin-top: 8px;
+}
+
+.sgst_txt{
+    font-size: 23px;
+    top: -1px;
+    color: #ff0000;
+}
+.search_doctor_name{
+    margin-top: 2px !important;
+}
+.search_doctor_name ::ng-deep .form-control{
+    padding: 12px 12px;
+    border-radius: 4px;
+    background-color: transparent;
+}
+::ng-deep .datepicker {
+    min-width: 150px !important;
+    width: 100% !important;
+}
+
+@media screen and (min-width:992px) {
+    .order-mrgn {
+        margin-top: 25px;
+    } 
+  
+}
+@media screen and (min-width:1200px) {
+    .filter-payment{
+        margin-top: 9px;
+    }
+}
+@media screen and (max-width: 991px) and (min-width: 576px){
+    .search_doctor_name{
+        margin-top: -18px !important;
+    }
+}
+ .datepicker {
+    min-width: 145px !important;
+    width: 100% !important;
+}

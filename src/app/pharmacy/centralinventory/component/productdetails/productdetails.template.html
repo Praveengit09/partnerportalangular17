@@ -1,0 +1,92 @@
+<h1 *ngIf="pocProductdetails.pocName" class="page-title">{{pocProductdetails.pocName}} - Stock Report</h1>
+<div class="stock-reportinfo">
+    <div class="row">
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="widget-info">
+                <h6>Quantity</h6>
+                <p *ngIf="pocPharmacyDetailsRequest.quantityLess && pocPharmacyDetailsRequest.quantityLess!=0">Less than
+                    {{pocPharmacyDetailsRequest.quantityLess}}</p>
+                <p *ngIf="pocPharmacyDetailsRequest.quantityEquals && pocPharmacyDetailsRequest.quantityEquals!=0">
+                    Equals to {{pocPharmacyDetailsRequest.quantityEquals}}</p>
+                <p *ngIf="pocPharmacyDetailsRequest.quantityGreater && pocPharmacyDetailsRequest.quantityGreater!=0">
+                    Greater than {{pocPharmacyDetailsRequest.quantityGreater}}</p>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="widget-info">
+                <h6>Expiring on</h6>
+                <p>{{(pocPharmacyDetailsRequest.expiryDate && pocPharmacyDetailsRequest.expiryDate!=0)?convertToDate(pocPharmacyDetailsRequest.expiryDate):'ALL'}}
+                </p>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="widget-info">
+                <h6>Drug Form</h6>
+                <p>{{
+                    (pocPharmacyDetailsRequest.drugForm!='')?
+                    (pocPharmacyDetailsRequest.drugForm):'ALL'}}</p>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="widget-info">
+                <h6>Manufacturer</h6>
+                <p>{{(pocPharmacyDetailsRequest.brandName!='')?
+                        pocPharmacyDetailsRequest.brandName:'ALL'
+                    }}</p>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="widget-info">
+                <h6>Supplier</h6>
+                <p>{{(pocPharmacyDetailsRequest.suplierName!='')?
+                        pocPharmacyDetailsRequest.suplierName:'ALL'
+                    }}</p>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="widget-info">
+                <h6>&nbsp;</h6>
+                <a (click)="onClickDownloadExcell()"><img src="assets/img/partner/excel_icon.png"
+                        class="excel-icon">Download Report</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-lg-12">
+
+        <!-- <table class="table hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>#</th>
+                            <th>Medicine Name</th>
+                            <th>Manufacturer</th>
+                            <th>Quantity Left</th>
+                            <th>Batch No</th>
+                            <th>Expiring On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pharmacy of pharmacyInventoryDetail;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{pharmacy?.productName}}</td>
+                            <td>{{pharmacy?.brandName}}</td>
+                            <td>{{(pharmacy?.stockDetails?.totalAvailableQuantity)?pharmacy?.stockDetails?.totalAvailableQuantity:0}}</td>
+                            <td>{{pharmacy?.stockDetails?.batchNo}}</td>
+                            <td class="expiring">{{convertToDate(pharmacy?.stockDetails?.expiryDate)}}</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+        <hs-table [columns]="columns" [pagingList]="pharmacyInventoryDetail" [isStaticPaging]="true"
+            [canSearchTableData]="true" [componentId]="'centralproductdetails'"
+            [total]="(pharmacyInventoryDetail.length)?pharmacyInventoryDetail.length:0">
+            Loading table...
+        </hs-table>
+
+    </div>
+</div>
+
+<div>
+    <button class="btn btn-primary" routerLink="/app/pharmacy/centralinventory/inventoryinformation">Back</button>
+</div>
+<spinner-component></spinner-component>

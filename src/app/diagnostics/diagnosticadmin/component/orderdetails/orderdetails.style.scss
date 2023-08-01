@@ -1,0 +1,247 @@
+
+.advice_text {
+    padding-left: 0px;
+    color: #14a9b5;
+}
+
+.patient_txt {
+    float: left;
+}
+
+.updatebtn {
+    float: right;
+}
+
+.perscripton_txt {
+    font-size: 24px;
+    color: rgba(20, 169, 181, 0.8);
+    font-weight: 500;
+}
+
+.widget_txt1234 {
+    position: relative;
+    margin-bottom: 35px;
+    padding: -1px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: 80px;
+    margin-top: 10px;
+}
+
+.widget_txt1234 .patient_txt h4,
+.widget_txt1234 .patient_txt p {
+    margin: 0px;
+    font-weight: 400;
+}
+
+
+
+@media only screen and (min-width: 320px) {
+    .widget_txt1234 {
+        height: 150px;
+    }
+
+    .widget-body {
+        overflow-x: scroll;
+    }
+
+    .widget_txt1234 .patient_txt h4 {
+        font-size: 16px;
+    }
+
+    .widget_txt1234 .patient_txt p {
+        font-size: 19px;
+    }
+
+    .patient_txt {
+        padding-bottom: 8px;
+    }
+
+    input[placeholder],
+    [placeholder],
+    *[placeholder] {
+        color: #000 !important;
+        border: 1px solid rgba(0, 0, 0, 0.47);
+    }
+
+    .from_txt {
+        width: auto;
+    }
+
+    .modal-header {
+        padding: 15px 15px 11px 30px;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 0px 45px 0px 75px !important;
+    }
+}
+
+@media only screen and (min-width: 640px) {
+    .widget_txt1234 {
+        height: 70px;
+    }
+
+    .widget_txt1234 .patient_txt h4 {
+        font-size: 13px;
+    }
+
+    .from_txt {
+        width: 350px;
+    }
+
+    .modal-header {
+        padding: 15px 15px 11px 0px;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 0px 45px 0px 45px !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .widget_txt1234 .patient_txt h4 {
+        font-size: 18px;
+    }
+
+    .widget_txt1234 {
+        height: 150px;
+    }
+
+    .contact_details {
+        padding-top: 80px;
+    }
+
+    .patient_txt {
+        padding-bottom: 0px;
+    }
+
+    .from_txt {
+        width: 550px;
+    }
+    .widget-body {
+        overflow-x: hidden;
+    }
+}
+
+.processbotton_txt {
+    padding: 5px 25px;
+    font-size: 18px;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+}
+
+.processdone_txt {
+    background-color: #1dc8d5;
+    border-color: #1dc8d5;
+}
+
+.process_widget {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+}
+
+.process_widget .table {
+    margin-bottom: 0px;
+}
+
+@media screen and (max-width: 600px) {
+    .from_txt .submit_txt,
+    .from_txt .editbutton {
+        padding: 5px 20px;
+    }
+}
+
+@media screen and (min-width: 601px) {
+
+    .table td {
+        width: 14%;
+    }
+
+    .process_widget {
+        border: 2px solid #e6e6e6 !important;
+    }
+}
+
+//------------------------- image ----------
+
+.newadd_process {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.newadd_processcroll {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.newadd_process .patient_txt h4 {
+    font-size: 21px;
+}
+
+.prescription_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 25px;
+}
+
+.prescription_jpg h4 {
+    color: #11a9b5;
+}
+
+.prescription_padding {
+    padding-left: 0px;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.image_download {
+    margin-left: 40%;
+}
+
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+
+.image_clickpopup {
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+
+.modal-body {
+    margin-top: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}

@@ -1,0 +1,172 @@
+<div class="row inventory-reports">
+    <div class="col-md-12">
+        <h1 class="page-title">Monthly Sales Report</h1>
+        <div class="report-sec">
+            <div class="report-widget">
+                <h6>Total Sales (Revenue)</h6>
+                <span>
+                    {{(monthlySalesReportRes&&monthlySalesReportRes.totalRevenue?monthlySalesReportRes.totalRevenue:0)|
+                    currency:'INR':true:'1.2-2'}}</span>
+            </div>
+            <div class="report-widget">
+                <h6>Total Sales (Medicines)</h6>
+                <span>{{(monthlySalesReportRes&&monthlySalesReportRes.medicineTotalSales?monthlySalesReportRes.medicineTotalSales:0)|
+                    number : '1.2-2'}}</span>
+            </div>
+            <div class="report-widget">
+                <h6>Home Orders</h6>
+                <span>{{(monthlySalesReportRes&&monthlySalesReportRes.homeOrders?monthlySalesReportRes.homeOrders:0)|
+                    number : '1.2-2'}}</span>
+            </div>
+            <div class="report-widget">
+                <h6>Mobile Payments</h6>
+                <span>
+                    {{(monthlySalesReportRes&&monthlySalesReportRes.mobilePayment?monthlySalesReportRes.mobilePayment:0)|
+                    currency:'INR':true:'1.2-2'}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <h1 class="page-title col-md-8">Orders Fulfilled Per Day</h1>
+            <div class="col-md-2 col-xs-6">
+                <select name="months" id="months" (change)="onSelecteMonth($event.target.value,'month')"
+                    [(ngModel)]="monthIndex">
+                    <!-- <option value="-1">--select month--</option> -->
+                    <option *ngFor="let item of monthNames;let i=index" value="{{i}}"
+                        [disabled]="!allowMonthSelect && today.getMonth()<i">
+                        {{item}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-2 col-xs-6">
+                <select name="months" id="months" (change)="onSelecteMonth($event.target.value,'year')"
+                    [(ngModel)]="yearIndex">
+                    <!-- <option value="-1">--select month--</option> -->
+                    <option *ngFor="let item of yearList;let i=index" value="{{i}}">{{item}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngIf="this.ordersFulfilsPerDay.dataset" class="report-sec">
+                    <chartsGraph [chartType]="'line'" [chartLabels]="ordersFulfilsPerDay.labels"
+                        [chartData]="ordersFulfilsPerDay.dataset" [classNames]="'inventryReport'"
+                        [id]="'inventryReport'">
+                    </chartsGraph>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <h1 class="page-title col-md-6">Diagnosis Vs Pharmacy</h1>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <hs-select [defaultSelectLabel]="'Search Diagnosis Name'" [defaultSelectField]="'name'"
+                [selectColumns]="SymtomList" class="Symptom search-field"
+                [selectResults]="symtomListRes" (searchTrigger)="searchSymptoms($event)"
+                (selectTrigger)="selecetedSymptom($event)" ></hs-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hs-table [columns]="columnsGetDiagnosisVsMedicineRes" [pagingList]="getDiagnosisVsMedicineRes"
+                    (clickEvent)="clickEventHandler($event)" [componentId]="'getDiagnosisVsMedicineRes'"
+                    [perPage]="perPage" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <h1 class="page-title col-6 col-md-6">Manufacturer Vs Doctor</h1>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <select name="months" id="months"
+                    (change)="onDropDownChange($event.target.value,'manuVDoctorBrandIndex')"
+                    [(ngModel)]="manuVDoctorBrandIndex">
+                    <option value="-1" [disabled]="true">--Select Manufacturer--</option>
+                    <option *ngFor="let item of brandListRes;let i=index" value="{{i}}">{{item.brandName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hs-table [columns]="columnsManufacturarVsDoctorRes" [pagingList]="manufacturarVsDoctorRes"
+                    (clickEvent)="clickEventHandler($event)" [componentId]="'manufacturarVsDoctorRes'"
+                    [perPage]="perPage" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <h1 class="page-title col-6 col-md-6">Manufacturer Vs Drugs Sold</h1>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <select name="months" id="months"
+                    (change)="onDropDownChange($event.target.value,'manuVDrugsBrandIndex')"
+                    [(ngModel)]="manuVDrugsBrandIndex">                    
+                    <option value="-1" [disabled]="true">--Select Manufacturer--</option>
+                    <option *ngFor="let item of brandListRes;let i=index" value="{{i}}">{{item.brandName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hs-table [columns]="columnManufacturarVsDrugsSoldRes" [pagingList]="manufacturarVsDrugsSoldRes"
+                    (clickEvent)="clickEventHandler($event)" [componentId]="'manufacturarVsDrugsSoldRes'"
+                    [perPage]="perPage" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <h1 class="page-title col-md-12">Top Drugs Sold</h1>
+            <div class="col-md-12">
+                <hs-table [columns]="columnTopDrugsSoldRes" [pagingList]="topDrugsSoldRes"
+                    (clickEvent)="clickEventHandler($event)" [componentId]="'topDrugsSoldRes'" [perPage]="perPage"
+                    (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <h1 class="page-title col-md-9">Manufacturer Vs Diagnosis Vs Sales</h1>
+            <div class="col-md-3">
+                <select name="months" id="months"
+                    (change)="onDropDownChange($event.target.value,'manuVDiaVSalesBrandIndex')"
+                    [(ngModel)]="manuVDiaVSalesBrandIndex">
+                    <option value="-1" [disabled]="true">--Select Manufacturer--</option>
+                    <option *ngFor="let item of brandListRes;let i=index" value="{{i}}">{{item.brandName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hs-table [columns]="columnManufacturarVsDiagnosisVsSalesRes"
+                    [pagingList]="manufacturarVsDiagnosisVsSalesRes" (clickEvent)="clickEventHandler($event)"
+                    [componentId]="'manufacturarVsDiagnosisVsSalesRes'" [perPage]="perPage"
+                    (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

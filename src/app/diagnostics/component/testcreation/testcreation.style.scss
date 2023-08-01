@@ -1,0 +1,35 @@
+.test_name{
+    font-size: 1.07rem;
+}
+.button_update {
+    background-color: #14a9b5;
+    font-size: 16px;
+    color: #fff;
+}
+.cencel_txt{
+    font-size: 16px;
+}
+.SalePrice_txt{
+    color:#ff0000;                                          
+}
+.update_btn{
+    padding-left: 0px;
+}
+.float-right {
+    float: right;
+}
+@media only screen and (max-width: 767px){
+    .diagnostic-testsearch .table_hs_search{
+        margin-left: -13px !important;
+    }
+}
+@media (min-width: 280px) and (max-width: 737px){
+    .update_btn{
+      padding-bottom: 20px;
+      padding-left: 15px;
+    }
+    .float-right{
+        float: none;
+    }
+    
+  }

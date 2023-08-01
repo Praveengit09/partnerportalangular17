@@ -1,0 +1,196 @@
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6 advice_text">
+        <h2>Order ID:</h2>
+        <h2> {{supplierAdviseTrack.orderId}}</h2>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6 advice_text">
+        <h2> Ordered By:</h2>
+        <h2>{{supplierAdviseTrack.purchaserPocDetails.pocName}}</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <ng-container *ngIf="supplierAdviseTrack.payment.paymentStatus == 1">
+            <button role="button" class="btn processbotton_txt processdone_txt1 accept_txt"
+                (click)="onPrintButtonClick()">Print</button>
+        </ng-container>
+
+        <ng-container *ngIf="supplierAdviseTrack.invoiceCompletionStatus <=3 && supplierAdviseTrack.payment.paymentStatus == 0">
+            <button role="button" class="processbotton_txt processdone_txt1 accept_txt"
+                (click)="dispatchOrder(22)">Reject
+                Order</button>
+        </ng-container>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-12">
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body table-responsive table-datalabel widget-shadow">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">
+                                #
+                            </th>
+
+                            <th class="">
+                                Medicine Name
+                            </th>
+
+                            <th class="">
+                                Quantity
+                            </th>
+
+                            <th class="">
+                                Batch No
+                            </th>
+
+                            <th class="">
+                                ExpiryDate
+                            </th>
+
+                            <th class="">
+                                Price
+                            </th>
+
+                            <th class="">
+                                Taxes
+                            </th>
+
+                            <th class="">
+                                Total Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        *ngFor="let item of supplierAdviseTrack.pharmacyList? supplierAdviseTrack.pharmacyList : supplierAdviseTrack.productList; let i =index">
+                        <tr>
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Medicine Name">
+                                <div class="tabledatalabel-right">
+                                    <span>{{item.productName}} </span>
+                                </div>
+                            </td>
+
+                            <td data-label="Quantity">
+                                <div class="tabledatalabel-right"><span>{{item.quantity}} </span></div>
+                            </td>
+
+                            <td data-label="Batch Number">
+                                <div class="tabledatalabel-right">{{item.stockDetails.batchNo}}</div>
+                            </td>
+                            
+                            <td data-label="Expiry">
+                                <div class="tabledatalabel-right">{{item.stockDetails.expiryDate | date }}</div>
+                            </td>
+
+                            <td data-label="Price">
+                                <div class="tabledatalabel-right"><span>{{item.grossPrice | number : '1.0-2'}} </span>
+                                </div>
+                            </td>
+
+                            <td data-label="Taxes">
+                                <div class="tabledatalabel-right"><span>{{item.taxationAmount | number : '1.0-2'}}
+                                    </span></div>
+                            </td>
+
+                            <td data-label="Total Amount">
+                                <div class="tabledatalabel-right">
+                                    <span>{{item.finalAmount | number : '1.0-2'}} </span></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+        <form action="#" class="from_txt ">
+            <div class="row process_original">
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Original Amount (OA) :
+                    <p class="with_txt">(Without Taxes)</p>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{supplierAdviseTrack.payment.originalAmount|currency:'INR':true:'1.2-2'}} </div>
+                <ng-template [ngIf]="supplierAdviseTrack.payment.otherDiscountAmount">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Other Discounts (OD) :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(supplierAdviseTrack.payment.otherDiscountAmount?supplierAdviseTrack.payment.otherDiscountAmount:0)|currency:'INR':true:'1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="supplierAdviseTrack.payment.usedWalletAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount (WD) :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(supplierAdviseTrack.payment.usedWalletAmount?supplierAdviseTrack.payment.usedWalletAmount:0)|currency:'INR':true:'1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="supplierAdviseTrack.payment.totalCashbackAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount (CA) :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(supplierAdviseTrack.payment.totalCashbackAmount?supplierAdviseTrack.payment.totalCashbackAmount:0)|currency:'INR':true:'1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="supplierAdviseTrack.payment.platformCharges && supplierAdviseTrack.payment.platformCharges > 0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Platform Charges:</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(supplierAdviseTrack.payment.platformCharges?supplierAdviseTrack.payment.platformCharges:0) |currency:'INR':true:'1.2-2'}}
+                    </div>
+                </ng-template>
+
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Delivery Charges (DC) :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{(supplierAdviseTrack.deliveryAmount?supplierAdviseTrack.deliveryAmount:0)|currency:'INR':true:'1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Tax Payable (TP) :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{(supplierAdviseTrack.payment.taxationAmount?supplierAdviseTrack.payment.taxationAmount:0) |currency:'INR':true:'1.2-2'}}
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Billing Amount :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{supplierAdviseTrack.payment.finalAmount|currency:'INR':true:'1.2-2'}}
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Payment Status :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{supplierAdviseTrack.payment.paymentStatus? 'Paid':'Not Paid'}}
+                </div>
+
+                <ng-template [ngIf]="supplierAdviseTrack.payment.paymentStatus">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Payment Mode :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{ paymentMode }}
+                    </div>
+                    </ng-template>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-md-8 col-sm-12 col-xs-12 offset-md-4">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <ng-container
+                *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 3 && supplierAdviseTrack.payment.paymentStatus ==1">
+                <button role="button" class="processbotton_txt processdone_txt1 accept_txt"
+                    (click)="dispatchOrder(4)">Dispatch
+                    Order</button>
+            </ng-container>
+
+            <ng-container
+                *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 3 && supplierAdviseTrack.payment.paymentStatus == 0">
+                <button role="button" class="processbotton_txt processdone_txt1 accept_txt" (click)="editOrder()">Update
+                    Order</button>
+            </ng-container>
+        </div>
+    </div>
+</div>

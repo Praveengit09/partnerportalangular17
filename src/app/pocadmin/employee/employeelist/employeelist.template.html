@@ -1,0 +1,39 @@
+ <div class="emp_list">
+    <h1 class="page-title">Employees</h1>
+
+        <div class="form-group col-md-8 col-lg-6 pt-1 pl-0 Search_emp">
+            <label for="">Search Employees</label>
+              <input type="text" class="form-control" id="search" (keyup)="onEnterPressed($event)" [(ngModel)]="searchTerm" placeholder="Enter name or mobile number">
+                <i class="fa fa-search" aria-hidden="true" (click)="onSearchButtonClick()"></i>
+          </div>
+  
+    <div class="row ml-0 mt-3" >
+        <div class="col-md-11 emp_table">
+            <div class="d-flex py-1">
+                <div>
+                <p>Employee List</p>
+                </div>
+                <div class="emp_list_btn flex">
+                    <button class="refresh_btn" (click)="onRefresh()">
+                        <i class="fa fa-refresh pr-1" aria-hidden="true"></i>Refresh</button>
+                    <button class="add_emp_btn" (click)="onAddEmployee()">
+                        <i class="fa fa-plus-square pr-1" aria-hidden="true"></i>Add employee</button>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                  <section class="widget table_pading hs-table" widget>
+                      <div class="widget-body brandlist_table">
+                          <hs-table [columns]="columns" [pagingList]="employeeList" [sort]="sorting" (clickEvent)="clickEventHandler($event)" [componentId]="'orderHistoryRemarkListTable'"
+                              [perPage]="perPage" [total]="total" (pageClick)="onPage($event)" >
+                              Loading table...
+                          </hs-table>
+                      </div>
+                  </section>
+              </div>
+          </div>
+           
+    </div>
+    </div>
+ </div>
+ <spinner-component></spinner-component>

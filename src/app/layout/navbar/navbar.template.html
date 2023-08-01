@@ -1,0 +1,78 @@
+<div class="row top_navbar md-up">
+    <div class="col-md-4 col-sm-4 col-xs-7">
+        <a class="nav-link" (click)="sendDashboardRole()" [routerLink]="['dashboard']"><img class="logo_icon logo-md"
+                src="{{getAssertsLogoPath()+'logo.png'}}" alt="..." /></a>
+        <a class="nav-link" (click)="sendDashboardRole()" [routerLink]="['dashboard']"><img class="logo_icon logo-sm"
+                src="{{getAssertsLogoPath()+'logo_sm.png'}}" alt="..." /></a>
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-5">
+        <nav class='greedy-nav'>
+            <button>
+                <div class="hamburger"></div>
+            </button>
+            <ul class="visible-links topnav">
+                <li class="nav-item" routerLinkActive="active" *ngFor="let userPermission of userPermissions" 
+                    [class.active]="isRouterLinkActive(userPermission.path)">
+                    <a class="{{userPermission.navigationStyle}}"
+                        (click)="navigate(userPermission)">
+                    </a>
+                </li>
+            </ul>
+            <ul class='hidden-links hidden topnav'></ul>
+        </nav>
+    </div>
+</div>
+
+<nav class="top_navbar sm-up">
+    <!-- <button type="button" class="sidebar-menu" (click)="SidebarMenuToggle()"> -->
+        <img class="sidebar-menu" (click)="SidebarMenuToggle()" src="assets/img/ic_hamburger_portal.png" alt="...">
+    <!-- </button> -->
+    <div class="logo-menu">
+        <a class="nav-link" (click)="sendDashboardRole()" [routerLink]="['dashboard']"><img class="logo_icon logo-md"
+                src="{{getAssertsLogoPath()+'logo.png'}}" alt="..." /></a>
+        <a class="nav-link" (click)="sendDashboardRole()" [routerLink]="['dashboard']"><img class="logo_icon logo-sm"
+                src="{{getAssertsLogoPath()+'logo_sm.png'}}" alt="..." /></a>
+        <button class="mobile-menu">
+            <div class="menu_icon"></div>
+        </button>
+    </div>
+    <ul class="mobilenav topnav">
+        <div class="row">
+            <li class="col-xs-4 nav-item" routerLinkActive="active" *ngFor="let userPermission of userPermissions"
+                [class.active]="isRouterLinkActive(userPermission.path)">
+                <a class="{{userPermission.navigationStyle}}" 
+                    (click)="navigate(userPermission)">
+                </a>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+<div class="modal" id="preventNavigationNav" style=" overflow-y: auto !important" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.width]="'auto'" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="h6">
+                    Navigating will loose your data
+                </div> 
+            </div>
+            <div class="modal-body">
+                <div class="h6 mt-0 pt-0">
+                    Do you want to continue navigation?
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 col-6">
+                        <button type="button" class="btn btn-default" style="width:100px"
+                            (click)="hideModal('#preventNavigationNav');setPreventNavigation(false);sendRole(tempUserPermission)">Yes</button>
+                    </div>
+                    <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 col-6">
+                        <button type="button" class="btn btn-default" style="width:100px" (click)="hideModal('#preventNavigationNav')">No</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

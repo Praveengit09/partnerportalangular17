@@ -1,0 +1,326 @@
+<div class="table_size">
+
+    <!-- <h2 class="brand_list_title">Edit Profile</h2>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="progress_indicator_wrapper">
+            <a routerLink="/app/master/employee/employeepersonaldetails/" class="progress_indicator active">
+                <span class="ic_progress present"></span>Personal Details</a>
+            <a class="progress_indicator" *ngIf="doctorDetails.type==0  || doctorDetails.type==1 ">
+                <span class="ic_progress future"></span>Professional Details</a>
+            <a class="progress_indicator">
+                <span class="ic_progress future"></span>POC And Roles</a>
+            <a class="progress_indicator" *ngIf="doctorDetails.type==0  || doctorDetails.type==1 ">
+                <span class="ic_progress future"></span>Participate Details</a>
+            <a class="progress_indicator">
+                <span class="ic_progress future"></span>Location Mapping</a>
+
+            <div class="clearfix"></div>
+        </div>
+    </div> -->
+    <br />
+    <h5 class="list_title2">Personal Details</h5>
+
+    <form ngNativeValidate='true' id="personalDetailForm">
+
+        <div class="col-md-6">
+            <div class="form-group" *ngIf="this.doctorDetails.contactList.length>0">
+                <label class="control-label" for="name">Mobile Number</label>
+                <input type="text" name="mobileNumber" placeholder="Enter Mobile Number" autocomplete="off"
+                    (keyup)="onNumberChange($event.target.value)" (change)="onNumberChange($event.target.value)"
+                    maxlength="10" (keypress)="validateNumberInputOnly($event)"
+                    [(ngModel)]="this.doctorDetails.contactList[0]" class="form-control input-md" />
+            </div>
+        </div>
+        <h5 class="list_title2">Employee Name
+            <sup class="sgst_txt">*</sup>
+        </h5>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select class="form-control" (change)="onTitleChange($event.target.value)"
+                            [value]="doctorDetails.title">
+                            <option value="undefined">select Title</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Miss.">Miss.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Dr.">Dr.</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="firstName" [(ngModel)]="doctorDetails.firstName"
+                            placeholder="First Name">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="lastName" [(ngModel)]="doctorDetails.lastName"
+                            placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <h5 class="list_title2">Employee Type
+            <sup class="sgst_txt">*</sup>
+        </h5>
+        <div class="col-md-6" *ngIf="doctorDetails.empId && doctorDetails.empId>0">
+            <div class="emp_type emp_type_disabled">
+                <label *ngIf="saasSubscriber || this.empId==1 || doctorDetails.type==0">
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==0" disabled
+                        (change)="onTypeChange(0)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Doctor</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==1" disabled
+                        (change)="onTypeChange(1)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Expert</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==2" disabled
+                        (change)="onTypeChange(2)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>App User</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==3" disabled
+                        (change)="onTypeChange(3)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Others</label>
+            </div>
+
+        </div>
+        <div class="col-md-6" *ngIf="doctorDetails.empId == null || doctorDetails.empId ==undefined">
+            <div class="emp_type emp_type_enabled">
+                <label *ngIf="saasSubscriber || this.empId==1 ||doctorDetails.type==0">
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==0"
+                        (change)="onTypeChange(0)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Doctor</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==1"
+                        (change)="onTypeChange(1)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Expert</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==2"
+                        (change)="onTypeChange(2)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>App User</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio89" [checked]="doctorDetails.type==3"
+                        (change)="onTypeChange(3)">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Others</label>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="image">Profile Image</label>
+                <div class="row upload_image">
+                    <input type="file" class="form-control col-md-2 profile_imgtxt" id="image"
+                        (change)="imageUpload($event)">
+                    <p type="text" class="form-control col-md-9 profile_imgtxt12" readonly>{{uploadFilesList}}</p>
+                </div>
+                <!-- // -->
+            </div>
+        </div>
+        <div class="col-md-6" *ngIf="doctorDetails.type==0||doctorDetails.type==1">
+            <div class="form-group">
+                <label class="control-label" for="signature">Doctor Signature</label>
+                <div class="row upload_image">
+                    <input type="file" class="form-control col-md-2 profile_imgtxt" id="signature"
+                        (change)="signatureUpload($event)" />
+                    <p type="text" class="form-control col-md-9 profile_imgtxt12" readonly>{{uploadSignatureList}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" *ngIf="doctorDetails.type==0||doctorDetails.type==1">
+            <div class="form-group">
+                <label class="control-label" for="Certificates">Doctor Certificates</label>
+                <div class="row upload_image">
+                    <input type="file" class="form-control col-md-11 certificate_imgtxt" name="uploadfile"
+                        id="certificates" multiple accept=".png,.pdf,.jpg" (change)="certificatesUpload($event)" />
+                    <!-- <span type="text" class="form-control col-md-9 profile_imgtxt12" readonly>
+                    <ul>
+                        <li *ngFor="let item of uploadCertificatesLists let i= index">{{item}}</li>
+                    </ul>
+                    </span> -->
+                    <!-- <div class="col-md-4 col-sm-4 col-xs-4">
+                        <input class="Update" type="button" value="Upload" (click)="uploadCertificates()" />
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+
+        <h5 class="list_title2">Select Gender
+            <sup class="sgst_txt">*</sup>
+        </h5>
+        <div class="col-md-6">
+            <div class="emp_type">
+                <label>
+                    <input type="radio" class="radio-inline" name="radio3" value="Male"
+                        (change)="onGenderChange($event.target.value)" [(ngModel)]="doctorDetails.gender">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Male</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio3" value="Female"
+                        (change)="onGenderChange($event.target.value)" [(ngModel)]="doctorDetails.gender">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Female</label>
+                <label>
+                    <input type="radio" class="radio-inline" name="radio3" value="Others"
+                        (change)="onGenderChange($event.target.value)" [(ngModel)]="doctorDetails.gender">
+                    <span class="outside">
+                        <span class="inside"></span>
+                    </span>Others</label>
+
+            </div>
+
+        </div>
+
+        <h5 class="list_title2" *ngIf="doctorDetails.type==0||doctorDetails.type==1">Select Languages
+            <a>
+                <i aria-hidden="true" class="fa fa-plus addtxt_icon2" data-toggle="modal"
+                    data-target=".bde-example-modal-lh"></i>
+            </a>
+        </h5>
+        <div class="row contact_add2" *ngIf="doctorDetails.type==0||doctorDetails.type==1">
+            <div class="col-md-5">
+                <div *ngIf="lists!=undefined">
+                    <p class="lan_title" *ngFor="let item of lists">{{item}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <h5 class="list_title2">Email Id
+            <sup class="sgst_txt">*</sup>
+        </h5>
+        <div class="col-md-6">
+            <div class="form-group">
+
+                <input type="email" name="emailaddress" id="email" placeholder="Enter Email"
+                    [(ngModel)]="doctorDetails.emailId" class="form-control input-md" required />
+            </div>
+        </div>
+        <h5 class="list_title2">Contact Number</h5>
+        <div class="row contact_add">
+            <div class="col-md-9"
+                *ngFor="let contact of this.doctorDetails.contactList;let i =index; trackBy:trackByFn">
+                <div class="row contact_num" *ngIf="i>=1">
+                    <div class="col-md-8">
+                        <input name="mobileNumber+{{i}}" id="phone+{{i}}" type="text" placeholder="Enter Contact Number"
+                            [(ngModel)]="this.doctorDetails.contactList[i]" autocomplete="off" maxlength="10"
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}"
+                            title="Minimum 10 characters required" class="form-control input-md">
+                    </div>
+                    <div class="col-md-4">
+                        <a *ngIf="doctorDetails.contactList.length > 2">
+                            <i aria-hidden="true" class="fa fa-remove removetxt_icon"
+                                (click)="removeAddress(i)"></i></a>
+                        <a *ngIf="doctorDetails.contactList.length < 3" autocomplete="off">
+                            <i aria-hidden="true" class="fa fa-plus addtxt_icon2" (click)="addApplyButton()"></i>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <br>
+        <div class="col-md-12" *ngIf="doctorDetails.type==0  || doctorDetails.type==1 ">
+            <div class="form-group">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn  Update"
+                    (click)="onNext('professional')">NEXT:Professional
+                    Details</button>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="doctorDetails.type==2">
+            <div class="form-group">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn  Update"
+                    (click)="onNext('roleandpoc')">NEXT:POC And
+                    Roles</button>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="doctorDetails.type==3 || doctorDetails.type==undefined">
+            <div class="form-group">
+                <button type="submit" id="singlebutton" name="singlebutton" class="btn  Update"
+                    (click)="onNext('location')">NEXT:Location
+                    Mapping</button>
+            </div>
+        </div>
+    </form>
+</div>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<!-- <div class="modal fade" id="myModal" role="dialog" *ngIf="isMapVisible">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Location</h4>
+                </div>
+                <div class="modal-body">
+                    <hs-autocomplete-map (onChooseAddress)="onChooseAddress($event)"></hs-autocomplete-map>
+                </div>
+            </div>
+    
+        </div>
+    </div> -->
+
+<!-- langauage model -->
+<div class="modal fade bde-example-modal-lh" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3 class="modal-title">Language List</h3>
+            </div>
+            <div class="modal-body">
+                <!-- BEGIN PRODUCTS -->
+                <div class="row langauage_sel_text">
+                    <!-- <div class="col-md-3 col-sm-6" *ngFor="let language of languages;let i=index">
+
+                        <label class="checkbox-inline package_checkbox">
+                            <input type="checkbox" id={{language.id}} name="testCheckBox"
+                                (click)="getLangDetails(language)" />
+                            {{language.name}}</label>
+
+                    </div> -->
+
+                    <div class="col-lg-2 col-md-3 col-sm-6 custom_chk" *ngFor="let language of languages;let i=index">
+                        <input type="checkbox" id={{language.id}} name=testCheckBox
+                            (click)="getLangDetails(language)" />
+                        <label for={{language.id}}>{{language.name}}</label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

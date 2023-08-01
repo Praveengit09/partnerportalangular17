@@ -1,0 +1,66 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Order List</h1>
+
+    <form>
+        <div class="row">
+            <div class="col-sm-12 col-lg-4">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>OrderID</mat-label>
+                    <input type="text" autocomplete="off" id="search" [(ngModel)]="searchCriteria"
+                        name="search-criteria" (keyup)="onEnterPressed($event)" matInput placeholder="Enter OrderID" (keypress)="validateAlphaNumberInputOnly($event)"  maxlength="10">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix
+                        (click)="getsupplierAdviceBasedOnOrderId()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <h6 class="filter_txt">Filter by Status</h6>
+                <select class="form-control" (change)="onFilterChanged($event.target.value)"
+                    [ngModelOptions]="{standalone : true}" [(ngModel)]="status">
+                    <option value=-1>Select all</option>
+                    <option value=0>Pending</option>
+                    <option value=2>Accepted</option>
+                    <option value=3>Invoiced</option>
+                    <option value=21>Rejected</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-lg-4 mb-3">
+                    <h6 class="filter_txt">Filter by Center</h6>
+                    <select class="form-control select_poc" (change)="onPOCSelect($event.target.value)"
+                        [ngModelOptions]="{standalone : true}" [(ngModel)]="supplierPocId">
+                        <option value=0>All Centers</option>
+                        <option *ngFor="let poc of suppliersList;let i = index" [value]=poc.pocId>
+                            {{poc.pocName}}</option>
+                    </select>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-lg-12 neworder-refresh">
+            <button type="button" class="btn btn-primary btn-right mb-1" role="button"
+                (click)="getRefreshedorderList()">
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="refresh_txt">REFRESH</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-right" role="button" (click)="sendMailOrders()">
+                <span class="send_txt">Send Mail </span>
+                <span *ngIf="orderIdList.length">({{orderIdList.length}})</span>
+            </button>
+        </div>
+
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="supplierList" [dataMsg]='dataMsg'
+                        (clickEvent)="clickEventHandler($event)" [componentId]="'supplierOrdersTable'"
+                        [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<spinner-component></spinner-component>

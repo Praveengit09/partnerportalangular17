@@ -1,0 +1,102 @@
+<div class="table_size">
+  <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+  <ng-container *ngIf="enableVdcCustomTag">
+    <h1 class="page-title">New Bookings</h1>
+  </ng-container>
+  <ng-container *ngIf="!enableVdcCustomTag">
+    <h1 class="page-title">Requested Orders</h1>
+  </ng-container>
+
+  <!-- orderId/mobile search-->
+  <div class="row">
+    <div class="col-lg-6 orderIdmrgn">
+      <mat-form-field appearance="outline" class="search-orders">
+        <mat-label>Order ID/Mobile Number</mat-label>
+        <input type="text" autocomplete="off" id="search" maxlength="12" (keyup)="onEnterPressed($event)" matInput
+          placeholder="Enter Order ID/Mobile Number" />
+        <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getOrderListWithMobileOrOrderId()"></i>
+      </mat-form-field>
+    </div>
+
+    <!--Filters-->
+    <!--date filter-->
+
+    <div class="col-lg-6 date">
+      <h6>Filter by Date</h6>
+      <div class="row date_txt">
+        <div class="form-group col-sm-4">
+          <!-- <label class="mb-0">Start Date</label> -->
+          <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker"
+            (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+        </div>
+        <div class="form-group col-sm-4">
+          <!-- <label class="mb-0">End Date</label> -->
+          <datetime [(value)]="endDate" [placeholder]="'End Date'" name="endDate" id="datepicker2"
+            (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+        </div>
+        <div class="col-sm-4 sub-btn">
+          <button type="submit" class="btn btn-danger width-100" role="button" (click)="submit()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="enableButtonStatusFilter == true">
+    <h6>Filter by Status</h6>
+  </div>
+  <div class="row buttonCounts" *ngIf="enableButtonStatusFilter == true">
+    <button type="button" class="notification requestedOrders" role="button" (click)="onStatusButtonSelect(0)">
+      Web / M-app Queries<span class="inside-badge"><b>{{diagnosticOrdersCount.totalRequestedOrders || 0}}</b></span>
+    </button>
+    <button type="button" class="notification pendingOrders" role="button" (click)="onStatusButtonSelect(1)">
+      Web / M-app Pending Orders<span class="inside-badge"><b>{{diagnosticOrdersCount.pendingOrders || 0}}</b></span>
+    </button>
+    <button type="button" class="notification raisedOrders" role="button" (click)="onStatusButtonSelect(2)">
+      Web / M-app Raised Orders<span class="inside-badge"><b>{{diagnosticOrdersCount.raisedOrders || 0}}</b></span>
+    </button>
+  </div>
+
+  <div class="row mb-1">
+    <div class="col-md-12 text-right">
+      <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+        (click)="getRefreshedorderList()">
+        <span class="glyphicon glyphicon-repeat"></span>
+        <span class="refresh_txt">REFRESH</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-1">
+    <div class="col-lg-12">
+      <button type="button" class="btn btn-primary button_addtxt" role="button" (click)="onGenerateNewAppointment()">
+        <i class="fa fa-plus add_txt" aria-hidden="true"></i>New Home Collection
+        Appointment
+      </button>
+      <button type="button" class="btn btn-primary button_addtxt" role="button"
+        (click)="onGenerateNewWalkinAppointment()">
+        <i class="fa fa-plus add_txt" aria-hidden="true"></i>New Walk-in
+        Appointment
+      </button>
+    </div>
+    <div class="col-md-12">
+      <section class="widget table_pading hs-table" widget>
+        <div class="widget-body list_reqorders">
+          <hs-table [columns]="columns" [pagingList]="reqsList" [sort]="sorting"
+            (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg" [total]="total"
+            [componentId]="'diagnosticOrderRequest'" [perPage]="perPage" (pageClick)="onPage($event)">
+          </hs-table>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!--//comments modal starts here-->
+<customer_review_modal [modalTitle]="modalTitle" [interactionStatus]="interactionStatus" [modalId]="modalId"
+  (addInteractionStatusEvent)="addInteractionStatus($event)" [hasTypeCheck]="false" [errorMessage]="error"
+  [previousComments]="this?.updatedItem?.consumerInteractedComments" (onRemarkSubmitEvent)="onRemarksSubmit($event)">
+</customer_review_modal>
+
+<spinner-component></spinner-component>

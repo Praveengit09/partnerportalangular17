@@ -1,0 +1,54 @@
+<h1 class="page-title">Appointment Requests</h1>
+
+
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+
+<mat-form-field appearance="outline" class="search-orders">
+    <mat-label>Order ID</mat-label>
+    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+        placeholder="Enter Order ID/Mobile Number">
+    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getConsultationsForSearch()"></i>
+</mat-form-field>
+<div class="col-xl-12 col-lg-6">
+
+    <div class="autorefresh-refreshbutton filter-ordersbtn datepicker-refreshbutton">
+        <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="getRequests()">
+            <span class="glyphicon glyphicon-repeat"></span>
+            <span class="refresh_txt">REFRESH</span>
+        </button>
+        <datetime class="datePayment" [(value)]="startDate" name="startDate" id="datepicker"
+            [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+        </datetime>
+    </div>
+</div>
+<div>
+    <hs-table [columns]="columns" [pagingList]="displayList" [sort]="sorting" [dataMsg]="'No data found'"
+        (clickEvent)="clickEventHandler($event)" [componentId]="deliveryType+'delivery'" [perPage]="perPage"
+        [total]="total" (pageClick)="onPage($event)">
+        Loading table...
+    </hs-table>
+</div>
+
+
+<div class="modal fade" id="doctordashboardUploadPrescription" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content row  close-section">
+            <div class="col-sm-12">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Add Remarks</h4>
+                </div>
+                <div class="my-1">
+                    <input type="text" class="form-control form-control-lg" [(ngModel)]="remarks"
+                        placeholder="Enter Reason">
+                    <button class="btn btn-primary remark-btn" data-dismiss="modal"
+                        (click)="updateAppointmentRequest()">Add
+                        Remarks</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Pharmacy Transfer List</h1>
+
+    <form>
+        <div class="row">
+            <div class="col-lg-4 order-mrgn">
+                <mat-form-field appearance="outline" class="search-orders mt-2">
+                    <mat-label>OrderID</mat-label>
+                    <input type="text" autocomplete="off" id="search" [(ngModel)]="orderId" name="search-criteria"
+                        matInput placeholder="Enter OrderID">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix></i>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-8">
+                <h6>Filter by Date</h6>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+
+                        <datetime [(value)]="startDate" name="startDate" id="datepicker" [datepicker]="datepickerOpts"
+                            (dateChange)="startDateChoosen($event)" [timepicker]="false"></datetime>
+                    </div>
+                    <div class="form-group col-sm-4">
+
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [timepicker]="false"
+                            [datepicker]="datepickerOptEnd">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-4 submit-btn">
+                        <button class="btn btn-danger  sub_txt width-100" role="button" (click)="onSubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-lg-12 neworder-refresh">
+            <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                (click)="getRefreshedorderList()">
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="refresh_txt">REFRESH</span>
+            </button>
+            <button type="button" class="btn btn-primary button_addtxt" role="button" (click)="newTransferRequest()"><i
+                    class="fa fa-plus add_txt" aria-hidden="true"></i>New Request</button>
+        </div>
+
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="transferList" [dataMsg]='dataMsg' [sort]="sorting"
+                        (clickEvent)="clickEventHandler($event)" [componentId]="'transferList'" [perPage]="perPage"
+                        [total]="total" (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

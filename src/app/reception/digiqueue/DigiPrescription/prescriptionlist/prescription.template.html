@@ -1,0 +1,69 @@
+<section class="widget-doctor" widget="">
+    <div class="widget-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h1 class="page-title">Order List </h1>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <!-- <div class="row patient_mobile">
+                    <div class="col-md-5 col-sm-5 col-xs-12 search_glyphicon">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter Mobile Number" (keypress)="validation.onlyNumbers($event)"
+                                [(ngModel)]="mobileNumber" maxlength="10">
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12 btn_prsearch">
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger width-100 mb-xs botton_txtsearch done_txt" role="button"
+                                (click)="onSearch()">Search</button>
+                        </span>
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger width-100 mb-xs refresh_txt" role="button" (click)="onRefresh()">Refresh</button>
+                        </span>
+                    </div>
+                </div> -->
+
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="mobileNumber"
+                        placeholder="Enter Mobile Number" maxlength="10" (keypress)="validation.onlyNumbers($event)">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="onSearch()"></i>
+                </mat-form-field>
+
+                <p *ngIf="isCorrectMobile" style="color:red">Enter Valid 10 digits Number.</p>
+                <p *ngIf="isEmpty" style="color:red">This Mobile Number is not exist.</p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 autorefresh-refreshbutton mb-1">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="onRefresh();">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <section class="widget table_pading" widget>
+
+                    <div class="widget-body">
+                        <hs-table [columns]="columns" [sort]="sorting" [pagingList]="patientListForPrecription"
+                            (clickEvent)="clickEventHandler($event)"
+                            [componentId]="'precriptionTable'" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)" [dataMsg]="dataMsg">
+                            Loading table...
+                        </hs-table>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<spinner-component></spinner-component>

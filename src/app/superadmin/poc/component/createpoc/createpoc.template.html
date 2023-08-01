@@ -1,0 +1,234 @@
+<div class="table_size">
+
+    <h1 class="page-title" *ngIf="!this.pocDetails || !this.pocDetails.pocId">Add New POC's</h1>
+    <h1 class="page-title" *ngIf="this.pocDetails && this.pocDetails.pocId">Edit POC</h1>
+    <optionNavigator [tabData]="tabData" [currentPageIndex]="currentPageIndex" [allBtnActive]="isPocModify"
+        (pageChange)="onBackClick($event.pageType)" *ngIf="tabData.length>0"></optionNavigator>
+    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="progress_indicator_wrapper">
+            <a (click)="onBackClick(0)" class="progress_indicator active" >
+                <span class="ic_progress present"></span>POC Information</a> -->
+    <!-- <a routerLink="/app/master/poc/serviceportfolio/" class="progress_indicator"> -->
+    <!-- <a (click)="onBackClick(1)" [className]="isPocModify ? 'active progress_indicator' : 'inactive progress_indicator'">
+                <span [className]="isPocModify? 'ic_progress present': 'future ic_progress'"></span>Service Portfolio</a> -->
+    <!-- <a routerLink="/app/master/poc/partneragreement/" class="progress_indicator"> -->
+    <!-- <a class="progress_indicator"  (click)="onBackClick(2)" [className]="isPocModify ? 'active' : 'inactive'">
+                <span [className]="isPocModify? 'ic_progress present': 'future ic_progress'"></span>HS Agreement</a>
+
+            <div class="clearfix"></div>
+        </div>
+    </div> -->
+    <h5 class="list_title2">POC Information</h5>
+
+    <form>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">POC Name
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <input id="brandName" name="name" type="text" placeholder="POC Name" [(ngModel)]="pocDetails.pocName"
+                    class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="email">POC Logo</label>
+                <input type="file" accept="image/x-png,image/jpeg" class="form-control" id="file"
+                    (change)="fileUpload($event)">
+
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group" *ngIf="disableBrandOptions == true">
+                <h6 class="sub-title">Select Brand Name</h6>
+                <select class="form-control" *ngIf="brandList" [(ngModel)]="this.dropDownIndex"
+                    [ngModelOptions]="{standalone: true}" (change)="onBrandChange($event.target.value)">
+                    <option value=-1> select Brand</option>
+                    <option *ngFor="let brand of brandList;let i = index" [value]=i>{{brand.brandName}}</option>
+                </select>
+            </div>
+            <div class="form-group" *ngIf="disableBrandOptions != true">
+                <label class="control-label">Brand Name</label>
+                <input name="cityName" type="text" disabled [(ngModel)]="this.brandName"
+                    class="form-control input-md">
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">License Info
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <input name="organisation" type="text" placeholder="Organisation" [(ngModel)]="pocDetails.licenseInfo"
+                    class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">GSTIN
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <input name="servicetaxNum" type="text" placeholder="GSTIN" [(ngModel)]="pocDetails.GSTIN"
+                    class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Email
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <input type="text" id="email" name="email" type="text" placeholder="E-Mail"
+                    [(ngModel)]="pocDetails.email" class="form-control input-md"
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+
+            </div>
+
+        </div>
+
+        <div class="form-group row contact_number" *ngFor="let contact of contactList;let i =index;trackBy:trackByFn">
+
+            <div class="col-md-6">
+                <label class="control-label">Contact Number</label>
+
+                <input type="text" name="mobileNumber+{{i}}" id="phone+{{i}}" maxlength="12"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}"
+                    title="Minimum 10 characters required" placeholder="Phone" [(ngModel)]="contactList[i]" required
+                    class="form-control input-md">
+            </div>
+            <div class="col-md-1">
+                <a class="add_plus_button" *ngIf="i+1 == contactList.length">
+                    <i aria-hidden="true" class="fa fa-plus addtxt_icon2" (click)="addApplyButton()"></i>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <span>
+                    <label class="control-label">Home Consultation Contact Number
+                    </label>
+                    <input type="text" name="mobileNumber" maxlength="14"
+                        onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}"
+                        title="Minimum 10 characters required" placeholder="Phone"
+                        [(ngModel)]="pocDetails.homeConsultationContactNo" required class="form-control input-md">
+                </span>
+            </div>
+        </div>
+
+        <br />
+        <h5 class="list_title2">Location Information</h5>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Address Line 1
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <input name="address1" type="text" placeholder="Enter your address"
+                    [(ngModel)]="pocDetails.address.address1" class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Address Line 2
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <input name="address2" type="text" placeholder="Enter your address"
+                    [(ngModel)]="pocDetails.address.address2" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">PIN Code
+                    <sup class="sgst_txt">*</sup>
+                </label>
+                <input type="text" class="form-control" id="zip_code" maxlength="6" minlength="6"
+                    placeholder="Enter your PIN/Zip code" (keyup)="getStateCityByPinCode($event.target.value)"
+                    (change)="getStateCityByPinCode($event.target.value)" value={{pocDetails.address.pinCode}}
+                    name="zip_code" [(ngModel)]="pocDetails.address.pinCode"
+                    (keypress)="validation.onlyNumbers($event)">
+                <!-- <input name="pinCode" type="text" placeholder="560076" [(ngModel)]="pocDetails.address.pinCode" class="form-control input-md"> -->
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">City</label>
+                <input name="cityName" type="text" disabled [(ngModel)]="pocDetails.address.cityName"
+                    class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">State</label>
+                <input name="stateName" type="text" disabled [(ngModel)]="pocDetails.address.stateName"
+                    class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="control-label">Locality
+                    <sup class="sgst_txt">*</sup>
+                </label>
+
+                <select class="form-control" id="selectbasic" name="selectbasic" [(ngModel)]="pocDetails.locality"
+                    (change)="onLocalityChange()" [ngModelOptions]="{standalone : true}">
+                    <option value="Select Locality"> Select Locality</option>
+                    <option *ngFor="let locality of localityList;let i = index" [ngValue]="locality.name">
+                        {{locality.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <address>{{pocDetails.areaName}}</address>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <p style="font-size:18px;color:#1DC8D5" data-toggle="modal" data-target="#myModal" (click)="showMap()">
+                    <i class="glyphicon glyphicon-map-marker" style="font-size:30px;color:#1DC8D5"></i> Select the map
+                    <sup class="sgst_txt">*</sup>
+                </p>
+
+            </div>
+
+            <!-- <hs-autocomplete-map></hs-autocomplete-map> -->
+        </div>
+
+        <br />
+        <div class="col-md-12">
+            <div class="form-group">
+                <button id="singlebutton" name="singlebutton" class="btn  Update" (click)="onServicePortFol()">NEXT:
+                    SERVICE PORTFOLIO</button>
+            </div>
+        </div>
+        <!-- </div> -->
+    </form>
+
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+</div>
+
+<div class="modal fade" id="myModal" role="dialog" *ngIf="isMapVisible">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select Location</h4>
+            </div>
+            <div class="modal-body">
+                <hs-autocomplete-map (onChooseAddress)="onChooseAddress($event)" addressType="establishment">
+                </hs-autocomplete-map>
+            </div>
+        </div>
+
+    </div>
+</div>

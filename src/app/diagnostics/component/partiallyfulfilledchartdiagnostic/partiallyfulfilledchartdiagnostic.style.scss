@@ -1,0 +1,11 @@
+@import "../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../scss/variables";
+@import "../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../node_modules/bootstrap/scss/mixins";
+.pending_txt{
+    padding: 3px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    border: none
+}

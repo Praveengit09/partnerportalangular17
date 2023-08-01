@@ -1,0 +1,6 @@
+.hidden {
+    display: none;
+}
+.list-group:last-of-type .list-group-item:last-child{
+    border: 1px solid #ddd;
+}

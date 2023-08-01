@@ -1,0 +1,48 @@
+@import '../../scss/variables';
+@import '../../scss/theme.scss';
+.consent_modal {
+    margin-left: 2em;
+}
+
+.consent_modal_width {
+    width: 40em
+}
+
+
+.verify_btn {
+    color: #fff;
+    // background-color: #14a9b5;
+    background-color: $title-color;
+    border-color: transparent;
+    padding: 7px 30px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.verifycol_margin {
+    // margin: 7px 0px 0px 10px;
+    margin-left: 26px;
+}
+
+.otp-sec {
+    margin: 0px 11px 30px 5px;
+}
+
+.otpinputsection {
+    height: 40px !important;
+    width: 50px !important;
+    padding: 0;
+    border-radius: 4px;
+    border: solid 2px #c5c5c5;
+    text-align: center;
+    // font-size: 19px;
+    margin-top: 22px;
+}
+
+.close-consent {
+    margin-top: -30px !important;
+}
+
+.otpinputsection:last-child {
+    margin-right: 0;
+}

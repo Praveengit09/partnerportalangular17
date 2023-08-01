@@ -1,0 +1,137 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/theme.scss';
+
+h3{
+    font-size: 24px;
+    color: #333333;
+}
+// th{
+//     color: #64819E !important;
+//     text-transform: capitalize !important;
+//     font-size: 15px;
+//     line-height: 1.73;
+// }
+table h5, .new-partner h5{
+    font-size: 14px;
+    line-height: 1.29;
+    font-weight: 500;
+}
+h5, table p{
+    margin: 0;
+}
+table th:nth-child(2){
+    min-width: 160px;
+}
+table th:nth-child(3){
+    min-width: 120px;
+}
+table th:last-child{
+    min-width: 110px;
+}
+.email .tabledatalabel-right{
+    color: #EF5611 !important;
+    text-decoration: underline;
+}
+table p.small{
+    line-height: 1.33;
+    font-size: 12px;
+}
+.btn-danger{
+    // background-color: #FF6D6D;
+    // border-color: #FF6D6D;
+    background-color: $btn-danger-bg;
+    border: solid 1px  $btn-danger-border;
+    text-transform: uppercase;
+    width: 190px;
+    padding-top: 11px;
+    padding-bottom: 12px;
+    line-height: 17px;
+}
+.float-right{
+    float: right;
+}
+.new-partner select, .new-partner input{
+    background: #FAFAFA;
+    font-style: italic;
+    color: rgba(51, 51, 51, 0.6);
+    font-size: 13px;
+}
+
+.diagnostic-tests {
+    border: 1px solid #a9a9a9;
+    background: #e2ecf5;
+}
+
+.diagnostic-tests span {
+    padding: 10px;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.diagnostic-tests i {
+    padding: 10px;
+    border-color: rgba(206, 206, 206, 0.52); 
+    border-left: 1px solid;
+    color: rgba(206, 206, 206, 0.52);
+    cursor: pointer;
+}
+.cardBodyItem {
+    margin-right: 15px;
+}
+
+.cardBodyItem :checked+label {
+    outline: 2px solid #ff6d6d;
+}
+
+.cardBodyItem label {
+    position: relative;
+    cursor: pointer;
+    background: #ffffff;
+    min-width: 172px;
+    text-align: center;
+    padding: 12px 50px 11px 10px;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    color: rgba(51, 51, 51, 0.8);
+    text-transform: uppercase;
+    line-height: 17px;
+}
+
+.cardBodyItem label::before {
+    color: rgba(206, 206, 206, 0.52);
+    display: block;
+    height: 40px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: 0;
+    width: 40px;
+    content: "x";
+    border-left: 1px solid;
+    border-color: rgba(206, 206, 206, 0.52);
+    font-size: 20px;
+    padding-top: 7px;
+}
+
+.cardBodyItem input[type="checkbox"] {
+    display: none;
+}
+
+.managepartnerNetwork_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .managepartnerNetwork_widget {
+        border: none !important;
+    }
+}
+
+@media screen and (min-width:601px) {
+    .managepartnerNetwork_widget table{
+        min-width: 600px;
+    }
+}

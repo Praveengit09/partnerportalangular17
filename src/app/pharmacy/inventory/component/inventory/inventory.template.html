@@ -1,0 +1,660 @@
+<div (click)="hideSearchResult()">
+    <div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+        <h1 class="page-title">Add Stock </h1>
+    </div>
+
+    <h4>Supplier Information<sup class="sgst_txt">*</sup></h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget_txt supplier-info" widget="">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <!-- <label>Supplier Name <sup class="sgst_txt">*</sup></label> -->
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label>Supplier Name</mat-label>
+                                <input matInput id="supplier_name" class="form-control input-sm"
+                                    placeholder="Supplier Name" autocomplete="off"
+                                    [(ngModel)]="inventorySupplierDetail.supplierName"
+                                    (keyup)="searchSupplier(inventorySupplierDetail.supplierName)"
+                                    (focusout)="getSupplierId('')" />
+                            </mat-form-field>
+                            <div class="col-md-12" id="search-result">
+                                <div *ngFor="let search of supplierResult" (click)="getSupplierId(search.supplierName)"
+                                    class="search-result">
+                                    <a>{{search.supplierName}}</a>
+                                </div>
+                                <div *ngIf="supplierResult && supplierResult.length<=0" class="search-result"
+                                    (click)="getSupplierId('')">
+                                    <a>No Data Found</a>
+                                </div>
+                            </div> -->
+                            <hs-select [defaultSelectLabel]="'Supplier Name'" [selectColumns]="selectSupplierColumns"
+                                [defaultSelected]="inventorySupplierDetail" [defaultSelectField]="'pocName'"
+                                [isMatEnable]="isMatEnable" [selectTotal]="supplierResultLength"
+                                [selectResults]="supplierResult" [isMatEnable]="isMatEnable"
+                                [multiCheckVarName]="'pocId'" (searchTrigger)="searchSupplier($event)"
+                                (selectTrigger)="getSupplierId($event)">
+                            </hs-select>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <!-- <label>Supplier Invoice No <sup class="sgst_txt">*</sup></label> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Invoice No</mat-label>
+                                <input matInput type="text" name="supplier_invoice_id" autocomplete="off"
+                                    [(ngModel)]="inventorySupplierDetail.supplierInvoicNo" id="invoice_number"
+                                    class="form-control input-sm" placeholder="Invoice No">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <!-- <label>Date<sup class="sgst_txt">*</sup></label> -->
+                            <datetime [(value)]="inventorySupplierDetail.invoiceDate" [timepicker]="false"
+                                id="datepicker" [datepicker]="datepickerOpts1" max-date="todayDate"
+                                placeholder="Select Date"></datetime>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <!-- <label>Type<sup class="sgst_txt">*</sup></label> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Type</mat-label>
+                                <mat-select id="paymenttype" [(ngModel)]="inventorySupplierDetail.type">
+                                    <mat-option value="0">Select Type</mat-option>
+                                    <mat-option value=1>Cash</mat-option>
+                                    <mat-option value=2>Credit</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <!-- <label>Entry Number<sup class="sgst_txt">*</sup></label> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Entry Number</mat-label>
+                                <input matInput type="text" name="entry_no"
+                                    [(ngModel)]="inventorySupplierDetail.entryNo" id="supplier_entry"
+                                    class="form-control input-sm" placeholder="Entry Number">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <!-- <label>Entry Date<sup class="sgst_txt">*</sup></label>placeholder="Input & change events" -->
+                            <datetime [(value)]="inventorySupplierDetail.entryDate" placeholder="Entry Date"
+                                [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <h4>Product Details</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading inventory_widget widget-shadow" widget>
+                <div class="widget-body">
+                    <div class="table-responsive table-datalabel">
+                        <table class="table product_table new_table table-striped">
+                            <thead>
+                                <tr class="table_head">
+                                    <th>Product Code</th>
+                                    <th>Name</th>
+                                    <th>Batch No.</th>
+                                    <th>Expiry</th>
+                                    <th>MRP</th>
+                                    <th>Purchase Rate</th>
+                                    <th>Margin %</th>
+                                    <th>CGST %</th>
+                                    <th>SGST %</th>
+                                    <th>IGST %</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pharmacyproductdetailList of pharmacyProductDisplayList; let i=index"
+                                    class="inventory_medic">
+                                    <td data-label="Product Code">
+                                        <div class="tabledatalabel-right">
+                                            {{pharmacyproductdetailList.selectedProductCode}}</div>
+                                    </td>
+                                    <td data-label="Name">
+                                        <div class="tabledatalabel-right">
+                                            {{pharmacyproductdetailList.selectedProductname}}</div>
+                                    </td>
+                                    <td data-label="Batch No.">
+                                        <div class="tabledatalabel-right">
+                                            {{pharmacyproductdetailList.selectedBatchNumber}}</div>
+                                    </td>
+                                    <td data-label="Expiry">
+                                        <div class="tabledatalabel-right">
+                                            {{getDate(pharmacyproductdetailList.selectedExpiry)}}</div>
+                                    </td>
+                                    <td data-label="MRP">
+                                        <div class="tabledatalabel-right">&#8377;
+                                            {{pharmacyproductdetailList.selectedNetPrice}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Purchase Rate">
+                                        <div class="tabledatalabel-right">&#8377;
+                                            {{pharmacyproductdetailList.selectedPurchaseRate}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Margin %">
+                                        <div class="tabledatalabel-right">
+                                            {{pharmacyproductdetailList.selectedMarginPercent}}</div>
+                                    </td>
+                                    <td data-label="CGST %">
+                                        <div class="tabledatalabel-right">{{pharmacyproductdetailList.cgst}}</div>
+                                    </td>
+                                    <td data-label="SGST %">
+                                        <div class="tabledatalabel-right">{{pharmacyproductdetailList.sgst}}</div>
+                                    </td>
+                                    <td data-label="IGST %">
+                                        <div class="tabledatalabel-right">{{pharmacyproductdetailList.igst}}</div>
+                                    </td>
+                                    <td data-label="Quantity">
+                                        <div class="tabledatalabel-right">{{pharmacyproductdetailList.selectedQuantity}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Total Price">
+                                        <div class="tabledatalabel-right">&#8377;
+                                            {{pharmacyproductdetailList.selectedTotalAmount}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tabledatalabel-right">
+                                            <button class="btn btn-danger" (click)="editproduct(i);">Edit</button>
+                                            <button class="btn btn-danger remove-btn"
+                                                (click)="remove(i)">Remove</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- add product code start here -->
+
+    <h4>Add New Product</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget_txt" widget="">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+                        <label>Product Name<sup class="sgst_txt">*</sup></label>
+                        <hs-select *ngIf="hsSelectBoolean" [defaultSelectLabel]="'Product Name'"
+                            [selectColumns]="selectColumns" [defaultSelected]="pharmacyProducts"
+                            [defaultSelectField]="'productName'" [selectTotal]="productNameSelectTotal"
+                            [selectResults]="productNameSearchResults" [hardReset]="productNameHardReset"
+                            [multiCheckVarName]="'productId'" (searchTrigger)="productNameSearchTrigger($event)"
+                            (selectTrigger)="selectTrigger($event)">
+                        </hs-select>
+                        <!--<div class="dropdown">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        Dropdown button
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Link 1</a>
+        <a class="dropdown-item" href="#">Link 2</a>
+        <a class="dropdown-item" href="#">Link 3</a>
+      </div>
+    </div> -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+
+                        <label>Product Code</label>
+                        <hs-select *ngIf="hsSelectBoolean" [defaultSelectLabel]="'Product Code'"
+                            [selectColumns]="selectColumns" [defaultSelected]="pharmacyProducts"
+                            [defaultSelectField]="'productCode'" [selectTotal]="productCodeSelectTotal"
+                            [selectResults]="productCodeSearchResults" [hardReset]="productCodeHardReset"
+                            [multiCheckVarName]="'productId'" (searchTrigger)="productCodeSearchTrigger($event)"
+                            (selectTrigger)="selectTrigger($event)" (keydown.backspace)="onKeydown($event)"></hs-select>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Quantity<sup class="sgst_txt">*</sup></label>
+                            <input type="number" name="quantity"
+                                [(ngModel)]="pharmacyProducts.stockDetails.purchasedQuantity" id="quantity"
+                                class="form-control input-sm" placeholder="Quantity" min="0"
+                                oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Free<sup class="sgst_txt">*</sup></label>
+                            <input type="number" name="first_name" [(ngModel)]="pharmacyProducts.freeProductCount"
+                                id="free" class="form-control input-sm" placeholder="Free" min="0"
+                                oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <!-- <div class="form-group">
+                                <label>Composition<sup class="sgst_txt">*</sup></label>
+                                <input type="text" name="first_name" [(ngModel)]="pharmacyProducts.genericName" id="generic_name" class="form-control input-sm"
+                                    placeholder="Composition" (keyup)="searchProduct(pharmacyProducts.genericName,3)">
+                                <div class="col-md-12" id="search-genericname-result">
+                                    <div *ngFor="let search of searchResult" (click)="selectedProduct(search.genericName,3)" class="search-result">
+                                        <a>{{search.genericName}}</a>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <label>Composition<sup class="sgst_txt">*</sup></label>
+                        <hs-select *ngIf="hsSelectBoolean" [defaultSelectLabel]="'Composition'"
+                            [selectColumns]="selectColumns" [defaultSelected]="pharmacyProducts"
+                            [defaultSelectField]="'genericMedicine.genericMedicineName'"
+                            [selectTotal]="genericNameSelectTotal" [selectResults]="genericNameSearchResults"
+                            [multiCheckVarName]="'productId'" [hardReset]="genericNameHardReset"
+                            (searchTrigger)="genericNameSearchTrigger($event)" (selectTrigger)="selectTrigger($event)">
+                        </hs-select>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Expiry<sup class="sgst_txt">*</sup></label>
+                            <hs-datepicker *ngIf="hsSelectBoolean" (onDateSubmit)="onDateSubmit($event)"
+                                [defautDate]="expiryDatee"></hs-datepicker>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Batch Number<sup class="sgst_txt">*</sup></label>
+                            <input type="text" name="batch_number" [(ngModel)]="pharmacyProducts.stockDetails.batchNo"
+                                id="batch_number" class="form-control input-sm" placeholder="Batch No" min="0"
+                                oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Manufacturer Name</label>
+                            <input type="text" name="company_name" [(ngModel)]="pharmacyProducts.brandName"
+                                id="companyName" class="form-control input-sm" placeholder="Manufacturer Name">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Package Type<sup class="sgst_txt">*</sup></label>
+                            <select name="PackageType" id="PackageType" class="form-control input-sm"
+                                [(ngModel)]="pharmacyProducts.packingInformation.packageType">
+                                <option
+                                    value="{{pharmacyProducts.packingInformation.packageType?'package':'undefined'}}">
+                                    --Select Pack Type--</option>
+                                <option value="Strip">Strip</option>
+                                <option value="Bottle">Bottle</option>
+                                <option value="Jar">Jar</option>
+                                <option value="Empty">None Of These</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Units Per Package <sup class="sgst_txt">*</sup></label>
+                            <input type="text" name="package_name"
+                                [(ngModel)]="pharmacyProducts.packingInformation.unitsInPackage" id="package_quantity"
+                                class="form-control input-sm" placeholder="Package"
+                                (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Schedule<sup class="sgst_txt">*</sup></label>
+                            <input type="text" name="first_name" [(ngModel)]="pharmacyProducts.schedule" id="schedule"
+                                class="form-control input-sm" placeholder="Schedule">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Rack<sup class="sgst_txt">*</sup></label>
+                            <input type="text" name="rack_number" [(ngModel)]="pharmacyProducts.stockDetails.rackNo"
+                                id="rack_number" class="form-control input-sm" placeholder="Rack No">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="pharmacyProducts.packingInformation as packInfo">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>MRP (per {{packInfo.packageType?packInfo.packageType:'package'}})<sup
+                                    class="sgst_txt">*</sup></label>
+                            <input type="text"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46'
+                                name="first_name" [(ngModel)]="pharmacyProducts.stockDetails.packageNetPrice" id="price"
+                                class="form-control input-sm" placeholder="Price" min="0"
+                                (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                (keyup)="onMarginCalculate()" (change)="onMarginCalculate()"
+                                oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Purchase Rate (per {{packInfo.packageType?packInfo.packageType:'package'}})<sup
+                                    class="sgst_txt">*</sup></label>
+                            <input type="text"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46'
+                                name="purchase_rate" [(ngModel)]="pharmacyProducts.purchaseRate" id="purchase_rate"
+                                class="form-control input-sm" placeholder="Purchase Rate" (keyup)="onMarginCalculate()"
+                                (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                (change)="onMarginCalculate()" min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Margin %<sup class="sgst_txt">*</sup></label>
+                            <input type="number" name="first_name" disabled
+                                [(ngModel)]="pharmacyProducts.marginPercentage" id="margin_percentage"
+                                class="form-control input-sm" placeholder="Margin" min="0"
+                                (keypress)="validation.decimalValueforTwoCharacters($event)"
+                                oninput="validity.valid||(value='');" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Drug Form<sup class="sgst_txt">*</sup></label>
+                            <input type="text" name="Drug_Form" [(ngModel)]="pharmacyProducts.drugForm" id="drugForm"
+                                class="form-control input-sm" placeholder="Drug Form">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Marketed By</label>
+                            <input type="text" name="Drug_Form" [(ngModel)]="pharmacyProducts.marketedBy" id="drugForm"
+                                class="form-control input-sm" placeholder="Marketed By">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <b>Taxes<sup class="sgst_txt">*</sup></b>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Supplier CGST %</mat-label>
+                                <input matInput id="purchase_rate" class="form-control input-sm"
+                                    placeholder="Supplier CGST" autocomplete="off"
+                                    [(ngModel)]="pharmacyProducts.supplierTaxes.cgst"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)" step="0.01"
+                                    (keyup)="validGst()" name="supp_cgst"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Supplier SGST %</mat-label>
+                                <input matInput id="margin_percentage" class="form-control input-sm"
+                                    placeholder="Supplier SGST" autocomplete="off"
+                                    [(ngModel)]="pharmacyProducts.supplierTaxes.sgst"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)" step="0.01"
+                                    (keyup)="validGst()" name="supp_sgst"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Supplier IGST %</mat-label>
+                                <input matInput id="margin_percentage" class="form-control input-sm"
+                                    placeholder="Supplier IGST" autocomplete="off"
+                                    [(ngModel)]="pharmacyProducts.supplierTaxes.igst"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)" step="0.01"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46'
+                                    (keyup)="validGst()" name="supp_igst" />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Seller CGST %</mat-label>
+                                <input matInput id="margin_percentage" class="form-control input-sm"
+                                    placeholder="Seller CGST" autocomplete="off" name="seller_cgst"
+                                    [(ngModel)]="pharmacyProducts.stockDetails.taxes.cgst" (keyup)="validGst()"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)" step="0.01"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Seller SGST %</mat-label>
+                                <input matInput id="margin_percentage" class="form-control input-sm"
+                                    placeholder="Seller SGST" autocomplete="off" name="seller_sgst"
+                                    [(ngModel)]="pharmacyProducts.stockDetails.taxes.sgst" (keyup)="validGst()"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)" step="0.01"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Seller IGST %</mat-label>
+                                <input matInput id="margin_percentage" class="form-control input-sm"
+                                    placeholder="Seller IGST" autocomplete="off" name="seller_igst"
+                                    [(ngModel)]="pharmacyProducts.stockDetails.taxes.igst" (keyup)="validGst()"
+                                    (keypress)="validation.decimalValueforTwoCharacters($event)" step="0.01"
+                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57|| event.charCode === 46' />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <p class="ErrorMessage">{{addProductError}}</p>
+                <p class="ErrorMessage">{{addGstPercentError}}</p>
+                <input type="submit" class="Update" value="ADD PRODUCT" (click)="addProduct()">
+            </section>
+        </div>
+
+    </div>
+
+    <!-- add product code end here -->
+
+
+    <h4>Additional Details</h4>
+    <div class="row">
+        <div class="col-lg-6">
+            <section class="widget_txt" widget="">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Discount %</label>
+                            <input type="number" name="first_name"
+                                [(ngModel)]="inventorySupplierDetail.discountPercentage" id="discount"
+                                class="form-control input-sm" placeholder="Discount %" min="0"
+                                oninput="validity.valid||(value='');" (keyup)="validPercent()">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Ad. Disc</label>
+                            <input type="number" name="first_name" id="additionalDiscount"
+                                [(ngModel)]="inventorySupplierDetail.additionalDiscount" class="form-control input-sm"
+                                placeholder="Ad. Disc" min="0" oninput="validity.valid||(value='');"
+                                (keyup)="validPercent()">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Cr. Note</label>
+                            <input type="text" name="first_name" id="crNote"
+                                [(ngModel)]="inventorySupplierDetail.crNote" class="form-control input-sm"
+                                placeholder="Cr. Note">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Sch. Dis.</label>
+                            <input type="number" name="sch_discount" id="schDiscount"
+                                [(ngModel)]="inventorySupplierDetail.schDiscount" class="form-control input-sm"
+                                placeholder="Sch. Dis." min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Dr. Note</label>
+                            <input type="text" name="first_name" id="drNote"
+                                [(ngModel)]="inventorySupplierDetail.drNote" class="form-control input-sm"
+                                placeholder="Dr. Note">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>0 % Value</label>
+                            <input type="number" name="zero_value" id="zeroPercValue"
+                                [(ngModel)]="inventorySupplierDetail.zeroPercValue" class="form-control input-sm"
+                                placeholder="0 % Value" min="0" oninput="validity.valid||(value='');"
+                                (keyup)="validPercent()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Other Amount</label>
+                            <input type="number" name="first_name" id="otherAmount"
+                                [(ngModel)]="inventorySupplierDetail.otherAmount" class="form-control input-sm"
+                                placeholder="Other Amount" min="0" oninput="validity.valid||(value='');">
+                        </div>
+                    </div>
+                </div>
+                <p class="ErrorMessage">{{addPercentError}}</p>
+            </section>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <!--<div class="col-md-4">&#8377; {{vatPrice | number : '1.2-2'}}</div>-->
+                            </div>
+                            <div class="row">
+                                <!--<div class="col-md-5">{{vatValue}}% vat</div>
+     <div class="col-md-4">&#8377; {{vatPer | number : '1.2-2'}}</div>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-md-5 col-xs-4">Sub total</div>
+                        <div class="col-md-5 col-xs-4">&#8377; {{totalAvg | number : '1.2-2'}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-4">Disc. Amount</div>
+                        <!-- <div class="col-md-1">{{ 
+                            (( (grandTotal * inventorySupplierDetail.discountPercentage)/100)
+                            + inventorySupplierDetail.additionalDiscount) | number : '1.2-2' }}
+                            </div> -->
+                        <div class="col-md-1 col-xs-4">0.0</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-4">Adjust</div>
+                        <div class="col-md-1 col-xs-4">0.0</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-xs-4">Round</div>
+                        <div class="col-md-1 col-xs-4">0.0</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-10">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">Total GST</div>
+                <div class="col-lg-4">&#8377; {{taxAmount | number : '1.2-2'}}</div>
+                <!--<div class="col-lg-1"></div>-->
+                <div class="col-lg-3">Grand Total</div>
+                <div class="col-lg-3">&#8377; {{grandTotal | number : '1.2-2'}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <p class="ErrorMessage">{{supplierError}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5"><input type="submit" class="Update" value="UPDATE INVENTORY "
+                        (click)="updateInventory()"></div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal fade" id="successMessage" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" *ngIf="insertResult != undefined">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{insertResult.statusMessage}}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{successMessage}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="alert alert-success" id="successMessage" role="alert" style="display:none">
+        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+         Data Inserted Successfully !!!
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-danger" id="failureMessage" role="alert" style="display:none">
+        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+        Data is not inserted successfully !!!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>-->
+</div>
+<spinner-component></spinner-component>

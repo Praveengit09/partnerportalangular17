@@ -1,0 +1,86 @@
+<h1 class="page-title">Home Consultation Order List</h1>
+
+<section>
+    <div class="row">
+     
+     
+        <div class="col-lg-3 col-md-4  col-sm-12 col-xs-12">
+            <form class="form-inline">
+                    <label for="advice" class="radio_txt">Filter By Period</label>
+                  
+                    <select class="form-control selectwidth mt-0"  (change)="dateChoosen($event.target.value)" id="my_select option">
+                        <option *ngFor="let dateObj of dateList;let i = index" [value]=i>{{dateObj.displayDate}}</option>
+                      </select>
+
+            </form>
+        
+        </div>
+        <div class="col-lg-3 col-md-4  col-sm-12 col-xs-12">
+                <form class="form-inline">
+                        <label class = label_txt>Filter By Poc</label>
+                        <select class="form-control selectwidth" (change)="onSelectPoc($event.target.value)" id="poc_filter">
+                            <option value = '-1'>select</option>
+                            <option *ngFor="let list of pocList;let i = index" [value]=i>{{list.pocName}}</option>
+                          </select>
+        
+                </form> 
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 order_list">
+          
+                <ul>
+                    <li id="total">TOTAL
+                        <br />
+                        <span class="slotsnumber"  *ngIf = 'countOfOrders != undefined'>
+                            <!-- <b>{{totalSlots}}</b> -->
+                            <b>{{countOfOrders.totalBooked?countOfOrders.totalBooked:0}}</b>
+                            
+                        </span>
+                    </li>
+                    <li id="booked">ACCEPTED
+                        <br />
+                        <span class="slotsnumber" *ngIf = 'countOfOrders != undefined'>
+                            <b>{{countOfOrders.totalApproved?countOfOrders.totalApproved:0}}</b>
+                        
+                        </span>
+                    </li>
+                    <li id="empty" *ngIf = 'countOfOrders != undefined'>COMPLETED
+                        <br />
+                        <span class="slotsnumber">
+                            <b>{{countOfOrders.totalCompleted?countOfOrders.totalCompleted:0}}</b>
+    
+                        </span>
+                    </li>
+                    <li id="rejected" *ngIf = 'countOfOrders != undefined'>REJECTED
+                        <br />
+                        <span class="slotsnumber">
+                            <b>{{countOfOrders.totalRejected?countOfOrders.totalRejected:0}}</b>
+    
+                        </span>
+                    </li>
+                </ul>
+            </div>
+    </div>
+    <br>
+    <br>
+    <hs-message [isError]="isError" [show]="showErrorMessage" [messages]="errorMessage" ></hs-message>
+    <!-- <div *ngIf = 'this.centralHomeConsultList?.orderId == undefined && this.centralHomeConsultList.length == 0'> -->
+          
+          
+    <!-- </div> -->
+    <br>
+    <br>
+    <div class = "row">
+            <div class="col-lg-12">
+                    <section class="widget table_pading" widget>
+                        <div class="widget-body">
+                            <hs-table [columns]="columns" [pagingList]="centralHomeConsultList" [sort]="sorting"  [componentId]="'centralHomeConsulatationsListTable'" (imageClick)="onImageClicked($event)" [perPage]="perPage" [total]="total" 
+                            [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+                                Loading table...
+                            </hs-table>
+                        </div>
+                    </section>
+                </div>
+    </div>
+</section>
+
+<spinner-component></spinner-component>

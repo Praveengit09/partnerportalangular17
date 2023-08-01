@@ -1,0 +1,243 @@
+<hs-message [isError]="isError" [show]="isError" [messages]="errorMessage"></hs-message>
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-4 processid_text">
+        <h1 class="page-title">Order ID: {{orderDetails.orderId}}</h1>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <section class="newadd_process row" widget="">
+        <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+            <p>Patient</p>
+            <h4>{{orderDetails.patientProfileDetails.title?orderDetails.patientProfileDetails.title+".":''}}
+                {{orderDetails.patientProfileDetails.fName}}
+                {{orderDetails.patientProfileDetails.lName?orderDetails.patientProfileDetails.lName:''}}
+            </h4>
+        </div>
+    </section>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding">
+    <h2>Return Items</h2>
+</div>
+
+<div class="row" *ngIf="editCheck">
+    <div class="col-md-12">
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">
+                                #
+                            </th>
+
+                            <th class="">
+                                Medicine Name
+                            </th>
+                            <th class="">
+                                Composition
+                            </th>
+                            <th class="">
+                                Quantity
+                            </th>
+                            <th class="">
+                                Return Quantity
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of pharmacyList; let i =index">
+                        <tr>
+                            <td> {{i+1}}</td>
+                            <td>
+                                <span>{{item.productName}}
+                                    <sup class="rx_icontxt">
+                                        <img src="assets/icon/ic_rx.png" *ngIf="item.rxDrug == true">
+                                    </sup>
+                                </span>
+                            </td>
+                            <td>{{item.genericMedicine.genericMedicineName}}
+                            </td>
+                            <td>
+                                <span>{{item.quantity}} / {{item.returnType}} </span>
+                            </td>
+                            <td>
+                                <input type="text" class="form_control" [(ngModel)]="item.returnQuantity"
+                                    (keypress)="validateNumberInputOnly($event)">
+                                <div class="drpbx" *ngIf="!item.packageSoldLoose">
+                                    <select [(ngModel)]="item.returnPackageStatus"
+                                        [disabled]=" !item.packingInformation?.unitsInPackage || item.packingInformation.unitsInPackage<=1"
+                                        class='fname_4txt form-control mt-1  pack-type'>
+                                        <option [value]=1>
+                                            {{item.packingInformation&&item.packingInformation.packageType?item.packingInformation.packageType:"Package"}}
+                                        </option>
+                                        <option [value]=2>Loose</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="item.isErrorFound" class="addproduct_errormsg">
+                            <td colspan="8">
+                                <hs-message [isError]="item.isErrorFound" [show]="item.isErrorFound"
+                                    [messages]="item.isErrorMsg"></hs-message>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+        <div class="col-md-12 col-sm-12 col-xs-12 process_padding">
+            <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+        </div>
+        <div class="row edit_process">
+            <div class="col-md-9 col-sm-9 col-xs-9"></div>
+            <button class="processsubmit_txt" role="button" (click)="onNext()">Next</button>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="!editCheck">
+    <div class="col-md-12">
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">
+                                #
+                            </th>
+
+                            <th class="">
+                                Medicine Name
+                            </th>
+                            <th class="">
+                                Composition
+                            </th>
+                            <th class="">
+                                Quantity
+                            </th>
+                            <th class="">Strength</th>
+                            <th class="">
+                                Gross Rate (Per unit)
+                            </th>
+                            <th class="">
+                                Total Tax
+                            </th>
+                            <th class="sort-true">
+                                Total Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of showList; let i =index">
+                        <tr>
+                            <td> {{i+1}}</td>
+                            <td>
+
+                                <span>{{item.productName}}
+                                    <sup class="rx_icontxt">
+                                        <img src="assets/icon/ic_rx.png" *ngIf="item.rxDrug == true">
+                                    </sup>
+                                </span>
+                            </td>
+                            <td>{{item.genericMedicine.genericMedicineName}}
+                            </td>
+                            <td>
+                                <span>{{item.quantity}} </span>
+                            </td>
+                            <td>
+                                <span>{{item.medicineStrength}}</span>
+                            </td>
+                            <td>&#8377; {{item.grossPrice | number : '1.2-2'}}</td>
+                            <td>
+                                &#8377; {{item.taxationAmount | number : '1.2-2'}}
+                                <br> CGST({{item.taxes?item.taxes.cgst:0}}%): &#8377;
+                                {{(item.totalTaxes?item.totalTaxes.cgstAmount:0) | number : '1.2-2'}}
+                                <br> SGST({{item.taxes?item.taxes.sgst:0}}%): &#8377;
+                                {{(item.totalTaxes?item.totalTaxes.sgstAmount:0) | number : '1.2-2'}}
+                                <br> IGST({{item.taxes?item.taxes.igst:0}}%): &#8377;
+                                {{(item.totalTaxes?item.totalTaxes.igstAmount:0) | number : '1.2-2'}}
+                            </td>
+                            <td>
+                                <span>&#8377; {{item.finalAmount | number : '1.2-2'}} </span>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+        <div class="col-md-12 col-sm-12 col-xs-12 process_padding">
+            <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="!editCheck">
+    <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+        <form action="#" class="from_txt" novalidate="">
+            <div class="row process_original">
+
+                <div class="col-md-6 col-sm-6 col-xs-12 total_txt">Rate Subtotal :
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    &#8377;{{orderDetails.payment.originalAmount | number : '1.2-2'}} </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{orderDetails.userPackageId>0 &&
+                    orderDetails.packageName!=null?orderDetails.packageName:'NA'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package Discount :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;
+                    {{(orderDetails.userPackageId>0?orderDetails.payment.packageDiscountAmount:'0.0')
+                    | number : '1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Other Discounts :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;
+                    {{orderDetails.payment.otherDiscountAmount?orderDetails.payment.otherDiscountAmount:0
+                    | number : '1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;
+                    {{(orderDetails?.payment.usedWalletAmount?orderDetails.payment.usedWalletAmount:'0')
+                    | number : '1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Taxes :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377; {{orderDetails.payment.taxationAmount | number : '1.2-2'}}</div>
+                <ng-template [ngIf]="orderDetails.payment.platformCharges && orderDetails.payment.platformCharges > 0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Platform Charges:</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(orderDetails.payment.platformCharges?orderDetails.payment.platformCharges:0)
+                        |currency:'INR':true:'1.2-2'}}
+                    </div>
+                </ng-template>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;
+                    {{orderDetails.payment.totalCashbackAmount?orderDetails.payment.totalCashbackAmount:0
+                    | number : '1.2-2'}}</div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Amount Paid :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377; {{orderDetails.payment.amountPaid | number : '1.2-2'}}</div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Return Amount :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                     &#8377; {{orderDetails.payment.finalAmount | number : '1.2-2'}}
+                </div>
+            </div>
+            <div class="row edit_process">
+                <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                <button class="processsubmit_txt" role="button" (click)="onSubmit()">Submit</button>
+            </div>
+        </form>
+    </div>
+</div> 
+
+<spinner-component></spinner-component>

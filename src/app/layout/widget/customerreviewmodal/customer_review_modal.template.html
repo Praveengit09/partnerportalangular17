@@ -1,0 +1,53 @@
+<div class="modal fade" id="modalId">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)='clear()'><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">{{modalTitle}}</h4>
+                <hr>
+            </div>
+            <div class="modal-body">
+
+                <div class='row ' *ngIf='hasTypeCheck == true'>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input type="checkbox" name="genres" [checked]='checkDoctorBooking == true' class='checkmark'
+                            id="checkbox_id" (change)="onCheckType(1)">
+                        <label for="adventure_id" class="add_to_label">Resulting Doctor Booking</label>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <input type="checkbox" name="genres" id="checkbox_id" class='checkmark'
+                            [checked]='checkDiagnosticBooking == true' (change)="onCheckType(2)">
+                        <label for="adventure_id" class="add_to_label">Resulting Diagnostic Booking</label>
+                    </div>
+
+                </div>
+
+                <h6 class='add_color'>Interaction Status</h6>
+                <select class="form-control mb-2" 
+                    id="select_entity_type" (change)="addInteractionStatus($event.target.value)">
+                    <option value = 0>Select Status</option>
+                    <option *ngFor="let item of interactionStatusList;let i = index" [value]='item'>{{item}}</option>
+                </select>
+                <form>
+                    <label for="descrip">Comments</label><br>
+                    <textarea rows="4" cols="50" name="remark" #remark class="form-control title_txt"
+                        placeholder="Enter Comments" [(ngModel)]="previousComments"></textarea>
+                    <!-- <button type="button" class="btn-serch mt-2" value="serch" (click)="onSubmit(remark.value)">Submit</button> -->
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <div class="alert alert-danger " *ngIf="errorMessage!=''" style="text-align:center">
+                    {{errorMessage}}
+                </div>
+                <button type="button" class="btn-serch mt-2" value="serch"
+                    (click)="onSubmit(remark.value)">Submit</button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

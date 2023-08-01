@@ -1,0 +1,106 @@
+<div class="table_size row">
+    <h1 class="page-title col-lg-12 col-md-12 col-sm-12 col-xs-12">Booking Reports</h1>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 serbox_txt row">
+        <div class="row serbox_txt date-filterPOC col-lg-12 col-md-12 col-sm-12 col-xs-12 pl-3">
+
+            <div class="form-group col-md-2 input_date respon_txt">
+                <label for="strength" class="all_textboxtxt">Start Date</label>
+                <datetime [(value)]="startDate" name="startDate" id="datepicker" [placeholder]="'Start Date'" (dateChange)="startDateChoosen()" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="form-group col-md-2 input_date respon_txt">
+                <label for="strength" class="all_textboxtxt">End Date</label>
+                <datetime [(value)]="endDate" name="endDate" id="datepicker2" [placeholder]="'End Date'" [timepicker]="false" [datepicker]="datepickerOptEnd" (dateChange)="endDateChoosen($event)">
+                </datetime>
+            </div>
+            <div class="form-group col-md-1">
+                <button type="submit" class="btn btn-danger sub_txt booking_reportsubtxt width-100" role="button" (click)="getBookingReportForPoc()">
+                    Submit
+                </button>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <div class="filter_txt">
+                    <h6 class="sub-title">Filter by POC</h6>
+                    <form>
+                        <select id="poc_select" class="form-control" *ngIf="pocRolesList" (change)="onPOCSelect($event.target.value)" [(ngModel)]="selectedPocIndex" [ngModelOptions]="{standalone: true}">
+                            <option value="-1">Select Centre</option>
+                            <option *ngFor="let poc of pocRolesList;let i = index" [value]=i>{{poc.pocName}}</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-12">
+                <div class="filter_txt">
+                    <h6 class="sub-title">Filter by Doctor</h6>
+                    <form>
+                        <select id="poc_select" class="form-control" *ngIf="doctorList" (change)="onPOCDoctorSelect($event.target.value)" [(ngModel)]="selectedPocDoctorIndex" [ngModelOptions]="{standalone: true}">
+                            <option value="-1">-Select Doctor-</option>
+                            <option *ngFor="let doc of doctorList;let i = index" [value]=i>
+                                {{doc.firstName+""}} {{doc.lastName?doc.lastName:''}}</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 order_list">
+            <ul>
+                <li id="averageVideoTime">AVERAGE VIDEO TIME
+                    <br />
+                    <span class="slotsnumber">
+                        <b>{{sRes?sRes.averageVideoTime:0}}</b>
+                    </span>
+                </li>
+                <li id="totalBookings">TOTAL BOOKINGS
+                    <br />
+                    <span class="slotsnumber">
+                        <b>{{sRes?sRes.totalBookings:0}}</b>
+                    </span>
+                </li>
+                <li id="totalVideoTime">TOTAL VIDEO TIME
+                    <br />
+                    <span class="slotsnumber">
+                        <b>{{sRes?sRes.totalVideoTime:0}}</b>
+                    </span>
+                </li>
+                <!--  (click)="getCheckedSlots()" -->
+                <li id="totalEngagedBooking">TOTAL ENGAGED BOOKINGS
+                    <br />
+                    <span class="slotsnumber">
+                        <b>{{sRes?sRes.totalEngagedBooking:0}}</b>
+                    </span>
+                </li>
+                <li id="totalIntiatedBooking">TOTAL INITIATED BOOKINGS
+                    <br />
+                    <span class="slotsnumber">
+                        <b>{{sRes?sRes.totalIntiatedBooking:0}}</b>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 serbox_txt">
+            <hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+        </div>
+
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 row">
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+
+                    <hs-table [columns]="columns" [pagingList]="bookingReportList" [sort]="sorting" [componentId]="'bookingReportsTable'" [perPage]="perPage" [total]="total" [isStaticPaging]=true>
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+
+
+        <div class="row">
+
+        </div>
+    </div>
+</div>

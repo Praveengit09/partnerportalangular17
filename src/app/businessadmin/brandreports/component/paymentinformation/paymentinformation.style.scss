@@ -1,0 +1,247 @@
+h5 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #333333;
+    margin-bottom: 32px;
+    margin-top: 30px;
+}
+h6 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #4a4a4a;
+}
+p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+}
+span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a4a4a;
+    max-width: 380px;
+    display: block;
+}
+.add-managerbtn {
+    height: 37px;
+    border-radius: 2px;
+    border: solid 1px #4babb2;
+    background-color: #60c2c9;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+}
+.payment-info span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333333;
+}
+.payment-info p {
+    width: 63px;
+}
+.payment-info p, .payment-info span {
+    display: inline-block;
+}
+select {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a4a4a;
+    max-width: 402px;
+    width: 100%;
+    height: 37px;
+    border-radius: 2px;
+    border: solid 1px #e2e2e2;
+    background-color: #fdfdfd;
+}
+
+.update_button{
+    width: 122px;
+    height: 36px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    border: solid 1px #f06363;
+    background-color: #ff6d6d;
+    color: #ffffff;
+  }
+
+  .add_patientpopup{
+    width: 540px !important;
+   }
+
+   
+@media only screen and (min-width: 320px) {
+    .newadd_patient{
+     height: 190px;
+     
+    }
+    .widget-body { overflow-x: scroll; }
+    .newadd_patient .patient_txt h4{
+     font-size: 16px;
+    }
+    .newadd_patient .patient_txt p{
+     font-size: 13px;
+     padding-bottom: 15px;
+    }
+    .patient_txt{
+     padding-bottom: 8px;
+    }
+    input[placeholder], [placeholder], *[placeholder] {
+     color: rgba(0, 0, 0, 0.71)!important;
+     border: 1px solid rgba(0, 0, 0, 0.47);
+    }
+    .from_txt {
+     width: auto;
+    }
+    .modal-header{
+     padding: 15px 15px 11px 30px;
+    }
+    .modal-body {
+     position: relative;
+     padding: 0px 45px 0px 75px !important;
+    }
+     .add_patientpopup {
+     width: 340px !important;
+    }
+    .modal.left.fade.in .modal-dialog, .modal.right.fade.in .modal-dialog{
+     right: 200px;
+    }
+    }
+    @media only screen and (min-width: 412px){
+    .modal.left.fade.in .modal-dialog, .modal.right.fade.in .modal-dialog {
+     right: 170px;
+    }
+    .add_patientpopup {
+     width: 330px !important;
+    }
+    }
+    @media only screen and (min-width: 640px){
+     .modal.left.fade.in .modal-dialog, .modal.right.fade.in .modal-dialog {
+     right: 70px;
+    }
+    
+    .newadd_patient {
+     height: 70px;
+    }
+    .newadd_patient .patient_txt h4 {
+     font-size: 13px;
+    }
+    .from_txt {
+        width: 540px;
+    }
+    .modal-header{
+     padding: 15px 15px 11px 0px;
+    }
+    .modal-body {
+     position: relative;
+     padding: 0px 45px 0px 45px !important;
+    }
+    
+    }
+    @media only screen and (min-width: 732px){
+     
+    .add_patientpopup {
+     width: 390px !important;
+    }
+    .modal.left.fade.in .modal-dialog, .modal.right.fade.in .modal-dialog {
+     right: 100px;
+    }
+    }
+    @media only screen and (min-width: 768px){
+     .add_patientpopup {
+     width: 425px !important;
+    }
+    }
+    
+    @media only screen and (min-width: 1200px) {
+     .add_patientpopup {
+     width: 540px !important;
+    }
+    .modal.left.fade.in .modal-dialog, .modal.right.fade.in .modal-dialog {
+     right: 0px;
+    }
+    .newadd_patient .patient_txt h4{
+     font-size: 21px;
+    }
+    .newadd_patient .patient_txt p {
+     font-size: 13px;
+     padding-bottom: 0px;
+    }
+     .newadd_patient{
+     height: 80px;
+    }
+    .patient_txt{
+     padding-bottom: 0px;
+    }
+    .from_txt {
+        width: 540px !important;
+    }
+    .table thead th:first-child, .table tbody td:first-child {
+     padding-left: 25px !important;
+     width:125px;
+    }
+    .widget-body {
+     overflow-x:hidden; 
+    }
+    }
+
+    .modal.left.fade .modal-dialog{
+        right: -320px;
+        -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+         -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+         transition: opacity 0.3s linear, left 0.3s ease-out;
+    }
+    
+    .modal.left.fade.in .modal-dialog{
+        right: 0;
+ margin: 0px;
+ position: relative;
+ height: 100%;
+    }
+
+
+.modal.right.fade .modal-dialog {
+        right: -320px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+         transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+    .modal.left.fade.in .modal-dialog,
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+ margin: 0px;
+ position: relative;
+ height: 100%;
+    }
+ .modal-content {
+        border-radius: 0;
+        border: none;
+ min-height: 100%;
+ margin: 0 auto;
+ bottom: 0;
+ width: auto;
+    }
+
+    .model_txt{
+        float: right;
+        right: 0px;
+        width: 40%;
+       }
+       .model_txt1{
+        float: right;
+        right: 0px;
+        width: 500px;
+       }
+       .modal-body {
+        position: relative;
+        padding: 0px 45px 0px !important;
+       }
+
+.modal-dialog{
+    margin-left: 16% !important;
+    }
+
+.color_cash{
+        font-size: 500;
+       }

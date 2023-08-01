@@ -1,0 +1,79 @@
+<div class="table_size">
+
+    <div class="doctorsearch-card">
+        <h1 class="page-title">Doctor Search</h1>
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="form-group">
+                    <select class="form-control" *ngIf="serviceList" [(ngModel)]='this.serviceId'
+                        [ngModelOptions]="{standalone: true}" (change)="onServiceItemChange($event.target.value)">
+                        <option value=0>Select Speciality</option>
+                        <option *ngFor="let service of serviceList; let i=index" [value]='service.serviceId'>{{service.serviceName}}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-3">
+
+                <div class="form-group">
+                    <input class="form-control" (keyup)="onEnterPressed($event)" id="focusedInput"
+                        placeholder="Search Doctor" type="text" [(ngModel)]="searchTerm">
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-4 btn_prsearch">
+                <span class="input-group-btn">
+                    <button class="btn btn-danger width-100 mb-xs botton_txtsearch done_txt" role="button"
+                        (click)="onSearchClick()">Search</button>
+                </span>
+            </div>
+        </div>
+        <span style="color: #ff0102;" *ngIf="error==true">Doctor is not available !!!</span>
+    </div>
+
+    <!-- <h5 *ngIf="doctorList">Doctor where found based on your query {{searchTerm}}</h5> -->
+    <section class="row doctordetails_txt" *ngIf="doctorList!=undefined && doctorList!=null && doctorList.length>0">
+        <div *ngFor="let doc of doctorList" class="col-xl-6 col-lg-12 col-md-12 doctor_details">
+            <ng-template
+                [ngIf]="doc.employeePocMapping && (doc.employeePocMapping?.participationSettings?.doctorDigiAvailable == true || doc.employeePocMapping?.participationSettings?.doctorVideoLaterAvailable == true  || doc.employeePocMapping?.participationSettings?.doctorPhysicallyAvailable == true)">
+                <div class="well well-sm">
+                    <div class="media row">
+                        <a class="doctor_profile col-md-2 col-sm-2 col-xs-3">
+                            <img class="media-object" [src]="doc.imageUrl?doc.imageUrl:defaultDoctorImgUrl"
+                                style="width:60px;height:60px;">
+                        </a>
+                        <div class="media-body col-md-5 col-sm-5 col-xs-9">
+                            <h5 class="media-heading">Dr. {{doc?.firstName}}{{emptyString}}{{doc?.lastName?
+                                doc?.lastName : ''}}</h5>
+                            <h6 class="sub-heading">{{doc?.serviceName}}</h6>
+                            <h6 class="sub-heading">{{doc?.experience}} yrs experience</h6>
+                            <h6 *ngIf="doc?.contactList && doc?.contactList.length > 0" class="sub-heading">
+                                M:{{doc?.contactList[0]}}</h6>
+                        </div>
+                        <div class="col-xs-3 show-xs">&nbsp;</div>
+                        <div class="doctor_booknow col-md-5 col-sm-5 col-xs-9">
+                            <h6 class="sub-heading" *ngIf="doc.pocDetails">{{doc?.pocDetails?.pocName}}</h6>
+                            <h6 class="sub-heading" *ngIf="doc.pocDetails">
+                                {{doc?.pocDetails?.address?.areaName?(doc?.pocDetails?.address?.areaName+',
+                                '):''}}{{doc?.pocDetails?.address?.cityName}} </h6>
+
+                            <button class="btn btn-danger mb-xs botton_txtsearch done_txt" role="button"
+                                (click)="getdigiroomBookedSlots(doc)">Book
+                                Now </button>
+                        </div>
+                        <div class="doctor_booknow col-md-5 col-sm-5 col-xs-9"
+                            *ngIf="!doc.employeePocMapping || (doc.employeePocMapping.participationSettings.doctorDigiAvailable == false && doc.employeePocMapping.participationSettings.doctorVideoLaterAvailable== false)">
+                            <button class="btn btn-danger mb-xs botton_txtsearch done_txt" role="button" disabled>Book
+                                Now</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+        </div>
+
+
+    </section>
+
+</div>
+<spinner-component></spinner-component>

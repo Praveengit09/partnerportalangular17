@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-title">Diagnostics Schedule</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>Select Applicable Areas</h4>
+        <!-- <div class="form-group mt-2 mb-2">
+            <span>Select State</span>
+            <select class="form-control" *ngIf="stateResponse" [(ngModel)]="stateIndex"
+                [ngModelOptions]="{standalone : true}" (change)="onStateChange($event.target.value)">
+                <option value="0">Select State</option>
+                <option *ngFor="let state of stateResponse;let i = index" [value]=state.id>{{state.name}}
+                </option>
+            </select>
+        </div> -->
+        <div class="form-group mt-2 mb-2">
+            <span>Select City</span>
+            <select class="form-control" *ngIf="cityResponse" [(ngModel)]="cityId"
+                [ngModelOptions]="{standalone : true}" (change)="onCityChange($event.target.value)">
+                <option value="0">Select City</option>
+                <option *ngFor="let city of cityResponse;let i = index" [value]=city.id>{{city.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <span>Select Locations</span>
+    </div>
+    <div class="col-md-12">
+        <section class="widget table_pading diagnostic_schedulelocwidget">
+            <div class="widget-body table-responsive">           
+                <div>
+                    <hs-table [columns]="columns" class="dynamic-search" [pagingList]=" this.areaResponse"
+                        [defaultSelected]="this.selectedAreas"
+                        [selectedRows]="this.selectedAreas" [canSelectRows]="true"
+                        [isDataChange]="this.isCityChange" (clickEvent)="clickEventHandler($event)"
+                        [canSearchTableData]="true" [componentId]="'areaList'" [perPage]="perPage"
+                        (pageEvent)="getPage($event)">
+                    </hs-table>                    
+                </div>
+            </div>
+        </section>
+    </div>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <div class="col-md-12">
+        <button class="btn Update12 ng-star-inserted" name="save" (click)="onSaveDetails()">Save &
+            Continue</button>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

@@ -1,0 +1,333 @@
+<h1 class="page-title">Pre Consultation Questionnaire</h1>
+
+<div class="row" *ngIf="!isFromDoctor">
+    <div class="col-lg-9 col-md-12 border_text mb-3">
+        <section class="widget_txt row" widget="">
+
+            <div class="col-md-7">
+                <h5 class="vitals-text">Patient Information</h5>
+                <div class="row">
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                        *ngIf="patientQue?.patientProfilePic == undefined || patientQue?.patientProfilePic == null || patientQue?.patientProfilePic==''">
+                        <img class="rounded-circle" src="assets/img/avatar.png" alt="..." />
+                    </span>
+                    <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                        *ngIf="patientQue?.patientProfilePic != undefined && patientQue?.patientProfilePic != null && patientQue?.patientProfilePic!=''">
+                        <img class="rounded-circle" src={{patientQue?.patientProfilePic}} alt="..." />
+                    </span>
+                    <span class="col-lg-10 col-md-9 col-sm-9 col-xs-9">
+
+                        <h4>{{(patientQue.patientTitle?patientQue.patientTitle+'.
+                            ':'')+patientQue.patientFirstName+"
+                            "+(patientQue.patientLastName?patientQue.patientLastName:'')}}
+                        </h4>
+                        <p>{{common.getAge(patientQue.patientDOB).split(",")[0]+common.getAge(patientQue.patientDOB).split(",")[1]}}
+                        </p>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-5 apt_detail">
+                <h5 class="vitals-text">Appointment Details</h5>
+                <h4>{{patientQue.doctorTitle}}{{emptyStr}}{{patientQue.doctorFirstName}}{{emptyStr}}{{patientQue.doctorLastName?patientQue.doctorLastName:''}}
+                </h4>
+                <p>{{patientQue.visitedTime | date:'short'}}</p>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<form class="row row_margin">
+
+    <!-- <div > -->
+
+    <ng-container *ngFor="let vitalInput of vitalInputList;let i = index">
+        <ng-container [ngSwitch]="vitalInput.componentId">
+
+            <div class="col-md-4 col-sm-6" *ngSwitchCase="QuestionConstants['COMPONENT_OPTIONS']">
+                <div class="form-group vital-widget">
+                    <label class="control-label w-100" for="height">{{vitalInput.name}}
+                        {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+                        <span class="float-right" *ngIf="isFromDoctor"
+                            (click)="getPHRGraphplots({reportId:vitalInput.id,name:vitalInput.name})"><i
+                                class="glyphicon glyphicon-stats"></i></span>
+                    </label>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <select [disabled]="vitalInput.isDisabled" class="form-control pr-0"
+                                (change)="onChangeInput($event,vitalInput)" [(ngModel)]="vitalInput.ansList[0]"
+                                [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let option of vitalInput.choices[0]">
+                                    {{option.option}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <select [disabled]="vitalInput.isDisabled" class="form-control pr-0"
+                                (change)="onChangeInput($event,vitalInput,1)" [(ngModel)]="vitalInput.ansList[1]"
+                                [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let option of vitalInput.choices[1]">
+                                    {{option.option}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6" *ngSwitchCase="QuestionConstants['COMPONENT_ENTRY']">
+                <div class="form-group vital-widget">
+                    <label class="control-label w-100" for="{{vitalInput.name}}">{{vitalInput.name}}
+                        {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+                        <span class="float-right" *ngIf="isFromDoctor"
+                            (click)="getPHRGraphplots({reportId:vitalInput.id,name:vitalInput.name})"><i
+                                class="glyphicon glyphicon-stats"></i></span>
+                    </label>
+                    <input [disabled]="vitalInput.isDisabled" (keyup)="onKeyUp($event,vitalInput)"
+                        (change)="onChangeInput($event,vitalInput)" autocomplete="off"
+                        type="{{vitalInput.inputType==2?'number':'text'}}" class="form-control"
+                        [(ngModel)]="vitalInput.value" name="{{vitalInput.name}}">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6" *ngSwitchCase="QuestionConstants['COMPONENT_OPTION']">
+                <div class="form-group vital-widget">
+                    <label class="control-label w-100" for="{{vitalInput.name}}">{{vitalInput.name}}
+                        {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+                        <span class="float-right" *ngIf="isFromDoctor"
+                            (click)="getPHRGraphplots({reportId:vitalInput.id,name:vitalInput.name})"><i
+                                class="glyphicon glyphicon-stats"></i></span>
+                    </label>
+                    <select [disabled]="vitalInput.isDisabled" id="{{vitalInput.name}}"
+                        (change)="onChangeInput($event,vitalInput)" name="{{vitalInput.name}}"
+                        [(ngModel)]="vitalInput.value" class="form-control">
+                        <option selected="{{vitalInput.value==option.id}}" value="{{option.id}}"
+                            *ngFor="let option of vitalInput.choices[0]">
+                            {{option.option}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6" *ngSwitchCase="QuestionConstants['COMPONENT_SWITCH']">
+                <div class="form-group vital-widget">
+                    <label class="control-label w-100" for="{{vitalInput.name}}">{{vitalInput.name}}
+                        {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+
+                    </label>
+                    <select [disabled]="vitalInput.isDisabled" id="{{vitalInput.name}}"
+                        (change)="onChangeInput($event,vitalInput)" name="{{vitalInput.name}}"
+                        [(ngModel)]="vitalInput.value" class="form-control">
+                        <option selected="{{vitalInput.value==option.id}}" value="{{option.id}}"
+                            *ngFor="let option of vitalInput.choices[0]">
+                            {{option.option}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6" *ngSwitchCase="QuestionConstants['COMPONENT_MULTI_SELECTION']">
+                <div class="form-group vital-widget">
+                    <label class="control-label w-100" for="{{vitalInput.name}}">{{vitalInput.name}}
+                        {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+
+                    </label>
+                    <select [disabled]="vitalInput.isDisabled" id="{{vitalInput.name}}"
+                        (change)="onChangeInput($event,vitalInput)" name="{{vitalInput.name}}"
+                        [(ngModel)]="vitalInput.value" class="form-control">
+                        <option selected="{{vitalInput.value==option.id}}" value="{{option.id}}"
+                            *ngFor="let option of vitalInput.choices[0]">
+                            {{option.option}}</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </ng-container>
+    </ng-container>
+    <div class="col-md-4 col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-7 col-lg-7 col-sm-7 col-xl-7 col-xs-9">
+                        <h4 class="hide-sm">Symptoms</h4>
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-sm-5 col-xl-5 col-xs-12 search-field">
+                        <label class="sr-only" for="inlineFormInputGroup">Search for more
+                            symptoms</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text searchInput"><i class="fa fa-search"
+                                        aria-hidden="true"></i></div>
+                            </div>
+                            <input type="text" class="form-control searchInput" id="inlineFormInputGroupSymptons"
+                                (keyup)="searchForMoreSymptoms($event)" placeholder="Search for more symptoms">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body mb-0 listOfcard">
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedSymptom!=''">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedSymptoms()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">Add
+                                                "{{addSuggestedSymptom}}" as Symptom</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let symptom of displaySymptoms;let i=index">
+                        <div class="form-group custom_chk_btn cardBodyItem">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <input type="checkbox" id="symptom{{i}}" name="symptoms"
+                                            (click)="onClickSymptom(i)" [value]="symptom.isSelected"
+                                            [checked]="symptom.isSelected" />
+                                        <label for="symptom{{i}}">
+                                            <span class="ailment_text">{{symptom.name}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-7 col-lg-7 col-sm-7 col-xl-7 col-xs-9">
+                        <h4 class="hide-sm">Allergies</h4>
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-sm-5 col-xl-5 col-xs-12 search-field">
+                        <label class="sr-only" for="inlineFormInputGroup">Search for more allergies</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text searchInput"><i class="fa fa-search"
+                                        aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control searchInput" id="inlineallergies"
+                                (keyup)="searchForMoreallergies($event)" placeholder="Search for more allergies">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body listOfcard mb-0">
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedAllergy!=''">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedAllergies()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">Add "{{addSuggestedAllergy}}" as
+                                                Allergies</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let allergies of displayAllergies;let i=index">
+                        <div class="form-group custom_chk_btn cardBodyItem">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <input type="checkbox" id="allergies{{i}}" name="allergy"
+                                            (click)="onClickAllergy(i)" [value]="allergies.isSelected"
+                                            [checked]="allergies.isSelected" />
+                                        <label for="allergies{{i}}">
+                                            <span class="ailment_text">{{allergies.name}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+        <div class="form-group float-right">
+
+            <button type="button" class="btn-serch mt-2"
+                (click)="updateWalkinConsultationQuestinnaire()">Update</button>
+
+            <p class="errormsg">{{errorMessage}}</p>
+        </div>
+    </div>
+    <!-- </div> -->
+</form>
+
+
+<!-- <div class="row" id="vital-readings">
+    <div class="col-md-12">
+        <section class="widget">
+
+            <div class="widget-body">
+
+                <div class="col-md-12">
+                    <div class="well-block">
+                        <div class="well-title text-line">
+                            <h4 class="vitals-text">Pre Consultation Quesstionnaire</h4>
+                        </div>
+                        <div class="row" *ngIf="!isFromDoctor">
+                            <div class="col-lg-9 col-md-12 border_text">
+                                <section class="widget_txt row" widget="">
+
+                                    <div class="col-md-7">
+                                        <h5 class="vitals-text">Patient Information</h5>
+                                        <div class="row">
+                                            <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                                                *ngIf="patientQue?.patientProfilePic == undefined || patientQue?.patientProfilePic == null || patientQue?.patientProfilePic==''">
+                                                <img class="rounded-circle" src="assets/img/avatar.png" alt="..." />
+                                            </span>
+                                            <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                                                *ngIf="patientQue?.patientProfilePic != undefined && patientQue?.patientProfilePic != null && patientQue?.patientProfilePic!=''">
+                                                <img class="rounded-circle" src={{patientQue?.patientProfilePic}}
+                                                    alt="..." />
+                                            </span>
+                                            <span class="col-lg-10 col-md-9 col-sm-9 col-xs-9">
+
+                                                <h4>{{(patientQue.patientTitle?patientQue.patientTitle+'.
+                                                    ':'')+patientQue.patientFirstName+"
+                                                    "+(patientQue.patientLastName?patientQue.patientLastName:'')}}
+                                                </h4>
+                                                <p>{{common.getAge(patientQue.patientDOB).split(",")[0]+common.getAge(patientQue.patientDOB).split(",")[1]}}
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 apt_detail">
+                                        <h5 class="vitals-text">Appointment Details</h5>
+                                        <h4>{{patientQue.doctorTitle}}{{emptyStr}}{{patientQue.doctorFirstName}}{{emptyStr}}{{patientQue.doctorLastName?patientQue.doctorLastName:''}}
+                                        </h4>
+                                        <p>{{patientQue.visitedTime | date:'short'}}</p>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <br />
+                        
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</div> -->
+
+<spinner-component></spinner-component>

@@ -1,0 +1,20 @@
+@import "../../../advice/component/invoice/invoice.style.scss";
+
+.total_txt {
+    font-weight: 500;
+}
+
+.process_original {
+    line-height: 30px;
+}
+
+.process_original .col-md-6 {
+    line-height: 45px;
+    padding: 0 !important;
+}
+
+.with_txt {
+    line-height: 0px;
+    margin-bottom: 0px;
+    font-size: 11px;
+}

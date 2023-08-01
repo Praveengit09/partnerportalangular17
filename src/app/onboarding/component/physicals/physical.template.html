@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="col-md-12">
+        <section class="widget">
+
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <h1 class="page-title">Update/Edit Physicals</h1>
+                        <p>We are glad that you thought to try our {{environment}} Portal. Now that you have created your profile, let us complete it so that {{environment}} can keep a track of your health and fitness.</p>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="progress_indicator_wrapper">
+                        <a routerLink="/app/onboarding/personal/{{profileId}}" class="progress_indicator"><span class="ic_progress past"></span> PHR</a>
+                        <a routerLink="/app/onboarding/physical/{{profileId}}" class="progress_indicator active"><span class="ic_progress present"></span> Physicals</a>
+                        <a routerLink="/app/onboarding/updatelabtest/{{profileId}}" class="progress_indicator"><span class="ic_progress future"></span> Lab Tests</a>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <br/><br/>
+
+                <div class="col-md-12">
+                    <div class="well-block">
+                        <div class="well-title text-line">
+                            <h3>Physicals</h3>
+                        </div>
+                        <br/>
+
+                        <form>
+                            <div class="row" *ngFor="let physical of labsnoninvasive;let j=index">
+                                <div class="col-md-6 col-sm-9">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date" *ngIf="physical.id != 60">{{physical.name}}</label>
+                                        <span *ngIf="physical.id != 18 && physical.id != 45 && physical.id != 1 && physical.id != 3 && physical.id != 60">
+                                        <input  type="text" id={{physical.id}} class="form-control" placeholder='{{"Enter "+physical.name}}' name='{{physical.name}}' [(ngModel)]="physical.value" [ngModelOptions]="{standalone: true}" (keypress)="validation.onlyDecimalValueTillTwoDigits($event)">
+                                    </span>
+
+                                        <!--Head Circumference Logic-->
+                                        <label class="control-label" for="date" *ngIf="physical.id == 60 && checkAge < 13">{{physical.name}}</label>
+                                        <span *ngIf="physical.id == 60 && checkAge < 13">
+                                        <input  type="text" id={{physical.id}} class="form-control" placeholder='{{"Enter "+physical.name}}' name='{{physical.name}}' [(ngModel)]="physical.value" [ngModelOptions]="{standalone: true}" (keypress)="validation.onlyDecimalValueTillTwoDigits($event)">
+                                    </span>
+
+                                        <!--For Weight-->
+                                        <span *ngIf="physical.id == 3">
+                                        <input  type="text" id={{physical.id}} class="form-control" placeholder='{{"Enter "+physical.name}}' name='{{physical.name}}' [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" (keyup)="calculateBMI()" (change)="calculateBMI()" (keypress)="validation.onlyDecimalValueTillTwoDigits($event)">
+                                    </span>
+
+                                        <!--Height logic Starts -->
+                                        <div class="row" *ngIf="physical.id == 1">
+                                            <div class="col-md-6 col-xs-6" *ngIf="heightUnitBoolean">
+                                                <select class="form-control" [(ngModel)]="heightInFeet" [ngModelOptions]="{standalone: true}" (change)="calculateBMI(j)">
+                                                <option *ngFor="let choices of physical.choices[0];let i=index" [value]=i>{{choices.option}}<span *ngIf="i==0"> Feet</span></option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-6 col-xs-6" *ngIf="heightUnitBoolean">
+                                                <select class="form-control" [(ngModel)]="heightInInches" [ngModelOptions]="{standalone: true}" (change)="calculateBMI(j)">
+                                                <option *ngFor="let choices of physical.choices[0];let i=index" [value]=i>{{choices.option}}<span *ngIf="i==0"> Inch</span></option>
+                                            </select>
+                                            </div>
+                                            <div class="col-md-12" *ngIf="!heightUnitBoolean">
+                                                <input type="text" id={{physical.id}} class="form-control" 
+                                                placeholder='{{"Enter "+physical.name}}' name='{{physical.name}}' 
+                                                [(ngModel)]="heightInCentimeter" [ngModelOptions]="{standalone: true}" 
+                                                (keypress)="validation.onlyDecimalValueTillTwoDigits($event)"
+                                                (keyup)="
+                                                heightInFeet=+(onHeightCmChange(heightInCentimeter).split(',')[0]);
+                                                heightInInches=+(this.onHeightCmChange(this.heightInCentimeter).split(',')[1]);
+                                                calculateBMI()" 
+                                                (change)="
+                                                heightInFeet=+(onHeightCmChange(heightInCentimeter).split(',')[0]);
+                                                heightInInches=+(this.onHeightCmChange(this.heightInCentimeter).split(',')[1]);
+                                                calculateBMI()" 
+                                                >
+                                            </div>
+                                        </div>
+                                        <!--Height Logic Ends-->
+
+                                        <!--BMI Logic-->
+                                        <span *ngIf="physical.id == 45">
+                                        <input type="number" id={{physical.id}} class="form-control" disabled="disabled" placeholder='{{"Enter "+physical.name}}' name={{physical.name}} [(ngModel)]="bmi" [ngModelOptions]="{standalone: true}">
+                                    </span>
+
+                                        <!--Walkin in Straight Line-->
+                                        <span *ngIf="physical.id==18">
+                                        <select class="form-control" [(ngModel)]="physical.value" [ngModelOptions]="{standalone: true}">
+                                            <option *ngFor="let choices of physical.choices[0]" [value]="choices.id">{{choices.option}}</option>
+                                        </select>
+                                    </span>
+
+                                    </div>
+                                </div>
+
+                                <!--units-->
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        <!-- <label class="control-label" for="date"></label> -->
+                                        <label class="weight_txt" *ngIf="physical.id != 1 && physical.id != 3 && physical.id != 60">{{physical.unit}}</label>
+
+                                        <!--Head Circumference Unit Logic-->
+                                        <label class="weight_txt" *ngIf="physical.id == 60 && checkAge < 13">{{physical.unit}}</label>
+                                        <!--Height Unit Logic-->
+                                        <span class="weight_txt" *ngIf="physical.id == 1">                                        
+                                        <select class="form-control" (change)="onHeightUnitDropDownChange($event.target.value)">
+                                            <option [value]="0">Feet-inch</option>
+                                            <option [value]="1">Centimeters</option>
+                                        </select>                                        
+                                    </span>
+
+                                        <!--Weight Unit logic-->
+                                        <span class="weight_txt" *ngIf="physical.id == 3">                                        
+                                        <select class="form-control" (change)="onWeightUnitDropDownChange($event.target.value)">
+                                            <option [value]="0">Kgs</option>
+                                            <option [value]="1">Lbs</option>
+                                        </select>                                        
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Submit Button-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="Update" (click)="updatedPhrInvasiveNonInvasive()">SAVE & CONTINUE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- form end -->
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+    </div>
+</div>
+<spinner-component></spinner-component>

@@ -1,0 +1,158 @@
+<div class="table_size">
+    <h1 class="member_pay mb-2">Membership & Payments</h1>
+    <h3>Current Plan Information</h3>
+    <div class="row mt-2">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="product_name">{{this.subscriptionDetails?.planDetails?.productName}}</h5>
+            <p class="category_txt">{{this.subscriptionDetails?.planDetails?.categoryName}} category
+            </p>
+
+            <p class="your_next">Your Next payment of
+                {{(this.subscriptionDetails?.planDetails?.netPrice)|currency:'INR':true:'1.2-2'}}* for
+                {{this.subscriptionDetails?.planDetails?.productName}}
+                <br /> Next renewal is scheduled for {{this.subscriptionDetails?.validTo| date:'d/MMMM/yyyy'}}
+            </p>
+
+
+        </div>
+        <ng-template [ngIf]="!this.subscriptionDetails?.cancelled">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
+                        <button class="btn change_plan" type="button"
+                            (click)="this.onChangePlanButtonClickHandler()">CHANGE
+                            PLAN</button>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        <button class="btn cancel_sub" type="button"
+                            *ngIf="this.subscriptionDetails?.paymentActivation == 1" (click)="this.onOpenModal()">CANCEL
+                            SUBSCRIPTION</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="this.subscriptionDetails?.cancelled">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <button class="btn change_plan" type="button"
+                            (click)="this.onRenewPlanButtonClickHandler()">RENEW
+                            PLAN</button>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+        </div>
+
+        <!-- <div class="col-lg-12 col-sm-12 col-xs-12 col-sm-12">
+            <button class="btn view_history" (click)="onViewBilling()">View Billing
+                History</button>
+        </div> -->
+
+        <!-- <div class = "row"> -->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3 class="view_history mt-2 mb-3">View Billing History</h3>
+        </div>
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="pastInvoicesDetails" [sort]="sorting"
+                        [componentId]="'saasBillingHistoryTable'" (clickEvent)="clickEventHandler($event)"
+                        [perPage]="perPage" [total]="total" [dataMsg]="dataMsg">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+
+        <!-- </div> -->
+
+    </div>
+
+
+</div>
+
+<!-- ---------------------cancel subscription modal -->
+
+<div class="modal fade" id="cancelSubscription">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <!-- <h4 class="modal-title">Cancel Subscription</h4> -->
+                <p class="modal-title">Are you sure to cancel the subscription</p>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn yes_btn" value="serch"
+                            (click)="onCancelSubscriptionButtonClickHandler()">Yes</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn no_btn" value="serch"
+                            (click)="closeCancelSubscriptionModal()">No</button>
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
+
+<div class="modal fade" id="viewBillingHistory">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Billing History</h4>
+
+            </div>
+            <div class="modal-body">
+
+             
+
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+<div class="row">
+    <div class="col-md-5 col-sm-6 col-xs-6"></div>
+    <div class="col-md-7 col-sm-6 col-xs-6">
+
+        <form ngNoForm method="post" id="paytmForm" action={{paytmform.transactionURL}} name="paytmForm"
+            style="display:hidden" *ngIf="paytmform">
+            <input type="hidden" name="mid" value={{paytmform.merchantId}}>
+            <input type="hidden" name="orderId" value={{paytmform.orderId}}>
+            <input type="hidden" name="txnToken" value={{paytmform.hash}}>
+        </form>
+
+        <!-- <button *ngIf="showPayOption && (!disablePaymentButton)" (click)="makePayment()" class="submit_txt">Pay
+            Now</button> -->
+
+
+    </div>
+</div>
+
+<spinner-component></spinner-component>

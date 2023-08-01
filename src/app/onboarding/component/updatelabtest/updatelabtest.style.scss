@@ -1,0 +1,31 @@
+.select_txt{
+    padding: 0px 43px;
+}
+.Update {
+  width: 190px;
+  height: 17px;
+ 
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  width: 190px;
+  height: 40px;
+      padding: 10px 14px;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+}
+.updatelabtest_widget .table{
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .updatelabtest_widget {
+        border: none !important;
+    }
+}
+.progress_indicator_wrapper a {
+    width: 33.33%;
+}
+

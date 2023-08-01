@@ -1,0 +1,1254 @@
+<div class="row">
+    <div class="col-12" style="width:100%">
+        <div class="card bg-primary">
+            <ul class="list-inline nav_list">
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="medicines" name="medicines"
+                                        (click)="enableNavbarMedicines()"
+                                        [checked]="navCheckedList.includes('medicines')" />
+                                    <label for="medicines">
+                                        <span class="ailment_text">Medicines</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="investigations" name="investigations"
+                                        [checked]="navCheckedList.includes('investigations')"
+                                        (click)="enableNavbarInvestigations()" />
+                                    <label for="investigations">
+                                        <span class="ailment_text">Investigations</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="procedures" name="procedures"
+                                        (click)="enableNavbarProcedures()"
+                                        [checked]="navCheckedList.includes('procedures')" />
+                                    <label for="procedures">
+                                        <span class="ailment_text">{{procedurePrescriptionLabel ?
+                                            procedurePrescriptionLabel: 'Procedure'}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngIf="enableAdmissionNotes">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="admissionnotes" name="admissionnotes"
+                                        [checked]="navCheckedList.includes('admissionnotes')"
+                                        (click)="enableNavbarAdmissionNote()" />
+                                    <label for="admissionnotes">
+                                        <span class="ailment_text">{{admissionNotePrescriptionLabel ?
+                                            admissionNotePrescriptionLabel : 'Admission Note'}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="nonMedications" name="nonMedications"
+                                        [checked]="navCheckedList.includes('nonMedications')"
+                                        (click)="enableNavbarNonMedications()" />
+                                    <label for="nonMedications">
+                                        <span class="ailment_text">{{nonMedicationPrescriptionLabel?
+                                            nonMedicationPrescriptionLabel:'Non-Medication'}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngIf="!disableImmunization">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="immunizations" name="immunizations"
+                                        [checked]="navCheckedList.includes('immunizations')"
+                                        (click)="enableNavbarImmunizations()" />
+                                    <label for="immunizations">
+                                        <span class="ailment_text">Immunization</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="referrals" name="referrals"
+                                        [checked]="navCheckedList.includes('referrals')"
+                                        (click)="enableNavbarReferrals()" />
+                                    <label for="referrals">
+                                        <span class="ailment_text">{{refer_ToText?'Refer To ':'Referral '}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-inline-item" *ngIf="!disableFollowup">
+                    <div class="form-group custom_chk_nav">
+                        <div class="column_nav">
+                            <div class="row">
+                                <div class="column_nav">
+                                    <input type="checkbox" id="followUPs" name="followUPs"
+                                        [checked]="navCheckedList.includes('followUPs')"
+                                        (click)="enableNavbarFollowUPs()" />
+                                    <label for="followUPs">
+                                        <span class="ailment_text">Follow-ups</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12" style="width:100%">
+        <div class="row">
+            <div class="col">
+                <h2>Patient Examination</h2>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header ">
+                <div class="row">
+                    <div class="col-md-7 col-sm-12">
+                        <h4>Add Note</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body note-card-body">
+                <div class="form-group">
+                    <textarea class="form-control" id="2prescription_notes" autofocus placeholder="Add a note"
+                        [value]="textAdvise.title" (change)="addNoteForAdvice()" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="card medicine-widget" *ngIf="navCheckedList.includes('medicines')">
+            <div class="card-header medicines">
+                <div class="row">
+                    <div class="col-md-7 col-sm-12">
+                        <h4>Medicines</h4>
+                    </div>
+                    <div class="col-md-5 col-sm-12 search-field">
+                        <label class="sr-only" for="inlineFormInputGroupMedicines">Search for more medicines</label>
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control searchInput" id="inlineFormInputGroupMedicines"
+                                placeholder="Search for more Medicines" (keyup)="searchForMoreMedicines($event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body listOfcard bg-primary">
+
+                <ul class="list-inline medicines-list">
+                    <li class="list-inline-item" *ngIf="addSuggestedMedicine!='' && !addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedMedicines()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">Add "{{addSuggestedMedicine}}" as medicine</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let medicine of displayMedicines;let i=index">
+                        <div class="form-group custom_chk_btn cardBodyItem">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <input type="checkbox" id="medicine{{i}}" name="medicine"
+                                            (click)="onClickMedicines(medicine,i)" [value]="medicine.isSelected"
+                                            [checked]="medicine.isSelected && navCheckedList.includes('medicines')" />
+                                        <label for="medicine{{i}}" class="medicineLabel">
+                                            <div class="medicineCheckBox">
+                                                <div class="ailment_text mr-1">{{medicine.productName}}
+                                                    {{medicine.medicineStrength?('('+medicine.medicineStrength+')'):''}}
+                                                    {{medicine.drugForm?('('+medicine.drugForm+')'):''}}
+                                                </div>
+                                                <div class="ailment_text"
+                                                    *ngIf="!enableMedicineGenericName && medicine.brandName">
+                                                    {{medicine.brandName}}
+                                                </div>
+                                                <div class="ailment_text"
+                                                    *ngIf="enableMedicineGenericName && medicine.genericMedicine && medicine.genericMedicine.genericMedicineName">
+                                                    {{medicine.genericMedicine.genericMedicineName}}
+                                                </div>
+                                            </div>
+                                            <span *ngIf="enableMedicineStockIndicator">
+                                                <span class="hsFav" *ngIf="medicine.stockAvailable else notAvaliable">
+                                                    <span class="greenStockdot"></span>
+                                                </span>
+                                                <ng-template class="hsFav" #notAvaliable>
+                                                    <span class="orangeStockdot"></span>
+                                                </ng-template>
+                                            </span>
+                                            <span class="hsFav hsfav_red_dot" *ngIf="medicine.addedByDoctor">
+                                                <span class="dot"></span>
+                                            </span>
+                                            <span class="hsFav"
+                                                *ngIf="!medicine.addedByDoctor && enableBaseMedicineIndicator">
+                                                <span class="greendot"></span>
+                                            </span>
+
+                                            <span class="hsFav" *ngIf="medicine.hsFavroite">
+                                                <img *ngIf="medicine.isSelected" src="assets/img/ic_heart_active_24.png"
+                                                    alt="fav">
+                                                <img *ngIf="!medicine.isSelected" src="assets/img/ic_heart_24.png"
+                                                    alt="fav">
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngIf="addSuggestedMedicine!='' && addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedMedicines()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">Add "{{addSuggestedMedicine}}" as medicine</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
+        <div class="card investigation-widget" *ngIf="navCheckedList.includes('investigations')">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5 col-sm-7 col-xl-5 col-xs-9">
+                        <h4>Investigations</h4>
+                    </div>
+                    <div *ngIf="enableInvestigationNotes" class="col-xs-3 hide-md">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="notes_test">
+                            <label class="form-check-label noteLabel" for="notes_test">Notes</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-sm-5 col-xl-5 col-xs-12 search-field">
+                        <label class="sr-only" for="inlineFormInputGroupInvestigations">Search for more
+                            Investigations</label>
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control searchInput" id="inlineFormInputGroupInvestigations"
+                                (keyup)="searchForMoreInvestigations($event)"
+                                placeholder="Search for more Investigations">
+                        </div>
+                    </div>
+                    <div *ngIf="enableInvestigationNotes" class="col-md-2 col-lg-2 col-sm-2 col-xl-2 col-xs-12 hide-sm">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="notes_test">
+                            <label class="form-check-label noteLabel" for="notes_test">Notes</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body listOfcard bg-primary ">
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedInvestigation!='' && !addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedInvestigations()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">Add "{{addSuggestedInvestigation}}" as
+                                                Investigation</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let investigation of displayInvestigations;let i=index">
+                        <div class="form-group custom_chk_btn cardBodyItem">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column" [class.btn-danger]="false">
+                                        <input type="checkbox" id="investigation{{i}}" name="investigation"
+                                            [value]="investigation.isSelected"
+                                            [checked]="investigation.isSelected  && navCheckedList.includes('investigations')"
+                                            (click)="onClickInvestigations(investigation,i)" />
+                                        <label for="investigation{{i}}">
+                                            <span class="ailment_text">{{investigation.serviceName}}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngIf="addSuggestedInvestigation!='' && addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedInvestigations()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">Add "{{addSuggestedInvestigation}}" as
+                                                Investigation</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ng-container *ngIf="enableAdmissionNotes">
+            <div class="card medicine-widget" *ngIf="navCheckedList.includes('admissionnotes')">
+                <div class="card-header medicines">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12">
+                            <h4>{{admissionNotePrescriptionLabel ? admissionNotePrescriptionLabel : 'Admission Note'}}
+                            </h4>
+                        </div>
+
+                        <div class="col-5">
+                            <label class="sr-only" for="inlineFormInputGroupAdmissionNotes">Search for more
+                                {{admissionNotePrescriptionLabel ? admissionNotePrescriptionLabel : 'Admission
+                                Notes'}}</label>
+                            <div class="input-group ">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text searchInput searchIcon"><i
+                                            class="icon ion-md-search"></i>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control searchInput"
+                                    id="inlineFormInputGroupAdmissionNotes" placeholder="{{admissionNotePrescriptionLabel
+                                    ? 'Search for more ' + admissionNotePrescriptionLabel
+                                    : 'Search for more Admission Notes' }}"
+                                    (keyup)="searchForMoreAdmisionNotes($event)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body listOfcard bg-primary">
+                    <ul class="list-inline">
+                        <li class="list-inline-item" *ngIf="addSuggestedAdmissionNote!='' && !addButtonAtLast">
+                            <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedAdmissionNotes()">
+                                <div class="column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <label>
+                                                <span class="ailment_text">
+                                                    {{admissionNotePrescriptionLabel
+                                                    ? ('Add ' + addSuggestedAdmissionNote + ' as '+
+                                                    admissionNotePrescriptionLabel)
+                                                    : ('Add ' + addSuggestedAdmissionNote +' as Admission Note') }}
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-inline-item" *ngFor="let admissionNote of displayAdmissionNotes;let i=index">
+                            <div class="form-group custom_chk_btn cardBodyItem">
+                                <div class="column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <input type="checkbox" id="admissionNote{{i}}" name="admissionNote"
+                                                (click)="onClickAdmissionNoteProcedures(admissionNote,i)"
+                                                [value]="admissionNote.isSelected"
+                                                [checked]="admissionNote.isSelected" />
+                                            <label for="admissionNote{{i}}">
+                                                <span class="ailment_text">{{admissionNote.serviceName}}
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="list-inline-item" *ngIf="addSuggestedAdmissionNote!='' && addButtonAtLast">
+                            <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedAdmissionNotes()">
+                                <div class="column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <label>
+                                                <span class="ailment_text">
+                                                    {{admissionNotePrescriptionLabel
+                                                    ? ('Add ' + addSuggestedAdmissionNote + ' as '+
+                                                    admissionNotePrescriptionLabel)
+                                                    : ('Add ' + addSuggestedAdmissionNote +' as Admission Note') }}
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="card-body note-card-body">
+                        <div class="form-group">
+                            <textarea class="form-control" id="admissionNoteText" autofocus placeholder="Add a note"
+                                [(ngModel)]="admissionNoteTextAdvise" rows="3"></textarea>
+                        </div>
+                        <div class="list-inline-item" style="height: 90px;">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row add_note_date">
+                                        <div class="col-sm-12 pr-1 padding_bottom">
+                                            <span>From Date</span>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <datetime [(value)]="admissionNotesStartDate" name="admissionNotesStartDate"
+                                                id="datepicker" [timepicker]="false" [datepicker]="datepickerOptEnd"
+                                                (dateChange)="onAdmissionDateChange($event)"></datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="row add_note_date">
+                                        <div class="col-sm-12 pr-1 padding_bottom">
+                                            <span>To Date</span>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <datetime [(value)]="admissionNotesEndDate" name="admissionNotesEndDate"
+                                                id="datepicker" [timepicker]="false" [datepicker]="datepickerOptEnd"
+                                                (dateChange)="onAdmissionDateChange($event)"></datetime>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="card " *ngIf="navCheckedList.includes('procedures')">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-7">
+                        <h4>{{procedurePrescriptionLabel ? procedurePrescriptionLabel: 'Procedure'}}</h4>
+                    </div>
+                    <div class="col-5">
+                        <label class="sr-only" for="inlineFormInputGroupProcedure">Search for more
+                            {{procedurePrescriptionLabel ? procedurePrescriptionLabel: 'Procedures'}}</label>
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control searchInput" id="inlineFormInputGroupProcedure"
+                                placeholder="{{procedurePrescriptionLabel ? 'Search for more '
+                                +procedurePrescriptionLabel: 'Search for more Procedures' }}"
+                                (keyup)="searchForMoreProcedures($event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body listOfcard bg-primary">
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedProcedure!='' && !addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedProcedures()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">{{procedurePrescriptionLabel
+                                                ? ('Add ' + addSuggestedProcedure + ' as '+
+                                                procedurePrescriptionLabel)
+                                                : ('Add ' + addSuggestedProcedure +' as Procedure') }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let procedure of displayProcedures;let i=index">
+                        <div class="form-group custom_chk_btn cardBodyItem">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <input type="checkbox" id="procedure{{i}}" name="procedure"
+                                            (click)="onClickProcedures(procedure,i)" [value]="procedure.isSelected"
+                                            [checked]="procedure.isSelected" />
+                                        <label for="procedure{{i}}">
+                                            <span class="ailment_text">{{procedure.serviceName}}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngIf="addSuggestedProcedure!='' && addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedProcedures()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">{{procedurePrescriptionLabel
+                                                ? ('Add ' + addSuggestedProcedure + ' as '+
+                                                procedurePrescriptionLabel)
+                                                : ('Add ' + addSuggestedProcedure +' as Procedure') }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="card " *ngIf="navCheckedList.includes('nonMedications')">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-7">
+                        <h4>{{nonMedicationPrescriptionLabel?
+                            nonMedicationPrescriptionLabel:'Non-Medication'}}</h4>
+                    </div>
+                    <div class="col-5">
+                        <label class="sr-only" for="inlineFormInputGroupNonMedication">Search for more
+                            {{nonMedicationPrescriptionLabel?
+                            nonMedicationPrescriptionLabel:'Non-Medication'}}</label>
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control searchInput" id="inlineFormInputGroupNonMedication"
+                                placeholder="{{nonMedicationPrescriptionLabel? 'Search for more ' +
+                                nonMedicationPrescriptionLabel : 'Search for more Non-Medication' }}"
+                                (keyup)="searchForMoreNonMedication($event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body listOfcard bg-primary">
+                <ul class="list-inline">
+                    <li class="list-inline-item" *ngIf="addSuggestedNonMedication!='' && !addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedNonMedications()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">
+                                                {{nonMedicationPrescriptionLabel
+                                                ? ('Add ' + addSuggestedNonMedication + ' as ' +
+                                                nonMedicationPrescriptionLabel)
+                                                : ('Add ' + addSuggestedNonMedication+' as Non-Medication') }}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngFor="let nonMedication of displayNonMedications;let i=index">
+                        <div class="form-group custom_chk_btn cardBodyItem">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <input type="checkbox" id="nonMedication{{i}}" name="nonMedication"
+                                            (click)="onClickNonMedications(nonMedication,i)"
+                                            [value]="nonMedication.isSelected"
+                                            [checked]="nonMedication.isSelected  && navCheckedList.includes('nonMedications')" />
+                                        <label for="nonMedication{{i}}">
+                                            <span class="ailment_text">{{nonMedication.title}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-inline-item" *ngIf="addSuggestedNonMedication!='' && addButtonAtLast">
+                        <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedNonMedications()">
+                            <div class="column">
+                                <div class="row">
+                                    <div class="column">
+                                        <label>
+                                            <span class="ailment_text">{{nonMedicationPrescriptionLabel? ('Add ' +
+                                                addSuggestedNonMedication + ' as ' +
+                                                nonMedicationPrescriptionLabel) : ('Add ' + addSuggestedNonMedication +'
+                                                as
+                                                Non-Medication') }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!disableImmunization">
+            <div class="card " *ngIf="navCheckedList.includes('immunizations')">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-7">
+                            <h4>Immunization</h4>
+                        </div>
+                        <div class="col-5">
+                            <label class="sr-only" for="inlineFormInputGroupImmunization">Search for more
+                                Immunization</label>
+                            <div class="input-group ">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text searchInput searchIcon"><i
+                                            class="icon ion-md-search"></i>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control searchInput"
+                                    id="inlineFormInputGroupImmunization" (keyup)="searchForMoreImmunization($event)"
+                                    placeholder="Search for more Immunization">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body listOfcard bg-primary">
+                    <ul class="list-inline">
+                        <li class="list-inline-item" *ngIf="addSuggestedImmunization!='' && !addButtonAtLast">
+                            <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedImmunizations()">
+                                <div class="column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <label>
+                                                <span class="ailment_text">Add "{{addSuggestedImmunization}}" as
+                                                    Immunization</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-inline-item" *ngFor="let immunization of dispayImmunizations;let i=index">
+                            <div class="form-group custom_chk_btn cardBodyItem">
+                                <div class="column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <input type="checkbox" id="immunization{{i}}" name="immunization"
+                                                (click)="onClickImmunizations(immunization,i)"
+                                                [value]="immunization.isSelected"
+                                                [checked]="immunization.isSelected  && navCheckedList.includes('immunizations')" />
+
+                                            <label for="immunization{{i}}" class="immunizationLabel">
+                                                <div class="immunizationCheckBox">
+                                                    <span
+                                                        class="ailment_text">{{immunization.genericMedicine.genericMedicineName}}
+                                                    </span>
+                                                    <div *ngIf="immunization.followupDate && immunization.isSelected">
+                                                        {{convertToDate(immunization.followupDate)}}</div>
+
+                                                </div>
+
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-inline-item" *ngIf="addSuggestedImmunization!='' && addButtonAtLast">
+                            <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedImmunizations()">
+                                <div class="column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <label>
+                                                <span class="ailment_text">Add "{{addSuggestedImmunization}}" as
+                                                    Immunization</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="card " *ngIf="navCheckedList.includes('referrals')">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-7">
+                        <h4>{{refer_ToText?'Refer To ':'Referral '}}</h4>
+                    </div>
+                    <div class="col-5">
+                        <label class="sr-only" for="inlineFormInputGroupReferral">Search for more Refer To</label>
+                        <div class="input-group ">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control searchInput" [(ngModel)]="searchTerm"
+                                id="inlineFormInputGroupReferral" (keyup)="searchForMoreReferral($event)"
+                                placeholder="Search for more Refer To">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body listOfcard bg-primary">
+                <ul class="list-inline">
+                    <ng-container *ngIf="addReferalDoctor">
+                        <li class="list-inline-item" *ngIf="refferalDoctor!=''">
+                            <div class="form-group custom_chk_btn cardBodyItem" (click)="addSuggestedImmunizations()"
+                                data-toggle="modal" data-target="#addDoctorModal" (click)="getAllServices()">
+                                <div class=" column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <label>
+                                                <span class="ailment_text">Add "{{refferalDoctor}}" as
+                                                    Referal</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngFor="let referral of dispayReferral;let i=index">
+                        <li class="list-inline-item">
+                            <div class="form-group custom_chk_btn cardBodyItem">
+                                <div class="column">
+                                    <div class="row">
+                                        <div class="column">
+                                            <input type="checkbox" id="referral{{i}}" name="referral"
+                                                (click)="onClickReferral(referral,i)" [value]="referral.isSelected"
+                                                [checked]="referral.isSelected  && navCheckedList.includes('referrals')" />
+
+                                            <label class="referralLabel" for="referral{{i}}">
+                                                <div class="referralCheckBox">
+                                                    <div class="ailment_text">{{referral.title}} {{referral.firstName}}
+                                                        {{referral.lastName}} </div>
+                                                    <div class="service">({{referral?.serviceName}})
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ng-container>
+
+                </ul>
+            </div>
+
+        </div>
+        <div class=" card" *ngIf="navCheckedList.includes('followUPs')">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-7">
+                        <h4>Follow Up</h4>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="card-body listOfcard listOfcardLast-child bg-primary">
+                <ul class="pl-0">
+                    <div class="row p-3x">
+                        <label for="visitWithIn" class="col-sm-3 col-xs-4 py-3x pl-3x pr-2"> Follwup
+                            After</label>
+                        <input type="number" min="1" id="visitWithIn" [(ngModel)]="followupAdvices.validityDays"
+                            (keydown)="patientMedicalAdvise.followupAdvices=[];validateNumber('#visitWithIn',$event);validateNumberWithMax('#visitWithIn',$event,365)"
+                            (keyup)="calDiscountWithDays()" class="col-sm-3 col-xs-5 p-3x form-control">
+                        <label class="col-sm-6 col-xs-3 py-3x pr-3x pl-2">Days</label>
+                    </div>
+                    <div *ngIf="doctorFollowupDiscountEditable" class="row p-3x">
+                        <label for="discount" min="0" max="100" class="col-sm-3 col-xs-4 py-3x pl-3x pr-2">
+                            Discount</label>
+                        <input type="number"
+                            (keydown)="patientMedicalAdvise.followupAdvices=[];validateNumber('#discount',$event);validateNumberWithMax('#discount',$event,100)"
+                            [disabled]="!doctorFollowupDiscountEditable" [(ngModel)]="followupAdvices.discountPercent"
+                            id="discount" style="width:25%" class="col-sm-3 col-xs-5 p-3x form-control">
+                        <label class="col-sm-6 col-xs-3 py-3x pr-3x pl-2">%</label>
+                    </div>
+                    <div class="row p-3x">
+                        <label for="followUpcomments" class="col-sm-3 col-xs-4 py-3x pl-3x pr-2">
+                            Comments </label>
+                        <textarea type="text" id="followUpcomments" [(ngModel)]="followupAdvices.title"
+                            (keydown)="patientMedicalAdvise.followupAdvices=[]"
+                            class="col-sm-5 col-xs-7 py-3x pl-3x pr-2 form-control"></textarea>
+                        <button
+                            *ngIf="!(patientMedicalAdvise.followupAdvices && patientMedicalAdvise.followupAdvices.length)"
+                            class="btn btn-primary followUpApply" (click)="applyFollowUp()">Add
+                            Followup</button>
+                        <button
+                            *ngIf="patientMedicalAdvise.followupAdvices && patientMedicalAdvise.followupAdvices.length"
+                            class="btn btn-primary followUpApply" (click)="removeFollowUp()">Remove</button>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal" style=" overflow-y: auto !important" id="medicalprescriptionmodel" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.width]="modelView=='immunization'?('365px'):'auto'" role="document">
+        <div class="modal-content">
+            <div *ngIf="modelView=='immunization'">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        {{immunization.genericMedicine.genericMedicineName}}
+                    </h5>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div>
+                <div class="modal-body" style="height: 420px;">
+                    <datetime [(value)]="immunizationDate" name="immunizationDate" id="datepicker" [timepicker]="false"
+                        (dateChange)="addImmunization($event)" [datepicker]="datepickerOptEnd">
+                    </datetime>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                    <!-- <button type="button" class="btn btn-primary">Add Immunization</button> -->
+                </div>
+            </div>
+
+            <div *ngIf="modelView=='medicine'">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{medicine.productName}}
+                        {{medicine.medicineStrength?('('+medicine.medicineStrength+')'):''}}
+                        {{medicine.drugForm?('('+medicine.drugForm+')'):''}}
+                    </h5>
+                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                        Close
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="SuggestionsOfUnavailableMedicines">
+                        <div *ngIf="suggestedMediines.length>0">
+                            <div class="modal-body" *ngIf="!medicine.stockAvailable">
+                                <div class="mb-1">
+                                    The medicine you selected {{medicine.productName}}, is out of stock.
+                                    <br>
+                                    Below are few substitutes for the medicines that you have selected.
+                                </div>
+
+                                <div class="medicineCheckBox mr-0"
+                                    *ngFor="let medicine of suggestedMediines;let i=index">
+                                    <div class="form-group custom_chk_btn cardBodyItem">
+                                        <div class="column medicine_available_margin">
+                                            <div class="row">
+                                                <div class="column medicine_available_margin mr-1">
+                                                    <input type="checkbox" id="suggMedicine{{i}}" name="medicine"
+                                                        (click)="onClickMedicines(medicine,i)"
+                                                        [value]="medicine.isSelected"
+                                                        [checked]="medicine.isSelected && navCheckedList.includes('medicines')" />
+                                                    <label for="suggMedicine{{i}}" class="medicineLabel">
+                                                        <div class="alternate_medicine">
+                                                            <div class="ailment_text mr-1">
+                                                                <b>{{medicine.productName}}
+                                                                    {{medicine.medicineStrength?('('+medicine.medicineStrength+')'):''}}
+                                                                    {{medicine.drugForm?('('+medicine.drugForm+')'):''}}
+                                                                </b>
+                                                            </div>
+                                                            <div>
+                                                                <span class="add_medicine">
+                                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="ailment_text"
+                                                            *ngIf="!enableMedicineGenericName && medicine.brandName">
+                                                        </div>
+                                                        {{medicine.brandName}}
+                                                        <div class="ailment_text"
+                                                            *ngIf="enableMedicineGenericName && medicine.genericMedicine && medicine.genericMedicine.genericMedicineName">
+                                                            {{medicine.genericMedicine.genericMedicineName}}
+                                                        </div>
+
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12 ">
+                            <div class="card mb-2 bg-primary medicineArea pt-4">
+                                <div class="doseArea">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <h6 class="mt-0 col-md-4">
+                                                    {{!isWriteCustomDosages?' Select Dose':'Custom Dosages'}}</h6>
+                                                <div class="col-md-8">
+                                                    <div class="pull-right">
+                                                        <section class="custom-dosages-toggle">
+                                                            <mat-slide-toggle [labelPosition]="'before'"
+                                                                [checked]="isWriteCustomDosages"
+                                                                (change)="isWriteCustomDosages=!isWriteCustomDosages">
+                                                                Write Custom Dosages
+                                                            </mat-slide-toggle>
+                                                        </section>
+                                                        <button type="button" class="btn btn-primary "
+                                                            (click)="onClickAddMedicine()">Add Medicine</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <ul class="row list-inline mt-2 select-dose" *ngIf="!isWriteCustomDosages">
+                                                <li class="col-lg-3 col-md-3 col-sm-3 col-xs-6 list-inline-item"
+                                                    *ngFor="let dose of getPharmacyConstants('dosages');let i=index">
+                                                    <div class="form-group custom_chk_btn">
+                                                        <div class="dose">
+                                                            <input type="radio" id="dos{{i+1}}" name="dos"
+                                                                [disabled]="refer_ToText?!checkedPropOfDoseLabel:false"
+                                                                value="{{dose.value}}" />
+                                                            <label for="dos{{i+1}}">
+                                                                <span class="ailment_text">{{dose.display}}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2" *ngIf="isWriteCustomDosages">
+                                        <div class="col-lg-2 col-md-4 col-sm-6 customDose"
+                                            *ngFor="let dose of getPharmacyConstants('customDosages');let i=index">
+                                            <div class="form-group">
+                                                <label for="Dosage_{{i+1}}">Dosage</label>
+                                                <input class="form-control form-control-sm" id="Dosage_{{i+1}}"
+                                                    type="text" placeholder="Enter dose"
+                                                    (keydown)="validateDecimalNumber('#Dosage_'+(i+1),$event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time_{{i+1}}">Select Time</label>
+                                                <select class="form-control" id="time_{{i+1}}">
+                                                    <option
+                                                        *ngFor="let intakeTime of getPharmacyConstants('intakeTime')"
+                                                        [selected]="(i==0)?intakeTime.value=='1800000':(i==1)?intakeTime.value=='12600000':(i==2)?intakeTime.value=='23400000':(i==3)?intakeTime.value=='34200000':(i==4)?intakeTime.value=='45000000':(i==5)?intakeTime.value=='55800000':false"
+                                                        value="{{intakeTime.value}}">{{intakeTime.display}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <ul class="list-inline mb-0 row">
+                                                <li class="list-inline-item col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                                    <div class="form-group custom_chk_btn">
+                                                        <div class="dose">
+                                                            <input type="radio" class="dose_input"
+                                                                (click)="onClickStat()" id="stat" name="Need Based"
+                                                                value="true" />
+                                                            <label for="stat">
+                                                                <span class="ailment_text statLabel">Stat</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li
+                                                    class="list-inline-item col-lg-3 col-md-3 col-sm-4 col-xs-12 needbased_section">
+                                                    <div class="form-group custom_chk_btn">
+                                                        <div class="dose">
+                                                            <input type="radio" class="dose_input"
+                                                                [checked]="checkedPropertyOfNeedBased" id="sos"
+                                                                (click)="onClickNeedBased()" name="Need Based"
+                                                                value="true" />
+                                                            <label for="sos" class="need_label">
+                                                                <span class="ailment_text sosLabel">{{refer_ToText?
+                                                                    'Need Based' : 'Sos'}}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!-- <li class="list-inline-item">
+                                                    <button type="button" class="btn btn-outline-danger" (click)="isWriteCustomDosages=!isWriteCustomDosages">{{!isWriteCustomDosages?'Write
+                                                        Custom Dosages':'Select Dose'}}</button>
+                                                </li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="width:50%">
+                            <div class="form-group" *ngIf="medicine.addedByDoctor || !medicine.drugForm">
+                                <label for="med_type">Select Drug Form</label>
+                                <select class="form-control " id="med_type" [(ngModel)]="med_type">
+                                    <option *ngFor="let type of getPharmacyConstants('pharmacyType')" value="{{type}}">
+                                        {{type}}</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" *ngIf="medicine.addedByDoctor && med_type=='Other'">
+                                <label for="med_type_input">Enter Drug Form</label>
+                                <input class="form-control form-control-sm medicineTypeInput" id="med_type_input"
+                                    type="text" placeholder="Enter Drug Form">
+                            </div>
+                            <div class="form-group" *ngIf="!isWriteCustomDosages">
+                                <label for="qty_dose">Quantity Per Dose</label>
+                                <input class="form-control form-control-sm quantityPerDose" id="qty_dose" type="number"
+                                    min="1" placeholder="Enter quantity" value="1"
+                                    (keydown)="validateNumber('#qty_dose',$event)">
+                            </div>
+                            <div class="form-group">
+                                <label for="unit_med">Select unit (*)</label>
+                                <select class="form-control " id="unit_med" [(ngModel)]="unit_med">
+                                    <option *ngFor="let type of getPharmacyConstants('unit')" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" *ngIf="unit_med=='Other'">
+                                <label for="unit_med_input">Enter unit (*)</label>
+                                <input class="form-control form-control-sm quantityPerDose" id="unit_med_input"
+                                    type="text" placeholder="Enter unit">
+                            </div>
+                            <!-- <div class="form-group" *ngIf="unit_med=='Other'">
+                                <label for="qty_unit">Enter unit</label>
+                               
+                            </div> -->
+                            <div class="form-group">
+                                <label for="freq_med">Select Frequency (*)</label>
+                                <select class="form-control " id="frequency_med" [(ngModel)]="frequency_med">
+                                    <option *ngFor="let frequency of getPharmacyConstants('frequency')"
+                                        value="{{frequency.display}}">{{frequency.display}}</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" *ngIf="frequency_med=='Other'">
+                                <label for="frequency_med_input">Enter Frequency (*)</label>
+                                <input class="form-control form-control-sm "
+                                    (keydown)="validateNumber('#frequency_med_input',$event);validateNumberWithMaxWithDigit('#frequency_med_input',$event)"
+                                    id="frequency_med_input" type="text" placeholder="Enter Frequency in days">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="freq_med">Additional Notes</label>
+                                <input class="form-control form-control-sm "
+                                    (keyup)="updateMedicineAdditionalNotes($event.target.value)" id="med_notes_input"
+                                    type="text" placeholder="Additional Notes">
+                            </div>
+
+                        </div>
+                        <div class="col-6" style="width:50%">
+                            <div class="form-group">
+                                <label for="dur_med">Select Duration (*)</label>
+                                <select class="form-control " id="dur_med" [(ngModel)]="dur_med">
+                                    <option *ngFor="let duration of getPharmacyConstants('duration')"
+                                        value="{{duration.value}}">
+                                        {{duration.display}}</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" *ngIf="dur_med=='Other'">
+                                <label for="dur_med_input">Enter Duration (*)</label>
+                                <input class="form-control form-control-sm "
+                                    (keydown)="validateNumber('#dur_med_input',$event);validateNumberWithMaxWithDigit('#dur_med_input',$event)"
+                                    id="dur_med_input" type="text" placeholder="Enter duration in days">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="food_info">Select Meal Intake Information</label>
+                                <select class="form-control " id="food_info" [(ngModel)]="food_info">
+                                    <option value="">Select Meal Intake</option>
+                                    <option *ngFor="let intakeInfo of getPharmacyConstants('intakeInfo')"
+                                        value="{{intakeInfo}}">{{intakeInfo}}</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" *ngIf="food_info=='Other'">
+                                <label for="food_info_input">Enter Meal Intake Information</label>
+                                <input type="text" class="form-control form-control-sm" id="food_info_input"
+                                    placeholder="Enter meal info">
+                            </div>
+                            <!-- <div class="form-group">
+                                <small class="text-muted" for="food_info">Or, Enter Meal Intake Information</small>
+                            </div> -->
+
+                            <div class="form-group">
+                                <label for="route_opt">Select Route</label>
+                                <select class="form-control " id="route_opt" [(ngModel)]="route_opt">
+                                    <option value="">Select Route</option>
+                                    <option *ngFor="let intakeRoute of getPharmacyConstants('intakeRoute')"
+                                        value="{{intakeRoute}}">{{intakeRoute}}</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group" *ngIf="route_opt=='Other'">
+                                <label for="route_opt_input">Enter Route</label>
+                                <input type="text" class="form-control form-control-sm" id="route_opt_input"
+                                    placeholder="Enter Route">
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+
+
+                <div class="modal-footer">
+                    <div class="alert alert-danger " *ngIf="errorMessage!=''" style="text-align:center">
+                        {{errorMessage}}
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="onClickAddMedicine()">Add
+                        Medicine</button>
+                </div>
+
+            </div>
+
+            <div *ngIf="modelView=='investigationNote'">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Note</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control" id="investigationAdviceRemarks"
+                            style="width: 100%; height: 300px;"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                        <button type="button" class="btn btn-primary" (click)="onClickInvestigationRemarks()">Add
+                            Remarks</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .md-datepicker-calendar-pane {
+            z-index: 1200;
+        }
+    </style>
+
+</div>
+
+<form #updateReferralDoctor="ngForm">
+    <div id="addDoctorModal" class="modal fade addDoctorModal" role="dialog">
+        <div class="modal-dialog">
+
+
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Doctor</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name"><sup>*</sup>Doctor Name</label>
+                        <input type="text" class="form-control" #name="ngModel" required name="firstName" ngModel>
+                        <span *ngIf="name.invalid && name.touched" class="text-danger">
+                            Please Enter Doctor Name
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="power"><sup>*</sup>Specialization</label>
+                        <select class="form-control" #Specialization="ngModel" required ngModel name="serviceList">
+                            <option *ngFor="let service of allService; let i=index" [ngValue]='service'>
+                                {{service.serviceName}}
+                            </option>
+                        </select>
+                        <span *ngIf="Specialization.invalid && Specialization.touched" class="text-danger">
+                            Please Select Specialization
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="name"><sup>*</sup>Clinic Name</label>
+                        <input type="text" class="form-control" #Clinic="ngModel" required name="Clinic" ngModel>
+                        <span *ngIf="Clinic.invalid && Clinic.touched" class="text-danger">
+                            Please Enter Clinic Name
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Mobile number</label>
+                        <input type="text" class="form-control" id="name" name="MobileNo" ngModel>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal"
+                        [disabled]="updateReferralDoctor.invalid"
+                        (click)="updateRefferDoctor(updateReferralDoctor.value)">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- modal -->

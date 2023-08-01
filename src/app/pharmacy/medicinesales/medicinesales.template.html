@@ -1,0 +1,371 @@
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-12 editprocessid_text">
+            <h2>Prescription</h2>
+        </div>
+        <div class="col-md-12 processid_text">
+            <button class="btn editaddmedicine_btn button_addtxt" type="button" (click)="addNewMedicineRow()">
+                <i class="fa fa-plus editadd_txt add_txt" aria-hidden="true"></i>Add Medicine</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 medicine-sales">
+           
+            <section class="editprocess_widget table_pading table-responsive table-datalabel widget-shadow" widget="">
+                <div class="widget-body">
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="" style="width: 17%;">Product Code</th>
+                                <th class="">Medicine Name</th>
+                                <th class="">Composition</th>
+                                <th class="">Quantity</th>
+                                <th *ngIf="!disablePricing">Unit MRP ( &#8377; ) With Taxes
+                                    <!-- <p class="with_txt">With Taxes</p> -->
+                                </th>
+                                <th *ngIf="!disablePricing">Total Taxes ( &#8377; )</th>
+                                <th *ngIf="!disablePricing">Total Amount ( &#8377; )</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngFor="let item of pharmacyList; let i = index">
+                            <tr id="medicineList">
+                                <td class="product_namevalue" data-label="Product Code">
+                                    <div class="tabledatalabel-right">
+                                        <hs-select [defaultSelectLabel]="'Product Code'" [selectColumns]="selectColumns"
+                                            [defaultSelected]="item" [defaultSelectField]="'productCode'"
+                                            [selectTotal]="productCodeSelectTotal"
+                                            [selectResults]="productCodeSearchResults" [multiCheckVarName]="'productId'"
+                                            (searchTrigger)="productCodeSearchTrigger($event,i)"
+                                            (selectTrigger)="selectTrigger($event, i)" *ngIf="!isRefreshProdCode">
+                                        </hs-select>
+                                        <p class='schedule_txt'>Schedule : {{item.schedule}}</p>
+                                        <p class='schedule_txt'>Expiry Date :
+                                            {{item.stockDetails?(item.stockDetails.expiryDate | date:'MMM y'):''}}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="product_namevalue" data-label="Medicine Name">
+                                    <div class="tabledatalabel-right">
+                                        <hs-select [defaultSelectLabel]="'Medicine Name'"
+                                            [selectColumns]="selectColumns" [defaultSelected]="item"
+                                            [defaultSelectField]="'productName'" [selectTotal]="productNameSelectTotal"
+                                            [selectResults]="productNameSearchResults" [multiCheckVarName]="'productId'"
+                                            (searchTrigger)="productNameSearchTrigger($event,i)"
+                                            (selectTrigger)="selectTrigger($event, i);" *ngIf="!isRefreshProdName">
+                                        </hs-select>
+                                        <!-- <div *ngIf="item && item.stockDetails && item.stockDetails.totalAvailableQuantity "> {{item.stockDetails.totalAvailableQuantity}} StockDetails</div> -->
+                                        <div
+                                            *ngIf="(item && item.stockDetails && !item.stockDetails.totalAvailableQuantity && item.isPriceEditable)">
+                                            <a class="edit_link" (click)="updateExpiryDate(item)">
+                                                <img src="assets/img/ic_edit_primary_16.png"></a>
+                                        </div>
+
+                                        <p class='schedule_txt'>Batch :<span id='more_click'
+                                                style="color:blue">{{item.stockDetails?(item.stockDetails.batchNo):''}}</span>
+                                            <a class='schedule_txt' id='more_click' style="color:blue"
+                                                (click)="onMoreBatchNumberClick(i)"
+                                                *ngIf="item.pharmacyStockList != undefined && item.pharmacyStockList.length>1 && !item.isPriceChanged">&nbsp;({{item.pharmacyStockList.length}}
+                                                batches available)</a>
+                                        </p>
+
+                                        <p class='schedule_txt'>Rack :
+                                            {{item.stockDetails?(item.stockDetails.rackNo):''}}
+                                        </p>
+                                        <p class='schedule_txt'>Package :
+                                            <ng-container *ngIf="item.packingInformation">
+                                                {{item?.packingInformation?.unitsInPackage?item.packingInformation?.unitsInPackage:''}}
+                                            </ng-container>
+                                        </p>
+                                        <ng-container *ngIf="altPharmaMedicines.length && i == altIndex">
+                                            <p class='schedule_txt'>Alternate Available :
+                                            <form>
+                                                <select class="form-control" (change)="onMedChange($event.target.value)">
+                                                    <option value=0>Select</option>
+                                                    <option *ngFor="let item of altPharmaMedicines;let i = index" [value]="item.productId">{{item.productName}}
+                                                    </option>
+                                                </select>
+                                            </form>
+                                        </ng-container>
+                                    </div>
+                                </td>
+
+                                <td class="product_namevalue" data-label="Composition">
+                                    <div class="tabledatalabel-right">
+                                        <hs-select [defaultSelectLabel]="'Composition'" [selectColumns]="selectColumns"
+                                            [defaultSelected]="item"
+                                            [defaultSelectField]="'genericMedicine.genericMedicineName'"
+                                            [selectTotal]="genericNameSelectTotal"
+                                            [selectResults]="genericNameSearchResults" [multiCheckVarName]="'productId'"
+                                            (searchTrigger)="genericNameSearchTrigger($event,i);"
+                                            (selectTrigger)="selectTrigger($event, i)" *ngIf="!isRefreshGenericCode">
+                                        </hs-select>
+                                        <p *ngIf="item.doseLabel" class='schedule_txt'>Dose :
+                                            {{item.doseLabel?item.doseLabel:''}}
+                                        </p>
+                                        <p *ngIf="item.duration && item.duration.frequencyDays" class='schedule_txt'>
+                                            Taken {{item.duration.frequencyLabel}}
+                                        </p>
+                                        <p *ngIf="item.duration && item.duration.repeatTimes" class='schedule_txt'>
+                                            For {{item.duration.repeatTimes}} Day{{item.duration.repeatTimes >
+                                            1?'s':''}}
+                                        </p>
+                                    </div>
+                                </td>
+
+                                <td data-label="Quantity">
+                                    <div class="tabledatalabel-right">
+
+                                        <input type='text' class='fname_4txt form-control' #itemquantity
+                                            onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));"
+                                            [(ngModel)]="item.quantity" placeholder='Quantity'
+                                            (keyup)="onQuantityChange()">
+                                        <ng-container *ngIf="item.packingInformation?.unitsInPackage as unitsInPackage">
+                                            <p *ngIf="item?.stockDetails?.totalAvailableQuantity && item.quantity>item.stockDetails?.totalAvailableQuantity/(item.packageSoldLoose?1:unitsInPackage)"
+                                                class="error_Messages">
+                                                Avail Stock :
+                                                {{item.stockDetails?.totalAvailableQuantity/(item.packageSoldLoose?1:unitsInPackage) | number : '1.0-2'}}
+                                            </p>
+                                            <div class="">
+                                                <select [(ngModel)]="item.packageSoldLoose"
+                                                    [disabled]=" !item.packingInformation?.unitsInPackage || item.packingInformation.unitsInPackage<=1"
+                                                    (change)="convertToUnitOrPackagePrice(item,$event.target.value)"
+                                                    class='fname_4txt form-control mt-1  pack-type'>
+                                                    <option [value]="isTrue">
+                                                        {{item.packingInformation&&item.packingInformation.packageType?item.packingInformation.packageType:"Package"}}
+                                                    </option>
+                                                    <!-- {{item.packageSoldLoose==undefined?'undefined':isTrue}} -->
+                                                    <option [value]="!isTrue">Loose</option>
+                                                </select>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                                <td data-label="Unit MRP ( &#8377; ) With Taxes" *ngIf="!disablePricing">
+                                    <div class="tabledatalabel-right">
+                                        <input type='text' class='fname_5txt form-control' step="any"
+                                            value='{{item.netPrice?item.netPrice:0}}' [(ngModel)]="item.netPrice"
+                                            (keyup)="onPriceChange($event.target.value,i)"
+                                            (change)="onPriceChange($event.target.value,i)" maxlength="10"
+                                            (keypress)="validateNumberInputOnly($event)" placeholder='Price'
+                                            [disabled]='!item.isPriceEditable'>
+                                        <!-- (item && item.stockDetails && !item.stockDetails.totalAvailableQuantity && item.productName && item.isPriceEditable) -->
+                                        <!-- *ngIf="item && item.stockDetails && !item.stockDetails.totalAvailableQuantity && item.productName" -->
+                                        <div class="row">
+                                            <div class='schedule_txt unit_rate col-md-7 col-xs-6'>Unit Rate
+                                                <br>Without Taxes
+                                            </div>
+                                            <div class="col-md-5 col-xs-6 unit_nan">( &#8377; ) : {{item.grossPrice |
+                                                number : '1.0-2'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td data-label="Total Taxes ( &#8377; )" *ngIf="!disablePricing">
+                                    <div class="tabledatalabel-right">
+                                        <p class="schedule_txt with_taxes">{{item.taxationAmount | number : '1.0-2'}}
+                                        </p>
+                                        <p class='schedule_txt with_taxes' style="color:#000">CGST
+                                            {{item.taxes.cgst?item.taxes.cgst:0 | number : '1.0-2'}} % :
+                                            {{(item.totalTaxes?.cgstAmount?item.totalTaxes.cgstAmount:0)
+                                            |currency:'INR':true:'1.2-2'}}
+                                        </p>
+                                        <p class='schedule_txt with_taxes' style="color:#000">SGST
+                                            {{item.taxes.sgst?item.taxes.sgst:0 | number : '1.0-2'}} % :
+                                            {{(item.totalTaxes?.sgstAmount?item.totalTaxes.sgstAmount:0) |
+                                            currency:'INR':true:'1.2-2'}}
+                                        </p>
+                                        <p class='schedule_txt with_taxes' style="color:#000">IGST
+                                            {{item.taxes.igst?item.taxes.igst:0 | number : '1.0-2'}} % :
+                                            {{(item.totalTaxes?.igstAmount?item.totalTaxes.igstAmount:0) |
+                                            currency:'INR':true:'1.2-2'}}
+                                        </p>
+                                    </div>
+                                </td>
+
+                                <td class="with_taxes" data-label="Total Amount ( &#8377; )" *ngIf="!disablePricing">
+                                    <div class="tabledatalabel-right">
+                                        (With Taxes)
+                                        <b class="rate_nan"
+                                            *ngIf="item.netPrice == undefined ||item.quantity == undefined ">0</b>
+                                        <b class="rate_nan"
+                                            *ngIf="item.netPrice != undefined ||item.quantity != undefined ">{{item.netPrice
+                                            * item.quantity | number : '1.0-2'}}</b>
+                                        <p class='schedule_txt'>(Without Taxes)
+                                            <b class="rate_nan"
+                                                *ngIf="item.grossPrice == undefined ||item.quantity == undefined ">
+                                                0 </b>
+                                            <b class="rate_nan"
+                                                *ngIf="item.grossPrice != undefined && item.quantity != undefined ">
+                                                {{item.grossPrice * item.quantity | number : '1.0-2'}}</b>
+                                        </p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="tabledatalabel-right">
+                                        <i class='fa fa-times removetxt_icon' aria-hidden='true' id='removeButton{{i}}'
+                                            (click)="remove(i)"></i>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr *ngIf="item.isErrorFound" class="addproduct_errormsg">
+                                <td colspan="8">
+                                    <hs-message [isError]="item.isErrorFound" [show]="item.isErrorFound"
+                                        [messages]="item.isErrorMsg"></hs-message>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <!-- <div class="addemptyspace"></div> -->
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!--  Batch selection popup model start here -->
+<div class="modal fade" id="myModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog model_newadvice">
+        <div class="modal-content generic_pupop">
+
+            <div class="modal-body newadvice_body">
+                <h1 class="select_batch">Select Batch</h1>
+                <h2 class="welcome_text">
+                    {{(morePharmacyMedicine!=undefined && morePharmacyMedicine!=null &&
+                    morePharmacyMedicine[0]!=null)?morePharmacyMedicine[0].productName:''}}
+                </h2>
+                <div class="widget table_pading selectbatch_widget">
+                    <div class="table-responsive table-datalabel">
+                        <table class="table table-stripednew table-striped custab">
+                            <thead class="table_head">
+                                <tr>
+                                    <th>Select One</th>
+                                    <th>Batch Number</th>
+                                    <th>Expiry</th>
+                                    <th>In Stock</th>
+                                    <th>Rack</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tr *ngFor="let item of morePharmacyMedicine; let i = index">
+                                <td data-label="Select One">
+                                    <div class="tabledatalabel-right">
+                                        <input type="checkbox" name="batchCheckbox{{i}}" id="batchCheckbox{{i}}"
+                                            [(ngModel)]="item.isMultiMedicineSelect">
+                                    </div>
+                                </td>
+                                <td data-label="Batch Number">
+                                    <div class="tabledatalabel-right">{{item.stockDetails.batchNo}}</div>
+                                </td>
+                                <td data-label="Expiry">
+                                    <div class="tabledatalabel-right">{{item.stockDetails.expiryDate | date }}</div>
+                                </td>
+                                <td data-label="In Stock">
+                                    <div class="tabledatalabel-right">{{item.stockDetails.totalAvailableQuantity}}</div>
+                                </td>
+                                <td data-label="Rack">
+                                    <div class="tabledatalabel-right">{{item.stockDetails.rackNo}}</div>
+                                </td>
+                                <td data-label="Price">
+                                    <div class="tabledatalabel-right">{{item.stockDetails.netPrice}}</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="ok_cancel">
+                    <button type="button" class="ok_button btn btn-default" (click)="onFinalMedicineSelection()">
+                        <span>OK</span>
+                    </button>
+                    <button type="button" class="cancel_button btn btn-danger" (click)="onClosingPopUp()">
+                        <span>Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Manual batch update model -->
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="medicineUpdate" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Stock Details</h4>
+            </div>
+            <div class="modal-body" *ngIf="selectedPharmacy">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Expiry Date:</label>
+                        <hs-datepicker [defautDate]="selectedPharmacy.stockDetails.expiryDate"
+                            (onDateSubmit)="onDateSubmit($event)"></hs-datepicker>
+                    </div>
+                    <div class="col-md-8 ">
+                        <label>Batch No:</label>
+                        <!-- <span (click)="scanBatchno()">Scan</span> -->
+                        <div class="barcode_widget">
+                            <input type="text" class="form-control" [(ngModel)]="selectedPharmacy.stockDetails.batchNo"
+                                (change)="checkClaimValidation('Batch',selectedPharmacy)">
+                            <img class="barcode_icon" src="assets/img/barcode.png" (click)="scanBatchno()">
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="selectedPharmacy.packingInformation">
+                        <label>Package Type</label>
+                        <select name="PackageType" id="PackageType" class="form-control input-sm"
+                            [(ngModel)]="selectedPharmacy.packingInformation.packageType">
+                            <option value="{{selectedPharmacy.packingInformation.packageType?'package':'undefined'}}">
+                                --Select Pack Type--</option>
+                            <option value="Strip">Strip</option>
+                            <option value="Bottle">Bottle</option>
+                            <option value="Jar">Jar</option>
+                            <!-- <option value="Empty">None Of These</option> -->
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>CGST:</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectedPharmacy.stockDetails.taxes.cgst"
+                            oninput="validity.valid||(value='');" maxlength="5"
+                            (keypress)="validateNumberInputOnly($event)">
+                    </div>
+                    <div class="col-md-4">
+                        <label>SGST:</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectedPharmacy.stockDetails.taxes.sgst"
+                            oninput="validity.valid||(value='');" maxlength="5"
+                            (keypress)="validateNumberInputOnly($event)">
+                    </div>
+                    <div class="col-md-4" *ngIf="selectedPharmacy.packingInformation">
+                        <label>Units In Package:</label>
+                        <input type="text" class="form-control"
+                            [(ngModel)]="selectedPharmacy.packingInformation.unitsInPackage"
+                            (change)="packingInformationUpdate()">
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="gstError" [show]="showgstMessage" [messages]="errorgstMessages"></hs-message>
+            <div class="modal-footer">               
+                <button type="button" class="btn btn-success" (click)="updateMedicineBatchDetails()">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="barscanner" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" *ngIf="selectedPharmacy&&isScanning">
+                <barcode-util-component (onValueUpdate)="onScanCode($event)" (onClose)="onCloseModal('barscanner')">
+                </barcode-util-component>
+            </div>
+        </div>
+    </div>
+</div>

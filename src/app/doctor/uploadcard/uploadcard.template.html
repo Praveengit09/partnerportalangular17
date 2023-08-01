@@ -1,0 +1,74 @@
+<div class="card-container">
+    <div class="card" *ngIf="!printView">
+        <div class="front">
+            <div class="card-header">
+                <div class="col-lg-12 col-md-12">
+                    <h5>Upload Prescription</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-9 col-sm-9 col-xs-8">
+                                <div class="file-upload" >
+                                    <div class="file-select" >
+                                        <div class="file-select-button" id="fileName" (click)="onClickUploadFiles('#chooseFilePatientMedicalAdvise')" *ngIf="patientMedicalAdvise.uploadedFileList.length<MAX_FILES_COUNT">SELECT
+                                            FILE</div>
+                                        <div class="" *ngIf="patientMedicalAdvise.uploadedFileList.length>=MAX_FILES_COUNT">You have choosen maximum no of files</div>
+                                        <div class="file-select-name" id="noFile">
+                                            <div *ngIf="patientMedicalAdvise.uploadedFileList.length<=0">No file
+                                                chosen</div>
+                                            <div *ngFor="let url of patientMedicalAdvise.uploadedFileList;let i=index"
+                                                class="namelink" (click)="openUrlInNewTab(url)">
+                                                {{getNameFromUrl(url)}} 
+                                                <i class="glyphicon glyphicon-remove-circle t12 remove" (click)="removeFile(i)"></i>
+                                            </div>
+                                        </div>
+                                        <input *ngIf="patientMedicalAdvise.uploadedFileList.length<MAX_FILES_COUNT"  type="file" multiple name="chooseFile"
+                                            accept=".jpg,.jpeg,.png,.pdf" id="chooseFilePatientMedicalAdvise" (change)="fileUpload($event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-4" *ngIf="patientMedicalAdvise.uploadedFileList.length>0">
+                                <button class="edit-btn float-right uploadBtn" *ngIf="isUploadView" (click)="update_patient_medical_advice()">UPLOAD</button>
+                                <button class="edit-btn float-right uploadBtn" *ngIf="!isUploadView" >UPLOADING</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-footer" *ngIf="uploadPercentage<100 && uploadPercentage!=0">       
+                    <mat-progress-bar
+                    [value]="uploadPercentage"
+                    >
+                    </mat-progress-bar>{{uploadPercentage}}/100
+            </div>
+        </div>
+        <!-- end front panel -->
+
+        <!-- end back panel -->
+    </div>
+    <!-- end card -->
+    <div *ngIf="printView" style="height:100px">
+
+    </div>
+
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="printViewModel" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body row" style="text-align: center">
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px" (click)="openUrlInNewTab(pdfUrl)">Print</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px" (click)="closePrintView()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

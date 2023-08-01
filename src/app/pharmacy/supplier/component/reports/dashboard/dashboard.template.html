@@ -1,0 +1,38 @@
+<div class="custom_date">
+    <div class="row custom_dropdown">
+        <div class="col-lg-4">
+            <h1 class="page-title">Dashboard</h1>
+        </div>
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-xl-3 col-lg-5 col-md-5 col-sm-4 col-xs-6 pr-0 date_ngx">
+                    <input type="text" ngxDaterangepickerMd [(ngModel)]="selectedRange" [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [linkedCalendars]="false" [ranges]="ranges" placeholder="Choose date" (ngModelChange)="ngModelChange($event)" [keepCalendarOpeningWithRange]="true"
+                        [locale]="{direction: 'ltr',separator: ' To '}" [minDate]="getMinDate()" [maxDate]="getMaxDate()" class="range_date form-control" />
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5 pl-0">
+                    <select name="past_date" id="past_date" class="form-control state_select" (change)="onDateOptionChange($event.target.value)" [(ngModel)]="dropDownIndexForPastDate" [ngModelOptions]="{standalone: true}">
+                        <option [value]=1>Day Wise</option>
+                        <option [value]=2>Week Wise</option>
+                        <option [value]=3>Month Wise</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table_size pt-3">
+    <div class="row pt-2">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Consolidated Orders Per Day</h3>
+            <supplierorderperday [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></supplierorderperday>
+            <br> <br> <br>
+        </div>    
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+            <h3>Revenue Per Day</h3>
+            <supplierrevenue [selectedRange]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"></supplierrevenue>
+            <br> <br> <br>
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<h1 class="page-title">Digitization Manager</h1>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+<div class="row">
+    <div class="col-xl-7 col-lg-5">
+        <mat-form-field appearance="outline" class="search-orders">
+            <mat-label>Doctor Name/Mobile Number</mat-label>
+            <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="searchTerm" placeholder="Enter Name/Mobile Number"
+                maxlength="40">
+            <i class="fa fa-search" aria-hidden="true" matSuffix (click)="onSearch()"></i>
+        </mat-form-field>
+    </div>
+    <div class="col-xl-5 col-lg-7">
+        <h6>Filter by Date</h6>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker"
+                    (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts">
+                </datetime>
+            </div>
+            <div class="form-group col-sm-6">
+                <datetime [(value)]="endDate" [placeholder]="'End Date'" name="endDate" id="datepicker2"
+                    (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-lg-7 mb-3 blank_filter">
+    </div>
+    <div class="col-sm-6 col-lg-5 mb-3">
+    <h6 class="filter_txt">Filter by Status</h6>
+    <select class="form-control" (change)="onFilterChanged($event.target.value)"
+        [ngModelOptions]="{standalone : true}" [(ngModel)]="stausFilterValue">
+        <option value=-1>Select all</option>
+        <option value=0>Pending</option>
+        <option value=3>Assigned to Digitizer</option>  
+        <option value=4>Approval Pending</option>
+        <option value=5>Rejected</option>
+        <option value=1>Completed</option>
+    </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 autorefresh-refreshbutton">
+        <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="onRefresh();">
+            <span class="glyphicon glyphicon-repeat"></span>
+            <span class="refresh_txt">REFRESH</span>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="digitizationQueueList" [sort]="sorting"
+                    [componentId]="'digitizationQueueTable'" (clickEvent)="clickEventHandler($event)"
+                    [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="modeldigitizerslist" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header digitization-modal-header">
+                <h2 class="modal-title digitization_mdl_title" id="exampleModalLabel">Assign to</h2>
+            </div>
+            <div class="modal-body dizitization_modal" *ngFor="let digitizers of digitizersList"
+                [ngClass]="{'selected': digitizers.firstName === selectedDigitizerName}"
+                (click)="selectedDigitizerName = digitizers.firstName"
+                [ngClass]="{'selected': digitizers.empId === selectedDigitizerEmpId}"
+                (click)="selectedDigitizerEmpId = digitizers.empId">
+                 <input type="text" value="{{digitizers.firstName?digitizers.firstName:''}} {{digitizers.lastName?digitizers.lastName:''}}" readonly>
+            </div>
+            <div class="modal-footer digitization-modal-footer">
+                <button type="button" class="btn btn-danger digitization-assign-btn" [disabled]="!selectedDigitizerName"
+                    (click)=" assignPrescriptionToDigitizer()">ASSIGN</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

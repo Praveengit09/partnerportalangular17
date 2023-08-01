@@ -1,0 +1,446 @@
+<div *ngIf="diagnosticsAdviseTrack.invoiceCompletionStatus!=5" class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Update Test Results</h1>
+</div>
+<div class="row" *ngIf="diagnosticsAdviseTrack.invoiceCompletionStatus!=5">
+    <div class="col-lg-12">
+        <section class="widget_txt123" widget="">
+
+
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                <p>Patient
+                    <i *ngIf="!diagnosticsAdviseTrack.patientProfileDetails.fName" aria-hidden="true"
+                        (click)='initModal()' class="fa fa-plus add_patient" data-toggle="modal"
+                        data-target="#myModal1"></i>
+                </p>
+                <h4>{{diagnosticsAdviseTrack.patientProfileDetails.title?diagnosticsAdviseTrack.patientProfileDetails.title+".
+                    ":''}}
+                    {{diagnosticsAdviseTrack.patientProfileDetails.fName}}
+                    {{diagnosticsAdviseTrack.patientProfileDetails.lName?diagnosticsAdviseTrack.patientProfileDetails.lName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4> {{diagnosticsAdviseTrack.doctorDetail?.title}} {{diagnosticsAdviseTrack.doctorDetail?.firstName}}
+                    {{diagnosticsAdviseTrack.doctorDetail?.lastName?diagnosticsAdviseTrack.doctorDetail?.lastName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Order ID</p>
+                <h4>{{diagnosticsAdviseTrack.orderId}}</h4>
+            </div>
+        </section>
+    </div>
+</div>
+<br>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+<div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding"
+    *ngIf="tempProofDocumentList!=null && tempProofDocumentList.length>0">
+    <h2>Sample Proof Documents</h2>
+</div>
+<div class="col-lg-12" *ngIf="tempProofDocumentList!=null && tempProofDocumentList.length>0">
+    <section class="newadd_process newadd_processcroll  row" widget="">
+        <div class="col-lg-4 prescription_scroll" *ngFor="let item of tempProofDocumentList ; let i =index">
+            <div *ngIf="item.substring((item.lastIndexOf('.') + 1),(item.lastIndexOf('.') + 4)).toString() != 'pdf'">
+                <img alt=" " src='{{item}}' (click)="sliderImage(item)" class="image_clickpopup" data-toggle="modal"
+                    data-target="#sliderimagepopup">
+            </div>
+            <div *ngIf="item.substring((item.lastIndexOf('.') + 1),(item.lastIndexOf('.') + 4)).toString() == 'pdf'">
+                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item)"
+                    class="image_clickpdf">
+            </div>
+        </div>
+    </section>
+</div>
+
+<div *ngIf="diagnosticsAdviseTrack.invoiceCompletionStatus!=5" class="table_size">
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12 perscripton_txt">
+            Tests
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget testresults_widget table_pading" widget>
+
+                <div class="widget-body">
+                    <div class="table-responsive table-datalabel widget-shadow">
+                        <table class="table new_table_test table-hover">
+                            <thead>
+                                <tr class="table_head">
+                                    <th class="head_dogo">#</th>
+                                    <th class="">Test Name</th>
+                                    <th class="">Sample ID</th>
+                                    <th *ngIf="this.appId==0" class="">Partner Processed
+                                        <ng-template [ngIf]="!isOneServiceDisabled">
+                                            <span class="partnerCheckBox">
+                                                ( <input type="checkbox" name="partnerCheckBox" #partnerCheckBox
+                                                    id="allSelect" (click)="checkedDateField(item,$event,false)">
+                                                Check All )
+                                            </span>
+                                        </ng-template>
+                                    </th>
+                                    <th>Sample Collected</th>
+                                    <th class="">Test Results</th>
+                                    <th>Unit</th>
+                                    <!-- <th class="">Normal Range</th> -->
+                                    <th class="fname_6txt">Min Range</th>
+                                    <th class="fname_6txt">Max Range</th>
+                                    <!-- <th class="fname_5txt">Range Unit</th> -->
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody *ngFor="let item of diagnosticsAdviseTrack.serviceList; let i = index">
+
+                                <tr>
+                                    <td data-label="#">
+                                        <div class="tabledatalabel-right"><input class="fname-txt" value={{i+1}} />
+                                        </div>
+                                    </td>
+                                    <td data-label="Test Name">
+                                        <div class="tabledatalabel-right">
+                                            <textarea type="text" class="fname_2txt1" readonly placeholder="Test Name"
+                                                value={{item.serviceName}} [(ngModel)]="item.serviceName"></textarea>
+                                        </div>
+                                    </td>
+                                    <td data-label="Sample ID">
+                                        <div class="tabledatalabel-right">
+                                            <textarea type="text" class="fname_2txt1" placeholder="Sample Id"
+                                                value={{item.sampleId}} [disabled]="item.checkSampleIdExist"
+                                                [(ngModel)]="item.sampleId"></textarea>
+                                            <!-- <textarea type="text" class="fname_2txt1" placeholder="Sample Id"
+                                                value={{item.sampleId}} [(ngModel)]="item.sampleId"
+                                                *ngIf="!item.checkSampleIdExist"></textarea> -->
+                                        </div>
+                                    </td>
+                                    <td *ngIf="this.appId==0" data-label="Partner Processed">
+                                        <div class="tabledatalabel-right">
+                                            <input type="checkbox" name="partnerProcessedSample"
+                                                [checked]="item.partnerProcessedSample" [disabled]="item.isDisabled"
+                                                [(ngModel)]="item.partnerProcessedSample">
+                                            <!-- <input type="checkbox" name="partnerProcessedSample"
+                                                [checked]="item.partnerProcessedSample" *ngIf="!item.isDisabled"
+                                                [(ngModel)]="item.partnerProcessedSample"> -->
+                                        </div>
+                                    </td>
+                                    <td data-label="Sample Collected" class="datepic_txt1">
+                                        <div class="tabledatalabel-right">
+                                            <datetime [(value)]="item.sampleCollectionDate" disabled="disabled"
+                                                [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                                            <br>
+                                            <a
+                                                *ngIf="item.sampleCollectionDate && i == 0 && diagnosticsAdviseTrack.serviceList.length > 0">
+                                                <input type="checkbox" name="testDateCheckBox" #testDateCheckBox
+                                                    id="allSelect" (click)="checkedDateField(item,$event,true)"> Check
+                                                All
+                                                <p>Select similar date for all the test</p>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td data-label="Test Results">
+                                        <div class="tabledatalabel-right"><input type="text" maxlength="8"
+                                                class="fname_4txt" placeholder="Test Results"
+                                                value={{item.testResultDataValue}}
+                                                [(ngModel)]="item.testResultDataValue" /></div>
+                                    </td>
+                                    <td data-label="Unit">
+                                        <div class="tabledatalabel-right"><input type="text" maxlength="8"
+                                                class="fname_6txt" placeholder="Unit" value={{item.testResultDataUnit}}
+                                                [(ngModel)]="item.testResultDataUnit" /></div>
+                                    </td>
+                                    <!-- <td>
+                                        <input type="text" class="fname_5txt" placeholder="Normal Range" value={{item.normalResultDataValue}} [(ngModel)]="item.normalResultDataValue" />
+                                    </td> -->
+                                    <td data-label="Min Range">
+                                        <div class="tabledatalabel-right"><input type="number" class="fname_5txt"
+                                                placeholder="Min" value={{item.minRangeValue}}
+                                                [(ngModel)]="item.minRangeValue" /></div>
+                                    </td>
+                                    <td data-label="Max Range">
+                                        <div class="tabledatalabel-right"><input type="number" class="fname_5txt"
+                                                placeholder="Max" value={{item.maxRangeValue}}
+                                                [(ngModel)]="item.maxRangeValue" /></div>
+                                    </td>
+                                    <!-- <td>
+                                        <input type="text" class="fname_5txt" placeholder="Range Unit" value={{item.rangeUnit}} [(ngModel)]="item.rangeUnit" />
+                                    </td> -->
+
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="diagnosticsAdviseTrack.invoiceCompletionStatus==5" class="table_size">
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12 perscripton_txt">
+            Tests
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget testresults_widget table_pading" widget>
+
+                <div class="widget-body">
+                    <div class="table-responsive table-datalabel widget-shadow">
+                        <table class="table new_table_test table-hover">
+                            <thead>
+                                <tr class="table_head text_align">
+                                    <th class="head_dogo">#</th>
+                                    <th class="">Test Name</th>
+                                    <th class="">Sample ID</th>
+                                    <th *ngIf="this.appId==0" class="">Partner Processed
+                                        <ng-template [ngIf]="!isOneServiceDisabled">
+                                            <span class="partnerCheckBox">
+                                                ( <input type="checkbox" name="partnerCheckBox" #partnerCheckBox
+                                                    id="allSelect" (click)="checkedDateField(item,$event,false)">
+                                                Check All )
+                                            </span>
+                                        </ng-template>
+                                    </th>
+                                    <th>Sample Collected</th>
+                                    <th class="">Test Results</th>
+                                    <th>Unit</th>
+                                    <!-- <th class="">Normal Range</th> -->
+                                    <th class="fname_6txt">Min Range</th>
+                                    <th class="fname_6txt">Max Range</th>
+                                    <!-- <th class="fname_5txt">Range Unit</th> -->
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody *ngFor="let item of diagnosticsAdviseTrack.serviceList; let i = index">
+
+                                <tr class="text_align">
+                                    <td data-label="#">
+                                        <div class="tabledatalabel-right">{{i+1}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Test Name">
+                                        <div class="tabledatalabel-right">
+                                            {{item.serviceName}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Sample ID">
+                                        <div class="tabledatalabel-right">
+                                            {{item.sampleId}}
+                                        </div>
+                                    </td>
+                                    <td *ngIf="this.appId==0" data-label="Partner Processed">
+                                        <div class="tabledatalabel-right">
+                                            {{item.partnerProcessedSample}}
+
+                                        </div>
+                                    </td>
+                                    <td data-label="Sample Collected" class="datepic_txt1">
+                                        <div class="tabledatalabel-right">
+                                            {{item.sampleCollectionDate | date:'shortDate'}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Test Results">
+                                        <div class="tabledatalabel-right">
+                                            {{item.testResultDataValue}}</div>
+                                    </td>
+                                    <td data-label="Unit">
+                                        <div class="tabledatalabel-right">
+                                            {{item.testResultDataUnit}}
+                                        </div>
+                                    </td>
+
+                                    <td data-label="Min Range">
+                                        <div class="tabledatalabel-right">
+                                            {{item.minRangeValue}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Max Range">
+                                        <div class="tabledatalabel-right">
+                                            {{item.maxRangeValue}}
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="diagnosticsAdviseTrack.invoiceCompletionStatus!=5" class="row">
+    <div class="col-md-12">
+        <div class="from_txt">
+            <button type="submit" class="button_addtxt add_medicine" value="Upload Reports" data-toggle="modal"
+                (click)="initialUploadReport()">Upload Reports/Files</button>
+            <p class="select_only">Only pdf, png, jpg files are supported</p>
+            <div hs-notification></div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<div class="row">
+
+    <div class="col-md-12">
+        <!--table-->
+        <div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+            <h2> Uploaded files</h2>
+        </div>
+        <section class="widget testresults_widget table_pading">
+            <div class="widget-body table-responsive table-datalabel">
+                <table class="table table-striped table_body test_table table-hover">
+                    <thead>
+                        <tr class="table_head">
+                            <th>FileName</th>
+                            <th>Uploaded On</th>
+                            <th>Tests Included</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let reportFile of diagnosticsAdviseTrack.fileUrlList;let i=index">
+                            <td data-label="FileName">
+                                <!-- <div class="tabledatalabel-right">{{reportFile.fileName}}</div> -->
+                                <div class="tabledatalabel-right pdf_details">
+                                    <span (click)=makeUrl(reportFile.fileUrl)>
+                                        {{reportFile.fileName}}
+                                    </span>
+                                </div>
+                            </td>
+                            <td data-label="Uploaded On">
+                                <div class="tabledatalabel-right">{{reportFile.uploadedDate | date:'shortDate'}}</div>
+                            </td>
+                            <td data-label="Tests Included">
+                                <div class="tabledatalabel-right">
+                                    <ng-template [ngIf]="reportFile && reportFile.testList">
+                                        <span *ngFor="let test of reportFile.testList"> {{test.name}},</span>
+                                    </ng-template>
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="diagnosticsAdviseTrack.invoiceCompletionStatus!=5"
+                                    class="tabledatalabel-right"><button class="btn btn-danger remove-btn"
+                                        (click)="remove(i)">Remove</button></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div *ngIf="diagnosticsAdviseTrack.invoiceCompletionStatus!=5" class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="checkbox">
+            <label class="control-label" for="mark_as_done">
+                <input type="checkbox" name="mark_as_done" id="mark_as_done" value="1" class="" tabindex="3"
+                    [(ngModel)]="markAsDoneVar" /> Mark as Done
+            </label>
+        </div>
+    </div>
+</div>
+<button role="button" class="submit_txt" value="Submit"
+    (click)="onSubmit()">{{diagnosticsAdviseTrack.invoiceCompletionStatus!=5?"Submit":"Done"}}</button>
+
+
+<div class="modal right " id="testResultsUploadModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title add_medtxt" id="myModalLabel">Upload Test Report</h4>
+                <p class="select_txt">Select the tests from the below list for which your are uploading the report</p>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" class="form-horizontal" #fileUploadForm="ngForm"
+                    (ngSubmit)="uploadReports(fileUploadForm)">
+                    <div *ngIf="checkBoxValidationMessage && checkBoxValidationMessage.length>0">
+                        <label class="error_class">{{checkBoxValidationMessage}}</label>
+                    </div>
+                    <h4 class="modal-title add_medtxt add_prescrib">Test List</h4>
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-6 col-xs-6"
+                            *ngFor="let item of diagnosticsAdviseTrack.serviceList; let i = index">
+                            <label>
+                                <input type="checkbox" class="checkBoxClass" name="{{fileUploadCheckBoxId + i}}"
+                                    id="{{fileUploadCheckBoxId + i}}" [(ngModel)]="item.isSelected"
+                                    [ngModelOptions]="{standalone: true}" (change)="checkedTestName()">
+                                {{item.serviceName}}
+                            </label>
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class=col-sm-6>
+                        <a>
+                            <input type="radio" name="testCheckBox" id="allSelect" [checked]="this.checkedId == 1"
+                                (change)="selectAll(1)"> Check All
+                        </a>
+                    </div>
+                    <div class=col-sm-6>
+                        <a>
+                            <input type="radio" name="testCheckBox" id="allDeselect" [checked]="this.checkedId == 0"
+                                (change)="selectAll(0)">Uncheck All
+                        </a>
+                    </div>
+                    <input #diagnosticFileUpload type="file" accept=".png,.pdf,.jpg" class="form-control" id="files"
+                        name="diagnosticFileUpload" (change)="fileUpload($event)" multiple />
+                    <p class="select_only">Only pdf, png, jpg files are supported</p>
+                    <br />
+                    <input type="submit" class="Update" value="UPLOAD">
+                </form>
+            </div>
+
+        </div>
+        <spinner-component></spinner-component>
+    </div>
+</div>
+
+<!-- sliderImage -->
+
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank">Download</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

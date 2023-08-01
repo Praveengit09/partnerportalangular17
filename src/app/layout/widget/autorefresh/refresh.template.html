@@ -1,0 +1,17 @@
+<div>
+    <!-- <select class="form-control selectwidth" id="my_select1 option1" [(ngModel)]="dropDownIndex1" [ngModelOptions]="{standalone: true}"
+(change)="onRefreshPageList($event.target.value)"> -->
+    <select class="form-control selectwidth" id="my_select1 option1" [(ngModel)]="dropDownIndex1" [ngModelOptions]="{standalone: true}" (change)="onRefreshPageList($event.target.value)">
+<option [value]=0 *ngIf="!this.autoRefreshChange">Auto Refresh in</option>
+
+<option [value]=0 *ngIf="this.autoRefreshChange">Auto Refresh off</option>
+<option *ngIf="!disableSecondsRefresh" [value]=30000>    30  seconds</option>
+<option *ngIf="!disableSecondsRefresh" [value]=50000>    50  seconds</option>
+<option *ngIf="!disableSecondsRefresh" [value]=60000>    01  minute</option>
+<option *ngIf="!disableSecondsRefresh" [value]=300000>   05  minutes</option>
+<option [value]=600000>   10  minutes</option>
+<option [value]=900000>   15  minutes</option>
+<option [value]=1800000>  30  minutes</option> 
+
+</select>
+</div>

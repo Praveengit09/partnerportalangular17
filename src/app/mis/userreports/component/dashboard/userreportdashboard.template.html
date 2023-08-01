@@ -1,0 +1,80 @@
+<h1 class="page-title">User Reports Dashboard</h1>
+<div class="table_size">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt average_health heatmap">
+            <h3>Average HealthScore Details</h3>
+            <ng-container>
+                <heatmap [isColorIndActive]="true" [config]="heatmapHScoreConfig" [dataList]="avghealthscoreresponse"
+                    (onEmit)="onHeathscoreMapEmit($event)">
+                </heatmap>
+            </ng-container>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt average_health heatmap">
+            <h3>PHR Dashboard Details</h3>
+            <div class="filter_map col-md-2 mb-2">
+                <select class="form-control state_map" name="phrlist" id="phrlist" [(ngModel)]="selectedPhrQue" (change)="onPhrDashboadMapEmit()">
+                    <option value="-1" disabled>--Select Question--</option>
+                    <option value="{{que.id}}" *ngFor="let que of PhrQustionConstIds">{{que.name}}</option>
+                </select>
+            </div>
+            <ng-container>
+                <heatmap [isColorIndActive]="true" [config]="phrDashboardConfig" [dataList]="phrDashboardResponse"
+                    (onEmit)="onPhrDashboadMapEmit($event)">
+                </heatmap>
+            </ng-container>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <h3>Age Graph Details</h3>
+
+            <agegraphdetails></agegraphdetails>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <h3>Gender Graph Details</h3>
+
+            <gendergraphdetails></gendergraphdetails>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <h3>HealthScore Graph Details</h3>
+
+            <healthscoregraphdetails></healthscoregraphdetails>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <h3>Risk Profiles Graph Details</h3>
+
+            <riskprofilegraphdetails></riskprofilegraphdetails>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <hypertension></hypertension>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <ischemicheartdisease></ischemicheartdisease>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <diabetes></diabetes>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <copd></copd>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <asthma></asthma>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <obesity></obesity>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <epilepsy></epilepsy>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <chronickidneydisease></chronickidneydisease>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 graph_txt">
+            <sleepdisorder></sleepdisorder>
+        </div>
+    </div>
+</div>

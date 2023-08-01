@@ -1,0 +1,181 @@
+<div class="img_drawing">
+   <h5 class="img_anator_heading">Image Annotator</h5>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+   <div class="loading" *ngIf="isLoading">
+      <ng-container *ngTemplateOutlet="loadingTemplate ? loadingTemplate : defaultLoading"></ng-container>
+   </div>
+   <div class="error" *ngIf="hasError">
+      <ng-container *ngTemplateOutlet="errorTemplate ? errorTemplate : defaultError"></ng-container>
+   </div>
+
+   <ng-template #defaultLoading>
+      <p>loading</p>
+   </ng-template>
+   <ng-template #defaultError>
+      <p>{{ errorMessage }}</p>
+   </ng-template>
+
+   <div class="row pb-2">
+      <div class="col-sm-5 blank_filter">
+      </div>
+      <div class="col-sm-7 filter-bysts pr-0">
+         <select class="form-control" (change)="onDropdownChanged($event.target.value)"
+            [ngModelOptions]="{standalone : true}" [(ngModel)]="selectedImage">
+            <option *ngIf="!imageUsed" selected>Select an Organ</option>
+            <option value="assets/mymedic/anatomyimages/heart.jpeg">Heart</option>
+            <option value="assets/mymedic/anatomyimages/brain.jpg">Brain</option>
+            <option value="assets/mymedic/anatomyimages/kidney.jpg">Kidney</option>
+            <option value="assets/mymedic/anatomyimages/pancrease.jpg">Pancreas</option>
+            <option value="assets/mymedic/anatomyimages/lungs.jpg">Lungs</option>
+            <option value="assets/mymedic/anatomyimages/eye.jpg">Eye</option>
+            <option value="assets/mymedic/anatomyimages/ear.jpg">Ear</option>
+            <option value="assets/mymedic/anatomyimages/tongue.jpg">Tongue</option>
+            <option value="assets/mymedic/anatomyimages/intenstine.jpg">Intenstine</option>
+         </select>
+      </div>
+   </div>
+   <div class="row p-2 Img_drawing_card">
+      <div class="col-md-3 pl-0 toolbar_card">
+         <div class="toolbar">
+            <div class="tools">
+               <div class="paint-card">
+                  <div data-toggle="tooltip" data-placement="top" title="Brush">
+                     <i class="material-icons btn" [class.selected]="currentTool == 'brush'"
+                        (click)="selectTool('brush')">brush</i>
+                  </div>
+
+                  <div data-toggle="tooltip" data-placement="top" title="Eraser">
+                     <i class="fa fa-eraser fa-2x btn" [class.selected]="currentTool == 'eraser'"
+                        (click)="selectTool('eraser')" style="font-size: 1.5rem"></i>
+                  </div>
+
+                  <div data-toggle="tooltip" data-placement="top" title="Text">
+                     <i class="material-icons btn" [class.selected]="currentTool == 'text_fields'"
+                        (click)="selectTool('text_fields')">text_fields</i>
+                     <input *ngIf="enableTextInput" [(ngModel)]="textInput" (keyup.enter)="addShapes('text')"
+                        placeholder="Enter text">
+                  </div>
+
+                  <div data-toggle="tooltip" data-placement="top" title="Pan tool">
+                     <i class="material-icons btn" [class.selected]="currentTool == 'pan_tool'"
+                        (click)="selectTool('pan_tool')">pan_tool</i>
+                  </div>
+
+                  <div data-toggle="tooltip" data-placement="top" title="Zoom in">
+                     <i class="material-icons btn" (click)="zoomIn()">zoom_in</i>
+                  </div>
+
+                  <div data-toggle="tooltip" data-placement="top" title="Zoom Out">
+                     <i class="material-icons btn" (click)="zoomOut()">zoom_out</i>
+                  </div>
+
+                  <div data-toggle="tooltip" data-placement="top" title="Undo">
+                     <i class="material-icons btn" [class.disabled]="!canUndo" (click)="undo()">undo</i>
+                  </div>
+
+                  <div data-toggle="tooltip" data-placement="top" title="Redo">
+                     <i class="material-icons btn" [class.disabled]="!canRedo" (click)="redo()">redo</i>
+                  </div>
+               </div>
+               <p class="text_align mt-0">Tools</p>
+            </div>
+         </div>
+
+         <div class="toolbar">
+            <div class="tools">
+               <div class="paint-card">
+                  <div data-toggle="tooltip" data-placement="top" title="Attach File">
+                     <input style="display: none" type="file" #fileInput (change)="importPhotoFromFile($event)"
+                        accept="image/*" />
+                     <i class="material-icons btn" *ngIf="enableLoadAnotherImage && !hasImage"
+                        (click)="fileInput.click();">attach_file</i>
+                  </div>
+                  <div data-toggle="tooltip" data-placement="top" title="Insert File">
+                     <i class="material-icons btn" *ngIf="enableLoadAnotherImage && !hasImage"
+                        (click)="importPhotoFromUrl()">insert_drive_file</i>
+                  </div>
+                  <div data-toggle="tooltip" data-placement="top" title="Clear">
+                     <i class="material-icons btn" *ngIf="enableRemoveImage && hasImage"
+                        (click)="removeImage()">clear</i>
+                  </div>
+                  <div data-toggle="tooltip" data-placement="top" title="Delete">
+                     <i class="material-icons btn" (click)="clearCanvas()">delete</i>
+                  </div>
+                  <div data-toggle="tooltip" data-placement="top" title="Save">
+                     <i class="material-icons btn" (click)="saveImage(); $event.preventDefault()">save</i>
+                  </div>
+                  <div class="d-flex">
+                     <div data-toggle="tooltip" data-placement="top" title="Download">
+                        <i class="material-icons btn" (click)="downloadImage(); $event.preventDefault()">download</i>
+                     </div>
+                     <div data-toggle="tooltip" data-placement="top" title="Exit">
+                        <i class="material-icons btn" *ngIf="showCancelButton"
+                           (click)="cancelAction(); $event.preventDefault()">cancel</i>
+                     </div>
+                     <div data-toggle="tooltip" data-placement="top" title="Add to Prescription">
+                        <i *ngIf="hasImage" class="material-icons btn" (click)="addToPrescription(); $event.preventDefault()">note_add</i>
+                     </div>
+                  </div>
+               </div>
+               <p class="text_align mt-0">File</p>
+            </div>
+         </div>
+
+         <div class="toolbar">
+            <div class="tools">
+               <div class="paint-card grid-container">
+                  <div *ngFor="let colorName of colorsName" [class.selected]="currentColor == colorName"
+                     class="color item1" data-toggle="tooltip" data-placement="top" title="{{colorName}}"
+                     [ngClass]="colorName" [style.background]="colors[colorName]" (click)="selectColor(colorName)">
+                  </div>
+               </div>
+               <p class="text_align mt-0">Colors</p>
+            </div>
+         </div>
+
+         <div class="toolbar">
+            <div class="tools">
+               <div class="paint-card">
+                  <i class="material-icons btn" data-toggle="tooltip" data-placement="top" title="Line"
+                     (click)="addShapes('line')">remove</i>
+
+                  <i class="material-icons btn" data-toggle="tooltip" data-placement="top" title="Circle"
+                     (click)="addShapes('circle')">panorama_fish_eye</i>
+
+                  <i class="material-icons btn" data-toggle="tooltip" data-placement="top" title="Square"
+                     (click)="addShapes('square')">crop_square</i>
+
+                  <i class="material-icons btn" data-toggle="tooltip" data-placement="top" title="Arrow"
+                     (click)="addShapes('arrow_backward')">arrow_outward</i>
+               </div>
+               <p class="text_align mt-0">Shapes</p>
+            </div>
+         </div>
+
+         <div class="toolbar">
+            <div class="tools">
+               <div class="paint-card">
+                  <span *ngFor="let drawingSizeName of drawingSizesName" class="size btn" data-toggle="tooltip"
+                     data-placement="top" title="{{drawingSizeName}}"
+                     [style.width.px]="drawingSizes[drawingSizeName] * 0.8 + 8"
+                     [style.height.px]="drawingSizes[drawingSizeName] * 0.8 + 8"
+                     [style.borderRadius.px]="drawingSizes[drawingSizeName] * 0.4 + 4"
+                     [class.selected]="currentSize == drawingSizeName" (click)="selectDrawingSize(drawingSizeName)">
+                  </span>
+               </div>
+               <p class="text_align mt-0">Size</p>
+            </div>
+         </div>
+      </div>
+
+      <div class="col-md-9 pr-0 pl-0">
+         <div class="" style="position: relative; box-shadow: 0 3px 10px rgb(0 0 0 / 40%); border-radius: 6px;">
+            <canvas id="canvas"></canvas>
+            <div *ngIf="!imageUsed" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+               Please select an image from the dropdown / Attach from File / Insert Image URL to Annotate an Image
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

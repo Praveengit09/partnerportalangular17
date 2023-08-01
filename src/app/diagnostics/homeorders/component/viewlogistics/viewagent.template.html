@@ -1,0 +1,150 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Agent Details </h1>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget_txt1234" widget="">
+                <div class=" row col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                        <h6>Agent Name:</h6>
+                        <h4>{{agentDetails.empName}}
+                        </h4>
+                    </div>
+                </div>
+                <br>
+                <div class="col-lg-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                        <h6>Total Samples Collected</h6>
+                        <h4>{{totalSamplesPickedup}}</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                        <h6>Total Samples To Pickup</h6>
+                        <h4>{{totalSamplesForPickup}}</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 patient_txt" *ngIf="!pocId">
+                        <h6>Total Samples Delivered</h6>
+                        <h4>{{totalSamplesDelivered}}</h4>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="datePayment">
+                <h6 class="sub-title">Filter by Date</h6>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <datetime [(value)]="startDate" class="startdate" name="startDate" id="datepicker"
+                            [placeholder]="'Start Date'" [datepicker]="datepickerOpts"
+                            (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [placeholder]="'End Date'"
+                            [datepicker]="datepickerOpts" (dateChange)="endDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <h4 class="page-title">Pickup Details </h4>
+                <hs-table [columns]="columns" [pagingList]="pickupData" [dataMsg]="dataMsg"
+                    (clickEvent)="clickEventHandler($event)" [componentId]="'logisticagentdetails'" [perPage]="perPage"
+                    [total]="total" (pageClick)="onPage($event)">
+                </hs-table>
+            </div>
+        </section>
+    </div>
+
+    <ng-container *ngIf="!pocId">
+        <div class="col-md-12 mt-2">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body">
+                    <h4 class="page-title">Delivery Details </h4>
+                    <hs-table [columns]="col" [pagingList]="deliveryData" [dataMsg]="dataMsg"  (clickEvent)="clickEventHandler($event)"
+                        [componentId]="'deliverydetails'" [perPage]="perPag" [total]="totals"
+                        (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </ng-container>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 mt-2">
+        <button role="button" (click)="onGenerateBack()">Back</button>
+    </div>
+</div>
+
+
+
+<div id="sliderimage" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+                <h2 class="remarks page-title">Documents</h2>
+            </div>
+            <div class="col-lg-12">
+                <section class="newadd_process  row" widget="">
+                    <div class="col-lg-12 prescription_scroll"
+                        *ngFor="let item of convertedDocumentUrlList ; let i =index">
+                        <div
+                            *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                            <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup"
+                                data-toggle="modal" data-target="#sliderimagepopup">
+                        </div>
+                        <div *ngIf="item.includes('pdf')">
+                            <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')"
+                                class="image_clickpdf">
+                        </div>
+                    </div>
+                    <div *ngIf="!convertedDocumentUrlList.length">
+                        <h4>No Documents Uploaded</h4>
+                    </div>
+                    <br>
+                    <div class="row remarks" *ngIf="remarks.length">
+                        <h4><b>Remarks:</b>  {{remarks}}</h4>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="prescription-modal">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop" *ngIf="prescriptionType=='img'">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group image_download">
+                    <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

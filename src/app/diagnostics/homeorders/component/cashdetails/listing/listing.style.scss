@@ -1,0 +1,29 @@
+@import '../../../../../scss/variables';
+@import '../../../../../scss/theme.scss';
+
+.datepicker{
+    min-width:160px !important;
+    width: 100% !important;
+}
+@media screen and (min-width:992px) {
+    .search-orders{
+        margin-top: 28px;
+    } 
+}
+
+.button_addtxt {
+    // background-color: #14a9b5;
+    background-color: $btn-bg-color;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    float: right;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}

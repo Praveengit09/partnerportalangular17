@@ -1,0 +1,92 @@
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<h1 class="page-title">Slot Selection</h1>
+<div class="row">
+
+    <div class="col-lg-12" *ngIf="slotBookingDetails && slotBookingDetails.patientProfileDetails">
+        <section class="newadd_process row" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 process_txt patientpop">
+                <p class = 'add_size'>Patient
+                    <i *ngIf="!this.selectedRegisteredProfile.selfProfile.fName" aria-hidden="true"
+                        class="fa fa-plus add_patient" (click)="openModal('#registerPatientModal')"></i>
+                </p>
+                <h4 class="mb-2">
+                    {{slotBookingDetails.patientProfileDetails.title?slotBookingDetails.patientProfileDetails.title+". ":''}}
+                    {{slotBookingDetails.patientProfileDetails.fName}}
+                    {{slotBookingDetails.patientProfileDetails.lName?slotBookingDetails.patientProfileDetails.lName:''}}
+                </h4>
+            </div>
+            <!-- <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <doctor-search (doctorListSearchEvent)="setSelectedDoctorDetails($event)" [pocId]='pocId' [label] = "'Provider Name'"
+                    [empId]='this.slotBookingDetails.empId' [city]='city' [defaultSelectLabel] = "'Enter Provider Name'"></doctor-search>
+            </div> -->
+          
+        </section>
+      
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+                        <h4>1. Wellness Services</h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <hs-select [defaultSelectLabel]="'Search Wellness Services'" [selectColumns]="selectColumns"
+                            class="diagnostic-testsearch" [selectTotal]="searchTestsTotal"
+                            [selectResults]="searchedTests" (searchTrigger)="searchTests($event)"
+                            (selectTrigger)="getTestName($event)"></hs-select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="list-inline"
+                    *ngIf=" slotBookingDetails != undefined && slotBookingDetails.serviceList!=undefined">
+                    <div class="list-inline-item" *ngFor="let item of slotBookingDetails.serviceList; let i = index">
+                    <div class="cardBodyItem diagnostic-tests" (click)="remove(i)">
+                            <input id="comment{{item.serviceId}}" type="checkbox" value="true">
+                            <label class="testLabel">
+                                {{item.serviceName + " (" + "Rs."+ item.netPrice + " Onwards)"}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 slotinfo-sec">
+        <h2 class="page-title order_txt mt-3 mb-0">2. Select Slots</h2>
+        <h6 class="col-md-12">Slots can be booked only for 7 days from current Date[If Available]
+            <sup class="sgst_txt">*</sup> </h6>
+        <div class="row">
+            <div class="col-md-4">
+            <datetime name="slotDate" [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="this.slotDate"
+                    (dateChange)="onDateSelected()">
+                </datetime>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                    <mat-label>Select Slot</mat-label>
+                    <mat-select id="timeSelection" (selectionChange)="onTimeSelected($event.value)"
+                        [(ngModel)]="dropDownIndex">
+                        <mat-option *ngFor="let eachTime of slotTimeList" [value]="eachTime.startTime">
+                            {{eachTime.label}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        
+        </div>
+        <button class="btn btn-danger width-200 mt-2"
+            (click)="continueToPayment()">{{"CONTINUE "+" (Rs."+this.price+")"}}</button>
+    </div>
+
+    <div class="modal left" id="registerPatientModal">
+        <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+            <div class="modal-content patient-registerpopup">
+                <patientregister-component (closeModel)="closeModel('#registerPatientModal')"
+                    (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

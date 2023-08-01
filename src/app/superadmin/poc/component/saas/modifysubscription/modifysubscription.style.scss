@@ -1,0 +1,439 @@
+// @import "../../../../../../../node_modules/bootstrap/dist/js/bootstrap.min.js";
+.subscription h1,
+.plan-infocard h5,
+.subscription-cart h1,
+.subscription-confirm h1,
+.subscription-account h1 {
+    color: #333;
+}
+
+.subscription h1 {
+    margin-bottom: 16px !important;
+    font-weight: 600;
+    text-align: center;
+}
+
+.subscription p {
+    text-align: center;
+}
+
+.plan-infocard h3 {
+    font-weight: 600;
+    color: #1071b9;
+}
+
+.subscripe-info,
+.confirm-info {
+    background-color: #e0e8ef;
+}
+
+.subscripe-info {
+    padding: 50px 20px 0 20px;
+}
+
+.plan-info {
+    padding-top: 50px;
+}
+
+// .plan-infocard {
+//     width: 24.625%;
+//     display: inline-block;
+//     padding: 18px;
+//     background-color: #f0f0f0;
+//     margin-left: 0.5%;
+// }
+
+.plan-info.mobile {
+    padding-bottom: 30px;
+    text-align: left;
+}
+
+.plan-info.mobile .plan-infocard {
+    border-radius: 46px;
+    width: 100%;
+}
+
+.plan-info.mobile .plan-infocard .fa {
+    top: 27px;
+    right: 15px;
+    position: absolute;
+    font-size: 1rem;
+}
+
+.plan-infocard:first-child {
+    margin-left: 0;
+}
+
+.buy-package-spacing {
+    padding: 10px 0px 10px 0px !important;
+}
+
+.plan-detailwidget:nth-of-type(odd) h4.heading,
+.subscription .plan-detailwidget:nth-of-type(odd) .buy-package button {
+    background-image: linear-gradient(104deg, #a2a6a8 -1%, #878e92 102%);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+
+}
+
+.plan-detailwidget:nth-of-type(even) h4.heading,
+.subscription .plan-detailwidget:nth-of-type(even) .buy-package button {
+    background-image: linear-gradient(105deg, #f1af3a 1%, #d9961e 102%);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+
+}
+
+.plan-infocard,
+.plan-infocontent h4.heading {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.plan-infocard h5,
+.plan-detail .cost-info h5 {
+    font-size: 1.125rem !important;
+}
+
+.plan-infocard p {
+    font-size: 0.75rem !important;
+}
+
+.plan-detail .cost-info h4 {
+    font-size: 1.6875rem !important;
+}
+
+.plan-infocard.active {
+    background-color: #f8f8f8;
+}
+
+.plan-infocontent {
+    padding: 10px 0;
+    margin: 0 -5px;
+}
+
+.plan-infocontent .plan-detailwidget {
+    width: 33.33%;
+    display: inline-block;
+    padding: 0 5px;
+    margin-top: 24px;
+}
+
+.plan-infocontent h4.heading {
+    padding: 29px 24px 19px 24px;
+}
+
+.plan-detail {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    padding-top: 39px;
+}
+
+.plan-detail ul {
+    padding: 0 39px 10px 39px;
+    // background-color: #f8f8f8;
+}
+
+.plan-detail .cost-info {
+    padding-left: 42px;
+}
+
+.plan-detail ul li {
+    list-style-type: disc;
+    font-size: 0.8125rem !important;
+}
+
+.strike {
+    text-decoration: line-through;
+    color: rgba(51, 51, 51, 0.6);
+    font-size: 1.125rem !important;
+}
+
+.plan-detail button {
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+.need-help {
+    background-color: #e0e8ef;
+}
+
+.subscription-account {
+    width: 100%;
+    max-width: 600px;
+}
+
+.subscription-account label {
+    width: 100%;
+}
+
+.create-accountform {
+    width: 100%;
+    max-width: 510px;
+}
+
+.verifyEmailbutton {
+    margin-top: 24px;
+}
+
+#address {
+    height: 70px;
+}
+
+.subscription-confirm p,
+.subscription-cart p {
+    font-size: 1.125rem;
+}
+
+.subscription-confirm span,
+.subscription-cart small {
+    font-size: 0.875rem;
+}
+
+.subscription-cart {
+    line-height: 14px;
+}
+
+.set-height {
+    min-height: 500px !important;
+}
+
+.subscription-account select {
+    background-image: none;
+    box-shadow: none;
+}
+
+.subscription-cart .subscriber-info {
+    margin-top: 26px;
+}
+
+.subscription-cart .subscriber-info p.user-info {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.subscription-cart .discount .subscription-coupon {
+    max-width: 200px;
+}
+
+.plan-infocontent .plan-detailwidget {
+    width: 33.33%;
+    display: inline-block;
+    padding: 0 5px;
+    margin-top: 24px;
+}
+
+.plan-detailwidget:nth-of-type(odd) h4.heading,
+.subscription .plan-detailwidget:nth-of-type(odd) .buy-package button {
+    background-image: linear-gradient(104deg, #a2a6a8 -1%, #878e92 102%);
+}
+
+.plan-detailwidget:nth-of-type(even) h4.heading,
+.subscription .plan-detailwidget:nth-of-type(even) .buy-package button {
+    background-image: linear-gradient(105deg, #f1af3a 1%, #d9961e 102%);
+}
+
+.plan-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.plan-infocard {
+    background-color: #f8f8f8;
+}
+
+.plan-infocard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    width: 25%;
+    height: 70px;
+}
+
+
+.subscription-cart .discount .apply-btn {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+@media (max-width: 1025px) {
+    .plan-infocard {
+        width: 30%;
+    }
+
+}
+
+@media (max-width: 991px) {
+    .plan-info {
+        padding: 40px 0 30px 0;
+    }
+
+    .plan-info .dropdown.plan-infocard {
+        background: #fff;
+    }
+
+    .plan-info h5 {
+        color: #1071b9;
+        text-align: left;
+    }
+
+    .plan-infocard p {
+        text-align: left;
+    }
+
+    .plan-info .plan-infocard {
+        border-radius: 46px;
+        width: 100%;
+        padding: 14px 17px;
+        background-color: #f0f0f0;
+    }
+
+    .modify-heading {
+        background-color: transparent;
+        border: none;
+        width: 100%;
+    }
+
+    .modify-heading .caret {
+        position: absolute;
+        top: 35px;
+        right: 15px;
+    }
+
+    .dropdown-menu li {
+        padding: 5px 15px;
+    }
+
+    .dropdown-menu li .plan-infocard h5 {
+        color: #333;
+        margin-top: 5px;
+        margin-bottom: 0px;
+        text-align: center;
+    }
+    .dropdown-menu li .plan-infocard p{
+        text-align: center;
+    }
+}
+
+@media (max-width: 967px) {
+    .plan-infocard {
+        width: 45%;
+    }
+
+    .plan-detailwidget:nth-of-type(even) h4.heading,
+    .plan-detailwidget:nth-of-type(odd) h4.heading {
+        font-size: 18px;
+    }
+
+    .subscription .plan-detailwidget:nth-of-type(odd) .buy-package button,
+    .subscription .plan-detailwidget:nth-of-type(even) .buy-package button {
+        font-size: 10px;
+    }
+
+}
+
+
+@media (max-width: 867px) {
+
+
+    .plan-detailwidget:nth-of-type(even) h4.heading,
+    .plan-detailwidget:nth-of-type(odd) h4.heading {
+        font-size: 16px;
+    }
+
+    .subscription .plan-detailwidget:nth-of-type(odd) .buy-package button,
+    .subscription .plan-detailwidget:nth-of-type(even) .buy-package button {
+        font-size: 10px;
+    }
+
+}
+
+@media (max-width: 820px) {
+
+    .plan-detailwidget:nth-of-type(even) h4.heading,
+    .plan-detailwidget:nth-of-type(odd) h4.heading {
+        font-size: 13px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .plan-infocard {
+        width: 45%;
+    }
+
+    .plan-infocontent .plan-detailwidget {
+        width: 100%;
+    }
+
+    .subscription-confirm p,
+    .subscription-cart h4,
+    .subscription-cart h5 {
+        font-size: 1rem !important;
+    }
+
+    .subscription-confirm span,
+    .subscription-cart p {
+        font-size: 0.75rem;
+    }
+
+    .subscription-cart .subscriber-info p.user-info {
+        font-size: 0.875rem;
+    }
+
+    .subscription-cart small {
+        font-size: 0.625rem;
+    }
+
+    .subscription-confirm span br {
+        display: none;
+    }
+
+    .subscription-confirm .row .text-right,
+    .subscription-cart .col-lg-8 {
+        text-align: left !important;
+    }
+}
+
+.subscripe-info .keep-opensubmenu .dropdown-menu {
+    display: block;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .plan-infocard {
+        width: 80%;
+    }
+
+    .btn_border {
+        border: none;
+        background-color: transparent;
+        width: 100%;
+    }
+
+    .plan-infocard h5 {
+        color: #1071b9;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .plan-info .plan-infocard p {
+        font-size: 0.75rem !important;
+        text-align: left;
+    }
+}
+
+@media (max-width: 281px) {
+    .plan-infocard {
+        height: 50px;
+    }
+
+    .plan-infocard h3 {
+        font-size: 18px;
+    }
+}

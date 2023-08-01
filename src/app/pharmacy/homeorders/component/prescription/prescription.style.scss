@@ -1,0 +1,380 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/theme.scss';
+
+//////////////////
+.custab {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+}
+
+.custab:hover {
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+}
+
+///////////////////embed///////////
+#outerContainer #mainContainer div.toolbar {
+    display: none !important;
+    /* hide PDF viewer toolbar */
+}
+
+#outerContainer #mainContainer #viewerContainer {
+    top: 0 !important;
+    /* move doc up into empty bar space */
+}
+
+.toolbar {
+    display: none !important;
+}
+
+////////////////
+.processid_text p {
+    font-size: 16px;
+    // color: #14a9b5;
+    color: $title-color;
+    font-weight: 500;
+}
+
+.processid_text h2 {
+    // color: #11a9b5;
+    color: $precription-document-title;
+}
+
+.remarks {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.newadd_process {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.newadd_processcroll {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.newadd_process .patient_txt h4 {
+    font-size: 21px;
+}
+
+.arrprove_pending h4,
+.arrprove_pending p,
+.arrprove_pending h2 {
+    color: hsla(0, 0%, 0%, 0.93);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.prescription_padding {
+    padding-left: 0px;
+}
+
+.reject_btn {
+    // background-color: #ff6d6d;
+    // border-color: #ff6d6d;
+    background-color: $btn-danger-bg;
+    border-color: $btn-danger-bg;
+    color: #fff;
+    float: right;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.process_txt p {
+    margin-bottom: 0px;
+}
+
+.process_txt h4 {
+    margin: 0px;
+    padding-bottom: 15px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.prescription_jpg h4 {
+    // color: #11a9b5;
+    color: $precription-document-title;
+}
+
+.process_widget {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+}
+
+.process_widget .table tbody tr td {
+    max-width: initial !important;
+}
+
+.prescription_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 25px;
+}
+
+.table_process {
+    padding: 0px !important;
+}
+
+.process_widget .table {
+    margin-bottom: 0px;
+}
+
+.processdone_txt {
+    // background-color: #1dc8d5;
+    // border-color: #1dc8d5;
+    background-color: $text-secondary-color;
+    border-color: $text-secondary-color;
+}
+
+.processbotton_txt {
+    padding: 5px 25px;
+    font-size: 18px;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+}
+
+.process_padding {
+    padding: 0px;
+}
+
+.process_form .from_txt {
+    width: 450px;
+}
+
+.process_form .from_txt,
+.process_form .processsubmit_txt {
+    float: right;
+}
+
+.order-btn .processsubmit_txt {
+    float: left;
+}
+
+.process_form .total_txt {
+    font-weight: 500;
+}
+
+.rate_subtxt {
+    line-height: 20px !important;
+}
+
+.process_original .col-md-6{
+    line-height: 45px;
+    padding:0 !important;
+}
+
+.processsubmit_txt,
+.processsubmit_txt1 {
+    background-color: #dd5826;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 15px;
+    font-weight: 500;
+    float: right;
+}
+
+.processsubmit_txt2 {
+    // background-color: #1dc8d5;
+    background-color: $text-secondary-color;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 15px;
+    font-weight: 500;
+    float: left;
+    margin-right: 10px;
+}
+
+.process_form .processsubmit_txt1, .edit_process .processsubmit_txt {
+    float: left;
+}
+
+.edit_process {
+    padding-top: 20px;
+}
+
+.panding_approvetxt h2 {
+    font-size: 20px;
+}
+
+.panding_approvetxt p {
+    color: rgba(255, 0, 0, 0.85);
+}
+
+.processsubmit_panding {
+    color: #fff;
+    background-color: rgba(255, 0, 0, 0.41);
+    cursor: inherit;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 15px;
+    font-weight: 500;
+}
+
+.custom-modal-header h4 {
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 15px;
+}
+
+.custom-modal-header {
+    border-bottom: transparent;
+}
+
+.popupimage_txt {
+    width: 100%;
+    height: 330px;
+}
+
+.modal-body .reject_ordertxt {
+    margin-top: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}
+
+.reason_remark {
+    padding-top: 15px;
+}
+
+.reason_remark .reason_txt {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 15px;
+}
+
+.reason_remark input,
+.reason_remark textarea {
+    width: 100% !important;
+}
+
+.reject_buttontxt {
+    // background-color: #ff6d6d;
+    // border-color: #ff6d6d;
+    background-color: $btn-danger-bg;
+    border-color: $btn-danger-bg;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.custom-modal-header,
+.enquery_txt,
+.description_text,
+.body_rejecttxt,
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+.image_download {
+    margin-left: 40%;
+    // text-align:center !important;
+}
+
+.submit_textenquery {
+    margin-top: 10px;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+
+.fa-angle-left:before,
+.fa-angle-right:before {
+    display: none;
+}
+
+.image_clickpopup {
+    // width: 60%;
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.rx_icontxt {
+    top: -10px;
+    left: 5px;
+}
+
+@media only screen and (max-width: 575px) {
+    .process_form .from_txt {
+        width: 300px;
+    }
+    .processsubmit_txt,
+    .processsubmit_txt1 {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .process_form .from_txt {
+        width: 280px;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .prescription-table {
+        min-width: 1010px;
+    }
+    .process_widget {
+        border: 2px solid #e6e6e6 !important;
+    }
+}
+
+.other-paymentdetails {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.other-paymentdetails input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: calc(2.5rem - 2px);
+}
+
+#other-payment:checked ~ .other-paymentdetails {
+    display: block !important;
+}
+
+.assign_agent_btn {
+    max-height: 36px;
+}
+.edt_btn{
+min-width: 150px;
+}

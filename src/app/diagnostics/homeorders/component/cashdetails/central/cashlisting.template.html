@@ -1,0 +1,91 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Central Cash DashBoard</h1>
+
+    <form action="#">
+        <div class="row">
+            <div class="col-xl-6 col-lg-5">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Agent Name</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                        placeholder="Enter Agent Name">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getBasedOnAgentName()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                    <div class="row">
+                        <div class="form-group col-sm-6 mb-0">
+                            <h6 class="sub-title">Start Date</h6>
+                            <datetime [(value)]="startDate" class="startdate" name="startDate" id="datepicker"
+                                [placeholder]="'Start Date'" [datepicker]="datepickerOpts"
+                                (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                            </datetime>
+                        </div>
+                        <div class="form-group col-sm-6 mb-0">
+                            <h6 class="sub-title">End Date</h6>
+                            <datetime [(value)]="endDate" name="endDate" id="datepicker" [placeholder]="'End Date'"
+                                [datepicker]="datepickerOpts" (dateChange)="endDateChoosen($event)"
+                                [timepicker]="false">
+                            </datetime>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 filter_txt">
+                            <h6 class="sub-title">Filter by Area</h6>
+                            <select class="form-control" [(ngModel)]="indexForLoc"
+                                [ngModelOptions]="{standalone : true}" *ngIf="localityResponse"
+                                (change)="onLocationChange($event.target.value)">
+                                <option value=0> select</option>
+                                <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j+1>
+                                    {{locationArea.name}}</option>
+                            </select>
+                        </div> 
+                        <div class="col-sm-4 filter_txt">
+                            <h6 class="sub-title">Filter by City</h6>
+                            <select class="form-control" [(ngModel)]="indexForCity"
+                                [ngModelOptions]="{standalone : true}" *ngIf="cityResponse"
+                                (change)="onCityChange($event.target.value)">
+                                <option value=0> select</option>
+                                <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}
+                                </option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-sm-4 filter_txt">
+                            <h6 class="sub-title">Filter by state</h6>
+                            <select class="form-control" [(ngModel)]="indexForState"
+                                [ngModelOptions]="{standalone : true}" *ngIf="stateResponse"
+                                (change)="onStateChange($event.target.value)">
+                                <option value=0> select</option>
+                                <option *ngFor="let location of stateResponse;let i = index" [value]=i+1>
+                                    {{location.name}}</option>
+                            </select>
+                        </div>
+                    </div>  
+                </div>
+        </div>
+    </form>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="autorefresh-refreshbutton filter-ordersbtn">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                    (click)="getRefreshedorderList()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="agentCashResponse"
+                        (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg" [componentId]="'cashagentdetails'"
+                        [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

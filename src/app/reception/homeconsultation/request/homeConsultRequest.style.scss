@@ -1,0 +1,1069 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+
+.bootstrap-timepicker {
+  position: relative;
+}
+
+.bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+.bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu:before {
+  left: auto;
+  right: 12px;
+}
+
+.date-time {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu:after {
+  left: auto;
+  right: 13px;
+}
+
+.bootstrap-timepicker .input-group-addon {
+  cursor: pointer;
+}
+
+.bootstrap-timepicker .input-group-addon i {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.bootstrap-timepicker-widget.dropdown-menu {
+  padding: 4px;
+}
+
+.bootstrap-timepicker-widget.dropdown-menu.open {
+  display: inline-block;
+}
+
+.bootstrap-timepicker-widget.dropdown-menu:before {
+  border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  content: "";
+  display: inline-block;
+  position: absolute;
+}
+
+.bootstrap-timepicker-widget.dropdown-menu:after {
+  border-bottom: 6px solid #FFFFFF;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  content: "";
+  display: inline-block;
+  position: absolute;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-left:before {
+  left: 6px;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-left:after {
+  left: 7px;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-right:before {
+  right: 6px;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-right:after {
+  right: 7px;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-top:before {
+  top: -7px;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-top:after {
+  top: -6px;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-bottom:before {
+  bottom: -7px;
+  border-bottom: 0;
+  border-top: 7px solid #999;
+}
+
+.bootstrap-timepicker-widget.timepicker-orient-bottom:after {
+  bottom: -6px;
+  border-bottom: 0;
+  border-top: 6px solid #ffffff;
+}
+
+.bootstrap-timepicker-widget table {
+  width: 100%;
+  margin: 0;
+}
+
+.bootstrap-timepicker-widget table td {
+  text-align: center;
+  height: 30px;
+  margin: 0;
+  padding: 2px;
+}
+
+.bootstrap-timepicker-widget table td:not(.separator) {
+  min-width: 30px;
+}
+
+.bootstrap-timepicker-widget table td span {
+  width: 100%;
+}
+
+.bootstrap-timepicker-widget table td a {
+  border: 1px transparent solid;
+  width: 100%;
+  display: inline-block;
+  margin: 0;
+  padding: 8px 0;
+  outline: 0;
+  color: #333;
+}
+
+.bootstrap-timepicker-widget table td a:hover {
+  text-decoration: none;
+  background-color: #eee;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border-color: #ddd;
+}
+
+.bootstrap-timepicker-widget table td a i {
+  margin-top: 2px;
+  font-size: 18px;
+}
+
+.bootstrap-timepicker-widget table td input {
+  width: 25px;
+  margin: 0;
+  text-align: center;
+  border: none
+}
+
+.bootstrap-timepicker-widget .modal-content {
+  padding: 4px;
+}
+
+@media (min-width: 767px) {
+  .bootstrap-timepicker-widget.modal {
+    width: 200px;
+    margin-left: -100px;
+  }
+}
+
+.bootstrap-timepicker-widget.dropdown-menu.open {
+  display: inline-block;
+  z-index: 99999 !important;
+}
+
+.confirmation {
+  text-align: center;
+  color: burlywood;
+}
+
+@media (max-width: 767px) {
+  .bootstrap-timepicker {
+    width: 100%;
+  }
+
+  .bootstrap-timepicker .dropdown-menu {
+    width: 100%;
+  }
+}
+
+.ok_cancel {
+  float: right;
+}
+
+.cancel_button {
+  background: #e34131;
+  color: #fff;
+  padding: 3px 25px;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.walkin_txt .misc_testdrop {
+  display: none;
+}
+
+.ok_button {
+  background: #005d97;
+  border: none;
+  color: #fff;
+  padding: 3px 30px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#custom-search-input {
+  padding: 3px;
+  border: solid 1px #E4E4E4;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+#custom-search-input input {
+  border: 0;
+  box-shadow: none;
+}
+
+.search-result {
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  padding: 5px 8px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  left: 0px;
+  right: 0px;
+  width: 234px;
+}
+
+#custom-search-input button {
+  margin: 2px 0 0 0;
+  background: none;
+  box-shadow: none;
+  border: 0;
+  color: #666666;
+  padding: 0 8px 0 10px;
+  border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover {
+  border: 0;
+  box-shadow: none;
+  border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search {
+  font-size: 23px;
+}
+
+.welcome_text {
+  color: #14a9b5
+}
+
+.advice_text {
+  padding-left: 0px;
+}
+
+.advice_text h2 {
+  font-size: 30px;
+  color: #14a9b5;
+  font-weight: 500;
+}
+
+.patient_txt {
+  float: left;
+  padding: 0px;
+  font-size: 20px;
+}
+
+.radio_txt {
+  padding-right: 0px;
+  font-size: 20px;
+}
+
+.header_color {
+  color: #14A9B5;
+}
+
+.color_cash {
+  font-size: 500;
+}
+
+.newadd_patient {
+  position: relative;
+  margin-bottom: 35px;
+  padding: 10px 20px;
+  background: #fff;
+  border-radius: 0.2rem;
+  height: 80px;
+  margin-top: 10px;
+
+}
+
+.newadd_patient .patient_txt h4,
+.newadd_patient .patient_txt p {
+  margin: 0px;
+  font-weight: 400;
+
+}
+
+.unit_rate {
+  font-size: 11px;
+  padding-right: 0px;
+}
+
+.unit_nan {
+  padding-left: 0px;
+  font-size: 12px;
+  padding-top: 5px;
+}
+
+.with_taxes {
+  font-size: 12px;
+}
+
+.rate_nan {
+  font-size: 14px;
+}
+
+.schedule_txt {
+  margin-bottom: 0px !important;
+  color: #000;
+  font-size: 11px;
+}
+
+.textpackage {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.validationCustom03 {
+  font-size: 1.5rem;
+}
+
+.h6,
+label.validationCustom03,
+label.validationCustom04 {
+  font-size: 13px;
+  color: rgba(51, 51, 51, 0.6);
+  margin-top: 0;
+  display: block;
+}
+
+.change {
+  float: right;
+  margin: 5px;
+}
+
+.fname-txt {
+  width: 100px;
+  font-size: 13px;
+  text-align: center;
+  resize: none;
+  height: 25px;
+}
+
+.fname_45txt {
+  width: 450px;
+  font-size: 13px;
+
+  padding-left: 10px;
+}
+
+.fname_3txt {
+  width: 100px;
+  font-size: 13px;
+  text-align: center;
+
+}
+
+.fname_4txt {
+  width: 100px;
+  font-size: 13px;
+  text-align: center;
+
+}
+
+.fname_5txt {
+  width: 85px;
+  font-size: 13px;
+  text-align: center;
+  pointer-events: none;
+
+}
+
+.fname_6txt {
+  width: 50px;
+  font-size: 13px;
+  text-align: center;
+
+}
+
+.fname_7txt {}
+
+.autocom_box .completer-holder .completer-input {
+  width: 130px;
+}
+
+.brand-txt {
+  width: 140px;
+  font-size: 13px;
+  text-align: center;
+  resize: none;
+  height: 25px;
+  border-radius: 0px;
+}
+
+.table>thead>tr>th {
+  width: 300px;
+}
+
+input[placeholder],
+[placeholder],
+*[placeholder] {
+  color: #000 !important;
+}
+
+.perscripton_txt {
+  font-size: 24px;
+  color: rgba(20, 169, 181, 0.8);
+  font-weight: 500;
+
+}
+
+.typeahead-input,
+.typeahead-typeahead {
+  width: 250px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.newadvice_table {
+  margin-bottom: 4px;
+}
+
+.newadvice_table .error_advicetab {
+
+  border: none !important;
+  padding: 0px !important;
+}
+
+.newadvice_table .error_advicetab .quantity_txt {
+  padding: 0px;
+  margin: 0px;
+  color: #ff0000;
+  text-align: right;
+  padding-right: 100px;
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.newadvice_table .error_advicetab .quantity_txt sup {
+  font-size: 18px;
+  top: -1px;
+}
+
+.generic_control {
+  font-weight: 400;
+  padding: 0px 12px;
+  box-shadow: none;
+  border-radius: 0px;
+  width: 145px;
+}
+
+.addpop_txt {
+  width: 540px !important;
+}
+
+.generic_pupop {
+  width: 700px;
+  height: 400px;
+  overflow-x: auto;
+}
+
+.from_txt {
+  width: 540px;
+}
+
+.add_medtxt {
+  padding: 0px 43px 0px;
+  font-size: 30px;
+  color: $title-color;
+  font-weight: 500;
+}
+
+.model_txt {
+  float: right;
+  right: 0px;
+  width: 40%;
+}
+
+.model_txt1 {
+  float: right;
+  right: 0px;
+  width: 500px;
+}
+
+.modal-body {
+  position: relative;
+  padding: 0px 45px 0px !important;
+}
+
+
+/*Left*/
+.modal.left .modal-dialog {
+  right: -320px;
+  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+  transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.in .modal-dialog {
+  right: 0;
+  margin: 0px;
+  position: relative;
+  height: 100%;
+}
+
+
+.modal.right .modal-dialog {
+  right: -320px;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.left.in .modal-dialog,
+.modal.right.in .modal-dialog {
+  right: 0;
+  margin: 0px;
+  position: relative;
+  height: 100%;
+}
+
+.modal-content {
+  border-radius: 0;
+  border: none;
+  min-height: 100%;
+  margin: 0 auto;
+  bottom: 0;
+  width: auto;
+}
+
+.input_date .form-control {
+  padding: 10px 5px;
+}
+
+.dropdown-menu {
+  font-size: 13px;
+  padding: 20px 15px;
+}
+
+.modal-header {
+  border-bottom-color: transparent;
+  background-color: transparent;
+  padding: 15px 15px 11px 0px;
+  border-bottom: none;
+}
+
+.close_txt {
+  font-size: 40px;
+}
+
+.Update {
+  width: 172px;
+  height: 17px;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  width: 172px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+}
+
+.all_textboxtxt {
+
+
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+
+.width_txt {
+  width: 400px;
+}
+
+.requestoption {
+  text-align: left;
+}
+
+.submit_txt {
+  background-color: #dd5826;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 5px 35px;
+  font-weight: 500;
+}
+
+.submit_txt:focus {
+  outline: none;
+}
+
+.total_txt {
+  font-weight: 500;
+}
+
+.form-inline .input-group {
+  display: flex;
+}
+
+@media only screen and (min-width: 320px) {
+  .newadd_patient {
+    height: 190px;
+
+  }
+
+  .widget-body {
+    overflow-x: scroll;
+  }
+
+  .newadd_patient .patient_txt h4 {
+    font-size: 16px;
+  }
+
+  .newadd_patient .patient_txt p {
+    font-size: 13px;
+    padding-bottom: 15px;
+  }
+
+  .patient_txt {
+    padding-bottom: 8px;
+  }
+
+  .from_txt {
+    width: auto;
+  }
+
+  .modal-header {
+    padding: 15px 15px 11px 30px;
+  }
+
+  .modal-body {
+    position: relative;
+    padding: 0px 45px 0px 75px !important;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .newadd_patient {
+    height: 70px;
+  }
+
+  .newadd_patient .patient_txt h4 {
+    font-size: 13px;
+  }
+
+  .from_txt {
+    width: 540px;
+  }
+
+  .modal-header {
+    padding: 15px 15px 11px 0px;
+  }
+
+  .modal-body {
+    position: relative;
+    padding: 0px 45px 0px 45px !important;
+  }
+
+}
+
+@media only screen and (min-width: 1200px) {
+  .newadd_patient .patient_txt h4 {
+    font-size: 21px;
+  }
+
+  .newadd_patient .patient_txt p {
+    font-size: 13px;
+    padding-bottom: 0px;
+  }
+
+  .newadd_patient {
+    height: 80px;
+  }
+
+  .patient_txt {
+    padding-bottom: 0px;
+  }
+
+  .from_txt {
+    width: 540px !important;
+  }
+
+  .table thead th:first-child,
+  .table tbody td:first-child {
+    width: 125px;
+  }
+
+  .widget-body {
+    overflow-x: hidden;
+  }
+}
+
+////////////////////// input css start her ////
+
+
+
+.md-input {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.md-input .md-form-control {
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  border: none;
+  border-bottom: 2px solid #CACACA;
+  box-shadow: none;
+  width: 100%;
+}
+
+.md-input label {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.other_discount .quantity_txt {
+  padding: 0px;
+  margin: 0px;
+  color: #ff0000;
+  text-align: left;
+  padding-right: 100px;
+  font-size: 12px;
+  padding-bottom: 5px;
+}
+
+.other_discount .quantity_txt sup {
+  font-size: 18px;
+  top: -1px;
+}
+
+.md-input .bar:before {
+  left: 50%;
+}
+
+.md-input .bar:after {
+  right: 50%;
+}
+
+.md-input .highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.md-input .md-form-control:focus~label,
+.md-input .md-form-control:valid~label {
+  top: -15px;
+  font-size: 14px;
+  color: #183D5D;
+}
+
+.md-input .bar:before,
+.md-input .bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 0px;
+  position: absolute;
+  background: #03A9F4;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.md-input .md-form-control:focus~.bar:before,
+.md-input .md-form-control:focus~.bar:after {
+  width: 50%;
+}
+
+.md-input .md-form-control:focus {
+  outline: 0px;
+}
+
+.patient_row {
+  padding: 0px !important;
+}
+
+.widget_txt {
+  padding: 30px 20px;
+}
+
+#search-productname-result {
+  width: 140px;
+  position: absolute;
+  margin-left: 0px;
+  z-index: 11111111;
+  overflow-y: auto;
+  max-height: 170px;
+  overflow-x: hidden;
+  padding: 0px;
+}
+
+.search-result {
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+  width: 143px;
+  position: relative;
+  left: 0px;
+  right: 44px;
+}
+
+.search-result:hover {
+  color: #eee;
+  color: #eee;
+  background-color: #607D8B;
+}
+
+#search-result {
+  position: absolute;
+  margin-left: -15px;
+  width: 14.3%;
+}
+
+.newadd_patient {
+  padding: 30px 20px !important;
+}
+
+.with_txt {
+  font-size: 10px;
+  margin-bottom: 0px;
+  line-height: 10px;
+}
+
+.error_Messages {
+  list-style-type: none;
+  margin: 5px 15px 0px 0px !important;
+  padding: 0px 0px 0px 0px !important;
+  color: #B94A48;
+  background-color: #F2DEDE;
+  border: none !important;
+  border-radius: 4px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  font-size: 11px;
+  background-color: transparent !important;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+@mixin rectangularBox {
+  background-color: #fff;
+  box-shadow: 0.10px 0.10px 1px 1px #888888;
+}
+
+.top-title {
+  color: #129faa;
+  padding-top: 0px;
+  padding-bottom: 5px;
+}
+
+.thumb img {
+  height: 63px;
+  width: 63px;
+}
+
+.thumb {
+  @include rectangularBox;
+  margin: 10px 10px 40px 15px;
+}
+
+.patientname {
+  font-weight: 800;
+}
+
+.form-custom-setting {
+  margin-left: 0px;
+}
+
+.address {
+  @include rectangularBox;
+  margin: 0 0 20px 17px;
+}
+
+.edit {
+  float: right;
+}
+
+.address {
+  margin: 0;
+  padding: 6px 12px;
+}
+
+.address,
+#other-payment:checked~.other-paymentdetails {
+  width: 270px;
+}
+
+.error {
+  color: red;
+}
+
+// update address
+@mixin rectangularBox {
+  background-color: #fff;
+  box-shadow: 0.10px 0.10px 1px 1px #888888;
+}
+
+.top-title {
+  color: #129faa;
+  padding-top: 0px;
+  padding-bottom: 5px;
+}
+
+.thumb img {
+  height: 63px;
+  width: 63px;
+}
+
+.thumb {
+  @include rectangularBox;
+  margin: 10px 10px 40px 15px;
+}
+
+.patientname {
+  font-weight: 800;
+}
+
+.form-custom-setting {
+  margin-left: 0px;
+}
+
+.address {
+  @include rectangularBox;
+  margin: 0 0 20px 17px;
+}
+
+.edit {
+  float: right;
+}
+
+.error {
+  color: red;
+}
+
+.other-paymentdetails {
+  display: none;
+  margin-bottom: 10px;
+}
+
+.other-paymentdetails input {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  height: calc(2.5rem - 2px);
+}
+
+#other-payment:checked~.other-paymentdetails {
+  display: block !important;
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+  .from_txt {
+    width: 400px;
+  }
+}
+
+.fname_discount_text {
+  max-width: 65px;
+  width: 100%;
+  font-size: 13px;
+  text-align: left;
+  padding-left: 13px;
+}
+
+h6,
+label.validationCustom03,
+label.validationCustom04,
+.form-inline label.radio_txt,
+.patient_detail label {
+  font-size: 13px;
+  color: rgba(51, 51, 51, 0.6);
+  margin-top: 0;
+  display: inline-block;
+  width: 120px;
+}
+
+#consultationAddressSelect1 {
+  display: inline-block;
+}
+
+#consultationAddressSelect1,
+.selectwidth,
+.date-time {
+  width: 250px !important;
+}
+
+h5 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333333;
+  margin: 0;
+}
+
+.errorMessage {
+  color: red;
+}
+
+#schedule-time .mat-form-field-flex,
+#schedule-time .mat-form-field-infix {
+  padding: 0;
+}
+
+#schedule-time .timeInput {
+  padding: 1.15rem 0.75em;
+}
+
+#schedule-time .time12 {
+  margin-top: -30px;
+}
+
+#schedule-time .defaultTime {
+  right: 10px;
+}

@@ -1,0 +1,265 @@
+<div class="table_size">
+    <h1 class="page-title">Diagnostics Schedule</h1>
+    <h4 class="">Selected Diagnostics Tests</h4>
+    <div class="row">
+            <!-- <div class="col-md-12">
+                    <ul class="pagination pagination-sm">
+
+                            <li class="active" (click)="onAlphabetClick('a')">
+                                    <a>A</a>
+                            </li>
+                            <li (click)="onAlphabetClick('b')">
+                                    <a>B</a>
+                            </li>
+                            <li (click)="onAlphabetClick('c')">
+                                    <a>C</a>
+                            </li>
+                            <li (click)="onAlphabetClick('d')">
+                                    <a>D</a>
+                            </li>
+                            <li (click)="onAlphabetClick('e')">
+                                    <a>E</a>
+                            </li>
+                            <li (click)="onAlphabetClick('f')">
+                                    <a>F</a>
+                            </li>
+                            <li (click)="onAlphabetClick('g')">
+                                    <a>G</a>
+                            </li>
+                            <li (click)="onAlphabetClick('h')">
+                                    <a>H</a>
+                            </li>
+                            <li (click)="onAlphabetClick('i')">
+                                    <a>I</a>
+                            </li>
+                            <li (click)="onAlphabetClick('j')">
+                                    <a>J</a>
+                            </li>
+                            <li (click)="onAlphabetClick('k')">
+                                    <a>K</a>
+                            </li>
+                            <li (click)="onAlphabetClick('l')">
+                                    <a>L</a>
+                            </li>
+                            <li (click)="onAlphabetClick('m')">
+                                    <a>M</a>
+                            </li>
+                            <li (click)="onAlphabetClick('n')">
+                                    <a>N</a>
+                            </li>
+                            <li (click)="onAlphabetClick('o')">
+                                    <a>O</a>
+                            </li>
+                            <li (click)="onAlphabetClick('p')">
+                                    <a>P</a>
+                            </li>
+                            <li (click)="onAlphabetClick('q')">
+                                    <a>Q</a>
+                            </li>
+                            <li (click)="onAlphabetClick('r')">
+                                    <a>R</a>
+                            </li>
+                            <li (click)="onAlphabetClick('s')">
+                                    <a>S</a>
+                            </li>
+                            <li (click)="onAlphabetClick('t')">
+                                    <a>T</a>
+                            </li>
+                            <li (click)="onAlphabetClick('u')">
+                                    <a>U</a>
+                            </li>
+                            <li (click)="onAlphabetClick('v')">
+                                    <a>V</a>
+                            </li>
+                            <li (click)="onAlphabetClick('w')">
+                                    <a>W</a>
+                            </li>
+                            <li (click)="onAlphabetClick('x')">
+                                    <a>X</a>
+                            </li>
+                            <li (click)="onAlphabetClick('y')">
+                                    <a>Y</a>
+                            </li>
+                            <li (click)="onAlphabetClick('z')">
+                                    <a>Z</a>
+                            </li>
+                    </ul>
+            </div> -->
+    </div>
+    <br/>
+    <div class="row">
+            <div class="col-md-4">
+                <h5 class="selected_text">Tests Selected
+                    <b class="test_count">{{selectedInvestigationDetailsList.length}}</b>
+            </h5>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <button id="editbutton" name="editbutton" class="btn btn-primary editB" (click) = "onEdit()">Edit</button>
+            </div>
+    </div>
+
+
+    <div class="row">
+            <div class="col-md-4">
+                    <section class="widget table_pading" widget="">
+                            <div class="widget-body">
+                                    <table class="table table-hover table-striped hs_tabletxt">
+                                            <thead>
+                                                    <tr class="table_head tabledoc_head">
+                                                            <th>#</th>
+                                                            <th>Test Name</th>
+                                                            <th></th>
+
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class="doctor_serial" *ngFor="let item of list1; let i=index">
+                                                            <td>
+                                                                    <h5>{{i+1}}</h5>
+                                                            </td>
+                                                            <td class="test_name_tytle test_name_tytle">
+                                                                    <h5>{{item.serviceName}}</h5>
+                                                            </td>
+                                                            <td class="docbooking">
+                                                                    <h5>
+                                                                            <!-- <input type="checkbox" name="genres" class="applicable_check" id={{item.serviceId}} (click)="onClickArray(item)"> -->
+                                                                            <label for={{item.serviceId}}></label>
+                                                                    </h5>
+                                                            </td>
+
+
+                                                    </tr>
+                                                    <!-- <tr class="doctor_serial">
+                                                            <td>
+                                                                    <h5>2</h5>
+                                                            </td>
+                                                            <td class="test_name_tytle">
+                                                                    <h5>Angiocardiography graphy</h5>
+                                                            </td>
+                                                            <td class="docbooking">
+                                                                    <h5>
+                                                                            <input type="checkbox" name="genres" class="applicable_check" id="adventur">
+                                                                            <label for="adventur"></label>
+                                                                    </h5>
+                                                            </td>
+
+
+                                                    </tr> -->
+
+                                            </tbody>
+                                    </table>
+                            </div>
+                    </section>
+            </div>
+
+            <div class="col-md-4">
+                    <section class="widget table_pading" widget="">
+                            <div class="widget-body">
+                                    <table class="table table-hover table-striped hs_tabletxt">
+                                            <thead>
+                                                    <tr class="table_head tabledoc_head">
+                                                            <th>#</th>
+                                                            <th>Test Name</th>
+                                                            <th></th>
+
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class="doctor_serial" *ngFor="let itm of list2; let i=index">
+                                                            <td>
+                                                                    <h5>{{i+1}}</h5>
+                                                            </td>
+                                                            <td class="test_name_tytle test_name_tytle">
+                                                                    <h5>{{itm.serviceName}}</h5>
+                                                            </td>
+                                                            <td class="docbooking">
+                                                                    <h5>
+                                                                            <!-- <input type="checkbox" name="genres" class="applicable_check" id={{itm.serviceId}} (click)="onClickArray(itm)"> -->
+                                                                            <label for={{itm.serviceId}}></label>
+                                                                    </h5>
+                                                            </td>
+
+
+                                                    </tr>
+                                                    <!-- <tr class="doctor_serial">
+                                                                    <td>
+                                                                            <h5>2</h5>
+                                                                    </td>
+                                                                    <td class="test_name_tytle">
+                                                                            <h5>Angiocardiography</h5>
+                                                                    </td>
+                                                                    <td class="docbooking">
+                                                                            <h5>
+                                                                                    <input type="checkbox" name="genres" class="applicable_check" id="adventur">
+                                                                                    <label for="adventur"></label>
+                                                                            </h5>
+                                                                    </td>
+    
+    
+                                                            </tr> -->
+
+                                            </tbody>
+                                    </table>
+                            </div>
+                    </section>
+            </div>
+
+            <div class="col-md-4">
+                    <section class="widget table_pading" widget="">
+                            <div class="widget-body">
+                                    <table class="table table-hover table-striped hs_tabletxt">
+                                            <thead>
+                                                    <tr class="table_head tabledoc_head">
+                                                            <th>#</th>
+                                                            <th>Test Name</th>
+                                                            <th></th>
+
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr class="doctor_serial" *ngFor="let ob of list3; let i=index">
+                                                            <td>
+                                                                    <h5>{{i+1}}</h5>
+                                                            </td>
+                                                            <td class="test_name_tytle test_name_tytle">
+                                                                    <h5>{{ob.serviceName}}</h5>
+                                                            </td>
+                                                            <td class="docbooking">
+                                                                    <h5>
+                                                                            <!-- <input type="checkbox" name="genres" class="applicable_check" id={{ob.serviceId}} (click)="onClickArray(ob)"> -->
+                                                                            <label for={{ob.serviceId}}></label>
+                                                                    </h5>
+                                                            </td>
+
+
+                                                    </tr>
+                                                    <!-- <tr class="doctor_serial">
+                                                                            <td>
+                                                                                    <h5>2</h5>
+                                                                            </td>
+                                                                            <td class="test_name_tytle">
+                                                                                    <h5>Angiocardiography</h5>
+                                                                            </td>
+                                                                            <td class="docbooking">
+                                                                                    <h5>
+                                                                                            <input type="checkbox" name="genres" class="applicable_check" id="adventur">
+                                                                                            <label for="adventur"></label>
+                                                                                    </h5>
+                                                                            </td>
+            
+            
+                                                                    </tr> -->
+
+                                            </tbody>
+                                    </table>
+                            </div>
+                    </section>
+            </div>
+    </div>
+    <div class="row">
+            <div class="col-md-3">
+                    <button id="singlebutton" name="singlebutton" class="btn  Update12" (click) = "save_continue()">Save & Continue</button>
+            </div>
+    </div>
+</div>

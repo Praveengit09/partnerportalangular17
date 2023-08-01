@@ -1,0 +1,68 @@
+<div class="table_size">
+
+    <h1 class="page-title">Pharmacy Dashboard</h1>
+    <div class="row order_fultxt">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt">
+                <h3>Order Fulfilled Per Day</h3>
+                <orderperdaypharmacychart></orderperdaypharmacychart>
+            </div>
+            <br>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt">
+                <h3>Revenues Per Day</h3>
+                <revenueperdaypharmacychart></revenueperdaypharmacychart>
+            </div>
+            <br>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt">
+                <h3>Revenues Per Doctor</h3>
+                <revenueperdocperdaypharmacychart></revenueperdocperdaypharmacychart>
+            </div>
+            <br>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt homedeliverychart">
+                <h3>Home Deliveries for POC</h3>
+                <homedeliverychart [componentId]="'local'" [pocId]="pocId"></homedeliverychart>
+            </div>
+            <br>
+        </div>
+        <div *ngIf="hasCentralPharmacyAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt homedeliverychart">
+                <h3>Central Home Deliveries</h3>
+                <homedeliverychart [componentId]="'central'" [pocId]="'0'"></homedeliverychart>
+            </div>
+            <br>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h3>Medicine Stock list</h3>
+           <div class="widget table_pading">
+            <div class="table-responsive table-datalabel widget-shadow">
+                <table class="table medicine_stock table-striped">
+                    <thead>
+                        <tr>
+                            <th>#No.</th>
+                            <th>Medicine ID</th>
+                            <th class="medicine_name">Medicine Name</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let med of medicineStocklist;let i = index">
+                            <td data-label="#No."><div class="tabledatalabel-right">{{i+1}}</div></td>
+                            <td data-label="Medicine ID"><div class="tabledatalabel-right">{{med.productId}}</div></td>
+                            <td data-label="Medicine Name" class="medicine_name"><div class="tabledatalabel-right">{{med.productName}}</div></td>
+                            <td data-label="Stock"><div class="tabledatalabel-right">{{med.totalQuantity}}</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           </div>
+        </div>
+    </div>
+
+</div>
+<spinner-component></spinner-component>

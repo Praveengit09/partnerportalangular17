@@ -1,0 +1,54 @@
+
+.poc_congratulation{
+    margin-left: 30%;
+    padding: 8rem 2rem 6rem 2rem ;
+.page-title{
+    font-weight: 600;
+    font-size: 40px;
+  }
+p {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #41484D;
+  }
+.cong_buttons .skip_btn{
+    padding: 8px 16px;
+    border: 1px solid #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #DF5B21;
+    cursor: pointer;
+    margin-right: 20px;
+    background-color: transparent;
+   }
+.cong_buttons .update_btn{
+    padding: 8px 28px;
+    border: none;
+    background: #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+   }
+}
+
+@media only screen and (max-width: 768px) {
+  .poc_congratulation{
+        margin-left: 0%;
+  } 
+  
+}
+
+@media only screen and (max-width: 576px) {
+    .poc_congratulation{
+        padding: 8rem 1rem 6rem 1rem ;
+         
+        .cong_buttons .skip_btn{
+            margin-right: 5px;
+      }
+
+    }
+}

@@ -1,0 +1,9 @@
+.publisher-component {
+    width: 100%;
+    height: 100%;
+}
+
+.publisher-component.publisher-wrapper {
+    width: 100%;
+    height: 100%;
+}

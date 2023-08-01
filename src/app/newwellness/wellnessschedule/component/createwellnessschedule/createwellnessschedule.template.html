@@ -1,0 +1,175 @@
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-title">Wellness Schedule</h1>
+            <h4 class="title_txt">Create New Schedule</h4>
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+        </div>
+    </div>
+    <div class="row scheduledetail">
+        <div class="col-md-10 new_text">
+            <div class="form-group col-md-10 col-sm-5">
+                <label for="years">Schedule Name</label>
+                <input type="text" class="form-control input-sm" id="scheduleName1"
+                    placeholder="Enter the Schedule Name" [(ngModel)]="scheduleName">
+            </div>
+            <label for=" validity" class="lab_text">Validity</label>
+            <div class="row form-group col-md-12">
+                <div class="col-md-6 col-sm-6">
+                    <label class="validationCustom03">From Date:</label>
+                    <datetime name="fromDate" [timepicker]="false" [datepicker]="datepickerOpts"
+                        [(value)]="this.fromDate" [placeholder]="'From Date'">
+                    </datetime>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <label class="validationCustom03">To Date:</label>
+                    <datetime name="toDate" [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="this.toDate"
+                        [placeholder]="'To Date'"></datetime>
+                </div>
+            </div>
+
+            <div class="form-group col-md-10 col-sm-5">
+                <label class="lab_text1">Test Included</label>
+                <br />
+                <button id="singlebutton" name="singlebutton" class="btn  Update1234" (click)="onSelectedTest()">SELECT
+                    APPLICABLE
+                    <br />Wellness Services</button>
+            </div>
+            <div class="col-md-10 col-sm-5">
+                <label class="lab_text1">Already Selected Services</label>
+            </div>
+            <!-- </ng-template> -->
+            <div class="form-group col-md-10 col-sm-5 textArea" *ngIf="selectedInvestigationDetailsList!=undefined && selectedInvestigationDetailsList!=null 
+                && selectedInvestigationDetailsList.length > 0">
+                <!-- <textarea class="textArea"> -->
+                <p *ngFor="let ob of selectedInvestigationDetailsList">
+                    {{ob.serviceName}}
+                </p>
+                <!-- </textarea> -->
+            </div>
+            <div class="redBG">
+                <div class="col-md-10">
+                    <h5 class="title_txt">Schedule Information</h5>
+                </div>
+
+                <div class="col-md-10" *ngIf="locInvestigationDayTimeList ">
+                    <div class="alert alert-success1 alert-dismissable"
+                        *ngFor="let item of locInvestigationDayTimeList; let i=index">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"
+                            (click)="onDelete(i)">×</button>
+                        <i class="fa fa-pencil edit-icon" data-dismiss="alert" aria-hidden="true"
+                            (click)="onEdit(item,i)"></i>
+                        <ul id="horizontal-list">
+                            <li *ngFor="let itm of item.days">{{daysArray[itm-1]}}</li>
+
+                        </ul>
+                        <h6 class="text_details">{{item.startTime | date: 'shortTime'}} to
+                            {{item.endTime | date: 'shortTime'}}</h6>
+                        <h6 class="text_details">{{item.pplPerSlot}} Appointments per slot</h6>
+                        <h6 class="text_details">{{item.slotDuration/60000}} Min Slot duration</h6>
+
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="row custom_chk23">
+
+                            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-xs-6 custom_chk23">
+                                <input type="checkbox" name="testCheckBox" id="1" name="Sun" value="1"
+                                    autocomplete="on">
+                                <label class="role_size1" for="1">Sun</label>
+
+                            </div>
+                            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-xs-6 custom_chk23">
+                                <input type="checkbox" name="testCheckBox" id="2" name="mon" value="2"
+                                    autocomplete="on">
+                                <label class="role_size1" for="2">Mon</label>
+
+                            </div>
+                            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-xs-6 custom_chk23">
+                                <input type="checkbox" name="testCheckBox" id="3" name="Tue" value="3"
+                                    autocomplete="on">
+                                <label class="role_size1" for="3">Tue</label>
+
+                            </div>
+                            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-xs-6 custom_chk23">
+                                <input type="checkbox" name="testCheckBox" id="4" name="Wed" value="4"
+                                    autocomplete="on">
+                                <label class="role_size1" for="4">Wed</label>
+
+                            </div>
+                            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-xs-6 custom_chk23">
+                                <input type="checkbox" name="testCheckBox" id="5" name="Thu" value="5"
+                                    autocomplete="on">
+                                <label class="role_size1" for="5">Thu</label>
+
+                            </div>
+                            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-xs-6 custom_chk23">
+                                <input type="checkbox" name="testCheckBox" id="6" name="Fri" value="6"
+                                    autocomplete="on">
+                                <label class="role_size1" for="6">Fri</label>
+
+                            </div>
+                            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-3 col-xs-6 custom_chk23">
+                                <input type="checkbox" name="testCheckBox" id="7" name="Sat" value="7"
+                                    autocomplete="on">
+                                <label class="role_size1" for="7">Sat</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-10 form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <label class="validationCustom03">From Time:</label>
+                            <datetime [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="false"
+                                [(value)]="fromTime">
+                            </datetime>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label class="validationCustom03">To Time:</label>
+                            <datetime [(value)]="toTime" [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="false">
+                            </datetime>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-10 col-sm-5">
+                    <label for="name">Slot Duration (in Minutes)</label>
+                    <input type="text" class="form-control input-sm col-md-8" id="name2"
+                        placeholder="Enter the duration on one slot" [(ngModel)]="slotDuration"
+                        (keypress)="validateSlot($event)">
+                </div>
+                <div class="form-group col-md-10 col-sm-5">
+                    <label for="name">Appointments per Slot</label>
+                    <input type="text" class="form-control input-sm col-md-8" id="name1" placeholder="10"
+                        [(ngModel)]="appointment" (keypress)="validateAppointment($event)">
+                </div>
+                <div class="form-group">
+                    <button id="singlebutton" name="singlebutton" class="btn  Update123" (click)="onAddSchedule()">Add
+                        Schedule</button>
+                </div>
+
+            </div>
+            <p *ngIf="isMsgError" style="color: red">{{msgError}}</p>
+
+
+
+            <div class="col-md-3">
+                <button id="singlebutton" *ngIf="isCreate==true" name="singlebutton" class="btn  Update12"
+                    (click)="onCreate()">Create Schedule</button>
+                <button id="singlebutton2" *ngIf="isCreate==false" name="singlebutton2" class="btn  Update12"
+                    (click)="onCreate()">Update Schedule</button>
+            </div>
+        </div>
+
+
+    </div>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+</div>
+<spinner-component></spinner-component>

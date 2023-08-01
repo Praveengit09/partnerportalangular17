@@ -1,0 +1,53 @@
+.slotsnumber{
+    cursor: pointer;;
+}
+.table-striped{
+    margin-bottom: 0px;
+}
+.table_border{
+    border: 2px solid #a9a0a040;
+
+}
+.table_period tr td{
+    text-align: left;
+}
+.table-striped tbody .invoice_tr{
+   border-bottom:2px solid #e6e6e6 !important;
+} 
+.table-striped tr:after {
+    clear: both;
+    content: ' ';
+    display: none !important;
+    visibility: hidden;
+}
+.view_finance{
+    background-color: #1dc8d5;
+    border-color: #1dc8d5;
+    color: #fff !important;
+    padding: 5px !important;
+    width: auto !important;
+    border-radius: 2px !important;
+    min-width: 100px;
+    text-transform: uppercase;
+}
+.period_txt.table_head th,.period_txt td{
+    text-align: left;
+}
+.back_button{
+    float: right;
+    background: #14a9b5;
+    border-color: #14a9b5;
+    font-size: 16px;
+    color:#fff;
+}
+.downloadview_txt{
+    float: right;
+    padding: 5px 25px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    
+}
+

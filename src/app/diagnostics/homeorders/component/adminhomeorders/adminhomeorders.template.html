@@ -1,0 +1,476 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Home Orders </h1>
+
+    <form action="#">
+        <div class="row">
+            <div class="col-lg-5">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Order ID/Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" maxlength="12" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Order ID/Mobile Number">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getDiagnosticAdvisesForPocBasedOnPhoneNumberOrId()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-7 datefilter">
+                <h6 class="sub-title">Filter by Date</h6>
+                <div class="row date_txt">
+                    <div class="form-group col-sm-4">
+                        <datetime [(value)]="startDate" class="startdate" name="startDate" id="datepicker" [placeholder]="'Start Date'" [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [placeholder]="'End Date'" [datepicker]="datepickerOpts" (dateChange)="endDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+                    <div class="col-sm-4 subbtn">
+                        <button type="submit" class="btn btn-danger width-100" role="button" (click)="onSubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                <div class="filter-orders">
+                    <div class="filter-content" *ngIf="(isFilterVisible && getWidth()<768)||getWidth()>767">
+                        <div class="filter_txt select_city">
+                            <h6 class="sub-title">Filter by Area</h6>
+                            <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse" (change)="onLocationChange($event.target.value)">
+                                <option value=0>Select</option>
+                                <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j+1>
+                                    {{locationArea.name}}</option>
+                            </select>
+                        </div>
+                        <div class="filter_txt">
+                            <h6 class="sub-title">Filter by City</h6>
+                            <select class="form-control" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}" *ngIf="cityResponse" (change)="onCityChange($event.target.value)">
+                                <option value=0>Select</option>
+                                <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="filter_txt ">
+                            <h6 class="sub-title">Filter by State</h6>
+                            <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone : true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+                                <option value=0>Select</option>
+                                <option *ngFor="let location of stateResponse;let i = index" [value]=i+1>
+                                    {{location.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="isCorrectMobile" class="enter_error">Enter 10 digit mobile number</div>
+
+    <form action="#">
+        <div class="row order_state">
+            <div class="col-xl-6 col-lg-12">
+                <h6 *ngIf='enableButtonStatusFilter == false'>Filter by Status</h6>
+                <select *ngIf='enableButtonStatusFilter == false' class="form-control" (change)="onStatusSelect($event.target.value)">
+                    <option value=0>Select Status</option>
+                    <option value=21>Phlebo Not Assigned</option>
+                    <option value=22>Phlebo Assigned</option>
+                    <option *ngIf="!isVendor" value=23>Vendor Not Assigned</option>
+                    <option *ngIf="!isVendor" value=24>Vendor Assigned</option>
+                    <option value=11>Phlebo Started</option>
+                    <option value=2>Sample Collected</option>
+                    <option value=9>Sample Delivered</option>
+                </select>
+
+                <!-- <h6>Filter by date</h6>
+                <datetime [(value)]="startDate" name="startDate" id="datepicker" [placeholder]="'Select Date'" [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                </datetime> -->
+            </div>
+        </div>
+    </form>
+
+    <div class="row buttonCounts" *ngIf='enableButtonStatusFilter == true'>
+
+        <div>
+            <h6>Filter by Status</h6>
+            <ul class="all_fillter_btn">
+                <li>
+                    <button type="button" class="notification totalOrders" role="button" (click)="onStatusButtonSelect(0)">Total Home Orders
+                        <span class="inside-badge">
+                            <p>{{diagnosticOrdersCount.totalOrders || 0}}</p>
+                        </span>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="notification appOrders" role="button" (click)="onStatusButtonSelect(31)">App Orders 
+                        <span class="inside-badge">
+                            <p>{{diagnosticOrdersCount.appOrders || 0}}</p>
+                        </span>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="notification centerOrders" role="button" (click)="onStatusButtonSelect(32)">Call Center Orders
+                        <span class="inside-badge">
+                            <p>{{diagnosticOrdersCount.centreOrders || 0}}</p>
+                        </span>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="notification websiteOrders" role="button" (click)="onStatusButtonSelect(33)">Website Orders
+                        <span class="inside-badge">
+                            <p>{{diagnosticOrdersCount.websiteOrders || 0}}</p>
+                        </span>
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row buttonCounts" *ngIf='enableButtonStatusFilter == true'>
+        <ul class="all_fillter_btn">
+            <li><button type="button" class="notification phleboUnAssignedOrders" role="button" (click)="onStatusButtonSelect(21)">
+                    Phlebo Unassigned<span class="inside-badge">
+                        <p>{{diagnosticOrdersCount.phleboUnAssignedOrders ||
+                            0}}</p>
+                    </span>
+                </button></li>
+            <li><button type="button" class="notification phleboRejected" role="button" (click)="onStatusButtonSelect(25)">Phlebo
+                    Rejected
+                    <span class="inside-badge">
+                        <p>{{diagnosticOrdersCount.phleboRejectedOrders || 0}}</p>
+                    </span>
+                </button></li>
+            <li *ngIf="!isVendor"><button type="button" class="notification vendorUnAssignedOrders" role="button" (click)="onStatusButtonSelect(23)">Vendor Unassigned
+                    <span class="inside-badge">
+                        <p>{{diagnosticOrdersCount.vendorUnAssignedOrders || 0}}</p>
+                    </span>
+                </button></li>
+            <li *ngIf="!isVendor"><button type="button" class="notification vendorRejectedOrders" role="button" (click)="onStatusButtonSelect(4)">Vendor Rejected
+                    <span class="inside-badge">
+                        <p>{{diagnosticOrdersCount.vendorRejectedOrders || 0}}</p>
+                    </span>
+                </button></li>
+            <!-- <li><button type="button" class="notification workingProgress" role="button"
+                (click)="onStatusButtonSelect(-1)">Working Progress
+                    <span class="badge"><p>{{workingProgressOrders || 0}}</p></span>
+                </button></li> -->
+            <li><button type="button" class="notification sampleCollectedOrders" role="button" (click)="onStatusButtonSelect(2)">Sample Collected
+                    <span class="inside-badge">
+                        <p>{{diagnosticOrdersCount.sampleCollectedOrders || 0}}</p>
+                    </span>
+                </button></li>
+            <li><button type="button" class="notification sampleDeliveredOrders" role="button" (click)="onStatusButtonSelect(9)">Sample Delivered
+                    <span class="inside-badge">
+                        <p>{{diagnosticOrdersCount.sampleDeliveredOrders || 0}}</p>
+                    </span>
+                </button></li>
+        </ul>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="autorefresh-refreshbutton filter-ordersbtn">
+                <button type="button" class="btn btn-primary searchresult_resetbtn reportbtn" role="button" (click)="onSendEmail()">Email Report</button>
+                <auto-refresh (refreshEvent)="getRefreshedorderList()" [componentName]="'manageHomeOrderListIndex'">
+                </auto-refresh>
+
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="getRefreshedorderList()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+                <button class="filter-btn" (click)=filterBtnClicked()><span
+                        class="glyphicon glyphicon-filter"></span></button>
+                <!-- <button type="button" class="btn btn-primary button_addtxt" role="button" (click)="onNewOrderButtonClicked()"><i
+                        aria-hidden="true" class="fa fa-plus add_txt"></i>New Order</button> -->
+            </div>
+        </div>
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body managehome">
+                    <hs-table [columns]="columns" [pagingList]="deliveryDiagnosticslist" [sort]="sorting" (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg" [componentId]="'diagnosticAdminTable'" [perPage]="perPage" [total]="(deliveryDiagnosticslist && deliveryDiagnosticslist.length)?deliveryDiagnosticslist.length:0"
+                        (pageClick)="onPage($event)">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal fade" id="transactionHistory">
+        <div class="modal-dialog model_addtxt">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4>History</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <hs-table [columns]="historyColumns" [pagingList]="transactionHistoryList" [dataMsg]="dataMsg" [componentId]="'diagnosticOrderHistoryTable'" [perPage]="perPage" [isStaticPaging]="true" [total]="(transactionHistoryList && transactionHistoryList.length)?transactionHistoryList.length:0">                            
+                        </hs-table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button *ngIf="phleboDocs" type="button" class="btn btn-primary" (click)="onViewPhleboDocs()">Phlebo
+                        Selfie</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="consumablesModal">
+        <div class="modal-dialog model_addtxt">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4>Consumables</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <hs-table [columns]="consumablesColumns" [pagingList]="consumablesList" [dataMsg]="dataMsg" [componentId]="'consumablesListTable'" [perPage]="perPage" [isStaticPaging]="true" [total]="(consumablesList && consumablesList.length)?consumablesList.length:0">                            
+                        </hs-table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewdropoff">
+        <div class="modal-dialog model_addtxt">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="close_txt" aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="page-title">Delivery Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div [innerHTML]="formattedDeliveryData | sanitizeHtml">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button *ngIf="docsCheck" type="button" class="btn btn-primary" (click)="onViewDocs()">Sample Deposited
+                        Documents</button>
+                    <button *ngIf="cashDocs" type="button" class="btn btn-primary" (click)="onViewCashDocs()">Cash Deposited
+                        Documents</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="viewdropoffdocs">
+        <div class="modal-dialog model_addtxt">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="close_txt" aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="page-title">Uploaded Documents</h4>
+                </div>
+                <div class="modal-body">
+                    <section class="newadd_process row" widget="">
+                        <div class="col-lg-12 prescription_scroll" *ngFor="let item of convertedDocumentUrlList ; let i =index">
+                            <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                                <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup" data-toggle="modal" data-target="#sliderimagepopup">
+                            </div>
+                            <div *ngIf="item.includes('pdf')">
+                                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')" class="image_clickpdf">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewcashdropoffdocs">
+        <div class="modal-dialog model_addtxt">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="close_txt" aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="page-title">Uploaded Documents</h4>
+                </div>
+                <div class="modal-body">
+                    <section class="newadd_process row" widget="">
+                        <div class="col-lg-12 prescription_scroll" *ngFor="let item of cashconvertedDocumentUrlList ; let i =index">
+                            <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                                <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup" data-toggle="modal" data-target="#sliderimagepopup">
+                            </div>
+                            <div *ngIf="item.includes('pdf')">
+                                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')" class="image_clickpdf">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <customer_review_modal [modalTitle]='modalTitle' [interactionStatus]='interactionStatus' [modalId]='modalId' [previousComments]='this.comments' (addInteractionStatusEvent)="addInteractionStatus($event)" [hasTypeCheck]='false' [errorMessage]='error' (onRemarkSubmitEvent)="onRemarksSubmit($event)">
+    </customer_review_modal>
+
+    <div id="sliderimagepopup" class="modal fade in" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="prescription-modal">
+                    <form name="info_form" class="form-inline" action="#" method="post">
+                        <div class="form-group">
+                            <img [src]="crouselSelectedImage" class="image_sliderpop" *ngIf="prescriptionType=='img'">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group image_download">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="mailmodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+            <div class="modal-header emailModal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title page-title">Email Report</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row reportdrpdwn">
+                    <div class="col-12 datefilter">
+                        <div class="row date_txt">
+                            <div class="form-group col-sm-4">
+                                <div>From :</div>
+                                <datetime [(value)]="emailStartDate" class="startdate" name="startDate" id="datepicker"
+                                    [placeholder]="'Start Date'" [datepicker]="datepicker_emailModel"
+                                    (dateChange)="emailStartDateChoosen($event)" [timepicker]="false">
+                                </datetime>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div>To :</div>
+                                <datetime [(value)]="emailEndDate" name="endDate" id="datepicker"
+                                    [placeholder]="'End Date'" [datepicker]="datepicker_emailModel"
+                                    (dateChange)="emailEndDateChoosen($event)" [timepicker]="false">
+                                </datetime>
+                            </div>
+                        </div>
+                    </div>
+                    <div>Report Type: </div>
+                    <div class="reportdrpdwn">
+                        <select id="option" [(ngModel)]="emailReportId" [ngModelOptions]="{standalone: true}"
+                            class="form-control">
+                            <option value=-1>select</option>
+                            <option *ngFor="let doc of emailReportList" [value]=doc.id>
+                                {{doc.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <p>Please Enter your email address to send orders for selected dates and filters</p>
+                <input class="form-control" type="text" id="toEmail" placeholder="Enter Email address"
+                    [(ngModel)]="toEmail">
+            </div>
+            <hs-message [isError]="isError1" [show]="showMessage1" [messages]="errorMessage1"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onMailSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deliveryApproval">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+            <div class="modal-header emailModal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title page-title">Delivery Acknowledgement</h4>
+            </div>
+            <div class="modal-body">                
+                <b>Any Remarks:</b>
+                <input class="form-control" type="text" id="delRemarks" placeholder="Enter Remarks... "
+                    [(ngModel)]="deliveryRemarks">
+            </div>            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onAcceptDelivery()">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mailmodalothers">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title page-title">Email Report</h4>
+            </div>
+            <div class="modal-body">
+                <p>Please Enter your email address to send data for selected dates and filters</p>
+                <input class="form-control" type="text" id="toEmail" placeholder="Enter Email address"
+                    [(ngModel)]="toEmail">
+            </div>
+            <hs-message [isError]="isError1" [show]="showMessage1" [messages]="errorMessage1"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onOtherMailSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewselfie">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="page-title">Phlebo Selfie</h4>
+            </div>
+            <div class="modal-body">
+                <section class="newadd_process row" widget="">
+                    <div class="col-lg-12 prescription_scroll" *ngFor="let item of convertedPhleboDocumentUrlList ; let i =index">
+                        <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                            <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup" data-toggle="modal" data-target="#sliderimagepopup">
+                        </div>
+                        <div *ngIf="item.includes('pdf')">
+                            <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')" class="image_clickpdf">
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

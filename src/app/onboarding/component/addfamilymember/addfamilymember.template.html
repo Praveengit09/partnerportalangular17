@@ -1,0 +1,520 @@
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <section class="widget">
+        <div class="widget-body">
+          <br />
+          <br />
+          <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-9">
+              <h2 class="welcome_txt">Add Family Member</h2>
+            </div>
+          </div>
+
+          <br />
+
+          <form class="form" role="form" #familyForm="ngForm" ngNativeValidate>
+            <div class="form-group row">
+              <label class="col-sm-4 control-label">Title*</label>
+              <div class="col-sm-6">
+                <select class="form-control" (change)="onTitleChange($event.target.value)" [value]="familyMember.title">
+                  <option value="undefined">select Title</option>
+                  <option *ngFor="let title of titlesList;let i = index" [value]='title'>{{title}}.
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="fname" class="col-md-4 control-label">Name*</label>
+              <div class="col-md-3">
+                <div class="field_wrap">
+                  <input type="text" class="form-control" id="fname" name="fname" required
+                    [(ngModel)]="familyMember.fName" placeholder="Enter  first name">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="field_wrap">
+                  <input type="text" class="form-control" [(ngModel)]="familyMember.lName" id="lname" name="lName"
+                    placeholder="Enter last name">
+                </div>
+              </div>
+  
+            </div>
+  
+            <!--
+                          <p *ngIf="!isEmpty" value="isEmpty" class="error_Messages">
+                              Please enter your name...!!!
+                          </p>-->
+            <div class="form-group row">
+              <label class="col-md-4 control-label">Gender*</label>
+              <div class="col-sm-6">
+                <label class="input_label">
+                  <input type="radio" required name="gender" class="male" value="Male" #memGender="ngModel"
+                    [(ngModel)]="familyMember.gender" [checked]="familyMember.gender == 'Male' ? 'true':'false'"
+                    (click)="onGenderChange()" />
+                  <span class="input_gender input_male"></span>
+                  <span class="text-center gender male">Male</span>
+                </label>
+                <label class="input_label">
+                  <input type="radio" required name="gender" class="female" value="Female" #memGender="ngModel"
+                    [(ngModel)]="familyMember.gender" [checked]="familyMember.gender == 'Female' ? 'true':'false'"
+                    (click)="onGenderChange()" />
+                  <span class="input_gender input_female"></span>
+                  <span class="text-center gender female">Female</span>
+                </label>
+                <label class="input_label">
+                  <input type="radio" required name="gender" class="others" value="Others" #memGender="ngModel"
+                    [(ngModel)]="familyMember.gender" [checked]="familyMember.gender == 'Others' ? 'true':'false'"
+                    (click)="onGenderChange()" />
+                  <span class="input_gender input_others"></span>
+                  <span class="text-center gender others">Others</span>
+                </label>
+              </div>
+            </div>
+            <!--<p *ngIf="!isGenderChoose" value="isGenderChoose" class="error_Messages">
+                  The gender is required...!!!
+              </p>-->
+  
+            <!-- <div class="form-group row">
+                              <label for="birthdate" class="col-md-4">Date of Birth*</label>
+                              <div class="col-sm-6 datetime_txt">
+                                 <datetime required name="datepicker" id="datepicker" [(ngModel)]="newMemberDate" [ngModelOptions]="{standalone: true}" [timepicker]="false"
+                                      [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="datepickerOpts"></datetime> -->
+  
+            <!-- </div> -->
+            <div class="form-group row">
+              <label for="birthdate" class="col-md-4 control-label"></label>
+              <div class="col-md-6 date_txt_radio">
+                <label class="radio-inline date_txt">
+                  <input type="radio" name="ageButton" value="0" [checked]="isDOB" (change)="checkAgeSelection(0)" />
+                  Date of Birth
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="ageButton" value="1" [checked]="isAge" (change)="checkAgeSelection(1)" />
+                  Age
+                </label>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="isDOB">
+              <label for="birthdate" class="col-md-4">Age/Date of Birth</label>
+              <div class="col-sm-6">
+                <datetime [(value)]="newMemberDate" name="datepicker" id="datepicker" [timepicker]="false"
+                  [datepicker]="datepickerOpts"></datetime>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="isAge">
+              <label for="birthdate" class="col-md-4 " *ngIf="isAge">How old are you?</label>
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" maxlength="3" class="form-control ageBox" (keypress)="validation.onlyNumbers($event)"
+                    (keyup)="checkAgeYearvalidation(ageYears)" required placeholder="Years" name="anameyear"
+                    id="anameyear" [(ngModel)]="ageYears" [disabled]="isAge1" />Years
+                </div>
+                <div class="col-md-6">
+                  <input type="text" maxlength="2" class="form-control ageBox" (keypress)="validation.onlyNumbers($event)"
+                    (keyup)="checkAgeMonthvalidation(ageMonths)" required placeholder="Months" name="anamemon"
+                    id="anamemon" [(ngModel)]="ageMonths" [disabled]="isAge1" />Months
+                </div>
+              </div>
+              <!-- <p *ngIf="this.ageMonths > 11">
+                                      <sup>*</sup>Month should not be greaterthan 11.
+                                  </p> -->
+            </div>
+  
+            <div class="form-group row">
+              <label class="col-md-4 control-label">Relationship*</label>
+              <div class="col-sm-6">
+                <select name="relation" required id="relation" [(ngModel)]="dropDownIndex" class="form-control"
+                  (change)="onRelationShipDropDownChange($event.target.value)">
+                  <option [value]="0">Select Relationship</option>
+                  <option [value]="1">Spouse</option>
+                  <option [value]="2">Mother</option>
+                  <option [value]="3">Father</option>
+                  <option [value]="4">Daughter</option>
+                  <option [value]="5">Son</option>
+                  <option [value]="6">Mother-in-law</option>
+                  <option [value]="7">Father-in-law</option>
+                  <option [value]="8">Siblings</option>
+                  <option [value]="9">GrandMother</option>
+                  <option [value]="10">GrandFather</option>
+                  <option [value]="11">Daughter-in-law</option>
+                  <option [value]="12">Son-in-law</option>
+                  <option [value]="13">Others</option>
+                </select>
+              </div>
+            </div>
+            <!--<p *ngIf="!isChoose" value="isChoose" class="error_Messages">
+                              Select the Relationship...!!!
+                          </p>-->
+  
+            <p *ngIf="!isEmpty" value="isEmpty" class="error_Messages">
+              {{messageForEmptyFields}}
+            </p>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-sm-offset-4 col-sm-7">
+                  <button type="button" class="btn btn-inverse" role="button" (click)="onAddFamilyMember()">
+                    ADD
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+<!-- 
+          <form class="form" role="form" #familyForm="ngForm" ngNativeValidate>
+            <div class="form-group row">
+              <label class="col-sm-4 control-label">Title*</label>
+              <div class="col-sm-6">
+                <select class="form-control" (change)="onTitleChange($event.target.value)" [value]="familyMember.title">
+                  <option value="undefined">select Title</option>
+                  <option *ngFor="let title of titlesList;let i = index" [value]="title">{{title}}.
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="fname" class="col-md-4 control-label">Name*</label>
+              <div class="col-md-3">
+                <div class="field_wrap">
+                  <input type="text" class="form-control" id="fname" name="fname" required
+                    [(ngModel)]="familyMember.fName" placeholder="Enter  first name" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="field_wrap">
+                  <input type="text" class="form-control" [(ngModel)]="familyMember.lName" id="lname" name="lName"
+                    placeholder="Enter last name" />
+                </div>
+              </div>
+            </div>
+          </form> -->
+
+        </div>
+        <!-- </div> -->
+
+        <br />
+
+        
+
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="list-family">List Of Family Members</h4>
+            <div class="table-responsive">
+              <table id="mytable" class="table table-bordred table-striped">
+                <thead>
+                  <tr>
+                    <th>S.ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Relationship</th>
+                    <th>Edit/Update PHR</th>
+                  </tr>
+                </thead>
+
+                <tbody *ngFor="let item of registeredProfileList; let i = index">
+                  <tr>
+                    <td>{{i+1}}</td>
+                    <td>
+                      {{item.fName}}{{space}}{{item.lName}}
+                    </td>
+
+                    <td>
+                      {{item.gender}}
+                    </td>
+
+                    <td>
+                      {{item.age}}
+                    </td>
+                    <td>
+                      <span class="brand-txt" *ngIf="item.relationShip==0">
+                        Self
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==1">
+                        Spouse
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==2">
+                        Mother
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==3">
+                        Father
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==4">
+                        Daughter
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==5">
+                        Son
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==6">
+                        Mother-inLaw
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==7">
+                        Father-inLaw
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==8">
+                        Sibling
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==9">
+                        GrandMother
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==10">
+                        GrandFather
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==11">
+                        Daughter-inLaw
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==12">
+                        Son-inLaw
+                      </span>
+                      <span class="brand-txt" *ngIf="item.relationShip==13">
+                        Others
+                      </span>
+                    </td>
+                    <!--<td>
+                                                <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" (click)="editFamilyMember(item.profileId)"
+                                                        data-title="Edit" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button></p>
+                                            </td>-->
+                    <!--<td>
+                                                <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
+                                                        data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></p>
+                                            </td>-->
+                    <td>
+                      <span class="brand-txt" *ngIf="item.onboardingStatus==1">
+                        <button type="button" *ngIf="item.phrCompletionType==2" class="btn btn-success btn-xs"
+                          (click)="onpersonal(item.profileId)">
+                          PHR
+                        </button>
+                        <button type="button" *ngIf="item.phrCompletionType==1" class="btn btn-info btn-xs"
+                          (click)="onpersonal(item.profileId)">
+                          PHR
+                        </button>
+                        <button type="button" *ngIf="item.phrCompletionType==0" class="btn btn-danger btn-xs"
+                          (click)="onpersonal(item.profileId)">
+                          PHR
+                        </button>
+
+                        <button type="button" *ngIf="item.physicalCompletionType==2" class="btn btn-success btn-xs"
+                          (click)="onphysical(item.profileId)">
+                          PHYSICALS
+                        </button>
+                        <button type="button" *ngIf="item.physicalCompletionType==1" class="btn btn-info btn-xs"
+                          (click)="onphysical(item.profileId)">
+                          PHYSICALS
+                        </button>
+                        <button type="button" *ngIf="item.physicalCompletionType==0" class="btn btn-danger btn-xs"
+                          (click)="onphysical(item.profileId)">
+                          PHYSICALS
+                        </button>
+
+                        <button type="button" *ngIf="item.labTestCompletionType==2" class="btn btn-success btn-xs"
+                          (click)="onupdatelab(item.profileId)">
+                          LAB REPORT
+                        </button>
+                        <button type="button" *ngIf="item.labTestCompletionType==1" class="btn btn-info btn-xs"
+                          (click)="onupdatelab(item.profileId)">
+                          LAB REPORT
+                        </button>
+                        <button type="button" *ngIf="item.labTestCompletionType==0" class="btn btn-danger btn-xs"
+                          (click)="onupdatelab(item.profileId)">
+                          LAB REPORT
+                        </button>
+                      </span>
+                      <span *ngIf="item.onboardingStatus==0">
+                        <button type="button" class="btn btn-danger btn-xs" (click)="getOnboardingType(item)">
+                          ONBOARD USER
+                        </button>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <!--Dont remove the commented code.edit PHR option will be added-->
+
+
+        <!--<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this
+                                    Record?</div>
+
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+
+
+
+                </div>-->
+      </section>
+    </div>
+  </div>
+
+  <!--popup code start here-->
+
+  <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="close_txt" aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title add_medtxt" id="myModalLabel">Onboard Type</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+            <div class="form-group text-line">
+              <h4 class="step_title" id="showForCustom5">Step 1</h4>
+              <label for="Medicine" class="all_textboxtxt">Select the Onboarding Type :</label>
+              <select id="onBoarding" class="form-control1" [(ngModel)]="sendTest" (change)="sendOnboardingType()"
+                name="sendTest">
+                <option value="0">Select Type</option>
+                <option *ngFor="let test of onboardingTypeResponse" [ngValue]="test">{{test.name}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <ul>
+                <li *ngFor="let test of showTests">{{test.name}}</li>
+              </ul>
+            </div>
+
+            <div class="form-group text-line" id="showForCustom1" style="display:none">
+              <h4 class="step_title">Step 1</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="Medicine" class="all_textboxtxt">Select the Onboarding Type :</label>
+                  <select class="form-control" name="sendDefinedPackage" [(ngModel)]="sendDefinedPackage"
+                    (change)="sendDefinedPackagesType()">
+                    <option *ngFor="let test of onboardingCustomTypePackage" [ngValue]="test">
+                      {{test.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="Medicine" class="all_textboxtxt">Price (INR)</label>
+                  <input type="number" name="price" [(ngModel)]="onboardingType.amount" class="form-control"
+                    placeholder="Enter Payable Amount" min="0" oninput="validity.valid||(value='');" step="0.01" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-line" id="showForCustom2" style="display:none">
+              <h4 class="step_title">Step 2</h4>
+              <h5>Edit Lab Test</h5>
+              <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                  <label class="labtest_txt" *ngFor="let onboardTest of onboardingType.tests">
+                    <input type="checkbox" name="testCheckBox" id="{{onboardTest.id}}"
+                      (click)="selectTests(onboardTest)" />{{onboardTest.name}}
+                  </label>
+                  <br />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-line" id="showForCustom3" style="display:none">
+              <h4 class="step_title">Step 3</h4>
+              <h5>Add a New Test</h5>
+              <div class="row">
+                <div class="col-md-5">
+                  <input id="search-box" name="testsearch" type="text" [(ngModel)]="testName"
+                    (keyup)="searchforTests(testName)" class="form-control" placeholder="Test Name" list="list" />
+                  <datalist id="list">
+                    <option *ngFor="let search of searchedTests">{{search.serviceName}}</option>
+                  </datalist>
+                </div>
+                <div class="col-md-5">
+                  <input id="unit-box" type="text" name="unit" [(ngModel)]="unit" class="form-control"
+                    placeholder="Unit" />
+                </div>
+                <div class="col-md-2">
+                  <input type="submit" class="add" value="ADD" (click)="getTestId(testName,unit)" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3 customTests" *ngFor="let tests of onboardingCustomPackage.customTests">
+                  {{tests.name}}
+                  <span class="removeTest" (click)="removeTest(tests)">x</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-line">
+              <h4 class="step_title" id="showForCustom4" style="display:none">
+                Step 4
+              </h4>
+              <h4 class="step_title" id="showForCustom5">Step 2</h4>
+
+              <label for="Medicine" id="showForCustom6" class="all_textboxtxt" style="display:none">Name this Custom
+                Onboarding</label>
+              <input type="text" id="showForCustom7" class="form-control" name="customPackageName"
+                [(ngModel)]="customPackageName" placeholder="Test Name" style="display:none" />
+              <label for="Medicine" class="all_textboxtxt">Total Payable Amount (INR)</label>
+              <input type="number" class="form-control" required name="payableAmount"
+                [(ngModel)]="this.onboardingCustomPackage.amount" placeholder="Enter Payable Amount" min="0"
+                oninput="validity.valid||(value='');" step="0.01" />
+              <label for="Medicine" class="all_textboxtxt">Mode of payment</label>
+              <select id="modeOfPayment" class="form-control" name="modeOfPayment"
+                [(ngModel)]="this.onboardingCustomPackage.modeOfPayment">
+                <option value="0">Select Payment Options</option>
+                <option value="1">Card</option>
+                <option value="2">Cash</option>
+                <!-- 
+                                <option value="3">Online</option>
+                                <option value="4">Package</option>
+                                <option value="5">Mobile</option>
+                                 -->
+              </select>
+            </div>
+
+            <div class="errMsg">{{errorMessage}}</div>
+            <input type="submit" class="Update" value="CONTINUE" (click)="insertTestForPOC()" />
+            <br />
+            <br />
+          </form>
+        </div>
+        <!-- modal-dialog -->
+        <!-- popup code end here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" style=" overflow-y: auto !important" id="printPDFWizardModel" tabindex="-1" role="dialog"
+  aria-labelledby="modelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body row" style="text-align: center;height: 50px;">
+        <div class="col-md-6 col-xs-6">
+          <button type="button" class="btn " style="width:100px;margin-top: 5px;" (click)="onClickPrint()">
+            Print
+          </button>
+        </div>
+        <div class="col-md-6 col-xs-6">
+          <button type="button" class="btn " style="width:100px;margin-top: 5px;" (click)="closePrintView()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<spinner-component></spinner-component>

@@ -1,0 +1,509 @@
+<div class="table_size">
+
+    <h1 class="page-title">Select a Slot to Book Appointment </h1>
+
+
+    <!--doctor details card start  here -->
+    <div class="row slotsdetails_txt">
+        <div class="col-md-6 slots_details">
+            <div class="well well-sm">
+                <div class="media" *ngIf="docSavedData!=undefined && docSavedData!=null">
+                    <a class="slots_profile" href="#">
+                        <img class="media-object"
+                            [src]="docSavedData.imageUrl?docSavedData.imageUrl:defaultDoctorImgUrl"
+                            style="width:60px;height:60px;">
+                    </a>
+                    <div class="media-body">
+                        <h5 class="media-heading">
+                            Dr.
+                            {{docSavedData.firstName}}{{emptyString}}{{docSavedData.lastName?docSavedData.lastName:''}}
+                        </h5>
+                        <h6 class="sub-heading">{{docSavedData.pocDetails.pocName}}</h6>
+                        <h6 class="sub-heading">{{docSavedData.esType}}</h6>
+                        <h6 *ngIf="docSavedData.experience" class="sub-heading">{{docSavedData.experience}} yrs
+                            experience
+                        </h6>
+                        <h6 *ngIf="docSavedData.contactList && docSavedData.contactList.length>0" class="sub-heading">
+                            M:{{docSavedData.contactList[0]}}</h6>
+                        <h6 class="sub-heading" style="color: green"
+                            *ngIf="this.pocId>0 && docSavedData.employeePocMapping.serviceDetails.digiConsultationFee && docSavedData.employeePocMapping.serviceDetails.digiConsultationFee > 0">
+                            Digi Consultation Fee:
+                            Rs.{{docSavedData.employeePocMapping.serviceDetails.digiConsultationFee}}
+                        </h6>
+                        <h6 class="sub-heading" style="color: green"
+                            *ngIf="this.pocId>0 && (docSavedData.employeePocMapping.serviceDetails.videoLaterConsultationFee && docSavedData.employeePocMapping.serviceDetails.videoLaterConsultationFee > 0)">
+                            Video Consultation Fee:
+                            Rs.{{docSavedData.employeePocMapping.serviceDetails.videoLaterConsultationFee}}
+                        </h6>
+                        <h6 class="sub-heading" style="color: green"
+                            *ngIf="this.pocId>0 && (docSavedData.employeePocMapping.serviceDetails.walkinConsultationFee && docSavedData.employeePocMapping.serviceDetails.walkinConsultationFee > 0)">
+                            Walk-in Consultation Fee:Rs.
+                            {{docSavedData.employeePocMapping.serviceDetails.walkinConsultationFee}}
+                        </h6>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--doctor details card end  here -->
+
+    <h5>Select Available Slots</h5>
+
+    <div class="row">
+        <div class="col-md-3 datetime_txt ">
+            <datetime [(value)]="date" [datepicker]="datepickerOpts" [timepicker]="false"
+                [datepicker]="{ icon: 'fa fa-calendar' }" (dateChange)="getSlotsForThisDate()"></datetime>
+        </div>
+        <div class="col-md-1 ">
+            <span class="input-group-btn">
+                <button class="btn btn-danger width-130 mb-xs botton_txtsearch done_txt" role="button"
+                    (click)="onDisplaySlotButtonClick()">DISPLAY SLOTS</button>
+            </span>
+
+        </div>
+
+    </div>
+    <h5 class="form-group payment-error">{{selectSlotTimeErrMsg1}}</h5>
+    <h5 class="form-group payment-error"
+        *ngIf="(convertedTimeSlot==undefined || convertedTimeSlot.length==0)&&this.isSlotsDisable">
+        Slots are not available for the selected date</h5>
+
+
+    <div class="row">
+        <div class="col-md-11"></div>
+        <div class="col-md-1 slot_clicked" *ngIf="convertedTimeSlot!=undefined && convertedTimeSlot.length > 0">
+            <button type="button" [class.Update]="!disabled" role="button" data-toggle="modal" data-target="#myrecption"
+                [disabled]="disabled" (click)="onContinueClick()">CONTINUE</button>
+        </div>
+    </div>
+    <!--  digi room slots start here -->
+    <div class="row custom_chk slot_booktxt">
+
+        <div class="col-lg-3 col-md-5 col-xs-6 col-sm-4 custom_chk"
+            *ngFor="let timeslot of convertedTimeSlot; let i=index">
+
+            <input type="radio" id={{i}} name="hlf" (click)="getSlotDetail($event,timeslot)"
+                *ngIf="timeslot.status !=1 && timeslot.status !=2" />
+            <label class="sloat_size" for={{i}} *ngIf="timeslot.status ==0">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <p class="text_margin" [innerHTML]="text"></p>
+                <p>Book Now</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="timeslot.status ==1">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <p class="text_margin" [innerHTML]="text"></p>
+                <p>Booked</p>
+            </label>
+            <label class="sloat_size slot-disabled" for={{i}} *ngIf="timeslot.status ==2">
+                <span class="ailment_text">{{timeslot.timeString}}</span>
+                <p class="text_margin" [innerHTML]="text"></p>
+                <p>Slot Blocked</p>
+            </label>
+        </div>
+    </div>
+
+    <!--  digi room slots End here -->
+
+    <!--model popup patientregistration start here -->
+    <div class="modal left" id="myrecption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+
+
+        <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+            <div class="modal-content patient-registerpopup">
+                <patientregister-component (onRegisterNewUser)="onRegisterNewUser($event)" [isFromAppReq]="isFromAppReq"
+                    [reqDetail]="reqDetail"></patientregister-component>
+                <!-- modal-content -->
+
+            </div>
+            <!-- modal-dialog -->
+        </div>
+    </div>
+    <!-- container -->
+    <div class="modal right fade" id="recption-3">
+
+        <div class="modal-dialog model_txt1 patientinfo_popup">
+            <div *ngIf="selectedProfile">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span class="close_txt buttonClose" aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title add_medtxt">Payment Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" class="form-horizontal form_txt" #signupForm="ngForm">
+                            <div class="form-group">
+                                <p class="text-line">Appointment Summary</p>
+
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-8 col-sm-8 col-xs-8" id="edit_hide" *ngIf="!isWalkInClicked">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="doctor" class="editdoc_txt">Doctor</label>
+                                            <input type="text" class="doctor_input" name="name" readonly
+                                                [value]="selctedSlotInfo.doctorName">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="date" class="editdoc_txt">Date</label>
+                                            <input type="text" class="doctor_input" name="date" readonly
+                                                [value]="selctedSlotInfo.date">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="time" class="editdoc_txt">Time Slot </label>
+                                            <input type="text" class="doctor_input" name="time" readonly
+                                                [value]="selctedSlotInfo.slot">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-8" id="edit_hide" *ngIf="isWalkInClicked">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="doctor" class="editdoc_txt">Doctor</label>
+                                            <input type="text" class="doctor_input" name="name" readonly
+                                                [value]="selctedSlotInfo.doctorName">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="date" class="editdoc_txt">Date</label>
+                                            <input type="text" class="doctor_input" name="date" readonly
+                                                [value]="confirmationDate">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="time" class="editdoc_txt">Time Slot </label>
+                                            <input type="text" class="doctor_input" name="time" readonly
+                                                [value]="confirmationTime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <a class="edit_txt" (click)="editText()" id="bottonHide"
+                                        *ngIf="!isWalkInClicked">EDIT</a>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12" id="edit_show"
+                                    style="display:none">
+                                    <label for="doctor" class="editxt_doc">Doctor Name</label>
+                                    <br>
+                                    <p class="appoint_txt">{{selctedSlotInfo.doctorName}}</p>
+
+                                    <label for="date" class="editxt_doc">Select Date</label>
+                                    <br>
+
+                                    <select class="appoint_txt" (change)="updateSlotDate($event)">
+                                        <option>Select Date</option>
+                                        <option *ngFor="let availableSlotDate of selctedSlotInfo.availableDates"
+                                            [selected]="availableSlotDate===selctedSlotInfo.date">
+                                            {{availableSlotDate}}</option>
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <label for="time" class="editxt_doc">Select Time Slot</label>
+                                    <br>
+                                    <select class="appoint_txt" (change)="updateSlotTime($event)">
+                                        <option></option>
+                                        <option *ngFor="let availableSlotTime of selctedSlotInfo.availableSlots"
+                                            [selected]="availableSlotTime===selctedSlotInfo.slot">
+                                            {{availableSlotTime}}
+                                        </option>
+                                    </select>
+                                    <br>
+                                    <br>
+                                    <div class="form-group payment-error" *ngIf="!selctedSlotInfo.slot">
+                                        {{selectSlotTimeErrMsg}}</div>
+                                    <a class="Update1_doctor submit_txt" data-toggle="modal"
+                                        (click)="editTextUpdate()">UPDATE</a>
+                                </div>
+
+
+                            </div>
+                            <div class="form-group">
+                                <p class="text-line">Patient Information</p>
+
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-10">
+                                    <label for="name" class="editdoc_txt">Name</label>
+                                    <input type="text" class="doctor_input" name="name" readonly
+                                        value="{{selectedProfile.title?selectedProfile.title+'. ':''}} {{selectedProfile.fName}} {{selectedProfile.lName?selectedProfile.lName:''}}">
+                                    <br>
+                                    <label for="age" class="editdoc_txt">Age</label>
+                                    <label
+                                        style="font-weight: 600;">{{common.getAge(this.selectedProfile.dob).split(",")[0]+common.getAge(this.selectedProfile.dob).split(",")[1]}}</label>
+                                    <!--<label style="font-weight: 600;">Years</label><br>-->
+                                    <br>
+                                    <label for="gender" class="editdoc_txt">Gender </label>
+                                    <input type="text" class="doctor_input" name="gender" readonly
+                                        value="{{selectedProfile.gender}}">
+                                </div>
+
+                            </div>
+                            <div *ngIf="!this.isFromAppReq">
+                                <div class="form-group">
+                                    <p class="text-line">Booking For</p>
+                                </div>
+                                <div class="form-group">
+
+                                    <input type="radio" name="booking" id="digi" value="digi"
+                                        (change)="onBookingTypeChange(1)"
+                                        *ngIf="hasDigiDoc == true && hasDigiPoc==true && enableDigi == true">
+                                    <label class="digi_radio" for="digi"
+                                        *ngIf="hasDigiDoc == true && hasDigiPoc==true &&  enableDigi == true">&nbsp;Digi</label>
+
+                                    <input type="radio" name="booking" id="inPerson" value="inPerson"
+                                        *ngIf="hasInPersonDoc==true" (change)="onBookingTypeChange(2)">
+                                    <label class="digi_radio" for="inPerson" *ngIf="hasInPersonDoc==true">&nbsp;In
+                                        Person</label>
+
+                                    <input type="radio" name="booking" id="video" value="video" checked
+                                        *ngIf="hasVideoDoc==true" (change)="onBookingTypeChange(3)">
+                                    <label for="inPerson" *ngIf="hasVideoDoc==true">&nbsp;Video</label>
+                                </div>
+                            </div>
+                            <div class="form-group" *ngIf="this.isFromAppReq">
+                                <div class="row">
+                                    <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Booking Type : </p>
+                                    <p class="doctor_input col-md-6 col-xs-6 col-xs-6">{{reqDetail.bookingSubType == 0 ?
+                                        'Walk-In' :
+                                        reqDetail.bookingSubType == 1 ? 'Digiroom' : reqDetail.bookingSubType == 2 ?
+                                        'Video chat' : reqDetail.bookingSubType == 3 ? 'Walk-In' :
+                                        reqDetail.bookingSubType == 4 ? 'Home Consultation':''}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-line">Payment Information</p>
+                                <app-slotbookingdiscount [slotBookingDetails]="this.slotBookingDetails"
+                                    [discountType]="discountType" (calculateDiscount)="onCalculateDiscount($event)"
+                                    [isReception]=true>
+                                </app-slotbookingdiscount>
+
+                            </div>
+
+                            <div class="form-group" *ngIf="finalAmount>0">
+                                <p class="text-line">Payment Method</p>
+
+
+                            </div>
+                            <div class="form-group" *ngIf="finalAmount>0 && bookingType==3">
+                                <!-- <input type="radio" name="cash" id="mobile" value="mobile"
+                                    (change)="checkPaymentModeSelection(5)"> -->
+                                <label for="mobile">&nbsp;Mobile</label>
+                            </div>
+                            <div class="form-group" *ngIf="finalAmount>0 && bookingType!=3">
+                                <input type="radio" name="cash" id="cash" value="cash" checked
+                                    (change)="checkPaymentModeSelection(2)">
+                                <label for="cash">&nbsp;Cash</label> &nbsp;&nbsp;
+                                <input type="radio" name="cash" id="mobile" value="mobile"
+                                    (change)="checkPaymentModeSelection(5)">
+                                <label for="mobile">&nbsp;Mobile</label> &nbsp;&nbsp;
+                                <input type="radio" name="cash" id="others" value="others"
+                                    (change)="checkPaymentModeSelection(0)" id="other-payment">
+                                <label for="mobile">&nbsp;Others</label>
+                                <div class="other-paymentdetails">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                            <select class="form-control"
+                                                (change)="checkPaymentModeSelection($event.target.value)">
+                                                <option value="0">Select</option>
+                                                <option value="1">Card</option>
+                                                <option value="8">PhonePe</option>
+                                                <option value="6">Google Pay</option>
+                                                <option value="7">PayTM</option>
+                                                <option value="11">NEFT</option>
+                                                <option value="12">UPI</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <input type="text" placeholder="Transaction Id" class="form-control"
+                                                [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="isFromAppReq" class="row process_original">
+                                <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Collect Partial Payment: </div>
+                                <div class="col-md-7 col-sm-6 col-xs-12">
+                                    <form action="#" class="color_cash">
+                                        <input type="radio" name="payment" value="1" (change)="checkPartialPayment(1)">
+                                        Yes &nbsp;&nbsp;
+                                        <input type="radio" name="payment" value="0" checked
+                                            (change)="checkPartialPayment(0)"> No
+                                    </form>
+                                </div>
+                            </div>
+                            <div *ngIf="isFromAppReq && selectedPartialPayment" class="row process_original">
+                                <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Partial Payment Amount: </div>
+                                <div class="col-md-7 col-sm-6 col-xs-12">
+                                    <input type="text" placeholder="Enter Partial Payment Amount" class="form-control" maxlength="5" [(ngModel)]="partialPaymentAmount" [ngModelOptions]="{standalone: true}" (keypress)="validation.onlyNumbers($event)" />
+                                </div>
+                            </div>
+
+                            <div class="form-group payment-error"
+                                *ngIf="(finalAmount>0&&!transactionType)||(otherDiscountValue>finalAmount)">
+                                {{paymentErrorMessage}}</div>
+
+                            <button class="Update submit_txt" data-toggle="modal"
+                                (click)="updatePaymentProviderDetails()">CONFIRM</button>
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- /.modal -->
+
+
+    <!-- appointment summary -->
+    <!-- /.modal -->
+    <div class="modal fade" id="addpay">
+        <div class="modal-dialog model_addtxt">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="close_txt" aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h5 class="modal-title add_medtxt text-line">Appointment Summary</h5>
+                </div>
+                <div class="modal-body" *ngIf="selectedDoctor != undefined">
+                    <form action="#" class="form-horizontal" #signupForm="ngForm" (ngSubmit)="registerUser(signupForm)">
+                        <div class="form-group">
+                            <p class="paycon_txt"> Booking Details</p>
+                        </div>
+                        <div class="form-group row">
+
+                            <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Doctor</p>
+                            <p class="doctor_input col-md-6 col-sm-6 col-xs-6">
+                                {{selectedDoctor.firstName + " " +
+                                (selectedDoctor.lastName?selectedDoctor.lastName:'')}}
+                            </p>
+                            <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Service</p>
+                            <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{bookedService}}</p>
+                            <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Date</p>
+                            <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{bookedDate | date:'d/MMMM/yyyy'}}</p>
+                            <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Time Slot </p>
+                            <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{bookedTime}}</p>
+
+
+                        </div>
+
+
+
+                        <hr class="date_line">
+                        <div class="form-group">
+                            <p class="paycon_txt">Patient Information</p>
+
+
+                        </div>
+                        <div class="form-group row">
+
+                            <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Name</p>
+                            <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                                {{bookedPatientFirstName + " "+ (bookedPatientLastName ? bookedPatientLastName:'')}}
+                            </p>
+                            <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Age</p>
+                            <p class="doctor_input col-md-6 col-xs-6 col-xs-6">{{bookedPatientage}}</p>
+                            <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Gender </p>
+                            <p class="doctor_input col-md-6 col-xs-6 col-xs-6">{{bookedPatientGender}}</p>
+
+
+                        </div>
+                        <hr class="date_line">
+                        <div class="form-group">
+                            <p class="paycon_txt">Payment Information</p>
+
+
+                        </div>
+                        <div class="form-group consoul_line row">
+
+                            <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Consultation Charges</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{consultationCharge}}</p>
+                            <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Package Discount</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{discountPrice| number : '1.2-2'}}</p>
+                            <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Other Discount</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                                {{otherDiscountPrice| number : '1.2-2'}}
+                            </p>
+                            <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Grand Total</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{totalPrice| number : '1.2-2'}}</p>
+                            <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Payment Status</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentStatus == 0">Not Paid</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="paymentStatus == 1">Paid</p>
+                            <p class="consultation_txt col-md-6 col-sm-6 col-xs-6" *ngIf="paymentStatus != 0">Payment
+                                Mode
+                            </p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                                *ngIf="paymentType==2 && paymentStatus !=0">
+                                Cash</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                                *ngIf="paymentType==1 && paymentStatus !=0">
+                                Card</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                                *ngIf="paymentType==3 && paymentStatus !=0">
+                                Online</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                                *ngIf="paymentType==4 && paymentStatus !=0">
+                                Package</p>
+                            <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                                *ngIf="paymentType==5 && paymentStatus !=0">
+                                Mobile</p>
+
+                        </div>
+
+                        <a href="#recption-2" *ngIf="isMarkAsArrived && selectedSlotDate == todaysDate"
+                            class="Update submit_txt mark_txt" data-toggle="modal" data-dismiss="modal"
+                            (click)="onMarkPatientArrivedClick()">Move to
+                            Desk/Queue</a>
+                        <a href="#recption-2" *ngIf="!isMarkAsArrived && selectedSlotDate == todaysDate"
+                            class="Update submit_txt mark_txt" data-toggle="modal" data-dismiss="modal"
+                            (click)="onMoveToPaymentDeskClick()">Move to
+                            Desk/Queue</a>
+                        <!--<a href="#recption-2" class="Update submit_txt residule_txt" data-toggle="modal" data-dismiss="modal">Reschedule Slot</a>-->
+                        <a href="#recption-2" class="Update cancelslot_txt" data-toggle="modal"
+                            (click)="cancelSlot(orderId)">Cancel
+                            Slot</a>
+                    </form>
+
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Booking Confirmed</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Your slot has been booked successfully!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<spinner-component></spinner-component>

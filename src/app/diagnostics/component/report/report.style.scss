@@ -1,0 +1,33 @@
+.serbox_txt{
+    padding-left: 0px;
+    padding-bottom: 15px;
+}
+ .serch_txt {
+    padding: 6px 10px;
+    text-align: left;
+    border-radius: 4px;
+    border-width: 0px;
+    border: 1px solid #ddd;
+    text-align: left;
+    width: 235px;
+    height: 36px;
+}
+.bck_tabcol {
+    background-color: #f7fafd;
+}
+.input_date .form-control{
+    padding: 10px 5px;
+}
+.dropdown-menu {
+    font-size: 13px;
+    padding: 20px 15px;
+}
+.sub_txt{
+    margin-top: 6px;
+}
+
+::ng-deep .datepicker, .mat-form-field{
+    width: 100% !important;
+    min-width: 160px;
+    max-width: 200px;
+}

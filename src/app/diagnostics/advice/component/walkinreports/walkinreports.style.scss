@@ -1,0 +1,129 @@
+.serch_txt[_ngcontent-c6] {
+    padding: 6px 10px;
+    text-align: left;
+    border-radius: 4px;
+    border-width: 0px;
+    border: 1px solid #ddd;
+    text-align: left;
+    height: 36px;
+}
+@media only screen and (min-width: 320px){
+    .serch_txt[_ngcontent-c6] {
+        width: 175px;
+    }
+}
+@media only screen and (min-width: 568px){
+    .serch_txt[_ngcontent-c6] {
+        width: 160px;
+    }
+}
+@media only screen and (min-width: 1100px){
+    .serch_txt[_ngcontent-c6] {
+        width: 235px;
+    }    
+    .selectwidth {
+        width: 200px;
+    }
+}
+.selectwidth {
+    float: right;
+}
+@media only screen and (max-width: 991px){
+    .refresh-select .col-md-12:last-child{
+      order: 1;
+      margin: 20px 0 7px 0;
+    }
+    .refresh-select .col-md-12:first-child{
+      order: 2;
+    }
+    .selectwidth {
+      float: none;
+    }
+}
+@media only screen and (min-width: 992px){
+    .reset_btn {
+        float: right;
+        margin-bottom: 7px;
+    }
+}
+
+//------------------------- image ----------
+.newadd_process {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.newadd_processcroll {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.newadd_process .patient_txt h4 {
+    font-size: 21px;
+}
+
+.prescription_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 25px;
+}
+
+.prescription_jpg h4 {
+    color: #11a9b5;
+}
+
+.prescription_padding {
+    padding-left: 0px;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.image_download {
+    margin-left: 40%;
+}
+
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+
+.image_clickpopup {
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+
+.modal-body {
+    margin-top: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}
+ @media screen and (min-width:992px) {
+        .orderIdmrgn{
+            margin-top: 24px !important;
+        }
+    }

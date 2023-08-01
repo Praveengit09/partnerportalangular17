@@ -1,0 +1,132 @@
+<!--<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>-->
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title"> Invoice ID {{cartItem.invoiceId}}</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt2" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p class="perscripton_txt">Patient </p>
+                <h4>{{cartItem.patientProfileDetails?.title?cartItem.patientProfileDetails.title+'. ':''}}
+                    {{cartItem.patientProfileDetails?.fName}}
+                    {{cartItem.patientProfileDetails?.lName?cartItem.patientProfileDetails.lName:''}}</h4>
+            </div>
+            <!-- <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4> {{cartItem.doctorDetail.title}} {{cartItem.doctorDetail.firstName}} {{cartItem.doctorDetail.lastName}}</h4>
+            </div> -->
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt"
+                *ngIf="cartItem.orderId!=undefined && cartItem.orderId!=null">
+                <p class="perscripton_txt">Order ID</p>
+                <h4>{{cartItem.orderId}}</h4>
+            </div>
+
+        </section>
+    </div>
+</div>
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12 perscripton_txt">
+            Order Details
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading" widget>
+                <div class="widget-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table_head">
+                                <th style="width: 13%;">Product Name</th>
+                                <th class="">Quantity</th>
+                                <th style="width:11%;">Unit MRP ( &#8377; )
+                                    <p class="with_txt">Without Taxes</p>
+                                </th>
+                                <th style="width:11%;">Total Taxes ( &#8377; )
+                                </th>
+                                <th>Final Amount</th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngFor="let item of cartItem.productList; let i = index">
+
+                            <tr *ngIf="item.productName">
+                                <td>
+                                    {{item.productName}}
+                                    <p class='schedule_txt' style="color:blue;">Batch No:{{item.stockDetails.batchNo}}
+                                    </p>
+                                    <p class='schedule_txt'>Expiry Date:{{item.stockDetails.expiryDate | date:'MMM y'}}
+                                    </p>
+                                </td>
+                                <td>
+                                    {{item.quantity}}
+                                </td>
+
+                                <td>
+                                    &#x20B9;{{item.grossPrice | number : '1.0-2'}}
+                                </td>
+                                <td>
+                                    &#x20B9;{{(item.taxationAmount) | number : '1.0-2'}}
+                                </td>
+                                <td>
+                                    &#x20B9;{{item.finalAmount | number : '1.0-2'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+            <view-pay-summary [cartItem]="cartItem" [isInvoice]="true"></view-pay-summary>
+            <!-- <div class="row">
+                <div class="col-md-7 total_txt">Original Amount (OA) :
+                    <p class="with_txt">Without Taxes</p>
+                </div>
+                <div class="col-md-5 total_txt">
+                    &#8377; {{this.cartItem.payment.originalAmount | number : '1.0-2'}}</div><br><br>-->
+            <!-- <div class="col-md-7 total_txt">Package Discount (PD) :</div>
+                <div class="col-md-5 total_txt">
+                    &#8377; {{this.cartItem.payment.packageDiscountAmount | number : '1.0-2'}}</div><br><br> -->
+            <!--<div class="col-md-7 total_txt">Other Discount (OD) :</div>
+                <div class="col-md-5 total_txt">
+                    &#8377; {{this.cartItem.payment.otherDiscountAmount | number : '1.0-2'}}</div><br><br>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;
+                    {{(this.cartItem.payment.usedWalletAmount?this.cartItem.payment.usedWalletAmount:'0') | number : '1.2-2'}}
+                </div>
+                <div class="col-md-7 total_txt">Tax Payable (TP) :</div>
+                <div class="col-md-5 total_txt">
+                    &#8377; {{this.cartItem.payment.taxationAmount | number : '1.0-2'}}</div><br><br>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;
+                    {{(this.cartItem.payment.totalCashbackAmount?this.cartItem.payment.totalCashbackAmount:'0') | number : '1.2-2'}}
+                </div>
+                <ng-container *ngIf="this.cartItem.deliveryAmount ">
+                    <div class="col-md-7 total_txt">Delivery Charges ( DC ) :</div>
+                    <div class="col-md-5 total_txt">
+                        &#8377; {{this.cartItem.deliveryAmount | number : '1.0-2'}}
+                    </div><br><br>
+                </ng-container>
+                <div class="col-md-7 total_txt">Total Amount
+                    {{this.cartItem.payment.transactionType == 2? 'Paid' : 'Payable'}}:
+                    <p class="with_txt">( OA + TP - OD + DC )</p>
+                </div>
+                <div class="col-md-5 total_txt">
+                    &#8377; {{this.cartItem.payment.finalAmount | number : '1.0-2'}}
+                </div><br><br>
+            </div> -->
+            <button role="button" class="submit_txt prient_txt" value="Submit" (click)="onPrintButtonClick()"
+                *ngIf="this.cartItem.payment.paymentStatus == 1">
+                <i class="fa fa-print" aria-hidden="true"></i>PRINT</button>
+            <button role="button" class="submit_txt " value="Submit" (click)="onBackButtonClick()">Home</button>
+        </form>
+    </div>
+</div>

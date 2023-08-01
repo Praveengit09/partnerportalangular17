@@ -1,0 +1,70 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+
+::ng-deep .datepicker,
+.mat-form-field {
+   min-width: 165px !important;
+   width: 100% !important;
+}
+.float-right {
+    float: right;
+}
+.btn {
+    color: #fff;
+}
+
+.smslabel {
+    padding-left: 30px;
+}
+
+.cancelslot_txt {
+    background-color: transparent;
+    color: $title-color !important;
+    font-size: 12px !important;
+    border: solid 1px $title-color;
+    float: right;
+}
+.search-orders.mat-form-field {
+    width: 100% !important;
+    min-width: 150px !important;
+}
+
+.mat-form-field-infix {
+    margin-top: 7px;
+    width: 316px;
+}
+
+.search-orders .mat-form-field-suffix {
+    top: 0 !important;
+}
+
+a:not([href]):not([tabindex]) {
+    color: #0000ff !important;
+}
+
+::ng-deep.patientLink {
+    color: #0000ff !important;
+}
+
+.patientLink:not([href]):not([tabindex]):focus,
+.patientLink:not([href]):not([tabindex]):hover {
+    color: #0000ff !important;
+    ;
+    text-decoration: underline;
+}
+.search-orders{
+    margin-top: 9px;
+}
+@media screen and (min-width:992px){
+    ::ng-deep .datepicker{
+        margin-top: 15px !important;
+    }
+    .sub-btn{
+        margin-top:22px;
+    }
+}
+@media  screen  and (max-width:991px){
+    .sub-btn{
+        margin-top:9px;
+    }
+}

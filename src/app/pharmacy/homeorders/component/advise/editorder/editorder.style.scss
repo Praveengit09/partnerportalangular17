@@ -1,0 +1,20 @@
+@import "../../../../../pharmacy/advice/component/newadvicedetails/newadvicedetails.style.scss";
+@import "../../../../../scss/variables";
+@import "../../../../../scss/theme.scss";
+.patient_addbox,.patient_txt{
+    padding-left: 0px !important;
+}
+.width-100per {
+    width: 100%;
+}
+@media (min-width: 576px){
+    .submit_txt{
+        float: left;
+    }
+    
+}
+@media (min-width: 768px){
+    .submit_txt{
+        float: right;
+    }
+}

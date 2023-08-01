@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6 editprocessid_text">
+        <h1 class="page-title">{{processOrderDetails.orderId}}</h1>
+    </div>
+</div>
+<div class="col-lg-12">
+    <section class="newadd_editprocess row" widget="">
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt patientpop">
+            <p>Patient</p>
+            <h4>{{processOrderDetails.cartItem.patientProfileDetails.title?processOrderDetails.cartItem.patientProfileDetails.title+". ":''}}
+                {{processOrderDetails.cartItem.patientProfileDetails.fName}}
+                {{processOrderDetails.cartItem.patientProfileDetails.lName?processOrderDetails.cartItem.patientProfileDetails.lName:''}}
+            </h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt editprocess_jpg">
+            <p>Delivery Area &amp; Address</p>
+            <h4 class="processorder_address"> {{processOrderDetails.address}}
+            </h4>
+        </div>
+    </section>
+</div>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6 editprocessid_text">
+        <h2>Return Items</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <section class="editprocess_widget table_pading" widget="">
+
+            <div class="widget-body">
+                <table class="table table-hover table-striped hs_tabletxt editprocess_widget">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">#</th>
+                            <th class="">Product Name</th>
+                            <th>Quantity</th>
+                            <th>Gross Price (Per unit)</th>
+                            <th>Total Tax</th>
+                            <th>Total Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of processOrderDetails.cartItem.productList ; let i=index ">
+                            <td>{{i+1}}</td>
+                            <td class="searchtable_prescription">{{item.productName}}</td>
+                            <td class="quntity_txtbut">
+                                <input type="text" class="form_control" [(ngModel)]="item.quantity" maxlength="3"
+                                    (keyup)="onQuantityChange()" (change)="onQuantityChange()"
+                                    (keypress)="validation.onlyNumbers($event)">
+                            </td>
+                            <td class="quntity_txtbut">
+                                <input type="text" class="form_control" [(ngModel)]="item.grossPrice"
+                                    (ngModelChange)="item.grossPrice" (keyup)="onQuantityChange()"
+                                    (change)="onQuantityChange()"
+                                    (keypress)="validation.onlyDecimalValueTillTwoDigits($event)">
+                            </td>
+                            <td>
+                                {{item.taxationAmount | currency:'INR':true:'1.2-2'}}
+                                <br> CGST({{item.taxes?item.taxes.cgst:0}}%):
+                                {{(item.totalTaxes?item.totalTaxes.cgstAmount:0 )| currency:'INR':true:'1.2-2'}}
+                                <br> SGST({{item.taxes?item.taxes.sgst:0}}%):
+                                {{(item.totalTaxes?item.totalTaxes.sgstAmount:0) |currency:'INR':true:'1.2-2'}}
+                                <br> IGST({{item.taxes?item.taxes.igst:0}}%):
+                                {{(item.totalTaxes?item.totalTaxes.igstAmount:0) | currency:'INR':true:'1.2-2'}}
+                            </td>
+                            <td>
+                                <span> {{item.finalAmount | currency:'INR':true:'1.2-2'}} </span>
+                            </td>
+                            <td>
+                                <i aria-hidden="true" class="fa fa-times editremove_txt" id="removeButton"
+                                    (click)="remove(i)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </div>
+</div>
+
+<div class="row" style="float:right">
+    <div class="col-md-12 col-sm-12 col-xs-12 editprocess_form">
+        <form action="#" class="from_txt" novalidate="">
+            <div class="row edit_process">
+                <div class="col-md-2 col-sm-2 col-xs-2 editprocess_padding">
+                    <button role="button" class="editprocessbotton_txt editprocessdone_txt"
+                        (click)="onGenerateBack()">BACK</button>
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                    <button class="editprocesssubmit_txt" role="button" (click)="onSubmitForCalculation()">NEXT</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!--  popup model end here -->
+<spinner-component></spinner-component>

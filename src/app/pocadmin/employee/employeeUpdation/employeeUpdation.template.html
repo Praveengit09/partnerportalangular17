@@ -1,0 +1,21 @@
+    
+     <div class="employee_updation">
+    <h1 class="page-title">Add Employee</h1>
+        <optionNavigator [tabData]="tabData" [currentPageIndex]="pageNo" [allBtnActive]="isModify"
+            [lastEditedPage]="lastEditedPage" (pageChange)="onPageChange($event)" *ngIf="!pageChangeCall"></optionNavigator>
+      
+
+            <ng-container [ngSwitch]="pageNo">
+                <employeeinformation (pageChange)="onPageChange($event)" [pageChangeCall]="pageChangeCall" *ngSwitchCase="0">
+                </employeeinformation> 
+                <employeeprofessionalDetails (pageChange)="onPageChange($event)" [pageChangeCall]="pageChangeCall"
+                    *ngSwitchCase="1">
+                </employeeprofessionalDetails>
+                <employeeroles (pageChange)="onPageChange($event)" [pageChangeCall]="pageChangeCall" *ngSwitchCase="2">
+                </employeeroles>
+                <employeelocation (pageChange)="onPageChange($event)" [pageChangeCall]="pageChangeCall" *ngSwitchCase="3">
+                </employeelocation>
+                <div *ngSwitchDefault>EmployeeDataCrashed {{pageNo}}</div>
+            </ng-container>
+
+     </div>      

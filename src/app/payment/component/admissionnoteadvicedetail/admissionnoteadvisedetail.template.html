@@ -1,0 +1,187 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Admission Notes Details</h1>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt11" widget="">
+
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                <p>Patient</p>
+                <h4>{{admissionnoteAdviseTrack.patientProfileDetails.title?admissionnoteAdviseTrack.patientProfileDetails.title+". ":''}} {{admissionnoteAdviseTrack.patientProfileDetails.fName}} {{admissionnoteAdviseTrack.patientProfileDetails.lName?admissionnoteAdviseTrack.patientProfileDetails.lName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4>Dr. {{admissionnoteAdviseTrack.doctorDetail.firstName}} {{admissionnoteAdviseTrack.doctorDetail.lastName?admissionnoteAdviseTrack.doctorDetail.lastName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Order ID</p>
+                <h4>{{admissionnoteAdviseTrack.orderId}}</h4>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="table_size">
+
+    <div class="row">
+        <div class="col-xl-9 col-sm-6 col-xs-12 perscripton_txt ad_note_date">
+           <p class="mb-0 ad_note_txt"> {{admissionNotePrescriptionLabel ?
+                admissionNotePrescriptionLabel : 'Admission Notes'}}  
+            </p>
+
+           <p *ngIf="admissionnoteAdviseTrack.admissionFromDate">
+                    (Date From: {{commonUtil.convertToDate(admissionnoteAdviseTrack.admissionFromDate)}}
+                  ,  To: {{admissionnoteAdviseTrack.admissionToDate ? commonUtil.convertToDate(admissionnoteAdviseTrack.admissionToDate) : ' -'}} )
+           </p>    
+        </div>
+       
+        <div class="col-xl-3 col-sm-6 col-xs-12">
+            <button type="submit" (click)="onChangeTest()" class="button_addtxt add_medicine" value="{{admissionNotePrescriptionLabel ?
+               'Add ' + admissionNotePrescriptionLabel : 'Add Admission Note'}}">
+                <i class="fa fa-plus add_txt" aria-hidden="true"></i>Add {{admissionNotePrescriptionLabel ?
+                    admissionNotePrescriptionLabel : 'Admission Notes'}}</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading miscadvice_widget widget-shadow" widget>
+                <div class="widget-body table-datalabel">
+                    <table class="table new_table table-striped">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="head_dogo">#</th>
+                                <th class="">{{admissionNotePrescriptionLabel ?
+                                    admissionNotePrescriptionLabel : 'Admission Notes'}} Name</th>
+                                <th class="">Amount</th>
+                                <th>&nbsp;</th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngFor="let item of admissionnoteAdviseTrack.serviceList; let i = index">
+
+                            <tr>
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Admission Note Name">
+                                    <div class="tabledatalabel-right">
+                                        <input type="text" readonly class="fname_2txt" placeholder="Admission Note Name" value={{item.serviceName}} [(ngModel)]="item.serviceName" />
+                                    </div>
+                                </td>
+                                <td data-label="Amount" *ngIf="isSecond != true">
+                                    <div class="tabledatalabel-right">
+                                        &#x20B9;
+                                        <input type="text" min="0" class="noscroll" placeholder="" value={{item.grossPrice}} [(ngModel)]="item.grossPrice" (input)="onChangeAmount()" maxlength="10" (keypress)="validateNumberInputOnly($event)" />
+                                    </div>
+                                </td>
+                                <td data-label="Amount" *ngIf="isSecond == true">
+                                    <div class="tabledatalabel-right">
+                                        &#x20B9;
+                                        <input type="text" min="0" class="noscroll" placeholder="" value={{item.grossPrice}} [(ngModel)]="item.grossPrice" (input)="onChangeAmount()" maxlength="10" (keypress)="validateNumberInputOnly($event)" />
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="tabledatalabel-right"><i class="fa fa-times removetxt_icon" aria-hidden="true" (click)="remove(i)"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#" class="from_txt">
+            <div class="row payment_details">
+
+                <ng-template [ngIf]="admissionnoteAdviseTrack.parentProfileId>0">
+                    <app-cartdiscount [parentProfileId]="admissionnoteAdviseTrack.parentProfileId" [cartItemDetails]="admissionnoteAdviseTrack" [discountType]="discountType" [isOldRecord]="isSecond" [pocId]="pocId">
+                    </app-cartdiscount>
+                </ng-template>
+
+                <ng-template [ngIf]="admissionnoteAdviseTrack.payment && admissionnoteAdviseTrack.payment.finalAmount > 0">
+                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt paymode_txt">Payment mode: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-12 paymode_cash">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" value="0" checked (change)="checkPaymentModeSelection(2)"> Cash &nbsp;&nbsp;
+                            <input type="radio" name="paymant" value="1" (change)="checkPaymentModeSelection(5)"> Mobile &nbsp;&nbsp;
+                            <input type="radio" name="paymant" value="2" id="other-payment" (change)="checkPaymentModeSelection(1)"> Others
+                            <div class="other-paymentdetails">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                        <select class="form-control" (change)="onPaymentChange($event.target.value)">
+                                            <option value="0">Select</option>
+                                            <option value="1">Card</option>
+                                            <option value="2">PhonePe</option>
+                                            <option value="3">Google Pay</option>
+                                            <option value="4">Paytm</option>
+                                            <option value="11">NEFT</option>
+                                            <option value="12">UPI</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <input type="text" placeholder="Transaction Id" [ngModelOptions]="{standalone: true}" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+
+                <br>
+                <br>
+            </div>
+            <button role="button" class="submit_txt" value="Submit" (click)="onFinalSubmit()">Submit</button>
+            <div hs-notification></div>
+        </form>
+    </div>
+</div>
+<br>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title add_medtxt" id="myModalLabel">Add {{admissionNotePrescriptionLabel ?
+                    admissionNotePrescriptionLabel : 'Admission Notes'}}</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" class="form-horizontal">
+                    <div class="form-group dropdown">
+
+                        <label for="Test" class="all_textboxtxt">{{admissionNotePrescriptionLabel ?
+                            admissionNotePrescriptionLabel : 'Admission Note'}} Name</label>
+
+                        <hs-select [defaultSelectLabel]="'Enter Name'" [selectColumns]="selectColumns" [defaultSelected]="item" [defaultSelectField]="'serviceName'" [selectTotal]="searchItemsTotal" [selectResults]="cartItemSearchList" (searchTrigger)="searchTests($event)"
+                            (selectTrigger)="getTestName($event)"></hs-select>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity" class="all_textboxtxt">Amount</label>
+                        <input type="text" [(ngModel)]=" searchedTestAmount" class="form-control" placeholder="Enter value" name="testAmount" id="testAmount" maxlength="10" (keypress)="validateNumberInputOnly($event)">
+                    </div>
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                    <input type="button" class="Update" value="{{admissionNotePrescriptionLabel ?
+                        'Add ' + admissionNotePrescriptionLabel : 'Add Admission Note'}}" (click)="addNewTest()">
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

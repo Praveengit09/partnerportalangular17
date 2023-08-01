@@ -1,0 +1,51 @@
+<h2 class = 'page-title'>Operations Dashboard</h2>
+<hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+
+<div class="row">
+   
+  <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-4">
+      <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker" 
+          [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+  </div>
+  <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-4">
+      <datetime [(value)]="endingDate" [placeholder]="'End Date'" name="endDate" id="datepicker2" 
+          [timepicker]="false" [datepicker]="datepickerOptEnd"></datetime>
+  </div>
+  <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-4 submit_btn">
+      <button type="submit" class="btn btn-danger width-100" role="button" (click)="onSubmit()">
+          Submit
+      </button>
+      <!-- <div class="autorefresh-refreshbutton filter-ordersbtn datepicker-refreshbutton"> -->
+      
+      <!-- </div> -->
+  </div>
+ 
+
+<div class="col-xl-6 col-lg-12 filter-refresh">
+  <div class="brand_filter d-inline-block"  *ngIf="brandList?.length > 0">
+    <h6 class="sub-title margin_add">Brand Filter</h6>
+    <select class="form-control margin_add" [(ngModel)]="this.dropDownIndex"
+        [ngModelOptions]="{standalone: true}" (change)="onBrandChange($event.target.value)">
+        <option value=-1> select Brand</option>
+        <option *ngFor="let brand of brandList;let i = index" [value]=i>{{brand.brandName}}</option>
+    </select>
+</div>
+<div class="searchresult_resetbtn d-inline-block">
+    <button type="button" class="btn btn-primary" role="button"
+    (click)="getRefreshedorderList()">
+    <span class="glyphicon glyphicon-repeat"></span>
+    <span class="refresh_txt">REFRESH</span>
+</button> 
+</div>
+</div>
+</div>
+
+<customeronboarding [onboardingList] = 'customeronboardingList'></customeronboarding>
+<!-- doctor order Management table -->
+<doctorsordermanagement [doctorList] = 'doctorManagementList'></doctorsordermanagement>
+<!-- diagnostic order Management table -->
+<diagnosticsordermanagement [diagnosticList] = 'diagnosticOrderManagementList'></diagnosticsordermanagement>
+<!-- Turn Around Time Table -->
+<turnaroundtime [turnAroundTimeList] = 'turnAroundTimelist'></turnaroundtime>
+
+<spinner-component></spinner-component>

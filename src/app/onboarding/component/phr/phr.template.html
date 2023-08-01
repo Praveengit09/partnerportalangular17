@@ -1,0 +1,555 @@
+<div class="table_size">
+	<div class="row">
+		<div class="col-md-12">
+
+			<section class="widget">
+
+				<div class="widget-body">
+
+					<div class="row">
+						<div class="col-lg-9 col-md-9 col-sm-9">
+							<h2 class="welcome_txt">Update Your Personal Health Record</h2>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+							<p class="progress_txt">Step 1 to 7</p>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 progress_bar">
+							<ul>
+								<li>PHR Completeness</li>
+								<li style="float:right;">20%</li>
+							</ul>
+							<progress max="100" value="30"></progress>
+						</div>
+					</div>
+
+					<!--<div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="progress_txt_wrapper">
+							<ul>
+						     <li>
+							<a routerLink=" " class="progress_indicator active"><span class="ic_progress present"></span>  <div>Ailment History</div></a></li>
+							<li>
+							<a routerLink=" " class="progress_indicator"><span class="ic_progress future"></span><div> Ailment History</div></a></li>
+							<li>
+							<a routerLink=" " class="progress_indicator"><span class="ic_progress future"></span> <div> Ailment History</div></a></li>
+							<li>
+							<a routerLink="" class="progress_indicator"><span class="ic_progress future"></span> <div> Ailment History</div></a></li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+					</div>-->
+					<div class="row">
+						<div class="col-sm-12   col-md-12   col-lg-12 col-lg-offset-3 form-box">
+							<form role="form" action="" method="post" class="f1">
+
+
+								<div class="f1-steps">
+									<div class="f1-progress">
+										<div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 6%;"></div>
+									</div>
+									<div class="f1-step">
+										<a routerLink="" class="progress_indicator active">
+											<div class="f1-step-icon"><span class="ic_progressbar past"></span> </div>
+											<p>General<br> Information</p>
+										</a>
+									</div>
+									<div class="f1-step">
+										<a routerLink="" class="progress_indicator">
+											<div class="f1-step-icon"><span class="ic_progressbar present"></span></div>
+											<p>Personal<br> Information</p>
+										</a>
+									</div>
+									<div class="f1-step">
+										<a routerLink="" class="progress_indicator">
+											<div class="f1-step-icon"><span class="ic_progressbar future"></span></div>
+											<p>Past Medical<br> History</p>
+										</a>
+									</div>
+									<div class="f1-step">
+										<a routerLink="" class="progress_indicator">
+											<div class="f1-step-icon"><span class="ic_progressbar future"></span></div>
+											<p>Medication<br> History</p>
+										</a>
+									</div>
+									<div class="f1-step">
+										<a routerLink="" class="progress_indicator">
+											<div class="f1-step-icon"><span class="ic_progressbar future"></span></div>
+											<p>Family<br> Medical History</p>
+										</a>
+									</div>
+									<div class="f1-step">
+										<a routerLink="" class="progress_indicator">
+											<div class="f1-step-icon"><span class="ic_progressbar future"></span></div>
+											<p>Reported<br> Symptoms</p>
+										</a>
+									</div>
+									<div class="f1-step">
+										<a routerLink="" class="progress_indicator">
+											<div class="f1-step-icon"><span class="ic_progressbar future"></span></div>
+											<p>Personal & Lifestyle<br> History</p>
+										</a>
+									</div>
+						
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<!--[formGroup]="personalForm" (ngSubmit)="onSubmit(personalForm.value)"-->
+
+
+					<legend>
+						<h3>1. General Information</h3>
+						<p class="basic_txt"> Basic information</p>
+					</legend>
+					<div class="form-group row">
+						<label for="fname" class="col-md-4 control-label">First Name</label>
+						<div class="col-md-3">
+							<div class="field_wrap">
+								<input type="text" class="form-control" id="fname" placeholder="Enter your first name">
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="field_wrap">
+								<input type="text" class="form-control" id="lname" placeholder="Enter your last name">
+							</div>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Gender</label>
+						<div class="col-sm-6">
+							<label class="input_label">
+								<input type="radio" name="gender" class="male" value="Male" />
+								<span class="input_gender input_male"></span>
+								<span class="text-center gender male">Male</span>
+							</label>
+							<label class="input_label">
+								<input type="radio" name="gender" class="female" value="Female" />
+								<span class="input_gender input_female"></span>
+								<span class="text-center gender female">Female</span>
+							</label>
+							<label class="input_label">
+								<input type="radio" name="gender" class="others" value="Others" />
+								<span class="input_gender input_others"></span>
+								<span class="text-center gender others">Others</span>
+							</label>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="birthdate" class="col-md-4 control-label">Date of Birth</label>
+						<div class="col-sm-6">
+							 <datetime [(value)]="date4" [timepicker]="false" [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="{ icon: 'fa fa-calendar' }"></datetime>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="aadhar" class="col-md-4 control-label">Aadhar Number</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="aadhar" placeholder="Enter your aadhar number">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Height</label>
+						<div class="col-md-3">
+							<div class="field_wrap">
+								<select name="feet" id="feet" class="form-control">
+									<option value="Feet" selected>Feet</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+								</select>
+							</div>
+							<!-- /input-group -->
+						</div>
+						<div class="col-md-3">
+							<div class="field_wrap">
+								<select name="inches" id="inches" class="form-control">
+									<option value="Inches" selected>Inches</option>
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+								</select>
+							</div>
+							<!-- /input-group -->
+						</div>
+					</div>
+
+
+					<!-- 		<div class="form-group row">
+						<label class="col-md-4 control-label">Height</label>
+						<div class="col-sm-6">
+							<div class="field_wrap">
+								<select name="feet" id="feet" class="form-control">
+									<option value="Feet" selected>Feet</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+								</select>
+							</div>
+							<div class="field_wrap">
+								<select name="inches" id="inches" class="form-control">
+									<option value="Inches" selected>Inches</option>
+									<option value="0">0</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+								</select>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div> -->
+					<div class="form-group row">
+						<label for="weight" class="col-md-4 control-label">Weight</label>
+						<div class="col-sm-6">
+							<input type="number" name="weight" class="form-control" id="weight" placeholder="Enter your weight">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="marital_status" class="col-md-4 control-label">Marital Status</label>
+						<div class="col-sm-6">
+							<select name="marital_status" id="marital_status" class="form-control">
+								<option value="Please Select" selected>Please Select</option>
+								<option value="Single">Single</option>
+								<option value="Married">Married</option>
+								<option value="Divorced">Divorced</option>
+								<option value="Widowed">Widowed</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="occupation" class="col-md-4 control-label">Occupation</label>
+						<div class="col-sm-6">
+							<select name="occupation" id="occupation" class="form-control">
+								<option value="Please Select" selected>Please Select</option>
+								<option value="Employed">Employed</option>
+								<option value="Self Employed">Self Employed</option>
+								<option value="Unemployed">Unemployed</option>
+								<option value="Homemaker">Homemaker</option>
+								<option value="Student">Student</option>
+								<option value="Retired">Retired</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="occ_desc" class="col-md-4 control-label">Occupation Description</label>
+						<div class="col-sm-6">
+							<select name="occ_desc" id="occ_desc" class="form-control">
+								<option value="Please Select" selected>Please Select</option>
+								<option value="Sedentary(6hrs sitting/lifting 5 pounds)">Sedentary(6hrs sitting/lifting 5 pounds)</option>
+								<option value="Moderate(constant standing & walking)">Moderate(constant standing &amp; walking)</option>
+								<option value="Heavy(lifting about 100 lbs)">Heavy(lifting about 100 lbs)</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Occupational Exposure to dust, smoke, chemical foams, fiber, etc</label>
+						<div class="col-sm-6">
+							<select name="occ_dust" id="occ_dust" class="form-control">
+								<option value="Please Select" selected>Please Select</option>
+								<option value="No">No</option>
+								<option value="Less than 3 Hrs">Less than 3 Hrs</option>
+								<option value="3-6 Hrs">3-6 Hrs</option>
+								<option value="7-8 Hrs">7-8 Hrs</option>
+								<option value="Greater than 8 Hrs">Greater than 8 Hrs</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Relationship</label>
+						<div class="col-sm-6">
+							<select name="relation" id="relation" class="form-control">
+								<option value="relation" selected>Please select</option>
+								<option value="Self">Self</option>
+								<option value="Spouse">Spouse</option>
+								<option value="Mother">Mother</option>
+								<option value="Father">Father</option>
+								<option value="Daughter">Daughter</option>
+								<option value="Son">Son</option>
+								<option value="Mother in Law">Mother in Law</option>
+								<option value="Father in law">Father in law</option>
+								<option value="Sibling">Sibling</option>
+							</select>
+						</div>
+					</div>
+					<legend>
+						<h3 class="primary">2. How to get in touch with you?</h3>
+					</legend>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Mobile Number</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="mobile" placeholder="Your mobile number">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Email</label>
+						<div class="col-sm-6">
+							<input type="email" class="form-control" id="email" placeholder="Your email">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Address Line 1</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="address_1" placeholder="Building name, Street name">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Address Line 2</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="address_2" placeholder="Locality, Suburb">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">Nationality</label>
+						<div class="col-sm-6">
+							<select name="nationality" id="nationality" class="form-control">
+								<option value="Please select" selected>Please select</option>
+								<option value="Indian">Indian</option>
+								<option value="American">American</option>
+								<option value="Russian">Russian</option>
+								<option value="German">German</option>
+								<option value="Others">Others</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">State</label>
+						<div class="col-sm-6">
+							<select name="state" id="state" class="form-control">
+								<option>Please select</option>
+								<option>Andaman and Nicobar Islands</option>
+								<option>Andhra Pradesh</option>
+								<option>Arunachal Pradesh</option>
+								<option>Assam</option>
+								<option>Bihar</option>
+								<option>Chandigarh</option>
+								<option>Chhattisgarh</option>
+								<option>Dadra and Nagar Haveli</option>
+								<option>Delhi</option>
+								<option>Goa</option>
+								<option>Gujarat</option>
+								<option>Haryana</option>
+								<option>Himachal Pradesh</option>
+								<option>Jammu and Kashmir</option>
+								<option>Jharkhand</option>
+								<option>Karnataka</option>
+								<option>Kerala</option>
+								<option>Madhya Pradesh</option>
+								<option>Maharashtra</option>
+								<option>Manipur</option>
+								<option>Meghalaya</option>
+								<option>Mizoram</option>
+								<option>Nagaland</option>
+								<option>Odisha</option>
+								<option>Puducherry</option>
+								<option>Punjab</option>
+								<option>Rajasthan</option>
+								<option>Tamil Nadu</option>
+								<option>Telangana</option>
+								<option>Tripura</option>
+								<option>Uttar Pradesh</option>
+								<option>Uttarakhand</option>
+								<option>West Bengal</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">City</label>
+						<div class="col-sm-6">
+							<select name="city" id="city" class="form-control">
+								<option value="relation" selected>Please select</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-4 control-label">PIN/Zip Code</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="zip_code" placeholder="Enter your PIN/Zip code">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-4 control-label">&nbsp;</div>
+						<div class="col-sm-6">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" class="ec_check" id="ec_check" (click)="ec_check()"> Enter/Update Emergency Contact Details
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="em_contact" id="em_contact">
+						<div class="form-group row">
+							<label class="col-md-4 control-label">Contact Person's Name</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="ec_name" placeholder="Enter the person's name">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-4 control-label">Contact Person's Mobile</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="ec_mobile" placeholder="Enter the person's mobile">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-4 control-label">Contact Person's Email</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="ec_email" placeholder="Enter the person's email">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-4 control-label">Contact Person's Address 1</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="ec_addr1" placeholder="Building name, street">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-4 control-label">Contact Person's Address 2</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="ec_addr2" placeholder="Lane, suburb">
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-md-4 control-label">&nbsp;</div>
+						<div class="col-sm-6">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" class="ins_check" id="ins_check" (click)="ins_check()"> Enter/Update Insurance Details
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="ins_details" id="ins_details">
+						<div class="form-group row">
+							<label class="col-md-4 control-label">Insurance Provider</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="ins_sp" placeholder="Your insurance provider">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-4 control-label">Insurance ID</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="ins_id" placeholder="Insurance ID">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-actions">
+						<div class="row">
+							<div class="col-sm-offset-4 col-sm-7">
+								<button type="submit" class="btn btn-primary">Save &amp; Continue</button>
+								<button type="button" class="btn btn-inverse">Update</button>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</section>
+		</div>
+
+	</div>
+
+</div>
+<!-- <div class="footer">
+	<div class="navbar navbar-default">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+					<ul class="list-inline">
+						<li>&copy; Copyright 2015 HealthSignz. All rights Reserved</li>
+						<li class="pull-right"><a href="http://www.healthsignz.com" target="_blank">www.healthsignz.com</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<ul class="list-inline pull-right social">
+						<li><a href="https://www.facebook.com/Hsignz/" class="ic_footer ic_fb" target="_blank">Like us on Facebook</a></li>
+						<li><a href="https://twitter.com/healthsignz" class="ic_footer ic_tw" target="_blank">Follow us on Twitter</a></li>
+						<li><a href="https://www.linkedin.com/company/healthsignz-technologies-pvt-ltd" class="ic_footer ic_in" target="_blank">Follow us on LinkedIn</a></li>
+						<li><a href="http://www.healthsignz.com" class="ic_footer ic_hs" target="_blank">Visit our website</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-1.11.3.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.js"></script>
+<script>
+	$(document).on('click', '.navbar-collapse.in', function (e) {
+		if ($(e.target).is('a')) {
+			$(this).collapse('hide');
+		}
+	});
+
+</script>
+<!--<script type="text/javascript">
+    $(function () {
+        $("#ec_check").click(function () {
+            if ($(this).is(":checked")) {
+                $("#em_contact").show();
+            } else {
+                $("#em_contact").hide();
+            }
+        });
+    });
+	 $(function () {
+        $("#ins_check").click(function () {
+            if ($(this).is(":checked")) {
+                $("#ins_details").show();
+            } else {
+                $("#ins_details").hide();
+            }
+        });
+    });
+</script>-->
+<script src="js/classie.js"></script>
+<script>
+	function init() {
+		window.addEventListener('scroll', function (e) {
+			var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+				shrinkOn = 200,
+				nav = document.querySelector("nav");
+			if (distanceY > shrinkOn) {
+				classie.add(nav, "smaller");
+			} else {
+				if (classie.has(nav, "smaller")) {
+					classie.remove(nav, "smaller");
+				}
+			}
+		});
+	}
+	window.onload = init();
+
+</script>

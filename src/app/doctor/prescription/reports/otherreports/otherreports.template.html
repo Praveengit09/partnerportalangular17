@@ -1,0 +1,64 @@
+<section *ngIf="isNotPopupWidget" class="widget table_pading hs-table" widget>
+    <div class="widget-body">
+        <hs-table [columns]="columns" [pagingList]="otherReportList" [sort]="sorting"
+            [componentId]="'otherReportsTable'" (clickEvent)="clickEventHandler($event)" [perPage]="perPage"
+            [total]="total" [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+            Loading table...
+        </hs-table>
+    </div>
+</section>
+
+<ng-template [ngIf]="!isNotPopupWidget">
+    <button type="button" class="btn btn-primary reports" (click)="openOtherReportsModal()">
+        Other Reports
+    </button>
+
+    <div class="modal " id="otherReportsModal" tabindex="-1" role="dialog" aria-labelledby="reportsModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header other_txt">
+                    <h5 class="modal-title" id="patientPHRModelLongTitle">Other Reports</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" *ngIf="this.consentVerified == true && showModalBody == true">
+                    <section class="widget table_pading hs-table" widget>
+                        <div class="widget-body">
+                            <hs-table [columns]="columns" [pagingList]="otherReportList" [sort]="sorting"
+                                [componentId]="'otherReportsTable'" (clickEvent)="clickEventHandler($event)"
+                                [perPage]="perPage" [total]="total" [dataMsg]="dataMsg" (pageClick)="onPage($event)">
+                                Loading table...
+                            </hs-table>
+                        </div>
+                    </section>
+
+
+                </div>
+
+                <div class="modal-body" *ngIf="this.consentVerified == false && this.showModalBody == true">
+                    <div class="row other-report-consent">
+
+                        <p class="">Please enter otp given by the patient to access reports of <span
+                                class="queueName">{{requestConsentForPatient}}</span>
+                        </p>
+                        <div class="row otp-sec">
+                            <div class="col-9">
+                                <ng-otp-input (onInputChange)="onOtpChange($event)"
+                                    [config]="{length:6,inputClass:'otherreportsotpinput'}" [allowNumbersOnly]='true'>
+                                </ng-otp-input>
+                            </div>
+                            <div class="col-3">
+                                <button class="verify_btn verify_btn_margin"
+                                    (click)="verifyConsentOtpHandler()">Verify</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

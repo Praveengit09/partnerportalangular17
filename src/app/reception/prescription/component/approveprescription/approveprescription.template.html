@@ -1,0 +1,965 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h1 class="page-title">Prescription Order Request</h1>
+    </div>
+</div>
+<div class="row patient_name">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 patient_box">
+        <div class="row">
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
+                <img *ngIf="patientPriscription.patientProfilePic =='' ||
+                    patientPriscription.patientProfilePic == undefined ||
+                    patientPriscription.patientProfilePic == null" class="rounded-circle image_size"
+                    src="assets/img/avatar.png" alt="...">
+                <img *ngIf="patientPriscription.patientProfilePic !='' &&
+                    patientPriscription.patientProfilePic != undefined &&
+                    patientPriscription.patientProfilePic != null" class="rounded-circle image_size"
+                    [src]="patientPriscription.patientProfilePic" alt="...">
+            </div>
+            <div class="col-md-8 col-xs-8 patient_title">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span
+                            class="patientname">{{(patientPriscription.patientTitle?patientPriscription.patientTitle+".
+                            ":'')
+                            +(''+patientPriscription.patientFirstName).slice(0,22)+"
+                            "+(patientPriscription.patientLastName?(''+patientPriscription.patientLastName).slice(0,22):'')}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span
+                            *ngIf="patientPriscription.patientGender !=null">{{patientPriscription.patientGender}},</span>
+                        <span *ngIf="patientPriscription.patientDOB !=undefined
+                            && patientPriscription.patientDOB>0">
+                            {{common.getAge(patientPriscription.patientDOB).split(",")[0]+common.getAge(patientPriscription.patientDOB).split(",")[1]}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">M : {{patientPriscription.patientContactNumber}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section *ngIf="patientPriscription.pharmacyAdvises == undefined &&
+    patientPriscription.investigationAdvises == undefined">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="error">No records to place order</p>
+        </div>
+    </div>
+</section>
+<!-- flow for jeevone -->
+
+<ng-container *ngIf="sepRouteFlow">
+    <div class="row patient_name mt-2">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 pharmacy_diago
+            diago_ml" *ngIf="patientPriscription.pharmacyAdvises != undefined &&
+            patientPriscription.pharmacyAdvises!=null &&
+            patientPriscription.showPharmacy == true &&
+            patientPriscription.pharmacyAdvises.pharmacyAdviceList != undefined &&
+            patientPriscription.pharmacyAdvises.pharmacyAdviceList !=null &&
+            patientPriscription.pharmacyAdvises.pharmacyAdviceList.length>0">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4 class="top-title">Pharmacy Orders</h4>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 hr_padding">
+                    <hr>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h6 class="mode_txt">Mode of medicine purchase</h6>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row patient_name">
+
+                        <div class="col-md-12 col-sm-12 col-xs-12"
+                            *ngIf="patientPriscription.prescriptionPharmacyHomeDeliveryEnabled">
+                            <p>
+                                <input type="radio" name="deliverytype" (change)="setNewPurchaseType(1,1)"
+                                    id="ispharmacySelected" checked="true">&nbsp;From Pharmacy(Walk-in)
+                            </p>
+                        </div>
+
+                       <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="pocList1.length>0">
+                            <p>
+                                <input type="radio" name="deliverytype" (change)="setNewPurchaseType(2,1)">&nbsp;Home
+                                Delivery
+                            </p>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <input type="radio" name="deliverytype" (change)="setNewPurchaseType(3,1)">No
+                            </p>
+                        </div>
+
+                        <section class="col-md-12 col-sm-12 col-xs-12"
+                            *ngIf="pharmacyPurchaseType==1 || pharmacyPurchaseType==2">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h6 class="mode_txt">Source Pharmacy</h6>
+                                </div>
+                                <div class="col-md-5 col-md-5 col-md-5">
+                                    <div class="form-group">
+                                        <select class="form-control pharmacy_bgc"
+                                            (change)="setNewSelectedPoc($event.target.value,1)">
+                                            <option value="-1">Please Select</option>
+                                            <option *ngFor="let poc of
+                                                this.allPocListDetails;let
+                                                j=
+                                                index" [value]=j+1>{{poc.pocName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+                <section class="col-md-12 col-sm-12 col-xs-12" *ngIf="pharmacyPurchaseType==2">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
+                    <h6 class="mode_txt">Delivery Address</h6>
+                    <!-- </div> -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h6 class="mode_txt">Patient Address</h6>
+                            </div>
+                            <div class="col-md-5 col-md-5 col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control pharmacy_bgc"
+                                        (change)="setSelectedAddress($event.target.value,1)">
+                                        <option value="-1">Select Address</option>
+                                        <option *ngFor="let address of
+                                            patientAddressList" value="{{address.addressId}}" [selected]="pharmacyAddress!=undefined
+                                            && address!=undefined &&
+                                            address.addressId===pharmacyAddress.addressId">
+                                            {{address.addressType
+                                            == 0? 'Home Address':
+                                            (address.addressType == 1? 'Office
+                                            Address':
+                                            (address.addressType
+                                            == 3? 'Emergency
+                                            Address':(address.label!=undefined &&
+                                            address.label!=null &&
+                                            address.label.length>0?address.label:'Other
+                                            Address')))}}
+                                        </option>
+                                        <option value="0">Add New</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section *ngIf="this.pharmacyAddress!=undefined &&
+                        this.pharmacyAddress!=null">
+                        <div class="row">
+                            <div class="col-md-4 address">
+                                <p class="edit" (click)="modifyAddress(pharmacyAddress)">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </p>
+                                <p></p>
+                                <p>{{pharmacyAddress.address1}}, {{pharmacyAddress.address2}}
+                                </p>
+                                <p>{{pharmacyAddress.cityName}}, {{pharmacyAddress.stateName}} -
+                                    {{pharmacyAddress.pinCode}}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="pharmacyPurchaseType==1 || pharmacyPurchaseType==2">
+                    <h6 class="mode_txt">Medicines Suggested</h6>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="pharmacyPurchaseType==1 || pharmacyPurchaseType==2">
+                    <div class="Medicine_list">
+                        <ul class="list-inline DiagCheckbox">
+                            <li class="list-inline-item" *ngFor="let medicine of productName;let i=index">
+                                <div class="form-group custom_chk_btn cardBodyItem">
+                                    <div class="column">
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="checkbox" id="medicine{{i}}" name="medicines"
+                                                    (click)="onClickMedicine(i)" [value]="medicine.isSelected"
+                                                    [checked]="medicine.isSelected" />
+                                                <label for="medicine{{i}}">
+                                                    <span class="ailment_text">{{medicine.productName}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-1">
+                    <div class="form-group" *ngIf="patientPriscription.pharmacyAdvises.pharmacyAdviceList">
+                        <hs-message [isError]="isError" [show]="showMessage" [messages]="pharmacyMessage"></hs-message>
+                        <button type="button" class="btn btn-pharmacy" (click)="submitPrescriptionApproval(0)">Raise
+                            Order
+                            Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------Pharmacy Orders End------------------ -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 pharmacy_diago" *ngIf="patientPriscription.investigationAdvises != undefined &&
+            patientPriscription.investigationAdvises!=null &&
+            patientPriscription.investigationAdvises.routedToPoc != undefined &&
+            patientPriscription.investigationAdvises.routedToPoc != null &&
+            patientPriscription.showDiagnostic == true &&
+            patientPriscription.investigationAdvises.routedToPoc.length>0">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4 class="top-title">Diagnostic Orders</h4>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 hr_padding">
+                    <hr>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h6 class="mode_txt">Mode of diagnostic test</h6>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row patient_name">
+                        <div class="col-md-12 col-sm-12 col-xs-12"
+                            *ngIf="patientPriscription.prescriptionDiagnosticHomeDeliveryEnabled">
+                            <p>
+                                <input type="radio" name="deliverytypediagnostic" (change)="setNewPurchaseType(1,2)"
+                                    checked="true">&nbsp;Walk-in ( {{pocList2}} )
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <input type="radio" name="deliverytypediagnostic"
+                                    (change)="setNewPurchaseType(2,2)">&nbsp;Collect from Home
+                            </p>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <input type="radio" name="deliverytypediagnostic"
+                                    (change)="setNewPurchaseType(3,2)">&nbsp;No
+                            </p>
+                        </div>
+                        <section class="col-md-12 col-sm-12 col-xs-12" *ngIf="diagnosticPurchaseType==1 ||
+                            diagnosticPurchaseType==2">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h6 class="mode_txt">Source Lab</h6>
+                                </div>
+
+                                <div class="col-md-5 col-md-5 col-md-5">
+                                    <div class="form-group">
+                                        <select class="form-control pharmacy_bgc" (change)="setNewSelectedPocDiag($event.target.value,
+                                            1)">
+                                            <option value="-1">Please Select</option>
+                                            <option *ngFor="let poc of diagnosticPocDetails;let
+                                                j=
+                                                index" [value]=j+1>{{poc.pocName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <section class="col-md-12 col-sm-12 col-xs-12" *ngIf="diagnosticPurchaseType==2">
+                    <h6 class="mode_txt">Collection Address</h6>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h6 class="mode_txt">Patient Address</h6>
+                            </div>
+                            <div class="col-md-5 col-md-5 col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control pharmacy_bgc" id="diagnosticAddressSelect1" (change)="setSelectedAddress($event.target.value,
+                                        2)">
+                                        <option value="-1">Select Address</option>
+                                        <option *ngFor="let address of
+                                            patientAddressList" value="{{address.addressId}}" [selected]="diagnosticAddress!=undefined
+                                            && address!=undefined &&
+                                            address.addressId===diagnosticAddress.addressId">
+                                            {{address.addressType
+                                            == 0? 'Home Address':
+                                            (address.addressType == 1? 'Office
+                                            Address':
+                                            (address.addressType
+                                            == 3? 'Emergency
+                                            Address':(address.label!=undefined &&
+                                            address.label!=null &&
+                                            address.label.length>0?address.label:'Other
+                                            Address')))}}
+                                        </option>
+                                        <option value="0">Add New</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section *ngIf="diagnosticAddress!=undefined &&
+                        diagnosticAddress!=null">
+                        <div class="row">
+                            <div class="col-md-4 address">
+                                <p class="edit" (click)="modifyAddress(diagnosticAddress)">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </p>
+                                <p></p>
+                                <p>{{diagnosticAddress.address1}}, {{diagnosticAddress.address2}}
+                                </p>
+                                <p>{{diagnosticAddress.cityName}}, {{diagnosticAddress.stateName}} -
+                                    {{diagnosticAddress.pinCode}}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <div class="col-md-12 col-sm-12 col-xs-12"
+                    *ngIf="diagnosticPurchaseType == 1 || diagnosticPurchaseType == 2">
+                    <h6 class="mode_txt">Diagnostics Suggested</h6>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12"
+                    *ngIf="diagnosticPurchaseType == 1 || diagnosticPurchaseType == 2">
+                    <div class="Diagnostic_list">
+                        <ul class="list-inline DiagCheckbox">
+                            <li class="list-inline-item" *ngFor="let diagnostic of diagnosticName;let i=index">
+                                <div class="form-group custom_chk_btn cardBodyItem">
+                                    <div class="column">
+                                        <div class="row">
+                                            <div class="column">
+                                                <input type="checkbox" id="diagnostic{{i}}" name="diagnostics"
+                                                    (click)="onClickDiagnostic(i)" [value]="diagnostic.isSelected"
+                                                    [checked]="diagnostic.isSelected" />
+                                                <label for="diagnostic{{i}}">
+                                                    <span class="ailment_text">{{diagnostic.serviceName}}</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>                      
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-1"
+                    *ngIf="patientPriscription.investigationAdvises.investigationList">
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                    <div class="form-group" *ngIf="diagnosticPurchaseType==2">
+                        <button type="button" class="btn btn-pharmacy"
+                            (click)="submitPrescriptionInvestApproval()">Raise
+                            Order
+                            Request</button>
+                    </div>
+                    <div class="form-group" *ngIf="diagnosticPurchaseType==1 ||
+                        diagnosticPurchaseType==3">
+                        <button type="button" class="btn btn-pharmacy" (click)="submitPrescriptionApproval(1)">Raise
+                            Order
+                            Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="successDiago">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" *ngIf="this.diagnosticPurchaseType==1 ||
+                        this.diagnosticPurchaseType==3">Diagnostic Test
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="diagnoMessage"></hs-message>
+                    <div *ngIf="this.diagnosticPurchaseType==2" class="diagnostic_popup">
+                        <ul *ngFor="let service of diagnosticSchedulelist">
+                            <li *ngIf="service.homeOrderPriceDetails != undefined">
+                                <ul>
+                                    <li *ngIf="service.homeOrderPriceDetails.netPrice>0">{{service.serviceName}} tests
+                                        are available for home collection.</li>
+                                    <li *ngIf="service.homeOrderPriceDetails.netPrice==0">{{service.serviceName}} tests
+                                        are not available for home collection.</li>
+                                </ul>
+                            </li>
+                            <li *ngIf="service.homeOrderPriceDetails == undefined">
+                                <ul>
+                                    <li *ngIf="service.netPrice>0"> {{service.serviceName}} tests are available for home
+                                        collection.</li>
+                                    <li *ngIf="service.netPrice==0"> {{service.serviceName}} tests are not available for
+                                        home collection.</li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div *ngIf="this.diagnosticPurchaseType==1 ||
+                        this.diagnosticPurchaseType==3">
+                        <p>Order request has been raised successfully.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-10 col-sm-6 col-xs-6" *ngIf="this.diagnosticPurchaseType==2 &&
+                            this.netPriceDetail>0">
+                            <button type="button" id="prescription" class="btn
+                                btn-default float_left" data-dismiss="modal" (click)="goToPrescription()">Raise
+                                Order</button>
+                        </div>
+                        <div class="col-md-10 col-sm-6 col-xs-6" *ngIf="this.diagnosticPurchaseType==1 ||
+                            this.diagnosticPurchaseType==3">
+                            <button type="button" class="btn
+                                btn-default float_left" data-dismiss="modal" (click)="goToWalkPrescription()">Go to
+                                prescription list</button>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-6" *ngIf="this.diagnosticPurchaseType==2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                (click)="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<!-- flow for other than jeevone -->
+<ng-container *ngIf="!sepRouteFlow">
+    <div class="row patient_name mt-2">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 pharmacy_diago
+        diago_ml" *ngIf="patientPriscription.pharmacyAdvises != undefined &&
+        patientPriscription.pharmacyAdvises!=null &&
+        patientPriscription.pharmacyAdvises.pharmacyAdviceList != undefined &&
+        patientPriscription.pharmacyAdvises.pharmacyAdviceList !=null &&
+        patientPriscription.pharmacyAdvises.pharmacyAdviceList.length>0">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4 class="top-title">Pharmacy Orders</h4>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 hr_padding">
+                    <hr>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h6 class="mode_txt">Mode of medicine purchase</h6>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row patient_name">
+
+
+                        <div class="col-md-12 col-sm-12 col-xs-12"
+                            *ngIf="patientPriscription.prescriptionPharmacyHomeDeliveryEnabled">
+                            <p>
+                                <input type="radio" name="deliverytype" (change)="setPurchaseType(1,1)"
+                                    id="ispharmacySelected" checked="true">&nbsp;From Pharmacy(Walk-in) ( {{pocList1}} )
+                            </p>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12" *ngIf="pocList1.length>0">
+                            <p>
+                                <input type="radio" name="deliverytype" (change)="setPurchaseType(2,1)">&nbsp;Home
+                                Delivery ( Central Pharmacy )
+                            </p>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <input type="radio" name="deliverytype" (change)="setPurchaseType(3,1)">No
+                            </p>
+                        </div>
+                        <section class="col-md-12 col-sm-12 col-xs-12" *ngIf="pharmacyPurchaseType==1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h6 class="mode_txt">Source Pharmacy</h6>
+                                </div>
+                                <div class="col-md-5 col-md-5 col-md-5">
+                                    <div class="form-group">
+                                        <select class="form-control pharmacy_bgc"
+                                            (change)="setSelectedPoc($event.target.value,1)">
+                                            <option value="-1">Please Select</option>
+                                            <option *ngFor="let poc of
+                                            this.pocList;let
+                                            j=
+                                            index" [value]=j+1>{{poc.pocName}}
+                                            </option>
+                                            <!-- <option value="0">Add New</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+                <section class="col-md-12 col-sm-12 col-xs-12" *ngIf="pharmacyPurchaseType==2">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
+                    <h6 class="mode_txt">Delivery Address</h6>
+                    <!-- </div> -->
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h6 class="mode_txt">Patient Address</h6>
+                            </div>
+                            <div class="col-md-5 col-md-5 col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control pharmacy_bgc"
+                                        (change)="setSelectedAddress($event.target.value,1)">
+                                        <option value="-1">Select Address</option>
+                                        <option *ngFor="let address of
+                                        patientAddressList" value="{{address.addressId}}" [selected]="pharmacyAddress!=undefined
+                                        && address!=undefined &&
+                                        address.addressId===pharmacyAddress.addressId">
+                                            {{address.addressType
+                                            == 0? 'Home Address':
+                                            (address.addressType == 1? 'Office
+                                            Address':
+                                            (address.addressType
+                                            == 3? 'Emergency
+                                            Address':(address.label!=undefined &&
+                                            address.label!=null &&
+                                            address.label.length>0?address.label:'Other
+                                            Address')))}}
+                                        </option>
+                                        <option value="0">Add New</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section *ngIf="this.pharmacyAddress!=undefined &&
+                    this.pharmacyAddress!=null">
+                        <div class="row">
+                            <div class="col-md-4 address">
+                                <p class="edit" (click)="modifyAddress(pharmacyAddress)">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </p>
+                                <p></p>
+                                <p>{{pharmacyAddress.address1}}, {{pharmacyAddress.address2}}
+                                </p>
+                                <p>{{pharmacyAddress.cityName}}, {{pharmacyAddress.stateName}} -
+                                    {{pharmacyAddress.pinCode}}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-1">
+                    <div class="form-group" *ngIf="patientPriscription.pharmacyAdvises.pharmacyAdviceList">
+                        <hs-message [isError]="isError" [show]="showMessage" [messages]="pharmacyMessage"></hs-message>
+                        <button type="button" class="btn btn-pharmacy" (click)="submitPrescriptionApproval(0)">Raise
+                            Order
+                            Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------Pharmacy Orders End------------------ -->
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 pharmacy_diago" *ngIf="patientPriscription.investigationAdvises != undefined &&
+        patientPriscription.investigationAdvises!=null &&
+        patientPriscription.investigationAdvises.routedToPoc != undefined &&
+        patientPriscription.investigationAdvises.routedToPoc != null &&
+        patientPriscription.investigationAdvises.routedToPoc.length>0">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4 class="top-title">Diagnostic Orders</h4>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 hr_padding">
+                    <hr>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h6 class="mode_txt">Mode of diagnostic test</h6>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row patient_name">
+                        <div class="col-md-12 col-sm-12 col-xs-12"
+                            *ngIf="patientPriscription.prescriptionDiagnosticHomeDeliveryEnabled">
+                            <p>
+                                <input type="radio" name="deliverytypediagnostic" (change)="setPurchaseType(1,2)"
+                                    checked="true">&nbsp;Walk-in ( {{pocList2}} )
+                            </p>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <input type="radio" name="deliverytypediagnostic"
+                                    (change)="setPurchaseType(2,2)">&nbsp;Collect from Home
+                            </p>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <input type="radio" name="deliverytypediagnostic"
+                                    (change)="setPurchaseType(3,2)">&nbsp;No
+                            </p>
+                        </div>
+                        <section class="col-md-12 col-sm-12 col-xs-12" *ngIf="diagnosticPurchaseType==1 ||
+                        diagnosticPurchaseType==2">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h6 class="mode_txt">Source Lab</h6>
+                                </div>
+
+                                <div class="col-md-5 col-md-5 col-md-5">
+                                    <div class="form-group">
+                                        <select class="form-control pharmacy_bgc" (change)="setSelectedPocDiag($event.target.value,
+                                        1)">
+                                            <option value="-1">Please Select</option>
+                                            <option *ngFor="let poc of pocListt;let
+                                            j=
+                                            index" [value]=j+1>{{poc.pocName}}
+                                            </option>
+                                            <!-- <option value="0">Add New</option> -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <section class="col-md-12 col-sm-12 col-xs-12" *ngIf="diagnosticPurchaseType==2">
+                    <h6 class="mode_txt">Collection Address</h6>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h6 class="mode_txt">Patient Address</h6>
+                            </div>
+                            <div class="col-md-5 col-md-5 col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control pharmacy_bgc" id="diagnosticAddressSelect1" (change)="setSelectedAddress($event.target.value,
+                                    2)">
+                                        <option value="-1">Select Address</option>
+                                        <option *ngFor="let address of
+                                        patientAddressList" value="{{address.addressId}}" [selected]="diagnosticAddress!=undefined
+                                        && address!=undefined &&
+                                        address.addressId===diagnosticAddress.addressId">
+                                            {{address.addressType
+                                            == 0? 'Home Address':
+                                            (address.addressType == 1? 'Office
+                                            Address':
+                                            (address.addressType
+                                            == 3? 'Emergency
+                                            Address':(address.label!=undefined &&
+                                            address.label!=null &&
+                                            address.label.length>0?address.label:'Other
+                                            Address')))}}
+                                        </option>
+                                        <option value="0">Add New</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section *ngIf="diagnosticAddress!=undefined &&
+                    diagnosticAddress!=null">
+                        <div class="row">
+                            <div class="col-md-4 address">
+                                <p class="edit" (click)="modifyAddress(diagnosticAddress)">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </p>
+                                <p></p>
+                                <p>{{diagnosticAddress.address1}}, {{diagnosticAddress.address2}}
+                                </p>
+                                <p>{{diagnosticAddress.cityName}}, {{diagnosticAddress.stateName}} -
+                                    {{diagnosticAddress.pinCode}}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <div class="col-md-12 col-sm-12 col-xs-12 mt-1"
+                    *ngIf="patientPriscription.investigationAdvises.investigationList">
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                    <div class="form-group" *ngIf="diagnosticPurchaseType==2">
+                        <button type="button" class="btn btn-pharmacy"
+                            (click)="submitPrescriptionInvestApproval()">Raise
+                            Order
+                            Request</button>
+                    </div>
+                    <div class="form-group" *ngIf="diagnosticPurchaseType==1 ||
+                    diagnosticPurchaseType==3">
+                        <button type="button" class="btn btn-pharmacy" (click)="submitPrescriptionApproval(1)">Raise
+                            Order
+                            Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="successDiago">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" *ngIf="this.diagnosticPurchaseType==1 ||
+                    this.diagnosticPurchaseType==3">Diagnostic Test
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="diagnoMessage"></hs-message>
+                    <div *ngIf="this.diagnosticPurchaseType==2" class="diagnostic_popup">
+                        <ul *ngFor="let service of diagnosticSchedulelist">
+                            <li *ngIf="service.homeOrderPriceDetails != undefined">
+                                <ul>
+                                    <li *ngIf="service.homeOrderPriceDetails.netPrice>0">{{service.serviceName}} tests
+                                        are available for home collection.</li>
+                                    <li *ngIf="service.homeOrderPriceDetails.netPrice==0">{{service.serviceName}} tests
+                                        are not available for home collection.</li>
+                                </ul>
+                            </li>
+                            <li *ngIf="service.homeOrderPriceDetails == undefined">
+                                <ul>
+                                    <li *ngIf="service.netPrice>0"> {{service.serviceName}} tests are available for home
+                                        collection.</li>
+                                    <li *ngIf="service.netPrice==0"> {{service.serviceName}} tests are not available for
+                                        home collection.</li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div *ngIf="this.diagnosticPurchaseType==1 ||
+                    this.diagnosticPurchaseType==3">
+                        <p>Order request has been raised successfully.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-10 col-sm-6 col-xs-6" *ngIf="this.diagnosticPurchaseType==2 &&
+                        this.netPriceDetail>0">
+                            <button type="button" id="prescription" class="btn
+                            btn-default float_left" data-dismiss="modal" (click)="goToPrescription()">Raise
+                                Order</button>
+                        </div>
+                        <div class="col-md-10 col-sm-6 col-xs-6" *ngIf="this.diagnosticPurchaseType==1 ||
+                        this.diagnosticPurchaseType==3">
+                            <button type="button" class="btn
+                            btn-default float_left" data-dismiss="modal" (click)="goToWalkPrescription()">Go to
+                                prescription list</button>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-xs-6" *ngIf="this.diagnosticPurchaseType==2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                (click)="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<!-- <=====modelEnd====> -->
+<div class="modal fade" tabindex="-1" role="dialog" id="successPharmacy">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Pharmacy Test
+                </h4>
+            </div>
+            <div class="modal-body">
+                <hs-message [isError]="isError" [show]="showMessage" [messages]="diagnoMessage"></hs-message>
+
+                <div>
+                    <p>Order request has been raised successfully.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-10 col-sm-6 col-xs-6">
+                        <button type="button" class="btn
+                            btn-default float_left" data-dismiss="modal" (click)="goToWalkPrescription()">Go to
+                            prescription list</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Address Model -->
+<div class="modal fade" tabindex="-1" role="dialog" id="updateAddress">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Update Address</h4>
+            </div>
+            <div class="modal-body">
+                <hs-message [isError]="isErrorPopup" [show]="showMessagePopup" [messages]="errorMessagePopup">
+                </hs-message>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Type</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" id="addressType" [(ngModel)]="editAddress.addressType"
+                                (change)="selectedAddressType()">
+                                <option value="-1">Select Type</option>
+                                <option value="0" [selected]="editAddress!=undefined &&
+                                    editAddress.addressType == 0">
+                                    Home</option>
+                                <option value="1" [selected]="editAddress!=undefined &&
+                                    editAddress.addressType == 1">
+                                    Office</option>
+                                <option value="3" [selected]="editAddress!=undefined &&
+                                    editAddress.addressType == 3">
+                                    Emergency</option>
+                                <option value="2" [selected]="editAddress!=undefined &&
+                                    editAddress.addressType == 2">
+                                    Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <section *ngIf="editAddress.addressType == 2">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Name of this address</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-5 col-md-5">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="editAddress.label"
+                                    placeholder="Address name">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 1</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 1"
+                                [(ngModel)]="editAddress.address1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 2</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 2"
+                                [(ngModel)]="editAddress.address2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Pin Code</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" maxlength="6" class="form-control" placeholder="Enter PIN Code"
+                                [(ngModel)]="editAddress.pinCode" (keyup)="searchByPinCode($event.target.value,true)" (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Area</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="locationIndex"
+                                [ngModelOptions]="{standalone : true}" *ngIf="localityResponse"
+                                (change)="onLocationChange()">
+                                <option *ngFor="let locationArea of
+                                    localityResponse;let j= index" [ngValue]=j>
+                                    {{locationArea.name}}</option>
+                            </select>
+                            <input class="form-control" id="disabledInputArea" type="text" *ngIf="!localityResponse"
+                                [(ngModel)]="editAddress.areaName" placeholder="Area" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>City</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputcity" type="text"
+                                [(ngModel)]="editAddress.cityName" placeholder="City" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>State</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputstate" type="text"
+                                [(ngModel)]="editAddress.stateName" placeholder="State" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="saveAddress()">Save Address</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <spinner-component></spinner-component> -->

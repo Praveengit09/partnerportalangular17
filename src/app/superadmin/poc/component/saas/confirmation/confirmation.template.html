@@ -1,0 +1,89 @@
+<section class="subscription-confirm">
+    <div class="text-center confirm-info pt-3 pb-3 px-3">
+        <h1><b>Thank You</b></h1>
+        <p><b>Thank you for renewing the {{subscriptionDetails?.productList[0]?.productname}} plan.</b></p>
+        <span>Your payment for order #{{subscriptionDetails?.orderId}} is successful.</span>
+    </div>
+    <div class="py-4">
+        <div class="row">
+            <div class="col-6 col-sm-5 col-lg-7 col-xl-8">
+                <h5 class="mt-2">{{subscriptionDetails?.productList[0]?.productName}}</h5>
+                <!-- <p>{{subscriptionDetails.productDescription ? }}</p> -->
+            </div>
+            <div class="col-6 col-sm-7 col-lg-5 col-xl-4 text-right">
+                <h4 class="mt-2">
+                    <b>{{this.currencySymbol}}{{subscriptionDetails?.productList[0]?.stockDetails?.netPrice}}/mo</b>
+                </h4>
+                <small>Charged on a monthly basis on 1st of every month</small>
+            </div>
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 subscriber-info">
+                <small><b>Subscriber Information</b></small>
+                <p><b>{{employeeName}}</b></p>
+                <p class="user-info">{{subscriptionDetails?.purchaserPocDetails?.pocName}}<br />
+                    {{subscriptionDetails?.purchaserPocDetails?.contactList[0]}}
+                    <br /> {{subscriptionDetails?.purchaserPocDetails?.email}}
+                </p>
+            </div>
+
+            <div class="col-8 col-sm-5 col-lg-7 col-xl-8 text-right mt-2">
+                <p>Orignal Amount</p>
+            </div>
+            <div class="col-4 col-sm-7 col-lg-5 col-xl-4 text-right mt-2">
+                <h4>{{this.currencySymbol}}{{subscriptionDetails?.payment?.originalAmount &&
+                    subscriptionDetails?.payment?.originalAmount > 0
+                    ? subscriptionDetails?.payment?.originalAmount :
+                    subscriptionDetails?.productList[0]?.originalAmount}}
+                </h4>
+            </div>
+            <div class="col-8 col-sm-5 col-lg-7 col-xl-8 text-right
+                        mt-2">
+                <p>Taxes</p>
+            </div>
+            <div class="col-4 col-sm-7 col-lg-5 col-xl-4 text-right
+                        mt-2">
+                <h4>{{this.currencySymbol}}{{subscriptionDetails?.payment?.taxationAmount &&
+                    subscriptionDetails?.payment?.taxationAmount > 0
+                    ? subscriptionDetails?.payment?.taxationAmount : 0}}
+                </h4>
+            </div>
+            <div class="col-8 col-sm-5 col-lg-7 col-xl-8 text-right
+                        mt-2">
+                <p>Discount</p>
+            </div>
+            <div class="col-4 col-sm-7 col-lg-5 col-xl-4 text-right
+                        mt-2">
+                <h4>{{this.currencySymbol}}{{subscriptionDetails?.payment?.otherDiscountAmount &&
+                    subscriptionDetails?.payment?.otherDiscountAmount > 0 ?
+                    subscriptionDetails?.payment?.otherDiscountAmount :
+                    subscriptionDetails?.productList[0]?.discountPrice}}
+                </h4>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-7 col-sm-5 col-lg-7 col-xl-8 text-right">
+            <h4><b>Amount Paid</b></h4>
+        </div>
+
+        <div class="col-5 col-sm-7 col-lg-5 col-xl-4 text-right">
+            <h4>{{this.currencySymbol}}{{subscriptionDetails?.payment?.originalAmount &&
+                subscriptionDetails?.payment?.originalAmount > 0 ?
+                subscriptionDetails?.payment?.finalAmount : subscriptionDetails?.productList[0]?.finalAmount}}
+            </h4>
+            <small>You'll be charged
+                {{this.currencySymbol}}{{subscriptionDetails?.productList[0]?.stockDetails?.netPrice}}
+                from next
+                month onwards</small>
+        </div>
+        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <button type="button" class="btn mb-xs botton_txtback" (click)="onBackToHome()">Back to Home</button>
+        </div>
+    </div>
+</section>
+
+
+<spinner-component></spinner-component>

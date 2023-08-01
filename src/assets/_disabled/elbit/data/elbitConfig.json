@@ -1,0 +1,36 @@
+{
+    "name": "Elbit Diagnostics",
+    "appId": 21,
+    "version": "v1.0.0 (1st Apr 2020)",
+    "website": "https://www.elbitdiagnostics.net/",
+    "websiteLabel": "elbitdiagnostics.net",
+    "email": "elbithyd@elbitdiagnostics.com",
+    "contactnumber": "040 23207999",
+    "iconspath": "/assets/elbit/icons/",
+    "facebook": "https://www.facebook.com/ElbitMedicalDiagnostics/",
+    "twitter": "https://twitter.com/elbitmedical",
+    "linkedin": "https://www.linkedin.com/company/elbit-medical-diagnostics-center",
+    "gtmKey": "UA-92315709-6",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "brandFinancialReports": true,
+        "internalFinanicalReports": false,
+        "cashAccountingReports": false,
+        "centralHomeCare": false,
+        "digiReception": false,
+        "onboardingPartner": true,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": false
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "enableDoctorWidgets": false,
+        "disableDoctorWaitingTime": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "doctorShareCard": true
+    }
+}

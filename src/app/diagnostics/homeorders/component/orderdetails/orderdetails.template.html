@@ -1,0 +1,676 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h2>Order Details - {{diagnosticAdminOrderDetails.orderId}} , {{diagnosticAdminOrderDetails.invoiceId}}
+        <button *ngIf="lisRepost" type="button" class="btn btn-primary rejectbtn" data-toggle="modal" data-target="#lisrepost" data-backdrop="static">LIS Repost</button>
+        <!-- added isVDC for paid orders rejection for other brand-->
+        <button *ngIf="((diagnosticAdminOrderDetails.sampleCollectionStatus!=4 || enablePhleboVendorAssignment || diagnosticAdminOrderDetails.actionPerformed !=10 ) && !branchLogin && diagnosticAdminOrderDetails.cancellationStatus == 0 && ( !isVDC || diagnosticAdminOrderDetails.amountPaid == 0) && ((!diagnosticAdminOrderDetails.isAdminHomeOrder && diagnosticAdminOrderDetails.sampleCollectionStatus!=2 
+        && diagnosticAdminOrderDetails.sampleCollectionStatus!=9) || (diagnosticAdminOrderDetails.isAdminHomeOrder && !diagnosticAdminOrderDetails.employeeAccepted)))" type="button" class="btn btn-danger rejectbtn" data-toggle="modal" data-target="#rejectModal"
+            data-backdrop="static">{{ this.enablePhleboVendorAssignment == true ?'CANCEL ORDER' : 'REJECT
+            ORDER'}}</button>
+    </h2>
+    <hs-message [isError]="isErrorCheck" [show]="showMessageCheck" [messages]="errorMessageCheck"></hs-message>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt1234" widget="">
+            <div class="col-lg-12">
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                    <h6>Patient Details:</h6>
+                    <h4>{{diagnosticAdminOrderDetails.patientProfileDetails.title?diagnosticAdminOrderDetails.patientProfileDetails.title+". ":''}} {{diagnosticAdminOrderDetails.patientProfileDetails.fName}} {{diagnosticAdminOrderDetails.patientProfileDetails.lName?diagnosticAdminOrderDetails.patientProfileDetails.lName:''}}
+                    </h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt" *ngIf="diagnosticAdminOrderDetails.pickupDate">
+                    <h6>Slot Date</h6>
+                    <h4>{{diagnosticAdminOrderDetails.pickupDate | date:'mediumDate'}}</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt" *ngIf="diagnosticAdminOrderDetails.pickupTime">
+                    <h6>Slot Time</h6>
+                    <ng-container *ngIf="!isVDC">
+                        <h4>{{diagnosticAdminOrderDetails.pickupTime|date:'mediumTime'}}</h4>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="vdcSlotDuration && isVDC">
+                        <h4>{{diagnosticAdminOrderDetails.pickupTime|date:'mediumTime'}} - {{vdcSlotDuration|date:'mediumTime'}}</h4>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="col-lg-12 contact_details">
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                    <h6>Contact Number:</h6>
+                    <ng-container>
+                        <h4>{{diagnosticAdminOrderDetails.patientProfileDetails!=undefined && diagnosticAdminOrderDetails.patientProfileDetails.contactInfo!=undefined? diagnosticAdminOrderDetails.patientProfileDetails.contactInfo.mobile:''}}
+                        </h4>
+                        <h4>{{diagnosticAdminOrderDetails.patientProfileDetails.contactInfo.alternateMobile ? diagnosticAdminOrderDetails.patientProfileDetails.contactInfo.alternateMobile:''}}
+                        </h4>
+                    </ng-container>
+                    <!-- <ng-container *ngIf="isVendor">
+                        <button type="button" class="btn btn-primary" (click)="onCallUser(1)">Call Primary
+                            Number</button>
+                        <p>{{pin1}}</p>
+                        <br>
+                        <button type="button" class="btn btn-primary" (click)="onCallUser(2)">Call Alternate
+                            Number</button>
+                        <p>{{pin2}}</p>
+                    </ng-container> -->
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt" *ngIf="diagnosticAdminOrderDetails.deliveryAddress">
+                    <div class="row">
+                        <h6>Home Collection Address:</h6>
+                        <div *ngIf="enableCreditUser && diagnosticAdminOrderDetails.invoiceCompletionStatus < 2">
+                            <p role="button" class="edit" (click)="onClickEdit()">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <h4>
+                        <p>{{diagnosticAdminOrderDetails.deliveryAddress.address1}}, {{diagnosticAdminOrderDetails.deliveryAddress.address2? diagnosticAdminOrderDetails.deliveryAddress.address2 + ', ' :''}} {{diagnosticAdminOrderDetails.deliveryAddress.landmark?
+                            diagnosticAdminOrderDetails.deliveryAddress.landmark : ''}}
+                        </p>
+                        <p>{{diagnosticAdminOrderDetails.deliveryAddress.cityName}}, {{diagnosticAdminOrderDetails.deliveryAddress.stateName}} - {{diagnosticAdminOrderDetails.deliveryAddress.pinCode}}
+                        </p>
+                    </h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                    <h6>Booking Date & Time:</h6>
+                    <h4>{{diagnosticAdminOrderDetails.createdTimestamp | date:'medium'}}</h4>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h4 style="color:red" *ngIf="diagnosticAdminOrderDetails.orderRemarks">Remarks: {{diagnosticAdminOrderDetails.orderRemarks}}
+        </h4>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text" *ngIf="diagnosticAdminOrderDetails.convertedDocumentUrlList!=null && diagnosticAdminOrderDetails.convertedDocumentUrlList.length>0">
+    <h2>Prescription Documents</h2>
+</div>
+
+<div class="col-lg-12" *ngIf="diagnosticAdminOrderDetails.convertedDocumentUrlList!=null && diagnosticAdminOrderDetails.convertedDocumentUrlList.length>0">
+    <section class="newadd_process  row" widget="">
+        <div class="col-lg-12 prescription_scroll" *ngFor="let item of diagnosticAdminOrderDetails.convertedDocumentUrlList ; let i =index">
+            <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup" data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+            <div *ngIf="item.includes('pdf')">
+                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')" class="image_clickpdf">
+            </div>
+        </div>
+    </section>
+</div>
+
+<br>
+
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12 perscripton_txt">
+            Tests
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="process_widget table_pading" widget>
+                <div class="widget-body table-datalabel widget-shadow">
+                    <table class="table">
+                        <thead>
+                            <tr class="table_head">
+                                <th>S.No</th>
+                                <th class="">Test Name</th>
+                                <th class="">Original Price</th>
+                                <!-- <th class="">Offer Price</th> -->
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of diagnosticAdminOrderDetails.serviceList; let i = index">
+                            <tr>
+                                <td data-label="S.No">
+                                    <div class="tabledatalabel-right"><label class="fname-txt">{{i+1}} </label></div>
+                                </td>
+                                <td data-label="Test Name">
+                                    <div class="tabledatalabel-right"><label class='fname-txt'>{{item.serviceName}}</label></div>
+                                </td>
+                                <td data-label="Original Price">
+                                    <div class="tabledatalabel-right"><label>{{item.grossPrice}}</label></div>
+                                </td>
+                                <!-- <td data-label="Offer Price">
+                                    <div class="tabledatalabel-right"><label>{{item.netPrice}}</label></div>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <div class="col-md-12 col-sm-12 col-xs-12 process_padding">
+                <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+        <form action="#" class="from_txt">
+            <div>
+                <h4 style="color:red" *ngIf="diagnosticAdminOrderDetails.discountRemarks">Discount Reason: {{diagnosticAdminOrderDetails.discountRemarks}}
+                </h4>
+            </div>
+            <div class="row process_original">
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Original Amount:</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;{{diagnosticAdminOrderDetails.payment.originalAmount | number : '1.2-2'}}
+                </div>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.userPackageId>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package Name:</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{diagnosticAdminOrderDetails.userPackageId>0 && diagnosticAdminOrderDetails.packageName!=null?diagnosticAdminOrderDetails.packageName:'NA'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package Discount: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{(diagnosticAdminOrderDetails.userPackageId>0?diagnosticAdminOrderDetails.payment.packageDiscountAmount:'0.0') | number : '1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="this.couponDiscountAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Coupon Discount: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{this.couponDiscountAmount}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="this.privilegeDiscountAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt" *ngIf="diagnosticAdminOrderDetails.privilegeCardType!=31">Client Discount: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt" *ngIf="diagnosticAdminOrderDetails.privilegeCardType==31">B2B Discount: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{this.privilegeDiscountAmount}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="this.partnerDiscountAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Partner Discount: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{this.partnerDiscountAmount}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="this.promotionalDiscountAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Promotional Discount: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{this.promotionalDiscountAmount}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.payment.usedWalletAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{diagnosticAdminOrderDetails.payment.usedWalletAmount?diagnosticAdminOrderDetails.payment.usedWalletAmount:0 | number : '1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.payment.taxationAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Taxes </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{diagnosticAdminOrderDetails.payment.taxationAmount | number : '1.2-2'}}</div>
+                </ng-template>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.payment.totalCashbackAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{diagnosticAdminOrderDetails.payment.totalCashbackAmount?diagnosticAdminOrderDetails.payment.totalCashbackAmount:0 | number : '1.2-2'}}</div>
+                </ng-template>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.payment.platformCharges>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Platform Charges:</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{diagnosticAdminOrderDetails.payment.platformCharges?diagnosticAdminOrderDetails.payment.platformCharges:0 | number : '1.2-2'}}</div>
+                </ng-template>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.payment.privilegeCardCharges>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Privilege Charges:</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{diagnosticAdminOrderDetails.payment.privilegeCardCharges?diagnosticAdminOrderDetails.payment.privilegeCardCharges:0 | number : '1.2-2'}}</div>
+                </ng-template>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.deliveryAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount After Discount: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{(diagnosticAdminOrderDetails.payment.finalAmount - diagnosticAdminOrderDetails.deliveryAmount) | number : '1.2-2'}}
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails.deliveryAmount>0">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Home Collection Charges: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{diagnosticAdminOrderDetails.deliveryAmount| number : '1.2-2'}}
+                    </div>
+                </ng-template>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Billing Amount: </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;{{diagnosticAdminOrderDetails.payment.finalAmount | number : '1.2-2'}}
+                </div>
+                <ng-template [ngIf]="diagnosticAdminOrderDetails">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount Paid: </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377;{{(diagnosticAdminOrderDetails.amountPaid?diagnosticAdminOrderDetails.amountPaid:0) | number : '1.2-2'}}
+                    </div>
+                </ng-template>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount to be Paid :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;{{(diagnosticAdminOrderDetails.amountToBePaid )| number : '1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt"> Amount to be Refunded :</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;{{(diagnosticAdminOrderDetails.amountToBeRefunded * (-1))| number : '1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt" *ngIf="diagnosticAdminOrderDetails.clientName && diagnosticAdminOrderDetails.clientName.length">
+                    Client Name:</div>
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="diagnosticAdminOrderDetails.clientName && diagnosticAdminOrderDetails.clientName.length">
+                    {{diagnosticAdminOrderDetails.clientName}}</div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt" *ngIf="enableCreditUser && diagnosticAdminOrderDetails.creditUser == 1">Credit User:</div>
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="enableCreditUser && diagnosticAdminOrderDetails.creditUser == 1">
+                    Yes</div>
+            </div>
+            <ng-template [ngIf]="branchLogin && this.diagnosticAdminOrderDetails.amountToBePaid>0">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Payment Mode : </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6"> Mobile</div>                
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <button role="button" class="submit_txt" data-toggle="modal" (click)="onMarkClick()">Submit</button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template [ngIf]="diagnosticAdminOrderDetails.cancellationStatus == 0 && !branchLogin">
+                <ng-container *ngIf="diagnosticAdminOrderDetails.creditUser != 1">
+                    <div class="row">
+                        <ng-template [ngIf]="this.diagnosticAdminOrderDetails.amountToBePaid>0 && !isPriceZero 
+                                    && !diagnosticAdminOrderDetails.isAdminHomeOrder">
+                            <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Payment Mode : </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <form action="#" class="color_cash">
+                                    <input type="radio" name="paymant" value="1" [checked]="paymentModeIndex == 2" (change)="checkPaymentModeSelection(2)"> Cash &nbsp;&nbsp;
+                                    <ng-container *ngIf="!disableMobileAndEdit">
+                                        <input type="radio" name="payment" value="0" [checked]="paymentModeIndex == 5" (change)="checkPaymentModeSelection(5)"> Mobile &nbsp;&nbsp;
+                                    </ng-container>
+                                    <!-- others payment option disable for vdc and changing label as Confirm -->
+                                    <ng-container *ngIf="!this.enablePhleboVendorAssignment">
+                                        <input type="radio" name="paymant" [checked]="paymentModeIndex == 0 || paymentModeIndex == 1 || paymentModeIndex > 5" value="2" id="other-payment" (change)="checkPaymentModeSelection(0)"> Others
+                                    </ng-container>
+                                    <div class="other-paymentdetails">
+                                        <div class="row">
+                                            <div class="col-md-5 col-sm-6 col-xs-12 mb-xs pr-0">
+                                                <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                                    <option value="0">Select</option>
+                                                    <option value="1"
+                                                        selected="{{paymentModeIndex == 1?'selected':''}}">
+                                                        Card
+                                                    </option>
+                                                    <option value="8"
+                                                        selected="{{paymentModeIndex == 8?'selected':''}}">
+                                                        PhonePe
+                                                    </option>
+                                                    <option value="6"
+                                                        selected="{{paymentModeIndex == 6?'selected':''}}">
+                                                        Google
+                                                        Pay
+                                                    </option>
+                                                    <option value="7"
+                                                        selected="{{paymentModeIndex == 7?'selected':''}}">
+                                                        PayTM
+                                                    </option>
+                                                    <option value="11"
+                                                        selected="{{paymentModeIndex == 11?'selected':''}}">
+                                                        NEFT
+                                                    </option>
+                                                    <option value="12"
+                                                        selected="{{paymentModeIndex == 12?'selected':''}}">
+                                                        UPI
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-7 col-sm-6 col-xs-12">
+                                                <input type="text" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </ng-template>
+                    </div>
+
+                    <div class="row" *ngIf="this.diagnosticAdminOrderDetails.amountToBePaid>0 && !isPriceZero 
+                                && !diagnosticAdminOrderDetails.isAdminHomeOrder && paymentModeIndex == 2 && centralAdminModify">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Payment Status : </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <form action="#" class="color_cash">
+                                <p>Not Paid</p>
+                                <!-- <input type="radio" name="paymentStatus" [checked]='true'> Not Paid -->
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="this.diagnosticAdminOrderDetails.amountToBePaid>0 && !isPriceZero 
+                                && !diagnosticAdminOrderDetails.isAdminHomeOrder && paymentModeIndex == 2 && !centralAdminModify">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Payment Status : </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <form action="#" class="color_cash">
+                                <input type="radio" name="payment" value="1" (change)="checkPaymentStatusSelection(1)"> Paid &nbsp;&nbsp;
+                                <input type="radio" name="payment" value="0" checked (change)="checkPaymentStatusSelection(0)"> Not Paid
+                            </form>
+                        </div>
+                    </div>
+                </ng-container>
+                <div *ngIf="!diagnosticAdminOrderDetails.isAdminHomeOrder" class="row editorder_updatebtn">
+                    <ng-container *ngIf="!disableMobileAndEdit">
+                        <div class="col-md-6 col-xs-6" *ngIf="diagnosticAdminOrderDetails.invoiceCompletionStatus < 2 && editOrder">
+                            <button role="button" class="editbutton" (click)="onEdit()">Edit Order</button>
+                        </div>
+                    </ng-container>
+                    <!-- disabled edit and mobile for yoda -->
+                    <ng-container *ngIf="disableMobileAndEdit">
+                        <div class="col-md-6 col-xs-6"></div>
+                    </ng-container>
+                    <div class="col-md-6 col-xs-6" *ngIf="this.diagnosticAdminOrderDetails.payment.originalAmount>0 && !isPriceZero && (this.diagnosticAdminOrderDetails.amountToBePaid>0 || !centralAdminModify)">
+                        <button role="button" class="submit_txt" data-toggle="modal" (click)="onMarkClick()">{{this.diagnosticAdminOrderDetails.amountToBePaid <= 0?'UPDATE
+                                SAMPLES': this.enablePhleboVendorAssignment ?'Confirm': this.centralAdminModify ? 'Submit' :'PAY NOW'}}</button>
+                    </div>
+                </div>
+                <div hs-notification></div>
+                <ng-template [ngIf]="!enablePhleboVendorAssignment">
+                    <div class="row editorder_updatebtn" *ngIf="diagnosticAdminOrderDetails.isAdminHomeOrder 
+                        && (diagnosticAdminOrderDetails.sampleCollectionStatus == 0 ||
+                        diagnosticAdminOrderDetails.sampleCollectionStatus == 1 ||
+                        diagnosticAdminOrderDetails.sampleCollectionStatus == 7 ||
+                        diagnosticAdminOrderDetails.sampleCollectionStatus == 8 ||
+                        diagnosticAdminOrderDetails.sampleCollectionStatus == 10 ||
+                        diagnosticAdminOrderDetails.sampleCollectionStatus == 11 || diagnosticAdminOrderDetails.sampleCollectionStatus == 5 || diagnosticAdminOrderDetails.sampleCollectionStatus == 3)">
+                        <div class="col-md-6 col-xs-6">
+                            <select id="employee_select" class="form-control" [(ngModel)]="selectedEmployeeId" [ngModelOptions]="{standalone:true}" *ngIf="employeeList" (change)="onEmployeeSelect($event.target.value)">
+                                <option value=0>Select Employee</option>
+                                <option *ngFor="let employee of employeeList;let i = index" [value]="employee.empId">
+                                    {{employee?.firstName}} {{employee?.lastName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <button class="processsubmit_txt btn btn-danger" role="button" value="Accept Order" (click)="onReassignOrder()">{{this.assignedCheck ? 'RE-ASSIGN' : 'ASSIGN'}}</button>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="enablePhleboVendorAssignment">
+                    <div class="row editorder_updatebtn" *ngIf="diagnosticAdminOrderDetails.isAdminHomeOrder 
+                && ((diagnosticAdminOrderDetails.sampleCollectionStatus == 0 ||
+                diagnosticAdminOrderDetails.sampleCollectionStatus == 1 ||
+                diagnosticAdminOrderDetails.sampleCollectionStatus == 7 ||
+                diagnosticAdminOrderDetails.sampleCollectionStatus == 8 ||
+                diagnosticAdminOrderDetails.sampleCollectionStatus == 10 ||
+                diagnosticAdminOrderDetails.sampleCollectionStatus == 11 || diagnosticAdminOrderDetails.sampleCollectionStatus == 5 || diagnosticAdminOrderDetails.sampleCollectionStatus == 3) || (diagnosticAdminOrderDetails.sampleCollectionStatus == 4 && diagnosticAdminOrderDetails.actionPerformed == 10))">
+                        <div class="col-md-6 col-xs-6">
+                            <select id="vendor_select" class="form-control" [(ngModel)]="selectedVendorId" [ngModelOptions]="{standalone:true}" *ngIf="vendorList" (change)="onVendorSelect($event.target.value)">
+                                <option value=0>Select Vendor</option>
+                                <option *ngFor="let vendor of vendorList;let i = index" [value]="vendor.pocId">
+                                    {{vendor?.pocName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <button class="processsubmit_txt btn btn-danger" role="button" value="Accept Order" (click)="onReassignOrder()">{{this.assignedCheck ? 'RE-ASSIGN' : 'ASSIGN'}}</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-template>
+        </form>
+    </div>
+</div>
+
+<!--Reject order-->
+<div id="rejectModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title rej_text">Are you sure you want to reject this order?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <form name="info_form" class="form-inline">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <label class="reason_txt">Please enter the reason for rejecting the order.</label>
+                            <input type="text" placeholder="Reason" class="form-control" [(ngModel)]="cancellationRemarks" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <p>Click OK to Confirm</p>
+                            <button type="submit" class="btn submit_txt" (click)="rejectOrder()" data-dismiss="modal">OK</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="lisrepost" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4 class="modal-title rej_text">Please confirm to repost the order</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="repostLisOrder()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onGenerateBack()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="this.diagnosticAdminOrderDetails.payment.paymentStatus == 1">Payment done Successfully.
+                </p>
+                <p *ngIf="this.diagnosticAdminOrderDetails.payment.paymentStatus == 0">
+                    Order Initiated Successfully. Payment Not Done</p>
+                <p *ngIf="this.diagnosticAdminOrderDetails.payment.paymentStatus == 2">
+                    Mobile payment successfully initiated.</p>
+                <p *ngIf="this.diagnosticAdminOrderDetails.payment.paymentStatus == 3">Payment Failed.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" *ngIf="diagnosticAdminOrderDetails.payment.paymentStatus == 1" (click)="onPrintButtonClick()">View
+                    Invoice</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onCloseButtonClick()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="prescription-modal">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop" *ngIf="prescriptionType=='img'">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group image_download">
+                    <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" role="dialog" id="updateAddress">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header address_text">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Update Address</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Select Delivery Address</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" id="addressType" [(ngModel)]="selectedId" [ngModelOptions]="{standalone:true}" (change)="setSelectedAddress($event.target.value)">
+                                <option
+                                    *ngFor="let address of
+                                                diagnosticAdminOrderDetails.patientProfileDetails.contactInfo.addresses; let i= index"
+                                    [value]="i+1">
+                                    {{address.label}}
+                                <option value="0">Add New</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <section *ngIf="editAddress.addressType == 2">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Name of this address</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-5 col-md-5">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="editAddress.label" placeholder="Address name">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 1 &nbsp;</b><i aria-hidden="true" role="button" class="glyphicon glyphicon-edit" (click)="onClickEditAddress1()"></i>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <ng-container *ngIf="!isEdit">
+                                <input type="text" class="form-control" placeholder="Enter Address Line 1" [(ngModel)]="editAddress.address1" [disabled]="true">
+                            </ng-container>
+                            <ng-container *ngIf="isEdit">
+                                <hs-locationsearch-autocomplete [address]="this.editAddress.address1" (onChooseAddress)="onChooseAddress($event)"></hs-locationsearch-autocomplete>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 2</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 2" [(ngModel)]="editAddress.address2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Landmark</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Landmark" [(ngModel)]="editAddress.landmark">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Pin Code</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" maxlength="6" class="form-control" placeholder="Enter PIN Code" [(ngModel)]="editAddress.pinCode" (keyup)="searchByPinCode($event.target.value,true)" (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Area</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="locationIndex" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse" (change)="onLocationChange()">
+                                <option value=-1>Select Area</option>
+                                <option *ngFor="let locationArea of
+                                    localityResponse;let j= index" [ngValue]=j>
+                                    {{locationArea.name}}</option>
+                            </select>
+                            <input class="form-control" id="disabledInputArea" type="text" *ngIf="!localityResponse" [(ngModel)]="editAddress.areaName" placeholder="Area" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>City</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputcity" type="text" [(ngModel)]="editAddress.cityName" placeholder="City" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>State</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputstate" type="text" [(ngModel)]="editAddress.stateName" placeholder="State" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="isErrorCheck" [show]="showMessageCheck" [messages]="errorMessageCheck"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save_btn" (click)="saveAddress()">Save Address</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

@@ -1,0 +1,81 @@
+.advice_text {
+    padding-left: 0px;
+}
+.advice_text h2 {
+    font-size: 30px;
+    color: #14a9b5;
+    font-weight: 500;
+}
+.schedule_txt {
+    margin-bottom: 0px !important;
+    font-size: 11px;
+}
+.table th,
+.table td {
+    opacity: 1 !important;
+    font-size: 1rem;
+}
+.processdone_txt1 {
+    border: solid 1px #ec6262;
+    background-color: #ff6d6d;
+    color: white;
+}
+.total_txt {
+    font-weight: 500;
+}
+.process_original {
+    line-height: 30px;
+}
+.process_original .col-md-6{
+    line-height: 45px;
+    padding:0 !important;
+}
+.with_txt{
+    line-height: 0px;
+    margin-bottom: 0px;
+    font-size: 11px;
+}
+.process_widget{
+    border: 2px solid #e6e6e6;
+}
+.processdone_txt{
+    background-color: #1dc8d5;
+    border-color: #1dc8d5;
+}
+.processbotton_txt{
+    padding: 5px 25px;
+    font-size: 18px;
+    border-radius: 0px;
+    border: none;
+    color: #fff;
+}
+.addproduct_padding{
+    padding: 0px;
+}
+.add_product{
+    float: right;
+}
+.fname_discount_text{
+    width: 100%;
+}
+.widget_updated .Update {
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    border: solid 1px #ec6262;
+    background-color: #ff6d6d;
+    padding: 10px 10px 11px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.widget_updated .Update a, .widget_updated .Update a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.upload-section input {
+    display: inline-block;
+    border-radius: 2px;
+    border: solid 1px #d5d5d5;
+    padding: 7px;
+}

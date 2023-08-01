@@ -1,0 +1,30 @@
+.serch_txt85{
+    padding: 6px 10px;
+     text-align: left;
+     border-radius: 2px;
+     border-width: 0px;
+     border: 1px solid #ddd;
+     text-align: left;
+     width: 235px;
+     height: 36px;
+     margin-bottom: 18px;
+ }
+ @media screen and (max-width: 924px) and (min-width: 484px){
+    .all_tableh{
+        margin-bottom: 18px;
+    }
+ }
+@media only screen and (min-width: 992px){
+    .reset_btn{
+        float: right;
+    }
+}
+@media only screen and (max-width: 483px){
+    .serch_txt85{
+        width: 127px;
+        padding: 6px 7px;
+    }
+    .search_btn{
+        width: auto;
+    }
+}

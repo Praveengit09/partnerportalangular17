@@ -1,0 +1,17 @@
+<nav sidebar [selectedRole]="selectedUserPermission" [selectedPOCId]="getSelectedPOCId()"
+  (pocChangeEvent)=updateNavbar($event) id="sidebar" role="navigation" class="sidebar"></nav>
+<nav navbar (toggleSidebarEvent)="toggleSidebarListener($event)" (navClickEvent)="navClickListener($event)"
+  class="page-controls navbar navbar-dashboard" *ngIf="isNavbarUpdated"></nav>
+<!-- <nav navbar (toggleSidebarEvent)="toggleSidebarListener($event)" (navClickEvent)="navClickListener($event)" class="page-controls navbar navbar-dashboard"
+  *ngIf="!isNavbarUpdated"></nav> -->
+
+<div class="content-wrap" id="content-wrap">
+  <main id="content" class="content main-content" role="main">
+    <router-outlet *ngIf="isNavbarUpdated"></router-outlet>
+  </main>
+
+</div>
+<footer footer id="footerbar"></footer>
+
+
+<notifications></notifications>

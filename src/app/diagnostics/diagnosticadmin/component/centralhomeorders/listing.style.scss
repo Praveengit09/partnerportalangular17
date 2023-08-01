@@ -1,0 +1,365 @@
+.date_txt ::ng-deep .datepicker {
+    width: 100% !important;
+    min-width: 150px;
+}
+
+.date_txt ::ng-deep .datepicker input {
+    text-align: left !important;
+}
+
+// ::ng-deep .list_diagnostic tr .cloum-sticky-row:nth-of-type(1) {
+//     left: 0px !important;
+//     position: sticky;
+//     z-index: 1;
+// }
+// ::ng-deep .list_diagnostic tr th.mat-header-cell:nth-of-type(2),
+// ::ng-deep .list_diagnostic tr .cloum-sticky-row:nth-of-type(2) {
+//     left: 100.025px !important;
+//     position: sticky;
+//     z-index: 1;
+// }
+// ::ng-deep .list_diagnostic tr th.mat-header-cell:nth-of-type(3),
+// ::ng-deep .list_diagnostic tr .cloum-sticky-row:nth-of-type(3) {
+//     left: 220.825px !important;
+//     position: sticky;
+//     z-index: 1;
+// }
+// ::ng-deep .list_diagnostic tr th.mat-header-cell:nth-of-type(4),
+// ::ng-deep .list_diagnostic tr .cloum-sticky-row:nth-of-type(4) {
+//     left: 309px !important;
+//     position: sticky;
+//     z-index: 1;
+// }
+@media only screen and (min-width:600px) {
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_0,
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_0 {
+        position: sticky;
+        z-index: 12;
+        left: 0;
+    }
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_1,
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_1 {
+        position: sticky;
+        left: 90.0174px !important;
+        z-index: 22;
+    }
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_2,
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_2 {
+        position: sticky;
+        left: 190.0174px !important;
+        z-index: 22;
+        min-width: 150px !important;
+    }
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_0 {
+        z-index: 10000 !important;
+    }
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_1 {
+        z-index: 10000 !important;
+    }
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_2 {
+        z-index: 10000 !important;
+    }
+    .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable tr.mat-header-row {
+        position: sticky !important;
+        top: 0;
+        z-index: 9001 !important;
+    }
+}
+
+.widget.hs-table {
+    z-index: 0 !important;
+}
+
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_3,
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_3 {
+    left: 0 !important;
+}
+
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_4,
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_4 {
+    min-width: 120px !important;
+}
+
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_5,
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_5 {
+    min-width: 230px;
+}
+
+// .list_diagnostic ::ng-deep  #diagnosticscentralhomeordersListTable #col_4,
+// .list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_4 {
+//        min-width: 250px !important;
+// } 
+//  .list_diagnostic ::ng-deep .vdcheader th{
+//     position: initial !important;
+// }
+.list_diagnostic ::ng-deep .vdcheader tr {
+    position: sticky !important;
+    top: 0;
+}
+
+.list_diagnostic ::ng-deep .table-responsive {
+    overflow-y: auto !important;
+    max-height: 480px !important;
+    height: 100% !important;
+}
+
+.list_diagnostic ::ng-deep .table-responsive {
+    overflow-y: auto !important;
+    max-height: 480px !important;
+    height: 100% !important;
+}
+
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_1 :after,
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #head_2 :after,
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_1 :after,
+.list_diagnostic ::ng-deep #diagnosticscentralhomeordersListTable #col_2 :after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 100%;
+    top: 0px;
+    border-right: 1px solid #e0e0e0 !important;
+}
+
+.submit_btn {
+    margin: 5px 0;
+}
+
+.float-right {
+    float: right;
+}
+
+.filter-bypoc .select_poc {
+    height: 45px !important;
+    border-radius: 4px;
+}
+
+.order_reports {
+    background-color: #fff;
+    box-shadow: 0.1px 0.1px 5px 2px #88888824;
+    padding: 10px 10px;
+    border-radius: 8px;
+    margin: 10px 10px;
+    float: left;
+}
+
+.buttonCounts {
+    margin-left: 0px;
+}
+
+.paymentPendingOrders {
+    background-color: #f59a4b;
+}
+
+.cancelledOrders {
+    background-color: #999999;
+    /*padding-right: 10px;*/
+}
+
+.appOrders{
+    background-color:#FF6D6D;
+}
+.centerOrders{
+    background-color:rgb(213, 140, 213);
+}
+.websiteOrders{
+    background-color:cornflowerblue;
+}
+
+.vendorUnAssignedOrders {
+    background-color: #CD5C5C;
+}
+
+.vendorRejectedOrders {
+    background-color: #9f6f21;
+}
+
+.phleboUnAssignedOrders {
+    background-color: #27d2b3;
+}
+
+.phleboRejected {
+    background-color: #fe4343;
+}
+
+.addresschgd {
+    background-color: #23D6D5;
+}
+
+.notification {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    margin: 5px;
+    border: 1px solid #00000073;
+}
+
+.notification:focus {
+    outline: none;
+}
+
+.all_fillter_btn .active {
+    border: 2px solid #00000073 !important;
+}
+.notification .inside-badge{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #555555;
+    border-radius: 100px;
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 455px) {
+    .all_fillter_btn li {
+        float: none;
+    }
+}
+
+//------------------------- image ----------
+.newadd_process {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.newadd_processcroll {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.newadd_process .patient_txt h4 {
+    font-size: 21px;
+}
+
+.prescription_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 25px;
+}
+
+.prescription_jpg h4 {
+    color: #11a9b5;
+}
+
+.prescription_padding {
+    padding-left: 0px;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.image_download {
+    margin-left: 40%;
+}
+
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+
+.image_clickpopup {
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+
+.modal-body {
+    margin-top: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}
+
+@media screen and (min-width:992px) {
+    .orderIdmrgn .search-orders {
+        margin-top: 24px !important;
+    }
+}
+
+::ng-deep #diagnosticscentralhomeordersListTable .table-responsive {
+    height: 500px;
+}
+
+::ng-deep .allheader .mat-header-cell {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+::ng-deep .fixed_top {
+    position: sticky;
+    // top: 80px;
+    // padding-bottom: 65px;
+    // height: 500px;
+    margin-bottom: 8rem;
+}
+
+// .margin_button{
+//     margin-bottom: 15%;
+// }
+::ng-deep .positions {
+    position: relative;
+    top: 200px
+}
+
+::ng-deep .button_down {
+    position: relative;
+    // top: 110,
+    margin-bottom: 80px,
+}
+
+.list_diagnostic #diagnosticscentralhomeordersListTable .vdcheader tr {
+    position: sticky;
+    top: 0;
+    z-index: 10001 !important;
+}
+
+@media screen and (min-width:992px) {
+    .sub-btn {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .sub-btn {
+        margin-top: 9px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .list_diagnostic ::ng-deep .vdcheader tr {
+        display: none;
+    }
+}

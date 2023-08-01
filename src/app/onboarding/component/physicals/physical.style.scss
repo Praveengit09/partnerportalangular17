@@ -1,0 +1,33 @@
+.weight_txt{
+border: none;
+background-color: transparent;
+padding-top: 34px;
+display: block;
+}
+.Update {
+  width: 172px;
+  height: 17px;
+ 
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  width: 172px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+}
+
+@media screen and (max-width: 575px) {
+  .weight_txt {
+    padding-top: 0;
+    float: right;
+  }
+}
+
+@media screen and (max-width: 825px) {
+  .progress_indicator_wrapper a {
+    width: auto;
+  }
+}

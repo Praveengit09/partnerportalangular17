@@ -1,0 +1,122 @@
+ .mat-form-field {
+    width: 100% !important;
+    min-width: 150px;
+}
+
+.date_txt ::ng-deep .datepicker {
+    width: 100% !important;
+    min-width: 150px;
+}
+
+.date_txt ::ng-deep .datepicker input {
+    text-align: left !important;
+}
+
+@media screen and (min-width:992px) {
+    .orderIdmrgn .search-orders {
+        margin-top: 24px !important;
+    }
+}
+.btn {
+    margin-top: 5px ;
+}
+
+.disabled {
+    display: block;
+}
+.float-right {
+    float: right;
+}
+.filter-bysts .select_poc {
+    height: 45px !important;
+    border-radius: 4px;
+}
+.search-orders{
+    margin-top: 27px !important;
+}
+@media screen and (max-width:991px) {
+    .search-orders{
+        margin-top: 0px !important;
+    }
+    
+}
+
+.cancelled_orders ::ng-deep #diagnosticscancelledhomeordersListTable tbody{
+    z-index: 22 !important;
+}
+.cancelled_orders  #diagnosticscancelledhomeordersListTable .table-responsive{
+    overflow-y: auto !important ;
+    max-height: 480px !important;
+    height: 100% !important;
+}
+@media only screen and (min-width:600px){
+    .cancelled_orders  #diagnosticscancelledhomeordersListTable #col_0,
+    .cancelled_orders  #diagnosticscancelledhomeordersListTable #head_0 {
+        position: sticky !important;
+        left: 0px !important;
+        border-right: none !important;
+        z-index: 1!important;
+    }
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #col_1,
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #head_1 {
+        left: 89.9688px !important;
+        z-index: 3 !important;
+        position: sticky !important;
+        z-index: 1!important;
+    }
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #col_7,
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #head_7{
+        min-width: 230px;
+    }
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #col_2,
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #head_2 {
+        left: 187.031px !important;
+        z-index: 1 !important;
+        min-width: 160px !important;
+        position: sticky !important;
+    }
+    .cancelled_orders  #diagnosticscancelledhomeordersListTable #col_3,
+    .cancelled_orders  #diagnosticscancelledhomeordersListTable #head_3 {
+        left: 0 !important;
+        min-width: 150px;
+    }
+    .cancelled_orders  #diagnosticscancelledhomeordersListTable #col_8,
+    .cancelled_orders  #diagnosticscancelledhomeordersListTable #head_8 {
+        min-width: 160px;
+    }
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #head_0{
+        z-index: 10000 !important;
+    }
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #head_1{
+        z-index: 10000 !important;
+    }
+    .cancelled_orders #diagnosticscancelledhomeordersListTable #head_2{
+        z-index: 10000 !important;
+    }
+    .cancelled_orders #diagnosticscancelledhomeordersListTable tr.mat-header-row {
+        position: sticky;
+        top: -2px;
+        z-index: 100;
+    }
+}
+.widget.hs-table{
+    z-index: 0 !important;
+}
+
+
+.cancelled_orders  #diagnosticscancelledhomeordersListTable #head_1 :after,
+.cancelled_orders  #diagnosticscancelledhomeordersListTable #head_2 :after,
+.cancelled_orders  #diagnosticscancelledhomeordersListTable #col_1 :after,
+.cancelled_orders #diagnosticscancelledhomeordersListTable #col_2 :after  {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 100%;
+    top: 0px;
+    border-right: 1px solid #e0e0e0 !important;
+}
+@media  screen and (max-width:600px) {
+    .cancelled_orders  #diagnosticscancelledhomeordersListTable .vdcheader tr{
+     display: none;
+    }
+}

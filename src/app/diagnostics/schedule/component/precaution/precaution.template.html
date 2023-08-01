@@ -1,0 +1,240 @@
+<div class="table_size">
+        <h1 class="page-title">Diagnostics Schedule</h1>
+        <h4 class="">Select Applicable tests</h4>
+        <div class="row">
+                <div class="col-md-12">
+                        <ul class="pagination pagination-sm">
+                                <li class="{{firstChar == 'a'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('a')">
+                                        <a>A</a>
+                                </li>
+                                <li class="{{firstChar == 'b'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('b')">
+                                        <a>B</a>
+                                </li>
+                                <li class="{{firstChar == 'c'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('c')">
+                                        <a>C</a>
+                                </li>
+                                <li class="{{firstChar == 'd'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('d')">
+                                        <a>D</a>
+                                </li>
+                                <li class="{{firstChar == 'e'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('e')">
+                                        <a>E</a>
+                                </li>
+                                <li class="{{firstChar == 'f'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('f')">
+                                        <a>F</a>
+                                </li>
+                                <li class="{{firstChar == 'g'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('g')">
+                                        <a>G</a>
+                                </li>
+                                <li class="{{firstChar == 'h'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('h')">
+                                        <a>H</a>
+                                </li>
+                                <li class="{{firstChar == 'i'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('i')">
+                                        <a>I</a>
+                                </li>
+                                <li class="{{firstChar == 'j'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('j')">
+                                        <a>J</a>
+                                </li>
+                                <li class="{{firstChar == 'k'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('k')">
+                                        <a>K</a>
+                                </li>
+                                <li class="{{firstChar == 'l'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('l')">
+                                        <a>L</a>
+                                </li>
+                                <li class="{{firstChar == 'm'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('m')">
+                                        <a>M</a>
+                                </li>
+                                <li class="{{firstChar == 'n'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('n')">
+                                        <a>N</a>
+                                </li>
+                                <li class="{{firstChar == 'o'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('o')">
+                                        <a>O</a>
+                                </li>
+                                <li class="{{firstChar == 'p'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('p')">
+                                        <a>P</a>
+                                </li>
+                                <li class="{{firstChar == 'q'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('q')">
+                                        <a>Q</a>
+                                </li>
+                                <li class="{{firstChar == 'r'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('r')">
+                                        <a>R</a>
+                                </li>
+                                <li class="{{firstChar == 's'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('s')">
+                                        <a>S</a>
+                                </li>
+                                <li class="{{firstChar == 't'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('t')">
+                                        <a>T</a>
+                                </li>
+                                <li class="{{firstChar == 'u'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('u')">
+                                        <a>U</a>
+                                </li>
+                                <li class="{{firstChar == 'v'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('v')">
+                                        <a>V</a>
+                                </li>
+                                <li class="{{firstChar == 'w'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('w')">
+                                        <a>W</a>
+                                </li>
+                                <li class="{{firstChar == 'x'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('x')">
+                                        <a>X</a>
+                                </li>
+                                <li class="{{firstChar == 'y'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('y')">
+                                        <a>Y</a>
+                                </li>
+                                <li class="{{firstChar == 'z'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('z')">
+                                        <a>Z</a>
+                                </li>
+                                <li class="{{firstChar == '#'?'diagnosticsc_title':''}}" (click)="onAlphabetClick('#')">
+                                        <a>Others</a>
+                                </li>
+                        </ul>
+                </div>
+        </div>
+        <h4 class="">Test Category
+                <b>STD</b> Panel</h4>
+        <br />
+        <div class="row">
+                <div class="col-md-4">
+                        <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for tests"
+                                        [(ngModel)]="searchTerm" (keyup)="onSearch()">
+                        </div>
+                </div>
+
+                <div class="col-md-4">
+                        <h5 class="selected_text">Tests Selected
+                                <b class="test_count">{{selectedServiceList.length}}</b>
+                        </h5>
+                </div>
+        </div>
+
+
+        <div class="row">
+                <div class="col-md-4">
+                        <section class="widget table_pading" widget="">
+                                <div class="widget-body table-responsive">
+                                        <table class="table table-hover table-striped hs_tabletxt">
+                                                <thead>
+                                                        <tr class="table_head tabledoc_head">
+                                                                <th>#</th>
+                                                                <th>Test Name</th>
+                                                                <th></th>
+
+                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                        <tr class="doctor_serial"
+                                                                *ngFor="let test of serviceListDisplay; let i=index">
+                                                                <td>
+                                                                        <h5>{{i+1}}</h5>
+                                                                </td>
+                                                                <td class="test_name_tytle test_name_tytle">
+                                                                        <h5>{{test.serviceName}}</h5>
+                                                                </td>
+                                                                <td class="docbooking">
+                                                                        <h5>
+                                                                                <input type="checkbox" name="genres"
+                                                                                        class="applicable_check"
+                                                                                        id={{test.serviceId}}
+                                                                                        [checked]="test.isSelected"
+                                                                                        (click)="onClickItem(test)">
+                                                                                <label for={{test.serviceId}}></label>
+                                                                        </h5>
+                                                                </td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                </div>
+                        </section>
+                </div>
+        </div>
+        <h4 class="">Precautions</h4>
+        <div class="row">
+                <div class="col-md-12">
+                        <section class="widget table_pading" widget="">
+                                <div class="widget-body table-responsive">
+                                        <table class="table table-hover table-striped hs_tabletxt">
+                                                <thead>
+                                                        <tr class="table_head tabledoc_head">
+                                                                <th>#</th>
+                                                                <th>Test Group</th>
+                                                                <th>Included Test</th>
+                                                                <th>Precaution</th>
+                                                                <th>Action</th>
+
+                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                        <tr class="doctor_serial"
+                                                                *ngFor="let list of preList;  let i = index">
+                                                                <td>{{i+1}}</td>
+                                                                <td class="image_circle">
+                                                                        <h5>{{this.investigationRequest.scheduleName}}
+                                                                        </h5>
+                                                                </td>
+                                                                <td class="docbooking">
+                                                                        <h5>
+                                                                                <a data-toggle="modal"
+                                                                                        data-target="#enquirypopup"
+                                                                                        (click)="testDisplay(list)">View
+                                                                                        all</a>
+                                                                        </h5>
+                                                                </td>
+                                                                <td class="docbooking">
+                                                                        <h5>{{list.precaution}}</h5>
+
+                                                                </td>
+
+
+                                                                <td class="manage_button">
+                                                                        <button type="button" class="btn engage_txt"
+                                                                                (click)="onDelete(i)">Delete</button>
+                                                                </td>
+
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                </div>
+                        </section>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-7">
+                        <div class="form-group">
+                                <label for="filter">Precautions</label>
+                                <textarea class="form-control animated"
+                                        placeholder="Give the precaution for the medicine"
+                                        [(ngModel)]="precaution"></textarea>
+                        </div>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-3">
+                        <button id="singlebutton" name="singlebutton" class="btn  Update12"
+                                (click)="savePrecautions()">Save Precautions</button>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-3">
+                        <button id="singlebutton" name="singlebutton" class="btn  btn-primary"
+                                (click)="submitPrecautions()">Submit</button>
+                </div>
+        </div>
+        <br>
+        <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+</div>
+
+<!-- pop up code here -->
+<div id="enquirypopup" class="modal fade in" role="dialog">
+        <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                        <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Selected test</h4>
+                        </div>
+                        <div class="modal-body">
+                                <p *ngFor="let list of displayTest">{{list.serviceName}}</p>
+                        </div>
+                </div>
+        </div>
+</div>

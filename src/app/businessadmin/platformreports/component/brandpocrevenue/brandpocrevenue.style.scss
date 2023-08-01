@@ -1,0 +1,141 @@
+.serch_txt {
+    padding: 6px 10px;
+    text-align: left;
+    border-radius: 4px;
+    border-width: 0px;
+    border: 1px solid #ddd;
+    text-align: left;
+    width: 235px;
+    height: 36px;
+}
+.downloadrecon_txt{
+    float: right;
+    margin-top: 17%;
+    padding: 5px 25px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.filter_txt {
+    float: right;
+}
+.view_color{
+    background: #14a9b5;
+    border-color: #14a9b5;
+    font-size: 16px;
+    color: #fff;
+}
+
+.hospitalname a {
+    color: #14a9b5 !important;
+}
+
+.go_txtbut {
+    padding: 0px;
+}
+
+.table {
+    border: 1px solid #ddd;
+}
+
+
+.bck_tabcol {
+    background-color: #f7fafd;
+}
+
+
+.aria_filter_txt {
+    padding-bottom: 35px;
+}
+
+.input_date .form-control {
+    padding: 7px 20px !important;
+}
+
+.dropdown-menu {
+    font-size: 13px;
+    padding: 20px 15px;
+}
+
+.widget_txt {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 25px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: auto !important;
+    margin-top: 2px;
+}
+
+.order_list ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.order_list ul li {
+    display: inline;
+    font-size: 13px;
+    text-align: left;
+    float: left;
+    border-left: 1px solid #ddd;
+    padding: 15px 20px 0px 10px;
+    font-weight: 600;
+    cursor: pointer;
+    word-break: break-word;
+    height: auto;
+}
+
+.hospitalname {
+    padding-left: 15px;
+}
+
+.financial_report_tabletxt tbody td,
+thead th {
+    width: auto!important;
+}
+
+.select_poc {
+    height: 43px;
+}
+
+.financial_total {
+    height: 55px;
+}
+
+.final_tablereport {
+    padding: 0px;
+}
+
+@media only screen and (min-width: 320px) {
+    .respon_txt {
+        z-index: 0;
+    }
+}
+
+//////////////////
+table {
+    width: 100%;
+    border: 1px soloid #000;
+}
+tbody {
+    overflow-y: auto;
+    height: 280px;
+}
+
+tbody td,
+thead th {
+    width: 18%;
+}
+
+tr:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    visibility: hidden;
+}
+.table {
+    margin-bottom: 0;
+}

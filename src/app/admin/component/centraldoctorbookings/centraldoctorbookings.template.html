@@ -1,0 +1,297 @@
+<hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<h1 class="page-title">Central Doctor Bookings</h1>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <input type="radio" name='radio1' [checked]='patientFilter' (change)="onChange(1)"> Patient's Name/Email Id/Mobile Number &nbsp;
+        <input type="radio" name='radio1' [checked]='doctorFilter' (change)="onChange(2)"> Doctor Name &nbsp;
+        <input type="radio" name='radio1' [checked]='orderFilter' (change)="onChange(3)"> Order Id/ Invoice Id
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <mat-form-field appearance="outline" class="search-orders" *ngIf='patientFilter == true'>
+                <mat-label>Patient Name/Email Id/Mobile Number</mat-label>
+                <input type="text" autocomplete="off" id="search1" (keyup)="onEnterPressed($event,'patient')" matInput placeholder="Enter Patient Name/Email Id/Mobile Number">
+                <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getCentralDoctorOrdersListByFilter('','patient')"></i>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="search-orders" *ngIf='doctorFilter == true'>
+                <mat-label>Enter Doctor name</mat-label>
+                <input type="text" autocomplete="off" id="search2" (keyup)="onEnterPressed($event,'doctor')" matInput placeholder="Enter Doctor name">
+                <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getCentralDoctorOrdersListByFilter('','doctor')"></i>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="search-orders" *ngIf='orderFilter == true'>
+                <mat-label>Enter OrderId/ InvoiceId</mat-label>
+                <input type="text" autocomplete="off" id="search3" (keyup)="onEnterPressed($event,'order')" matInput placeholder="Enter OrderId/ InvoiceId">
+                <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getCentralDoctorOrdersListByFilter('','doctor')"></i>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-sm-4">
+                    <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker" (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                </div>
+                <div class="col-sm-4">
+                    <datetime [(value)]="endingDate" [placeholder]="'End Date'" name="endDate" id="datepicker2" (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOptEnd"></datetime>
+                </div>
+                <div class="col-sm-4 sub-btn">
+                    <button type="submit" class="btn btn-danger width-100" role="button" (click)="onSubmit()">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 mt-2">
+        <button type="submit" class="btn btn-primary float-right width-100" role="button" (click)="onSendEmail()">Send Email</button>
+    </div>
+</div>
+
+<div class="row ">
+    <!-- <form action="#"> -->
+    <!-- <div class="row float-right"> -->
+    <div class="col-xl-3 col-sm-6">
+        <h6>Filter by Payment Status</h6>
+        <select class="form-control" [(ngModel)]='filterPaymentStatus' [ngModelOptions]="{standalone: true}" (change)="onChangeStatus($event.target.value)">
+            <option value=0>Select Payment Status</option>
+            <option value=1>Paid</option>
+            <option value=2>Not Paid</option>
+        </select>
+
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+        <h6>Filter by Order Status</h6>
+        <select class="form-control select_poc" [(ngModel)]='filterInvoiceStatus' [ngModelOptions]="{standalone: true}" (change)="onChangeStatus($event.target.value)">
+            <option value=0>Select Order Status</option>
+            <option value=1>Completed</option>
+            <option value=2>Pending</option>
+        </select>
+
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+        <h6>Filter by Cancellation Status</h6>
+        <select class="form-control select_poc" [(ngModel)]='fiterCancellationStatus' [disabled]='filterInvoiceStatus == 1' [ngModelOptions]="{standalone: true}" (change)="onChangeStatus($event.target.value)">
+            <option value=0>Select Cancellation Status</option>
+            <option value=1>Active</option>
+            <option value=2>Cancelled</option>
+            <option value=3>Cannot Be Cancelled</option>
+        </select>
+
+    </div>
+
+    <div class="col-xl-3 col-sm-6">
+        <div *ngIf="pocRolesList?.length > 0">
+            <h6>Filter by Center</h6>
+            <select class="form-control select_poc" (change)="onPOCSelect($event.target.value)">
+                <option value=0>All Centers</option>
+                <option *ngFor="let poc of pocRolesList;let i = index" [value]=poc.pocId>{{poc.pocName}}</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- </div> -->
+    <!-- </form> -->
+</div>
+
+<div class="row mt-1">
+
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="getcentraldoctorordersList" (clickEvent)="clickEventHandler($event)" [componentId]="'getcentraldoctorordersListTable'" [perPage]="perPage" [total]="total" [dataMsg]="dataMsg" [enableDownload]="true" (pageClick)="onPage($event)"
+                    (pageEvent)="pageEvent($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- //cancellation modal starts here -->
+<div class="modal fade" id="cancel_confirm">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content" *ngIf="bookingDetails!=undefined">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title add_medtxt text-line">Cancel Appointment</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" #signupForm="ngForm">
+                    <div class="form-group">
+                        <h5 class="paycon_txt"> Booking Details</h5>
+                    </div>
+
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Date</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">
+                            {{bookingDetails.slotDate | date:'d/MMMM/yyyy'}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Time Slot </p>
+
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{bookingDetails.slotTime | date:"hh:mm a"}}
+                        </p>
+                        <!-- commonUtil.convertTimeStampToDate(bookingDetails.slotTime) -->
+                    </div>
+
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Patient Information</p>
+                    </div>
+
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Name</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{(bookingDetails.patientProfileDetails?.title?(bookingDetails.patientProfileDetails?.title+". "):'')}} {{bookingDetails.patientProfileDetails?.fName}} {{bookingDetails.patientProfileDetails?.lName?(bookingDetails.patientProfileDetails?.lName):''}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Age</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{commonUtil.getAge(bookingDetails.patientProfileDetails.dob).split(",")[0]+commonUtil.getAge(bookingDetails.patientProfileDetails.dob).split(",")[1]}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Gender </p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{bookingDetails.patientProfileDetails.gender}}</p>
+                    </div>
+
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Payment Information</p>
+                    </div>
+
+                    <div class="form-group consoul_line row">
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Test Charges</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{bookingDetails.payment.originalAmount}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Package Discount</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{bookingDetails.payment.packageDiscountAmount}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Grand Total</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{bookingDetails.payment.finalAmount}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Payment Status</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.paymentStatus==1">
+                            Payment Done</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.paymentStatus==0">
+                            Payment Pending</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Payment Mode
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==0">
+                            Not defined</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==1">
+                            Card</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==2">
+                            Cash</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==3">
+                            Online</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==4">
+                            Package</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==5">
+                            Mobile</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==6">
+                            GooglePay</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==7">
+                            Paytm</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6" *ngIf="bookingDetails.payment.transactionType==8">
+                            PhonePay</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><a class="btn Update cancelslot_txt" data-toggle="modal" (click)="cancelSlot()">Cancel
+                                Slot</a></div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!--//comments modal starts here-->
+
+
+<customer_review_modal [modalTitle]='modalTitle' [interactionStatus]='interactionStatus' [modalId]='modalId' [hasTypeCheck]='false' [errorMessage]='error' [previousComments]='this?.comments' (addInteractionStatusEvent)="addInteractionStatus($event)" (onRemarkSubmitEvent)="onRemarksSubmit($event)">
+</customer_review_modal>
+
+<div class="modal fade" id="viewmoremodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div [innerHTML]="formattedDataString | sanitizeHtml" (click)="innerHTMLClick($event)">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="mailmodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title page-title">Email Report</h4>
+            </div>
+            <div class="modal-body">
+                <p>Please Enter your email address to send orders for selected dates and filters</p>
+                <input class="form-control" type="text" id="toEmail" placeholder="Enter Email address" [(ngModel)]="toEmail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onMailSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="smsmodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title page-title">SMS Templates</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <h5 class="col-md-4 page-title smslabel">Available SMS:</h5>
+                    <p class="col-md-4">
+                        <select id="sms_select" class="form-control" (change)="onSmsTemplateChange($event.target.value)">
+                            <option value=0>Select Template</option>
+                            <option *ngFor="let sms of smsTemplates" [value]="sms.templateId">
+                                {{sms.templateName}}</option>
+                        </select>
+                    </p>
+                </div>
+                <div *ngIf="sendMessage.length">
+                    <h5 class="col-md-4 page-title">Preview</h5>
+                    <p class="col-md-12">{{sendMessage}}</p>
+                </div>
+            </div>
+            <hs-message [isError]="smsError" [show]="smsError" [messages]="smsErrorMsg"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="sendSMSUser()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

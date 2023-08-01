@@ -1,0 +1,87 @@
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <h1 class="page-title">Upload Inventory</h1>
+        </div>
+        <div class="col-md-4 col-sm-12 pr-0">
+            <div class="form-group">
+                <a class=" btn Update12" type="button" value="SEARCH" (click)="onSearchAndUpadateClick()">SEARCH AND
+                    UPDATE
+                    PRICE</a>
+            </div>
+        </div>
+    </div>
+    <p class="inventory_para">This is the page where you can update your inventory.Please follow the steps mentioned below :-</p>
+    <section>
+        <div class="widget-body">
+            <form class="form-horizontal " role="form">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+                        <div class="row template_upload">
+                            <h5 class="col-md-12">Download Inventory Template</h5>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="form-group">
+                                    <button class="update mt-2"><a
+                                            href="https://s3.ap-south-1.amazonaws.com/hsappimages/files/PharmacyInventoryTemplate.xlsx"
+                                            target="_blank">Download Template</a></button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                <h1 class="number_uploadtxt">1</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+                        <div class="row template_upload">
+                            <h5 class="col-md-12">Updated Information</h5>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <p class="successfully_upload">Now that you have successfully downloaded the template, Please updated your inventory information in the downloaded template.
+                                </p>
+                                <p class="successfully_upload">Please note that the template is in .xls format. You will require either Microsoft word, or open office in-order to edit the template.
+                                </p>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                <h1 class="number_uploadtxt">2</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+                        <div class="row template_upload">
+                            <h5 class="col-md-12">Upload the Updated Template</h5>
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <span class="custom-dropdown">
+                                    <select *ngIf="pocList" (change)="onPOCSelect($event.target.value)">
+                                        <option>Select Centre</option>
+                                        <option *ngFor="let poc of pocList;let i = index" [value]="poc.pocId">
+                                            {{poc.pocName}}</option>
+                                    </select>
+                                </span>
+                                <div class="form-group">
+                                    <div class="upload-section">
+                                        <button>Choose File</button>
+                                        <input #diagnosticFileUpload type="file" accept=".xls,.xlsx" class="form-control" id="files" name="uploadfile" (change)="fileUpload($event)" placeholder="Upload xls/xlsx file type" />
+                                        <label>{{excelString}} <a *ngIf="excelString!=='Filename.xls'"
+                                                (click)="clearUploadData('excel');" class="fa fa-times-circle-o"></a>
+                                        </label>
+                                    </div>
+
+                                    <input class="update submitbtn" type="button" value="Submit" (click)="onUploadButtonClick()">
+                                </div>
+                                <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage">
+                                </hs-message>
+                                <div *ngIf="hasCheckBoxValidation">
+                                    <label class="error_class">{{checkBoxValidationMessage}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                <h1 class="number_uploadtxt">3</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+<spinner-component></spinner-component>

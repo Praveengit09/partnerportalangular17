@@ -1,0 +1,171 @@
+<div class="card">
+    <div class="card-header">
+
+        <h4>Current Prescription</h4>
+
+    </div>
+    <div class="card-body shortSummary">
+        <ul class="list-unstyled list-group-flush">
+            <li>
+                <p class="font-italic">Add advice from the left hand side of this page to generate prescription
+                </p>
+            </li>
+            <li class="list-group-item" *ngIf="getpatientMedicalAdvise().symptomList.length>0">
+                <h5 class="shortSumHead">Presenting Complaints</h5>
+                <span *ngFor="let sympton of patientMedicalAdvise.symptomList;let i=index">{{i==0?'':','}}
+                    {{sympton.name}}</span>
+            </li>
+            <li class="list-group-item" *ngIf="patientMedicalAdvise.clinicalExaminationList.length>0">
+                <h5 class="shortSumHead">Clinical Examination</h5>
+                <span
+                    *ngFor="let clinicalExamination of patientMedicalAdvise.clinicalExaminationList;let i=index">{{i==0?'':','}}
+                    {{clinicalExamination.name}}</span>
+            </li>
+            <li class="list-group-item" *ngIf="patientMedicalAdvise.diagnosisList.length>0">
+                <h5 class="shortSumHead">Diagnosis</h5>
+                <div>
+                    <h6 class="shortSumSubHead" *ngIf="this.patientMedicalAdvise.nonFinalDiagnosisCount>0">Provisional
+                    </h6>
+                    <p class="marginBottom0" *ngFor="let diagnosis of patientMedicalAdvise.diagnosisList">
+                        <span *ngIf="!diagnosis.finalDiagnosis">{{diagnosis.name}}</span>
+                    </p>
+                </div>
+                <div>
+                    <h6 class="shortSumSubHead" *ngIf="this.patientMedicalAdvise.finalDiagnosisCount>0">Final</h6>
+                    <p class="marginBottom0" *ngFor="let diagnosis of patientMedicalAdvise.diagnosisList">
+                        <span *ngIf="diagnosis.finalDiagnosis">{{diagnosis.name}}</span>
+                    </p>
+                </div>
+            </li>
+            <li class="list-group-item"
+                *ngIf="patientMedicalAdvise.pharmacyAdvises&&patientMedicalAdvise.pharmacyAdvises.pharmacyAdviceList.length>0">
+                <h5 class="shortSumHead">Medicines</h5>
+                <div *ngFor="let medicine of patientMedicalAdvise.pharmacyAdvises.pharmacyAdviceList;let i=index">
+                    {{medicine.productName}} {{medicine.medicineStrength?('('+medicine.medicineStrength+')'):''}}
+                    {{medicine.drugForm?('('+medicine.drugForm+')'):''}}
+                    <span *ngIf="!medicine.isSOS">
+                        (
+                        {{(medicine.dosePerDay && medicine.dosePerDay==1)?
+                        (medicine.dosePerDay + ' Once a Day'):''
+                        }}
+                        {{(medicine.dosePerDay && medicine.dosePerDay>1)?
+                        (medicine.dosePerDay + ' times a Day'):''
+                        }}
+
+                        {{
+                        (medicine.dosePerDay && medicine.dosePerDay>0 && medicine.duration &&
+                        medicine.duration.frequencyDays && medicine.duration.frequencyDays > 0)?
+                        ',':''
+                        }}
+
+                        {{medicine.duration && medicine.duration.frequencyLabel ? medicine.duration.frequencyLabel :
+                        ''}}
+
+                        {{
+                        (medicine.duration && medicine.duration.repeatTimes && medicine.duration.repeatTimes>0 &&
+                        medicine.duration.frequencyDays && medicine.duration.frequencyDays > 0)
+                        ?',':''
+                        }}
+
+                        {{(medicine.duration && medicine.duration.repeatTimes && medicine.duration.repeatTimes==1)?
+                        ('for one day'):''
+                        }}
+                        {{(medicine.duration && medicine.duration.repeatTimes && medicine.duration.repeatTimes>1)?
+                        ('for '+medicine.duration.repeatTimes+' days'):''
+                        }}
+
+                        {{
+                        (medicine.duration && medicine.duration.repeatTimes && medicine.duration.repeatTimes>0 &&
+                        medicine.takenWhenFood)
+                        ?',':''
+                        }}
+
+                        {{(medicine.takenWhenFood)?(medicine.takenWhenFood):''}}
+
+                        {{
+                        (medicine.takenWhenFood && medicine.intakeRoute)?',':''
+                        }}
+
+                        {{(medicine.intakeRoute)?(medicine.intakeRoute):''}}
+
+                        )
+                    </span>{{patientMedicalAdvise.pharmacyAdvises&&patientMedicalAdvise.pharmacyAdvises.pharmacyAdviceList.length!=1
+                    &&
+                    i!=(patientMedicalAdvise.pharmacyAdvises&&patientMedicalAdvise.pharmacyAdvises.pharmacyAdviceList.length-1)?',':''}}
+                </div>
+            </li>
+            <li class="list-group-item"
+                *ngIf="patientMedicalAdvise.investigationAdvises&&patientMedicalAdvise.investigationAdvises.investigationList.length>0">
+                <h5 class="shortSumHead">Investigations</h5>
+                <span
+                    *ngFor="let investigation of patientMedicalAdvise.investigationAdvises.investigationList;let i=index">{{i==0?'':','}}
+                    {{investigation.serviceName}} {{enableInvestigationNotes &&
+                    investigation.remarks?'('+investigation.remarks+')':''}}</span>
+            </li>
+            <li class="list-group-item"
+                *ngIf="patientMedicalAdvise.procedureList&&patientMedicalAdvise.procedureList.length>0">
+                <h5 class="shortSumHead">{{procedurePrescriptionLabel ?
+                    procedurePrescriptionLabel: 'Procedure'}}</h5>
+                <span *ngFor="let procedure of patientMedicalAdvise.procedureList;let i=index">{{i==0?'':','}}
+                    {{procedure.serviceName}}</span>
+            </li>
+            <li class="list-group-item"
+                *ngIf="patientMedicalAdvise.nonMedicationAdvises&&patientMedicalAdvise.nonMedicationAdvises.length>0">
+                <h5 class="shortSumHead">{{nonMedicationPrescriptionLabel?
+                    nonMedicationPrescriptionLabel:'Non-Medication'}}</h5>
+                <span
+                    *ngFor="let nonMedication of patientMedicalAdvise.nonMedicationAdvises;let i=index">{{i==0?'':','}}
+                    {{nonMedication.title}}</span>
+            </li>
+            <li class="list-group-item"
+                *ngIf="patientMedicalAdvise.immunizationAdvices&&patientMedicalAdvise.immunizationAdvices.length>0">
+                <h5 class="shortSumHead">Immunizations</h5>
+                <span *ngFor="let immunization of patientMedicalAdvise.immunizationAdvices;let i=index">{{i==0?'':','}}
+                    {{immunization.genericMedicine.genericMedicineName}} ({{getDate(immunization.followupDate)}})</span>
+            </li>
+            <li class="list-group-item"
+                *ngIf="patientMedicalAdvise.admissionNote&&patientMedicalAdvise.admissionNote.procedureList.length>0">
+                <h5 class="shortSumHead">{{admissionNotePrescriptionLabel ?
+                    admissionNotePrescriptionLabel : 'Admission Note'}}</h5>
+                <span *ngFor="let admissionNote of patientMedicalAdvise.admissionNote.procedureList;let i=index">
+                    {{i==0?'':','}}
+                    {{admissionNote.serviceName}}
+                </span>
+                <span *ngIf="patientMedicalAdvise.admissionNote.admissionDateFrom">
+                    (Date From: {{getDate(patientMedicalAdvise.admissionNote.admissionDateFrom)}}) ( Date To:
+                    {{(patientMedicalAdvise.admissionNote.admissionDateTo!=null)?getDate(patientMedicalAdvise.admissionNote.admissionDateTo):''}}
+                    )
+                </span>
+            </li>
+            <li class="list-group-item"
+                *ngIf="patientMedicalAdvise.referralDoctorList && patientMedicalAdvise.referralDoctorList.length>0">
+                <h5 class="shortSumHead">{{refer_ToText?'Refer To Doctor':'Referral Doctor'}}</h5>
+
+                <div class="inner-list"
+                    *ngFor="let referralDoctor of patientMedicalAdvise.referralDoctorList;let i=index">
+                    {{referralDoctor.doctorDetail.title}} {{referralDoctor.doctorDetail.firstName}}
+                    {{referralDoctor.doctorDetail.lastName?referralDoctor.doctorDetail.lastName:''}}
+                    <div class="service">({{referralDoctor.doctorDetail?.serviceList[0]?.serviceName}})</div>
+                </div>
+            </li>
+            <li class="list-group-item" *ngIf="
+            patientMedicalAdvise.followupAdvices &&
+            patientMedicalAdvise.followupAdvices[0]&&
+            (patientMedicalAdvise.followupAdvices[0]!=undefined)&&
+            (patientMedicalAdvise.followupAdvices[0]!=null)&&
+            patientMedicalAdvise.followupAdvices.length>0&&
+            patientMedicalAdvise.followupAdvices[0].validityDays>0">
+                <h5 class="shortSumHead">Followup Advice</h5>
+                <span *ngFor="let followup of patientMedicalAdvise.followupAdvices;let i=index">{{i==0?'':','}}
+                    {{followup.validityDays}} {{(followup.validityDays>0)?'Days':''}}
+                    {{(followup.discountPercent>0)?'('+followup.discountPercent+'%)':''}}</span>
+            </li>
+            <li class="list-group-item">
+                <button class="btn btn-outline-secondary btn-block saveBtn"
+                    (click)="savePrescriptionsOfPatient()">Save</button>
+                <button class="btn btn-danger btn-block nextBtn" *ngIf="enableFixedNextBtn"
+                    (click)="nextPageButton()">Next</button>
+            </li>
+        </ul>
+    </div>
+</div>

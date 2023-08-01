@@ -1,0 +1,29 @@
+::ng-deep .datepicker, .mat-form-field {
+    width: 100% !important;
+    min-width: 150px;
+}
+::ng-deep .datepicker input {
+    text-align: left !important;
+}
+.submit_btn {
+    margin: 5px 0;
+}
+.float-right {
+    float: right;
+}
+.filter-bypoc .select_poc {
+    height: 45px !important;
+    border-radius: 4px;
+}
+.search-orders{
+    margin-top: 27px;
+}
+@media screen and (max-width:991px) {
+    .search-orders{
+        margin-top: 0px;
+    }
+}
+
+
+
+

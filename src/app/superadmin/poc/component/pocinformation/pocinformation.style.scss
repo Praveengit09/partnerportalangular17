@@ -1,0 +1,107 @@
+.poc_img{
+    width: 87px;
+    height: 87px;
+    margin: 15px;
+}
+.widget_poc{
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 30px 25px;
+}
+.packagelist_img{
+    width: 107px;
+    height: 93px;
+    border-radius: 22px;
+}
+.package_title{
+    width: 123px;
+}
+.prinston_txt{
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0px;
+}
+.serial_number{
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.serial_number .mobil_numbertxt{
+    padding: 0px;
+}
+.pocname_txt .viewedit_button{
+    float: right;
+}
+.pocname_txt .view_employees{
+    position: relative;
+    top: 44px;
+    padding: 10px 30px;
+    font-size: 16px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #ff6d6d;
+    border-color: #ff6d6d;
+    border: none;
+    cursor: pointer;
+}
+.pocname_txt .view_emptxt{
+    margin-right: 15px;
+}
+.poc_service{
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+.service {
+    margin: 0px;
+}
+.service .service_poctxt{
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 0px;
+}
+.service_poctxt .medical_services{
+    padding: 18px 20px 0px;
+    margin-bottom: 0px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.service_poctxt hr{
+    margin-top: 8px;
+}
+.service_poctxt .cardiology_txt{
+    margin: 0px;
+    padding: 0px 4px;
+    margin-bottom: 15px;
+}
+.service_poctxt .cardiology_txt .medical_test{
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.67);
+}
+.medical_pocServicestxt{
+    margin-right: 27px;
+    max-width: 64%;
+}
+.service .partner_poctxt {
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 20px;
+}
+.partner_poctxt1 {
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 20px;
+}
+.medical_testnumber{
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 23px;
+}
+.service_pocdetail {
+    max-height: 111px;
+    overflow: auto;
+}
+

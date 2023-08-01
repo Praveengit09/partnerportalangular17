@@ -1,0 +1,58 @@
+@import "../../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+    .day7_txt{
+        padding-right: 55px;
+    }
+    .otherday_txt{
+        padding-top: 5px;
+        text-decoration: underline;
+        font-size: 14px;
+        color: #8ec5d8;
+    }
+    .otherday_txt a{
+       color: #8ec5d8; 
+    }
+    .otherday_txt a:hover, .otherday_txt a:focus{
+    color: #8ec5d8;
+    outline: none;
+    }
+    .modal-title{
+            color: #8ec5d8;
+    }
+    .table_body{
+        overflow-x: hidden;
+        white-space: nowrap;
+        overflow-y: scroll;
+        min-height: 250px;
+    }
+    @media (max-width: 350px) {
+        .transform_txt9{
+            svg .nv-controlsWrap .nv-legend{
+                transform: translate(-75px,5px) !important;
+            }
+            .nvd3-svg .tick text{
+                font-size: 9px;
+            }
+        }
+       
+    }
+
+    @media (max-width: 320px) {
+        .transform_txt9{
+            svg .nv-controlsWrap .nv-legend{
+                transform: translate(-94px, 5px) !important
+            }
+            svg .nv-legendWrap .nv-legend{
+                transform: translate(51px, 5px) !important
+            }
+            .nvd3 text {
+                font: normal 10px Arial, sans-serif;
+            }
+            .nvd3-svg .tick text{
+                font-size: 8px;
+            }
+        
+    }
+    }

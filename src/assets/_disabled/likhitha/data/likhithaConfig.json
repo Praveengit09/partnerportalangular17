@@ -1,0 +1,34 @@
+{
+    "name": "Likhitha Diagnostics",
+    "appId": 20,
+    "website": "https://www.likhithadiagnostic.com/",
+    "websiteLabel": "likhithadiagnostic.com",
+    "email": "info@likhithadiagnostic.com",
+    "contactnumber": "888 554 8301",
+    "iconspath": "assets/likhitha/icons/",
+    "facebook": "https://www.facebook.com/likhithadiagnostics",
+    "twitter": "https://twitter.com/LikhithaDiagnos",
+    "linkedin": "https://www.linkedin.com",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "brandFinancialReports": true,
+        "internalFinanicalReports": false,
+        "cashAccountingReports": false,
+        "centralHomeCare": false,
+        "digiReception": false,
+        "onboardingPartner": true,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": false
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "enableDoctorWidgets": false,
+        "disableDoctorWaitingTime": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "doctorShareCard": true
+    }
+}

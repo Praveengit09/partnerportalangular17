@@ -1,0 +1,25 @@
+<!-- <div class="table-responsive">
+    <table class="table table-hover table-striped hs_tabletxt">
+      <thead>
+        <tr class="table_head">
+          <th *ngFor="let column of columns" [class]="selectedClass(column.variable, column.sort)" (click)="changeSorting(column.variable, column.sort)">
+            {{column.display}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+       
+        <tr *ngFor="let object of data | paginate: { id: 'pagingTable', itemsPerPage: perPage, currentPage: currentPage , totalItems: total, autoHide:true}">
+          <td *ngFor="let column of columns" class="admin_order">
+            <span *ngIf="column.filter!='action' && column.filter !='number'">{{getDisplayString(object, column) | format : column.filter}}</span>
+            <span *ngIf="column.filter=='number'">{{getDisplayString(object,column) | number : '1.2-2'}}</span>
+            <button *ngIf="column.filter=='action' && column.type=='button'" class="{{getButtonStyle(object, column)}}" role="button" (click)="buttonClicked(object)">{{getButtonLabel(object, column)}}</button>
+            <a *ngIf="column.filter=='action' && column.type=='image'" class="{{getButtonStyle(object, column)}}" (click)="imageClicked(object)"><img *ngIf="column.filter=='action' && column.type=='image'" alt="..." class="img_txt" src="{{getButtonLabel(object, column)}}"></a>
+            <a *ngIf="column.filter=='action' && column.type=='hyperlink'" class="{{getButtonStyle(object, column)}}" (click)="hyperlinkClicked(object)">{{getDisplayString(object, column)}}</a>
+            <a *ngIf="column.filter=='action' && column.type=='imagedownload'" href="{{getHrefLabel(object, column)}}" class="{{getButtonStyle(object, column)}}" download><img *ngIf="column.filter=='action' && column.type=='imagedownload'" alt="..." class="img_txt" src="{{getButtonLabel(object, column)}}"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls *ngIf="this.showPaging" (pageChange)="getPage($event)" id="pagingTable"></pagination-controls> -->

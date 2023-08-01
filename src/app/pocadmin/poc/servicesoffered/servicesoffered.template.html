@@ -1,0 +1,40 @@
+<div class="service_offered">
+    <div class="content_section">
+        <h1 class="page-title">Service Portfolio</h1>
+        <p>Let’s add services to your workplace.</p>
+
+        <h4 class="page-title">What services does your workplace provide?</h4>
+    </div>
+    <span (click)="skipForNow()">Skip for now</span>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-10">
+            <div class="row">
+
+                <div class="col-md-12 service_portfolio" *ngFor="let item of serviceKey;let i=index">
+                    <div class="special-title page-title" *ngIf="(getValue(item))">
+                        <h3>{{serviceRole[item-1]}}</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-5 col-lg-6 service_rep" *ngFor="let item1 of getValue(item) ;let i=index">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id={{item1.serviceId}} (click)="onValueChecked(item1)"
+                                    name={{i}}>
+                                <label class="" for={{item1.serviceId}}> {{item1.serviceName}}</label>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row d-flex">
+        <div class="form-group col-xs-6 col-md-5 col-lg-4 pt-1 d-flex">
+
+        </div>
+        <div class="form-group col-md-12 col-lg-4 pt-1 work_place_btn">
+            <button class="w-100" (click)="onWorkplaceSettings()">Next: Workplace Settings</button>
+        </div>
+
+    </div>

@@ -1,0 +1,56 @@
+import { baseRowDataSource } from './baseRow';
+
+
+export class ColumnDataSource extends baseRowDataSource{
+    public col_0: string;
+    public col_1: string;
+    public col_2: string;
+    public col_3: string;
+    public col_4: string;
+    public col_5: string;
+    public col_6: string;
+    public col_7: string;    
+    public col_8: string;
+    public col_9: string;
+    public col_10: string;
+    public col_11: string;    
+    public col_12: string;
+    public col_13: string;
+    public col_14: string;
+    public col_15: string;    
+    public col_16: string;
+    public col_17: string;
+    public col_18: string;
+    public col_19: string;    
+    public col_20: string;
+    public col_21: string;
+    public col_22: string;
+    public col_23: string;    
+    public col_24: string;
+    public col_25: string;
+    public col_26: string;
+    public col_27: string;    
+    public col_28: string;
+    public col_29: string;
+    public col_30: string;
+    public col_31: string;    
+    public col_32: string;
+    public col_33: string;
+    public col_34: string;
+    public col_35: string;    
+    public col_36: string;
+    public col_37: string;
+    public col_38: string;
+    public col_39: string;    
+    public col_40: string;
+    public col_41: string;
+    public col_42: string;
+    public col_43: string;
+    public col_44: string;
+    public col_45: string;    
+    public col_46: string;
+    public col_47: string;
+    public col_48: string;
+    public col_49: string;
+    public col_50: string;
+}

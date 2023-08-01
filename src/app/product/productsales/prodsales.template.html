@@ -1,0 +1,205 @@
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6 editprocessid_text">
+        <!-- <h2>Order Details</h2> -->
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6 processid_text">
+        <button class="btn editaddmedicine_btn button_addtxt" type="button" (click)="addNewMedicineRow()">
+            <i class="fa fa-plus editadd_txt add_txt" aria-hidden="true"></i>Add Product</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 prod-sales">
+        <div class="widget-body">
+            <section class="editprocess_widget table_pading table-responsive table-datalabel widget-shadow" widget="">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Unit MRP ( ₹ ) With Taxes</th>
+                            <th>Total Tax</th>
+                            <th>Total Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of cartItem?.productList ; let i=index ">
+                        <tr>
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Product Name" class="searchtable_prescription">
+                                <div class="tabledatalabel-right">
+                                    <hs-select [defaultSelectLabel]="'Product Name'" [isMatEnable]="true"
+                                        [selectColumns]="selectColumns" [defaultSelected]="item" [defaultSelectField]="'productName'"
+                                        [selectTotal]="productNameSelectTotal" [selectResults]="productNameSearchResults" [multiCheckVarName]="'productId'"
+                                        [hardReset]="productNameHardReset" (searchTrigger)="productNameSearchTrigger($event)"
+                                        (selectTrigger)="selectTrigger($event, i)" (keyup)="onProductChange()"></hs-select>
+                                    <div *ngIf="item && item.productName && (!item.stockList ||  item.stockList.length == 0)">
+                                        <a class="edit_link" (click)="updateExpiryDate(item,i)">
+                                            <img src="assets/img/ic_edit_primary_16.png"></a>
+                                    </div>
+                                    <p class='schedule_txt'>Batch :<span id='more_click' style="color:blue">{{item.stockDetails.batchNo}}</span>
+                                        <a class='schedule_txt' id='more_click' style="color:blue" (click)="onMoreBatchNumberClick(i)"
+                                            *ngIf="item.stockList && item.stockList.length>1 && !item.isPriceChanged">&nbsp;({{item.stockList.length}}
+                                            batches available)</a></p>
+                                    <p class='schedule_txt'>Expiry Date : {{item.stockDetails.expiryDate | date:'MMM
+                                        y'}}
+                                    </p>
+                                </div>
+                            </td>
+                            <td data-label="Quantity" class="quntity_txtbut">
+                                <div class="tabledatalabel-right">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Quantity</mat-label>
+                                        <input matInput type="text" class="form_control" [(ngModel)]="item.quantity"
+                                            maxlength="6" (keyup)="onQuantityChange()" (keypress)="validation.onlyNumbers($event)"
+                                            placeholder="Quantity" />
+                                    </mat-form-field>
+                                    <!-- <input type="text" class="form_control" [(ngModel)]="item.quantity" maxlength="3"
+                                        (keyup)="onQuantityChange()" (keypress)="validation.onlyNumbers($event)"
+                                        placeholder="Quantity"> -->
+                                    <p *ngIf="item.stockDetails && item.stockDetails.totalAvailableQuantity && item.quantity>item.stockDetails.totalAvailableQuantity"
+                                        class="error_Messages">
+                                        Available Stock : {{item.stockDetails.totalAvailableQuantity}}
+                                    </p>
+                                    <p class='schedule_txt'>Rack No : {{item.stockDetails.rackNo}}</p>
+                                </div>
+                            </td>
+                            <td data-label="Unit MRP ( ₹ ) With Taxes" class="quntity_txtbut">
+                                <div class="tabledatalabel-right">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Offer Price</mat-label>
+                                        <input matInput type="text" class="form_control" [(ngModel)]="item.netPrice"
+                                            (ngModelChange)="item.netPrice" (keyup)="onQuantityChange()" (change)="onQuantityChange()"
+                                            placeholder="Offer Price" (keypress)="validation.onlyDecimalValueTillTwoDigits($event)"
+                                            [disabled]='!(item && item.stockDetails && !item.stockDetails.totalAvailableQuantity&& item.productName)'>
+                                        <!-- moreProductAvailable -->
+                                    </mat-form-field>
+                                    <p class='schedule_txt'> (Without Tax) : {{item.grossPrice | currency:'INR':true:'1.2-2'}}</p>
+                                </div>
+                            </td>
+                            <td data-label="Total Tax">
+                                <div class="tabledatalabel-right">
+                                    {{item.taxationAmount | currency:'INR':true:'1.2-2'}}
+                                    <br> CGST({{item.taxes?item.taxes.cgst:0}}%):
+                                    {{(item.totalTaxes?item.totalTaxes.cgstAmount:0 ) | currency:'INR':true:'1.2-2'}}
+                                    <br> SGST({{item.taxes?item.taxes.sgst:0}}%):
+                                    {{(item.totalTaxes?item.totalTaxes.sgstAmount:0) | currency:'INR':true:'1.2-2'}}
+                                    <br> IGST({{item.taxes?item.taxes.igst:0}}%):
+                                    {{(item.totalTaxes?item.totalTaxes.igstAmount:0) | currency:'INR':true:'1.2-2'}}
+                                </div>
+                            </td>
+                            <td data-label="Total Amount">
+                                <div class="tabledatalabel-right"><span> {{item.finalAmount |
+                                        currency:'INR':true:'1.2-2'}} </span></div>
+                            </td>
+                            <td>
+                                <div class="tabledatalabel-right"><i aria-hidden="true" class="fa fa-times removetxt_icon"
+                                        id="removeButton" (click)="remove(i)"></i></div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="item.isErrorFound" class="addproduct_errormsg">
+                            <td colspan="7">
+                                <hs-message [isError]="item.isErrorFound" [show]="item.isErrorFound" [messages]="item.isErrorMsg"></hs-message>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="addemptyspace"></div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+<!--  Batch selection popup model start here -->
+<div class="modal fade" id="batchSelectionModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog model_newadvice">
+        <div class="modal-content generic_pupop">
+
+            <div class="modal-body newadvice_body">
+                <h1 class="select_batch">Select Batch</h1>
+                <h2 class="welcome_text">
+                    {{selectedProduct && selectedProduct.productName?selectedProduct.productName:''}}
+                </h2>
+                <div class="table-responsive">
+                    <table *ngIf="selectedProduct && selectedProduct.stockList && selectedProduct.stockList.length > 0"
+                        class="table table-stripednew custab">
+                        <thead>
+                            <tr>
+                                <th>Batch Number</th>
+                                <th>Expiry</th>
+                                <th>In Stock</th>
+                                <th>Rack</th>
+                                <th>Price</th>
+                                <th>Select One</th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let item of selectedProduct.stockList; let i = index">
+                            <td>{{item.stockDetails.batchNo}}</td>
+                            <td>{{item.stockDetails.expiryDate | date }}</td>
+                            <td>{{item.stockDetails.totalAvailableQuantity}}</td>
+                            <td>{{item.stockDetails.rackNo}}</td>
+                            <td>{{item.stockDetails.netPrice}}</td>
+                            <td>
+                                <input type="checkbox" name="batchCheckbox{{i}}" id="batchCheckbox{{i}}" [(ngModel)]="item.selectedProduct">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="ok_cancel">
+                    <button type="button" class="ok_button" (click)="onFinalProductSelection()">
+                        <span>OK</span>
+                    </button>
+                    <button type="button" class="cancel_button" (click)="onClosingPopUp()">
+                        <span>Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Manual batch update model -->
+<div class="modal fade" id="productStockManualUpdate" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Stock Details</h4>
+            </div>
+            <div *ngIf="selectedProduct && selectedProduct.stockDetails" class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Expiry Date:</label>
+                        <hs-datepicker [defautDate]="selectedProduct.stockDetails.expiryDate" (onDateSubmit)="onDateSubmit($event)"></hs-datepicker>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Batch No:</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectedProduct.stockDetails.batchNo">
+                    </div>
+                    <div class="col-md-6">
+                        <label>CGST:</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectedProduct.stockDetails.taxes.cgst"
+                            oninput="validity.valid||(value='');" maxlength="5" (keypress)="validateNumberInputOnly($event)">
+                    </div>
+                    <div class="col-md-6">
+                        <label>SGST:</label>
+                        <input type="text" class="form-control" [(ngModel)]="selectedProduct.stockDetails.taxes.sgst"
+                            oninput="validity.valid||(value='');" maxlength="5" (keypress)="validateNumberInputOnly($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p class="ErrorMessage">{{selectProductError}}</p>
+                <button type="button" class="btn btn-success" (click)="updateProductBatchDetails()">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

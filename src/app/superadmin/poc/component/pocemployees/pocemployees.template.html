@@ -1,0 +1,54 @@
+<div class="table_size">
+
+    <div class="row">
+        <div class="col-md-3">
+            <h1 class="page-title">POC Employees</h1>
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-9 filter_categorypoc">
+            <div class="row">
+                <div class="col-md-4 filter_cat">
+                    <div class="form-group">
+                        <label class="control-label">Filter Category</label>
+                        <select class="form-control" *ngIf="rolesList" (change)="onRoleChange($event.target.value)">
+                            <option *ngFor="let role of rolesList;let i = index" [value]=i>{{role.roleName}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4 doctor_drop">
+                    <div class="form-group">
+                        <select class="form-control" *ngIf="this.roleId == 3" [(ngModel)]="indexForRole1" [ngModelOptions]="{standalone : true}"
+                            (change)="onSearchChange($event.target.value)">
+                            <option value = -1>Select Specialization</option>
+                            <option *ngFor="let service of serviceList;let i = index" [value]=i>{{service.serviceName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- <span>
+                <p>Filter Category</p>
+                <select class="form-control" *ngIf="rolesList" [(ngModel)]="indexForRole" [ngModelOptions]="{standalone : true}" (change)="onRoleChange($event.target.value)">
+                    <option *ngFor="let role of rolesList;let i = index" [value]=i>{{role.roleName}}</option>
+                </select>
+                <select class="form-control" *ngIf="this.roleId == 3" [(ngModel)]="indexForRole1" [ngModelOptions]="{standalone : true}" (change)="onSearchChange($event.target.value)">
+                    <option *ngFor="let service of serviceList;let i = index" [value]=i>{{service.serviceName}}</option>
+                </select>
+            </span> -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body brandlist_table">
+                    <hs-table [columns]="columns" [pagingList]="employeeList" [sort]="sorting" [componentId]="'orderHistoryRemarkListTable'"
+                        [perPage]="perPage" [total]="total" [isStaticPaging]="true">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>

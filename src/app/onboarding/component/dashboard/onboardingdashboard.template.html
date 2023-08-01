@@ -1,0 +1,50 @@
+<div class="table_size">
+    
+    <h1 class="page-title">Onboarding Dashboard</h1>
+
+    <div class="sharedetails-widget">
+        <h6>Share</h6>
+        <ul>
+            <li>Share my details on the app and website to my patients, friends and family.</li>
+            <li>
+                <button (click)="copyAppUrlForRefer()" value="click to copy">{{isMobile?'Share':'Copy Message'}}
+                    <i *ngIf="isMobile" class="fa fa-share-alt" aria-hidden="true"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt">
+                <h3>Total Consumers</h3>
+                <consumeronboardedchart></consumeronboardedchart>
+            </div>
+            <br>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt">
+                <h3>Onboarded/Pending Users</h3>
+                <pendinguserschartonboarded></pendinguserschartonboarded>
+            </div>
+
+            <br>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt">
+                <h3>Total Revenues</h3>
+                <totalrevenuechartonboarded></totalrevenuechartonboarded>
+            </div>
+            <br>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="grapps_txt">
+                <h3>{{environment}} Incentives</h3>
+                <hsrevenueschartonboarded></hsrevenueschartonboarded>
+            </div>
+        </div>
+   
+    </div>
+    
+</div>

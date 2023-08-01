@@ -1,0 +1,329 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Patient Details</h1>
+</div>
+<br>
+<!-- <div class="row">
+    <div class="col-lg-6">
+        <section class="widget_txt11" widget=""> -->
+
+<!-- <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop"> -->
+<!-- <span>
+                <h4>Patient
+                </h4>
+            </span>
+            <h5 *ngIf="selectedRegisteredProfile">{{this.homeConsultTrack.patientProfileDetails.fName?this.homeConsultTrack.patientProfileDetails.fName:''}}
+                {{this.homeConsultTrack.patientProfileDetails.lName?this.homeConsultTrack.patientProfileDetails.lName:''}}
+            </h5> -->
+
+<!-- </div> -->
+<!-- </section>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-6">
+        <form class="form-inline">
+            <section class="widget_txt11" widget="">
+
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                    <span>
+                        <h4>Provider</h4>
+                    </span>
+                    <h5 *ngIf="selectedRegisteredProfile">{{this.homeConsultTrack.doctorDetail.firstName?this.homeConsultTrack.doctorDetail.firstName:''}}
+                        {{this.homeConsultTrack.doctorDetail.lastName?this.homeConsultTrack.doctorDetail.lastName:''}}
+                    </h5>
+
+                </div>
+            </section>
+
+        </form>
+    </div>
+    <div class="col-lg-6">
+        <form class="form-inline">
+            <section class="widget_txt11" widget="">
+
+                <div class="col-md-6 col-sm-6 col-xs-12 patient_txt patientpop">
+                    <span>
+                        <h4>Provider Service</h4>
+                    </span>
+                    <h5 *ngIf="selectedRegisteredProfile">{{this.homeConsultTrack.serviceName}}</h5>
+                </div>
+            </section>
+
+        </form>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-6">
+        <section class="widget_txt11" widget=""> -->
+
+<!-- <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop"> -->
+<!-- <span>
+                <h4>Total Payable Amount
+                </h4>
+            </span>
+            <h5>{{this.homeConsultationFee}}</h5> -->
+
+<!-- </div> -->
+<!-- </section>
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <h6>Patient</h6>
+                <h5 *ngIf="selectedRegisteredProfile">
+                    {{this.homeConsultTrack.patientProfileDetails.title?this.homeConsultTrack.patientProfileDetails.title+". ":''}} {{this.homeConsultTrack.patientProfileDetails.fName?this.homeConsultTrack.patientProfileDetails.fName:''}} {{this.homeConsultTrack.patientProfileDetails.lName?this.homeConsultTrack.patientProfileDetails.lName:''}}
+                </h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <h6>Provider</h6>
+                <h5 *ngIf="selectedRegisteredProfile">
+                    {{this.homeConsultTrack.doctorDetail.firstName?this.homeConsultTrack.doctorDetail.firstName:''}} {{this.homeConsultTrack.doctorDetail.lastName?this.homeConsultTrack.doctorDetail.lastName:''}}
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-1">
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <h6>Total Payable Amount</h6>
+                <h5>{{this.homeConsultationFee}}</h5>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <h6>Provider Service</h6>
+                <h5 *ngIf="selectedRegisteredProfile">{{this.homeConsultTrack.serviceName}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <br>
+<div class="row">
+    <table>
+        <tr>
+            <td class="width_txt">
+                <div class="col-md-6">
+                    <label class="validationCustom03">Date</label> -->
+<!-- <datetime [(ngModel)]="toTime" [timepicker]="{ icon: 'fa fa-clock-o' }" ngModel [datepicker]="false"></datetime> -->
+<!-- <datetime class="datePayment" [(ngModel)]="date" (ngModelChange)="onDateSelected()" [datepicker]="datepickerOpts"
+                        [timepicker]="false" [datepicker]="{ icon: 'fa fa-calendar' }" [ngModelOptions]="{standalone: true}"></datetime>
+
+                </div>
+            </td>
+            <td>
+                <div class="col-md-8">
+                    <label class="validationCustom03"> Time</label>
+                    <datetime [(ngModel)]="Time" (ngModelChange)="onFromTimeSelected($event)" class="date-time"
+                        [datepicker]="false" class="date-time" [ngModelOptions]="{standalone: true}"></datetime>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<br> -->
+
+<div class="row mt-1">
+    <div class="col-lg-8">
+        <div class="row">
+            <!-- <div class="col-lg-6">
+                <label class="validationCustom03">Date</label>
+                <datetime class="datePayment" [(value)]="date" (dateChange)="onDateSelected()" [datepicker]="datepickerOpts"
+                    [timepicker]="false" [datepicker]="{ icon: 'fa fa-calendar' }"></datetime>
+            </div>
+            <div class="col-lg-6">
+                <label class="validationCustom03"> Time</label>
+                <datetime [(value)]="Time" (dateChange)="onFromTimeSelected($event)" class="date-time"
+                    [datepicker]="false" class="date-time" ></datetime>
+            </div>
+            </div> -->
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <label class="validationCustom03">Date</label> {{date|date}}
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <label class="validationCustom03"> Time</label> {{ Time|date:'shortTime' }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <label class="validationCustom03">Consultation Address</label>
+<section *ngIf="this.homeConsultTrack.deliveryAddress!=undefined && this.homeConsultTrack.deliveryAddress!=null">
+    <div class="row">
+        <div class="col-md-4 address">
+            <p></p>
+            <p>{{homeConsultTrack.deliveryAddress.address1}}, {{homeConsultTrack.deliveryAddress.address2}}</p>
+            <p>{{homeConsultTrack.deliveryAddress.cityName}}, {{homeConsultTrack.deliveryAddress.stateName}} -
+                {{homeConsultTrack.deliveryAddress.pinCode}}
+            </p>
+        </div>
+    </div>
+</section> -->
+
+<div class="row mt-2">
+    <div class="col-lg-12">
+        <label class="validationCustom03">Consultation Address</label>
+        <section *ngIf="this.homeConsultTrack.deliveryAddress!=undefined && this.homeConsultTrack.deliveryAddress!=null">
+            <div class="address">
+                <p>{{homeConsultTrack.deliveryAddress.address1}}, {{homeConsultTrack.deliveryAddress.address2}}</p>
+                <p>{{homeConsultTrack.deliveryAddress.cityName}}, {{homeConsultTrack.deliveryAddress.stateName}} - {{homeConsultTrack.deliveryAddress.pinCode}}
+                </p>
+            </div>
+        </section>
+    </div>
+</div>
+<br><br><br>
+<div class="row mt-3">
+    <div class="col-lg-12 paymode_cash">
+        <label class="validationCustom04">Mode Of Payment :</label>
+        <form action="#" class="color_cash" *ngIf="this.homeConsultTrack.payment.paymentStatus != 1">
+            <input type="radio" name="payment" [checked]="this.paymentModeIndex==2" (change)="checkPaymentModeSelection(2)"> Cash&nbsp;&nbsp;
+            <input type="radio" name="payment" [checked]="this.paymentModeIndex==5" (change)="checkPaymentModeSelection(5)"> Mobile&nbsp;&nbsp;
+            <input type="radio" name="payment" [checked]="(this.paymentModeIndex!=2 && this.paymentModeIndex !=5)" id="other-payment" (change)="checkPaymentModeSelection(0)"> Others
+            <div class="other-paymentdetails">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <select class="form-control" [(ngModel)]="dropDownIndexValue" [ngModelOptions]="{standalone: true}" (change)="checkPaymentModeSelection($event.target.value)">
+                            <option value="0">Select</option>
+                            <option value="1">Card</option>
+                            <option value="8">PhonePe</option>
+                            <option value="6">Google Pay</option>
+                            <option value="7">PayTM</option>
+                            <option value="11">NEFT</option>
+                            <option value="12">UPI</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="text" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form action="#" class="color_cash" *ngIf="this.homeConsultTrack.payment.paymentStatus == 1">
+            <span *ngIf="this.homeConsultTrack.payment.transactionType == 1">CARD</span>
+            <span *ngIf="this.homeConsultTrack.payment.transactionType == 2">CASH</span>
+            <span *ngIf="this.homeConsultTrack.payment.transactionType == 3">ONLINE</span>
+
+            <span *ngIf="this.homeConsultTrack.payment.transactionType == 5">MOBILE</span>
+            <span *ngIf="this.homeConsultTrack.payment.transactionType == 6">GOOGLE PAY</span>
+            <span *ngIf="this.homeConsultTrack.payment.transactionType == 7">PAYTM</span>
+            <span *ngIf="this.homeConsultTrack.payment.transactionType == 8">PHONE PAY</span>
+        </form>
+        <div *ngIf="this.homeConsultTrack.payment.paymentStatus == 1">
+            <form action="#" class="color_cash" *ngIf="this.homeConsultTrack.payment.transactionId != undefined || this.homeConsultTrack.payment.transactionId != null">
+                <label class="validationCustom04"> TransactionId: </label> &nbsp;
+                <span>{{this.homeConsultTrack.payment.transactionId}}</span>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-md-6">
+        <span class="row" style="margin:0px;width: 100%;">
+
+            <div class="col-md-6 col-sm-6 col-xs-12 paymode_cash">
+                <label class="validationCustom04"> Payment status : </label>
+                <form action="#" class="color_cash" *ngIf="this.homeConsultTrack.payment.paymentStatus != 1">
+                    <table>
+                        <tr>
+                            <input type="radio" name="paymentStatus" (change)="checkPaymentModeStatus(1)"> Paid
+                        </tr>
+                        <tr>
+                            <input type="radio" name="paymentStatus" (change)="checkPaymentModeStatus(2)"> Not Paid
+                        </tr>
+
+                    </table>
+                </form>
+                <form action="#" class="color_cash" *ngIf="this.homeConsultTrack.payment.paymentStatus == 1">
+                    <span type="radio" name="paymentStatus" (change)="checkPaymentModeStatus(1)"> Paid</span>
+                </form>
+            </div>
+        </span>
+
+    </div>
+    <div class="col-md-6">
+        <span class="row" style="margin:0px;width: 100%;">
+
+            <div class="col-md-6 col-sm-6 col-xs-12 paymode_cash">
+                <label class="validationCustom04">Consultation Status </label> -->
+<!-- <form action="#" class="color_cash">
+                    <table>
+                        <tr>
+                            <input type="radio" name="consultationStatus" (change)="checkConsultationStatus(1)"> Completed
+                        </tr>
+                        <tr>
+                            <input type="radio" name="consultationStatus" (change)="checkConsultationStatus(2)"> Pending
+                        </tr>
+                        <tr>
+                            <input type="radio" name="consultationStatus" (change)="checkConsultationStatus(3)"> Cancel
+                        </tr>
+                    </table>
+
+                </form> -->
+
+<!-- <select (change)="checkConsultationStatus($event.target.value)" [(ngModel)]="select"> -->
+<!-- <option *ngIf="homeConsultTrack.homeConsultStatus <= 2" value="2" [selected]="homeConsultTrack.homeConsultStatus <=2">Pending</option>
+                    <option *ngIf="homeConsultTrack.homeConsultStatus < 3" value="3" [selected]="homeConsultTrack.homeConsultStatus  == 3">Reached Patient</option>
+                  <option *ngIf="homeConsultTrack.homeConsultStatus < 4" value="4" [selected]="homeConsultTrack.homeConsultStatus  == 4">Started Consultation</option> -->
+<!-- <option value="0">Select</option>
+    <option *ngIf="homeConsultTrack.homeConsultStatus <= 2" value="2">Pending</option>
+    <option *ngIf="homeConsultTrack.homeConsultStatus < 3" value="3">Reached Patient</option>
+    <option *ngIf="homeConsultTrack.homeConsultStatus < 4" value="4">Started Consultation</option>
+    <option value="5">Completed Consultation</option>
+    <option value="11">Cancel</option>
+</select> -->
+
+<div class="row mt-1">
+    <div class="col-lg-12">
+        <div class="paymode_cash">
+            <label class="validationCustom04"> Payment status : </label>
+            <form action="#" class="color_cash" *ngIf="this.homeConsultTrack.payment.paymentStatus != 1">
+                <input type="radio" name="paymentStatus" [checked]='this.paymentModeStatusIndex == 1' (change)="checkPaymentModeStatus(1)"> Paid&nbsp;&nbsp;
+                <input type="radio" name="paymentStatus" [checked]='this.paymentModeStatusIndex == 0' (change)="checkPaymentModeStatus(2)"> Not Paid
+            </form>
+            <form action="#" class="color_cash" *ngIf="this.homeConsultTrack.payment.paymentStatus == 1">
+                <span type="radio" name="paymentStatus" (change)="checkPaymentModeStatus(1)"> Paid</span>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-1">
+    <div class="col-lg-12">
+        <div class="paymode_cash mb-xs">
+            <label class="validationCustom04">Consultation Status </label>
+            <div class="consultation-status custom_dropdownicon">
+                <select (change)="checkConsultationStatus($event.target.value)" [(ngModel)]="select">
+                    <option value="0">Select</option>
+                    <option *ngIf="homeConsultTrack.homeConsultStatus < 3 || homeConsultTrack.homeConsultStatus == 11  "
+                        value="11">Approved</option>
+                    <option *ngIf="homeConsultTrack.homeConsultStatus != 4 && homeConsultTrack.homeConsultStatus != 5"
+                        value="3">Reached Patient</option>
+                    <option value="4">Started Consultation</option>
+                    <option value="5">Completed Consultation</option>
+                    <option value="19">Cancel</option>
+
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<hs-message *ngIf="disabled" [isError]="isError1" [show]="showMessage1" [messages]="errorMessage1"></hs-message>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <!-- <button type="button" class=" change" (click)="raiseRequest()">Raise Request</button> -->
+        <!-- <button type="submit" class="Update" *ngIf="homeConsultTrack.homeConsultStatus!= 19" (click)="onUpdate()">Update</button> -->
+        <button type="submit" class="Update mt-xs" *ngIf="this.select != 19" (click)="onUpdate()">Update</button>
+
+        <button type="submit" class="Update mt-xs" *ngIf="this.select == 19" (click)="onUpdate()">Cancel</button>
+    </div>
+
+
+    <spinner-component></spinner-component>

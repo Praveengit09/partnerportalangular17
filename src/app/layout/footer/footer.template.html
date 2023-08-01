@@ -1,0 +1,21 @@
+<div class="footer-content footer_color">
+    <div class=" navbar-default">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                    <ul class="list-inline copyright_txt">
+                        <li>&copy; 2023 {{environment.name||'MyMedic'}}. All rights Reserved | Best viewed in Firefox, Chrome and Edge</li>
+                        <li class="pull-right"><a href="{{environment.website||'http://www.my3c.co/'}}" target="_blank">{{environment.websiteLabel||(environment.website||'http://www.my3c.co/')}}</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                    <ul class="list-inline pull-right social">
+                        <li *ngIf="environment.facebook && environment.facebook.length > 0"><a href="{{environment.facebook || 'https://www.facebook.com/Hsignz/'}}" class="ic_footer ic_fb" target="_blank">Like us on Facebook</a></li>
+                        <li *ngIf="environment.twitter && environment.twitter.length > 0"><a href="{{environment.twitter  || 'https://twitter.com/healthsignz'}}" class="ic_footer ic_tw" target="_blank">Follow us on Twitter</a></li>
+                        <li *ngIf="environment.linkedin && environment.linkedin.length > 0"><a href="{{environment.linkedin || 'https://www.linkedin.com/company/healthsignz-technologies-pvt-ltd'}}" class="ic_footer ic_in" target="_blank">Follow us on LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

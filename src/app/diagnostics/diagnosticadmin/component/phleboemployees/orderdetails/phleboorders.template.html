@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12 processid_text prescription_padding">
+        <h2><span>Phlebo Name : {{phleboOrder.employeeAcceptedName ? phleboOrder.employeeAcceptedName :
+                employeeName}}</span></h2>
+    </div>
+
+
+    <div class="datePayment">
+        <h6 class="sub-title">Filter by date</h6>
+        <datetime [(value)]="startDate" name="startDate" id="datepicker" [placeholder]="'Select Date'" [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+        </datetime>
+    </div>
+
+</div>
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body table-responsive table-datalabel widget-shadow">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">
+                                #
+                            </th>
+
+                            <th class="">
+                                Order Id
+                            </th>
+
+                            <th class="">
+                                Delivery Address
+                            </th>
+
+                            <th class="">
+                                Slot Time
+                            </th>
+
+                            <th class="">
+                                Sample Collection
+                            </th>
+
+                            <th class="">
+                                Payment Status
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let order of phleboOrder.phleboAcceptedOrders ; let i =index">
+                        <tr>
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Order Id">
+                                <div class="tabledatalabel-right">
+                                    <span>{{order.orderId}}</span>
+                                </div>
+                            </td>
+                            <td data-label="Delivery Address">
+                                <div class="tabledatalabel-right"><span>{{order.deliveryAddress.areaName}}</span></div>
+                            </td>
+                            <td data-label="Pickup Time">
+                                <div class="tabledatalabel-right">
+                                    <span>{{order.pickupTime | date:"hh:mm a"}}</span>
+                                </div>
+                            </td>
+
+                            <td data-label="Sample Collection">
+                                {{order.sampleCollectionStatus == 2 ? 'COLLECTED' : order.sampleCollectionStatus == 5 ? 'PENDING' : order.sampleCollectionStatus == 7 ? 'ACCEPTED' : order.sampleCollectionStatus == 4 ? 'REJECTED' : order.sampleCollectionStatus == 9 ? 'DELIVERED' : order.sampleCollectionStatus
+                                == 10 ? 'REACHED' : order.sampleCollectionStatus == 11 ? 'STARTED' : order.sampleCollectionStatus == 6 ? 'UPDATED' : 'PENDING'}}
+                            </td>
+                            <td data-label="Payment Status">
+                                {{order.payment.paymentStatus == 0 ? 'Not Paid' : order.payment.paymentStatus == 1 ? 'Paid' : order.payment.paymentStatus == 2 ? 'Pending' : 'Pending' }}
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+<div class="row supplier_txt">
+    <div class="col-md-4 col-sm-4 col-xs-4 process_padding">
+        <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+    </div>
+</div>

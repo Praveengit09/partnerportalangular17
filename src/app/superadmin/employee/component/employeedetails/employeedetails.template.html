@@ -1,0 +1,166 @@
+<div class="table_size">
+
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12">
+            <h1 class="page-title">Employee Information</h1>
+        </div>
+        <!--  <div class="col-md-3 col-sm-6 col-xs-12">
+            <button type="submit" class="button_addtxt23 add_medicine" value="Add Test" (click)="onEmployeePersonal()">
+                <i class="fa fa-plus add_txt" aria-hidden="true"></i>Add New Employee</button>
+        </div> -->
+    </div>
+
+    <section class="widget_poc" widget="">
+        <div class="row">
+            <div class="col-md-10 col-sm-10 col-xs-10 pocname_txt">
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4" *ngIf="this.employeedetails.gender=='Male'">
+                        <img alt="..." class="rounded-circle employee_img" src="assets/img/default-avatar-male.png">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4" *ngIf="this.employeedetails.gender=='Female'">
+                        <img alt="..." class="rounded-circle employee_img" src="assets/img/default-avatar-female.png">
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4" *ngIf="this.employeedetails.gender=='Others'">
+                        <img alt="..." class="rounded-circle employee_img" src="assets/img/default-avatar-others.png">
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8">
+                        <p class="prinston_txt">{{employeedetails.title}} {{employeedetails.firstName}} {{employeedetails.lastName?employeedetails.lastName:''}}
+                        </p>
+
+                        <span class="serial_number" *ngFor="let service of employeedetails.serviceList">{{service.serviceName}}, </span>
+                        <p class="serial_number" *ngIf="employeedetails.type==0 || employeedetails.type==1">
+                            {{employeedetails.experience}} Years</p>
+                        <p class="serial_number">{{ employeedetails.contactList}}</p>
+                        <p class="serial_number">{{employeedetails.gender}}</p>
+                        <p class="serial_number">{{employeedetails.emailId}}</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="pull-right edit_pencil" *ngIf="this.employeedetails.empId!=1">
+                <i class="fa fa-pencil" aria-hidden="true" (click)="onEmployeePersonal()"></i>
+            </div>
+        </div>
+    </section>
+
+    <h5 class="poc_service" *ngIf="employeedetails.type==0 || employeedetails.type==1">Doctor Details</h5>
+
+    <section class="service row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12 partner_poctxt">
+            <div class="row cardiology_txt">
+                <div class="col-md-3 col-sm-3 col-xs-3 medical_test">Location Details</div>
+                <div class="col-md-9 col-sm-6 col-xs-6 medical_testnumber" *ngIf="employeedetails.addressList!=undefined && employeedetails.addressList.length>0">
+                    <span *ngIf="employeedetails.addressList[0].areaName!=undefined">{{employeedetails.addressList[0].areaName}}</span>
+                    <span *ngIf="employeedetails.addressList[0].cityName!=undefined">,{{employeedetails.addressList[0].cityName}}</span>
+                    <span *ngIf="employeedetails.addressList[0].stateName!=undefined">,{{employeedetails.addressList[0].stateName}}</span>
+                    <span *ngIf="employeedetails.addressList[0].regionName">,{{employeedetails.addressList[0].regionName}}</span>
+                    <span *ngIf="employeedetails.addressList[0].country">,{{employeedetails.addressList[0].country}}</span>
+                </div>
+            </div>
+            <div class="row cardiology_txt">
+                <div class="col-md-3 col-sm-3 col-xs-3 medical_test" *ngIf="employeedetails.type==0 || employeedetails.type==1">Video Consultant</div>
+                <div class="col-md-9 col-sm-6 col-xs-6 medical_testnumber" *ngIf="employeedetails.type==0 || employeedetails.type==1">
+                    {{employeedetails.serviceList[0].videoNowConsultationFee}}</div>
+            </div>
+            <div class="row cardiology_txt">
+                <div class="col-md-3 col-sm-3 col-xs-3 medical_test" *ngIf="employeedetails.type==0 || employeedetails.type==1">Packages Percent</div>
+                <div class="col-md-9 col-sm-6 col-xs-6 medical_testnumber" *ngIf="employeedetails.type==0 || employeedetails.type==1">
+                    {{employeedetails.defaultMargin?.packageMargin?employeedetails.defaultMargin.packageMargin:0}}</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-4">
+            <section class="widget_emp1">
+                <div class="row">
+                    <div class="col-md-10 col-sm-10 col-xs-10">
+                        <p class="prinston_txt2">Employee Status: {{employeedetails.employeeBlacklisted?'Blacklisted':'Active'}}</p>
+                        <div class="chiller_cb;">
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger width-100 mb-xs botton_txtsearch done_txt" role="button"
+                                    (click)="toggleEmployeeBlacklisting()">{{employeedetails.employeeBlacklisted?'Activate':'Blacklist'}}</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <h5 class="poc_service">POC And Associated Roles </h5>
+    <br />
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-4" *ngFor="let roleList of pocList;let i=index">
+            <section class="widget_emp1">
+                <div class="row">
+                    <div class="col-md-10 col-sm-10 col-xs-10">
+                        <p class="prinston_txt2">{{roleList.pocName}}</p>
+                        <ul class="listrole">
+                            <li *ngFor="let roles of roleList.roleIdName">{{roles}}</li>
+                        </ul>
+
+                        <div class="chiller_cb;let i=index">
+                            <!-- <input id="myCheckbox1" type="checkbox" id={{i}} name={{i}}>
+                                <label for="myCheckbox1">Mark as Default</label> -->
+                            <span></span>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-2 col-sm-2 col-xs-2">
+                            <div class="pull-right edit_pencil">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                        </div> -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <section class="service row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12 partner_poctxt">
+
+            <div class="row form-group">
+                <label for="emailFrom" class="col-md-1">
+                    <b>POC:</b>
+                </label>
+                <!--<div class="col-md-3">-->
+                <!--<select class="form-control" id="emailFrom" name="emailFrom">-->
+                <div class="col-md-3">
+                    <select id="selectbasic" name="selectbasic" class="form-control" *ngIf="pocList" (change)="updatePoc($event.target.value)">
+                        <option value=0>Select POC</option>
+                        <option *ngFor="let poc of pocList;let i=index" value={{i+1}}>{{poc.pocName}}</option>
+                    </select>
+                    <!--</div>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <br />
+                    <div class="row cardiology_txt" *ngIf="packageList">
+                        <div *ngIf="pocName != undefined && isPackage==true">
+                            <h5 class="poc_service">Packages Associated with the POC</h5>
+                            <div>
+                                <div class="row partner_poctxt1">
+                                    <div *ngFor="let selectedpackage of packageList" class="col-md-6">
+                                        <img src="{{selectedpackage.portalThumbnailUrl}}" class="img-responsive packagelist_img">
+                                        <div class="pull-left">
+                                            <h5 class="package_title">{{selectedpackage.name}}</h5>
+                                        </div>
+                                        <!-- <div class="clearfix"></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<spinner-component></spinner-component>

@@ -1,0 +1,29 @@
+@import "../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../scss/variables";
+@import "../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../node_modules/bootstrap/scss/mixins";
+    .state_select{
+        width: auto;
+    }
+    .otherday_txt{
+        padding-top: 5px;
+        text-decoration: underline;
+        font-size: 14px;
+        color: #8ec5d8;
+    }
+    .otherday_txt a{
+       color: #8ec5d8; 
+    }
+    .otherday_txt a:hover, .otherday_txt a:focus{
+    color: #8ec5d8;
+    outline: none;
+    }
+    .modal-title{
+            color: #8ec5d8;
+    }
+    .table_body{
+        overflow-x: hidden;
+        white-space: nowrap;
+        overflow-y: scroll;
+        min-height: 250px;
+    }

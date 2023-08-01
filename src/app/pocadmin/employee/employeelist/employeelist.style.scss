@@ -1,0 +1,140 @@
+.emp_list{
+
+    margin-left: 25%;
+    padding: 6rem 2rem;
+
+    .page-title{
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: -0.02em;
+    margin-bottom: 0px;
+    }
+   .Search_emp{ 
+    label{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #41484D;
+    }
+    input{
+    border: 1px solid #BCE4F5;
+    border-radius: 4px;   
+    }
+    ::placeholder {
+        font-style: italic;
+      }
+    i{
+     position: absolute;
+     right: 23px;
+     top: 50px;
+     color:#BCE4F5;
+     ;
+    }
+ }
+
+   .emp_table{
+     background: #FFFFFF;
+     border: 1px solid #EDEEF0;
+       
+     p{
+     font-weight: 700;
+     font-size: 19px;
+     line-height: 29px;
+     color: #14a9b5;
+     }
+   }    
+.d-flex{
+    display: flex;
+    justify-content: space-between;
+}
+.emp_list_btn .refresh_btn{
+    padding: 8px 16px;
+    border: 2px solid #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #DF5B21;
+    cursor: pointer;
+    margin-right: 15px;
+    background-color: transparent;
+}
+.emp_list_btn .add_emp_btn{
+    padding: 8px 16px;
+    border: none;
+    background: #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.table{
+    thead{
+        background-color: #F4FBFD;
+        border: 1px solid #DEF2FA;
+        th{
+            color: #14a9b5;
+            border-bottom-width: 0px;
+            padding: 14px !important; 
+        }
+    }
+     td {
+        padding: 10px !important;
+    }
+     .emp_list_data{
+        color: #626C74;
+     }
+    .delete_btn button{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #187CA8;
+        border: 2px solid #187CA8;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    .edit_btn button{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        background-color: #187CA8;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 4px;
+        padding: 7px 15px;
+        cursor: pointer;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .emp_list{
+          margin-left: 0%;
+    } 
+  }
+
+  @media only screen and (max-width: 576px) {
+    .emp_list{
+        .d-flex{
+            flex-direction: column;
+         }
+  }
+} 
+
+@media only screen and (max-width: 349px) {
+    .emp_list{
+        .flex{
+            display: flex;
+        }  
+        .emp_list_btn .refresh_btn{
+            padding: 7px;
+        }
+        .emp_list_btn .add_emp_btn{
+            padding: 7px;
+        }
+    } 
+  }

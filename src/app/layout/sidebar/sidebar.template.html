@@ -1,0 +1,456 @@
+<div class="js-sidebar-content" onclick="document.getElementById('changePassword').reset();" (click)="reset()">
+    <nav class="navbar navbar-inverse txt_sidebar ">
+        <div class="navbar-header sidebar-navtoggle">
+        </div>
+        <div class="collapse navbar-collapse navbar_colla " id="bs-example-navbar-collapse-2">
+
+            <ul class="user-nav nav navbar-nav" (click)="$event.preventDefault()">
+                <li class="nav-item dropdown log_team">
+                    &nbsp;&nbsp;
+
+                    <div class="row atar_icon">
+                        <div class="col-md-2 col-xs-2">
+                            <a>
+                                <span class="thumb-sm avatar float-xs-left">
+                                    <img *ngIf="!user.employeeImageUrl" class="rounded-circle"
+                                        src="assets/img/avatar.png" alt="..." />
+                                    <img *ngIf="user.employeeImageUrl" class="rounded-circle"
+                                        src="{{user.employeeImageUrl}}" alt="..." />
+                                </span>
+                            </a>
+                        </div>
+                        <div class="col-md-10 col-xs-10">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <strong class="user_name">{{user.employeeName}}</strong>
+                                </div>
+                            </div>
+                            <span
+                                *ngIf="!(user.hasBusinessAdminRole || user.hasHSBusinessAdminRole || user.hasSuperAdminRole)">
+                                <div class="row" *ngIf="selectedRole != undefined">
+                                    <div class="col-md-10">
+                                        <strong class="user_txt">{{selectedRole.label}}</strong>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="pocList[0]">
+                        <div class="col-md-12">
+                            <span class="select-wrapper" *ngIf="selectedPOC">
+                                <select class="custom-selectbox" (change)="selectPoc($event.target.value)"
+                                    [ngModel]="selectedPOC.pocId">
+                                    <option *ngFor="let poc of pocList;let position = index" value="{{poc.pocId}}"
+                                        [disabled]="isCorporateAdmin">{{poc.pocName}}</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="register_count row"
+                        *ngIf="!hideSidenavUserMetrics && selectedPOC && (getNoOfRegistrationsCount()>0 || getNoOfAppUserCount()>0)"
+                        (click)="total=0;getOnboardUserInfo();openModal('#onboardusersdetail')">
+                        <div class="col-md-6">
+                            <span class="no-of-reg-count-label">{{getNoOfRegistrationsCountLabel()}}</span>
+                            <span class="no-of-reg-count">{{getNoOfRegistrationsCount()}}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="no-of-reg-count-label">{{getNoOfAppUserCountLabel()}}</span>
+                            <span class="no-of-reg-count">{{getNoOfAppUserCount()}}</span>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="pocCode && pocCode.length > 0">
+                        <div class="col-md-12">
+                            <span class="no-of-reg-count-label">CODE: </span>
+                            <span class="no-of-reg-count">{{pocCode}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="row" *ngIf="!hideSidenavUserMetrics && creditLimit != undefined">
+                        <div class="col-md-12">
+                            <span class="no-of-reg-count-label">Credit Limit: </span>
+                            <span class="no-of-reg-count">{{creditLimit | number : '1.0-2'}}</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                        <div class="col-md-10 login_img">
+                            <ul>
+                                <li>
+                                    <a class="dropdown-item" href="#" (click)="openModal('#dashboardChangePassword')">
+                                        <img src="assets/img/change_password.png" alt="password">
+                                        <!-- <img src="../../../assets/jeevone/navicons/password-change.png" alt="password" width="40"> -->
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" (click)="logout()">
+                                        <img src="assets/img/logout.png" alt="logout">
+                                        <!-- <img src="../../../assets/jeevone/navicons/logout.png" alt="logout" width="40"> -->
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+
+
+            <!-- Side navigation starts here -->
+            <div class="panel-group side_accordion sidenav" id="accordion1">
+
+                <!-- <accordion [showArrows]="true"> -->
+
+                <!-- Reception side nav starts here -->
+                <div *ngIf="hasAppointmentsRole || hasPrintPrescriptionRole" class="panel1 panel-default">
+
+                    <!-- Appointments side nav starts here -->
+                    <ng-template [ngIf]="hasAppointmentsRole">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle sidebar-heading" data-toggle="dropdown">
+                                <h4 class="panel-title">
+                                    <span class="labcollapse_txt">
+                                        <span class="icon heading_collaps ">
+                                            <i class="glyphicon glyphicon-dashboard"></i>
+                                        </span>Appointments
+                                    </span>
+                                    <div class="caret">
+                                    </div>
+                                </h4>
+                            </div>
+                            <ul class="dropdown-menu keep-open">
+                                <li *ngIf="enableRequestQueue" (click)="toggleSidebar()">
+                                    <a (click)="navigate({path:'reception/apprequestqueue'})"
+                                        [class.active]="isRouterLinkActive('reception/apprequestqueue')">
+                                        <!-- <span class="thumb-sm avatar float-xs-left">
+                                            <img class="rounded-circle curser_txxt" src="assets/img/avatar.png"
+                                                alt="...">
+                                        </span>  -->
+                                        <p> &nbsp; New Requests Queue</p>
+                                    </a>
+                                </li>
+                                <ng-template [ngIf]="doctorList!=undefined && doctorList!=null && doctorList.length>0">
+                                    <ng-container *ngFor="let doctors of doctorList">
+                                        <!-- *ngIf="doctors.myPoc.participationSettings.doctorPhysicallyAvailable" -->
+                                        <li (click)="toggleSidebar()">
+                                            <a (click)="passDoctorDetails(doctors,user.pocId,'reception/booking/'+doctors.empId+'/'+doctors.serviceId)"
+                                                [class.active]="isRouterLinkActive('reception/booking/'+doctors.empId+'/'+doctors.serviceId)">
+                                                <span class="thumb-sm avatar float-xs-left">
+                                                    <img *ngIf="doctors.imageUrl == null"
+                                                        class="rounded-circle curser_txxt" src="assets/img/avatar.png"
+                                                        alt="...">
+                                                    <img *ngIf="doctors.imageUrl!= null" class="rounded-circle"
+                                                        [src]=doctors.imageUrl alt="...">
+                                                </span>
+                                                &nbsp;{{doctors.title?doctors.title:""}}{{doctors.firstName?doctors.firstName:""}}
+                                                {{doctors.lastName?doctors.lastName:""}}
+                                                <p class="doc-servicename">{{doctors.serviceName}}</p>
+                                            </a>
+                                        </li>
+                                    </ng-container>
+                                </ng-template>
+                                <li (click)="toggleSidebar()">
+                                    <a (click)="navigate({path:'reception/digibooking/doctorsearch'})"
+                                        [class.active]="isRouterLinkActive('reception/digibooking/doctorsearch')">
+                                        <span class="thumb-sm avatar float-xs-left">
+                                            <img class="rounded-circle curser_txxt" src="assets/img/avatar.png"
+                                                alt="...">
+                                        </span> &nbsp;Other Doctor
+                                        <p> &nbsp;Bookings</p>
+                                    </a>
+                                </li>
+                                <li (click)="toggleSidebar()">
+                                    <a (click)="navigate({path:'reception/digibooking/calendarbooking'})"
+                                        [class.active]="isRouterLinkActive('reception/digibooking/calendarbooking')">
+                                        <span class="thumb-sm avatar float-xs-left">
+                                            <img class="rounded-circle curser_txxt" src="assets/img/avatar.png"
+                                                alt="...">
+                                        </span> &nbsp;Booking
+                                        <p> &nbsp;Calendar</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-template>
+                    <!-- Appointments side nav ends here -->
+                    <!-- Queue side nav starts here -->
+                    <ng-template [ngIf]="hasQueueRole && queueDoctorList!=null && queueDoctorList.length>0">
+
+
+                        <div class="dropdown">
+                            <div class="dropdown-toggle sidebar-heading" data-toggle="dropdown">
+                                <h4 class="panel-title">
+                                    <span class="labcollapse_txt">
+                                        <span class="icon heading_collaps ">
+                                            <i class="glyphicon glyphicon-dashboard"></i>
+                                        </span>Queue
+                                    </span>
+                                    <div class="caret">
+                                    </div>
+                                </h4>
+                            </div>
+                            <ul class="dropdown-menu keep-open">
+                                <li *ngFor="let doctors of queueDoctorList" (click)="toggleSidebar()">
+                                    <a (click)="passDoctorDetails(doctors,user.pocId,'reception/queue/'+doctors.empId)"
+                                        [class.active]="isRouterLinkActive('reception/queue/'+doctors.empId)">
+                                        <span class="thumb-sm avatar float-xs-left">
+                                            <img *ngIf="doctors.imageUrl == null" class="rounded-circle"
+                                                src="assets/img/avatar.png" alt="...">
+                                            <img *ngIf="doctors.imageUrl != null" class="rounded-circle"
+                                                [src]=doctors.imageUrl alt="...">
+                                        </span>
+                                        &nbsp;{{doctors.title?doctors.title:""}}{{doctors.firstName?doctors.firstName:""}}
+                                        {{doctors.lastName?doctors.lastName:""}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-template>
+                    <!-- Queue side nav ends here -->
+                    <!-- Print prescription starts here-->
+                    <!-- <ng-template [ngIf]="hasPrintPrescriptionRole && prescriptionDoctorList!=null && prescriptionDoctorList.length>0">
+                        <div class="dropdown">
+                            <div class="dropdown-toggle sidebar-heading" data-toggle="dropdown">
+                                <h4 class="panel-title">
+                                    <span class="labcollapse_txt">
+                                        <span class="icon heading_collaps ">
+                                            <img class="glyphicon" src="assets/img/print_icon_sidebar.png" alt="...">
+                                        </span>Prescription
+                                    </span>
+                                    <div class="caret">
+                                    </div>
+                                </h4>
+                            </div>
+                            <ul class="dropdown-menu keep-open">
+                                <li *ngFor="let doctors of prescriptionDoctorList" (click)="toggleSidebar()">
+                                    <a (click)="passDoctorDetails(doctors,user.pocId,'reception/prescription/'+doctors.empId)" [class.active]="isRouterLinkActive('reception/prescription/'+doctors.empId)">
+                                        <span class="thumb-sm avatar float-xs-left">
+                                            <img *ngIf="doctors.imageUrl == null" class="rounded-circle"
+                                                src="assets/img/avatar.png" alt="...">
+                                            <img *ngIf="doctors.imageUrl != null" class="rounded-circle"
+                                                [src]=doctors.imageUrl alt="...">
+                                        </span> &nbsp;{{doctors.title?doctors.title:""}}{{doctors.firstName?doctors.firstName:""}} {{doctors.lastName?doctors.lastName:""}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-template> -->
+                    <!-- Print prescription ends here-->
+
+
+                </div>
+                <ng-template [ngIf]="serviceList!=null && serviceList.length>0">
+                    <div *ngFor="let eachService of serviceList" class="panel1 panel-default1">
+                        <ng-template
+                            [ngIf]="eachService!=null && eachService.serviceType==2 && eachService.subServiceList!=undefinded && eachService.subServiceList!=null && eachService.subServiceList.length>0">
+
+                            <div class="dropdown">
+                                <div class="dropdown-toggle sidebar-heading" data-toggle="dropdown">
+                                    <h4 class="panel-title">
+                                        <span class="labcollapse_txt">
+                                            <span class="icon heading_collaps ">
+                                                <i class="glyphicon glyphicon-dashboard"></i>
+                                            </span>
+                                            <span
+                                                *ngIf="eachService.serviceName.length <= 26">{{eachService.serviceName}}
+                                            </span>
+                                            <span *ngIf="eachService.serviceName.length > 26">
+                                                {{eachService.serviceName | slice:0:24}}...
+                                            </span>
+                                        </span>
+                                        <div class="caret">
+                                        </div>
+                                    </h4>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </ng-template>
+                <!-- Diagnostic appointments sidenav end here -->
+
+
+
+                <!-- Other sidenav starts here -->
+                <ng-template [ngIf]="userNavArray">
+                    <div *ngFor="let userPermissions of userNavArray" class="panel1 panel-default1">
+
+                        <ng-template [ngIf]="userPermissions.subPermissions">
+                            <div class="dropdown">
+                                <div class="dropdown-toggle sidebar-heading" data-toggle="dropdown">
+                                    <h4 class="panel-title">
+                                        <span class="labcollapse_txt">
+                                            <span class="icon heading_collaps ">
+                                                <i class="glyphicon glyphicon-dashboard"></i>
+                                            </span>{{userPermissions.label}}
+                                        </span>
+                                        <div class="caret">
+                                        </div>
+                                    </h4>
+                                </div>
+                                <ul class="dropdown-menu keep-open">
+                                    <ng-template ngFor let-subPermission [ngForOf]="userPermissions.subPermissions"
+                                        let-i="index" let-odd="odd">
+                                        <li *ngIf="subPermission.path!=null" (click)="toggleSidebar()">
+                                            <a [class.active]="isRouterLinkActive(subPermission.path)"
+                                                (click)="navigate(subPermission)">{{subPermission.label}}</a>
+                                        </li>
+                                    </ng-template>
+                                </ul>
+                            </div>
+                        </ng-template>
+
+
+                        <ng-template [ngIf]="!userPermissions.subPermissions">
+
+                            <a (click)="navigate(userPermissions)" class="panel-bodytxt">
+                                <div class="sidebar-heading" (click)="toggleSidebar()">
+                                    <h4 class="panel-title">
+                                        <span class="labcollapse_txt">
+                                            <span class="icon heading_collaps ">
+                                                <i class="glyphicon glyphicon-dashboard"></i>
+                                            </span>{{userPermissions.label}}
+                                        </span>
+                                    </h4>
+                                </div>
+                            </a>
+
+                        </ng-template>
+
+                    </div>
+                </ng-template>
+                <!-- Other sidenav ends here -->
+
+                <!-- </accordion> -->
+
+
+            </div>
+            <!-- Side navigation ends here -->
+
+        </div>
+        <!-- #2 -->
+
+
+    </nav>
+</div>
+<!-- Dialog ended for forgot password -->
+
+<!-- Dialog Modal for forgot password -->
+<div id="dashboardChangePassword" class="modal fade" role="dialog" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-toggle="modal" data-dismiss="modal" aria-label="Close" class="close" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title text-xs-center fw-bold mt" id="myModalLabel18">Change Password</h4>
+                <p class="text-xs-center fs-mini text-muted mt-sm">
+                    Reset your password.
+                </p>
+            </div>
+            <hs-message [isError]="isErrorChangePassword" [show]="showMessageChangePassword"
+                [messages]="errorMessageChangePassword"></hs-message>
+            <hs-wait *ngIf="changePasswordClicked"></hs-wait>
+            <div class="modal-body changepassword-modal-background">
+                <form id="changePassword">
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control input-no-border"
+                                    [(ngModel)]="updatedPassword.oldPassword" [ngModelOptions]="{standalone: true}"
+                                    placeholder="Old Password">
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control input-no-border"
+                                    [(ngModel)]="updatedPassword.newPassword" [ngModelOptions]="{standalone: true}"
+                                    placeholder="New Password">
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control input-no-border"
+                                    [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}"
+                                    placeholder="Confirm Password">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-gray" data-toggle="modal" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" [disabled]="changePasswordClicked"
+                    (click)="changePassword()">Change
+                    Password
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="onboardusersdetail" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-toggle="modal" data-dismiss="modal" aria-label="Close" class="close" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Onboarding User Information</h4>
+                <div class="row mt-2">
+                    <div class="col-lg-12">
+                        <section class="widget table_pading hs-table" widget>
+                            <div class="widget-body">
+                                <hs-table [columns]="columns" [pagingList]="onboardUserDetailList" [sort]="sorting"
+                                    [componentId]="'onboardUserDetailListtable'" [dataMsg]="dataMsg" [perPage]="perPage"
+                                    [total]="total" (pageClick)="onPage($event)">
+                                    Loading table...
+                                </hs-table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="preventNavigationSideBar" style=" overflow-y: auto !important" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.width]="'auto'" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="h6">
+                    Navigating will loose your data
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="h6 mt-0 pt-0">
+                    Do you want to continue navigation?
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 col-6">
+                        <button type="button" class="btn btn-default" style="width:100px"
+                            (click)="hideModal('#preventNavigationSideBar');setPreventNavigation(false);navigate(tempUserPermission)">Yes</button>
+                    </div>
+                    <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6 col-6">
+                        <button type="button" class="btn btn-default" style="width:100px"
+                            (click)="hideModal('#preventNavigationSideBar')">No</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

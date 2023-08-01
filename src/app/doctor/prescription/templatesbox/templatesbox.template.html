@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-header">
+        <h4>Prescription Templates</h4>
+    </div>
+    <div class="card-body rightCard">
+        <ul class="list-unstyled list-group-flush">
+            <li class="list-group-item" *ngFor="let template of templates">
+                <h5 class="mb-0 word-break width-200">{{template.title}}</h5>
+           
+                            <p class="mb-0" *ngIf="template.diagnosisList && template.diagnosisList.length == 1">{{template.diagnosisList[0].name}} </p>
+                            <p class="mb-0" *ngIf="template.diagnosisList && template.diagnosisList.length == 2 ">{{template.diagnosisList[0].name}}, {{template.diagnosisList[1].name}}
+                            </p>
+                            <p class="mb-0" *ngIf="template.diagnosisList && template.diagnosisList.length  > 3 ">{{template.diagnosisList[0].name}}, {{template.diagnosisList[1].name}} +{{template.diagnosisList.length-2}}</p>
+                    
+                <p class="mb-0">{{convertToDate(template.updatedTimestamp)}}</p>
+                <div *ngIf="template.pharmacyAdvises">
+                    <p class="pPast" *ngIf="template.pharmacyAdvises.pharmacyAdviceList.length == 1">{{template.pharmacyAdvises.pharmacyAdviceList[0].productName}}
+                    </p>
+                    <p class="pPast" *ngIf="template.pharmacyAdvises.pharmacyAdviceList.length == 2 ">{{template.pharmacyAdvises.pharmacyAdviceList[0].productName}},
+                        {{template.pharmacyAdvises.pharmacyAdviceList[1].productName}}
+                    </p>
+                    <p class="pPast" *ngIf="template.pharmacyAdvises.pharmacyAdviceList.length  > 3 ">{{template.pharmacyAdvises.pharmacyAdviceList[0].productName}},
+                        {{template.pharmacyAdvises.pharmacyAdviceList[1].productName}}
+                        <span class="countOfMedicine">+{{template.pharmacyAdvises.pharmacyAdviceList.length}}</span>
+                    </p>
+                </div>
+
+                <button type="button" class="btn btn-primary viewBtn" (click)="onClickTemplateDetails.emit(template)">View</button>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+
+

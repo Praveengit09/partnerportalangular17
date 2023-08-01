@@ -1,0 +1,151 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Central Product Orders</h1>
+
+    <form action="#">
+        <div class="row searchorder-matformfield">
+            <div class="col-sm-12">
+                <mat-form-field appearance="outline" class="search-orders mt-0">
+                    <mat-label>Order ID/ Invoice Id/ Email Id/ Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="searchCentral" matInput placeholder="Enter Order ID/ Invoice Id/ Email Id/ Mobile Number">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="onSearchButtonClick()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-6">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h6 class="sub-title">Start Date</h6>
+                        <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker" (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts">
+                        </datetime>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="sub-title">End Date</h6>
+
+                        <datetime [(value)]="endingDate" [placeholder]="'End
+                            Date'" name="endDate" id="datepicker2" (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOptEnd"></datetime>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-danger product_submit" role="button" (click)="onSubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="filter-orders">
+                    <div class="filter-content row product_txt" *ngIf="(isFilterVisible
+                        &&
+                        getWidth()<768)||getWidth()>768">
+                        <div class="filter_txt col-md-4">
+                            <h6 class="sub-title">Filter by State</h6>
+                            <form>
+                                <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone :
+                                        true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+                                    <option value=0>Select State</option>
+                                    <option *ngFor="let loc of
+                                            stateResponse;let
+                                            i= index" [value]=i+1>{{loc.name}}
+                                    </option>
+                                </select>
+
+                            </form>
+                        </div>
+                        <div class="filter_txt col-md-4">
+                            <h6 class="sub-title">Filter by City</h6>
+                            <form>
+                                <select class="form-control" title={{cityResponseforTooltip}} *ngIf="cityResponse" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone :
+                                    true}" (change)="onCityChange($event.target.value)">
+                                    <option value=0>Select City</option>
+                                    <option *ngFor="let city of
+                                        cityResponse;let
+                                        i= index" [value]=i+1>{{city.name}}
+                                    </option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="filter_txt select_city col-md-4">
+                            <h6 class="sub-title">Filter by Area</h6>
+                            <form>
+                                <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone :
+                                true}" *ngIf="localityResponse" (change)="onLocationChange($event.target.value)">
+                                    <option value=0>Select Area</option>
+                                    <option *ngFor="let locationArea of
+                                    localityResponse;let j= index" [value]=j+1>
+                                        {{locationArea.name}}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="autorefresh-refreshbutton filter-ordersbtn mt-2">
+        <button type="submit" class="btn btn-primary email_product
+            width-100" role="button" (click)="onSendEmail()">SEND MAIL</button>
+        <button class="filter-btn" (click)=filterBtnClicked()><span
+            class="glyphicon glyphicon-filter"></span></button>
+        <button type="button" class="btn btn-primary
+            searchresult_resetbtn" role="button" (click)="getRefreshedorderList()">
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="refresh_txt">REFRESH</span>
+        </button>
+    </div>
+    <div *ngIf="isCorrectMobile" class="enter_error">Enter 10 digits mobile number only..!</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="productDeliveryResponseList" [sort]="sorting" (clickEvent)="clickEventHandler($event)" [componentId]="'productCentralHomeOrderTable'" [perPage]="perPage" [total]="total" [enableDownload]="true" [dataMsg]="dataMsg"
+                        (pageClick)="onPage($event)" [dataMsg]="dataMsg">
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewmoremodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div [innerHTML]="formattedDataString | sanitizeHtml">
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="mailmodal">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modaltitle">Email Report</h4>
+            </div>
+            <div class="modal-body">
+                <p>Please Enter your email address to send orders for selected dates and filters</p>
+                <input class="form-control" type="text" id="toEmail" placeholder="Enter Email address" [(ngModel)]="toEmail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="onMailSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

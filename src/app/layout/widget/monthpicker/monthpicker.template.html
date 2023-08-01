@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row">
+
+        <div class="input-group" *ngIf="isMatEnable">
+            <mat-form-field appearance="outline">
+                <mat-label>{{placeholder}}</mat-label>
+                <input matInput type="text" class="form-control isMat" id="expiry_date" placeholder="Choose Date"
+                    [value]="resultmonthandyear" readonly (click)="ClickTextbox()">
+            </mat-form-field>
+        </div>
+        <div class="input-group" *ngIf="!isMatEnable">
+            <input type="text" class="form-control" id="expiry_date" placeholder="Choose Date"
+                [value]="resultmonthandyear" readonly (click)="ClickTextbox()">
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal89" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="" (click)="clearError($event);">
+                    <span>×</span>
+                </button>
+                <h4 class="modal-title" style="text-align:left">Select Month & Year</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>
+                            Select Month
+                            <sup class="sgst_txt">*</sup>
+                        </label>
+                        <select class="form-control" id="continent" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="this.monthDropDownIndex" (change)="monthChange($event.target.value);"
+                            #monthTouch="ngModel">
+                            <option *ngFor="let mon of month" [value]=mon>{{mon}}</option>
+                        </select>
+                        <br />
+                        <span *ngIf="!isMonthSelected && (monthTouch.dirty || monthTouch.touched || isTouched)">
+                            <p class="alert alert-warning">Month is required</p>
+                        </span>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label>
+                            Select Year
+                            <sup class="sgst_txt">*</sup>
+                        </label>
+                        <select class="form-control" id="continent" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="this.yearDropDownIndex" (change)="yearChange($event.target.value);"
+                            #yearTouch="ngModel">
+                            <option *ngFor="let yer of year" [value]=yer>{{yer}}</option>
+                        </select>
+                        <br />
+                        <span *ngIf="!isYearSelected && (yearTouch.dirty || yearTouch.touched || isTouched)">
+                            <p class="alert alert-warning">Year is required</p>
+                        </span>
+                    </div>
+                    <div class="col-md-12" *ngIf="!isIncorrectSelected">
+                        <p class="alert alert-warning">Please enter a valid date</p>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn monthsubmit" (click)="monthandyear()">OK</button>
+                        <button type="button" class="btn monthclose" data-dismiss="modal"
+                            (click)="clearError($event);">Close</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

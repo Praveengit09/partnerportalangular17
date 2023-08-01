@@ -1,0 +1,42 @@
+<phrsummary [isFromDoctor]="true" (isEngage)="onClickEngage()" (editVitals)="editVitals()"
+    (showUploadedRecords)="showUploadedRecords()"></phrsummary>
+
+
+<div class="modal" style=" overflow-y: auto !important" id="vitalsReadingComponentModel" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.max-width]="'1000px'" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span> Close
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="queue && isVitalsReadingView">
+                <vitalsReadingComponent [patientQue]="queue" [isFromDoctor]="true"></vitalsReadingComponent>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="uploadedReportsComponentModel" tabindex="-1" role="dialog" aria-labelledby="modelLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" [style.max-width]="'1000px'" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="this.toggleReportsModal()">
+                    <span aria-hidden="true">&times;</span> Close
+                </button>
+            </div>
+            <div class="modal-body">
+                <other_reports [isNotPopupWidget]="true"></other_reports>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.consentVerified == false && showConsentForUploadedReports == true">
+    <requestconsent [isFromWizard]="isFromWizard" (onModalClose)='this.onModalClose($event)'></requestconsent>
+</div>

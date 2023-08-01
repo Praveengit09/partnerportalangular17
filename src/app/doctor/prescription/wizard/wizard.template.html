@@ -1,0 +1,371 @@
+<div class="wizard-sec">
+    <div class="row" *ngIf="!isVideoMax">
+        <div class="col-md -12">
+            <div class="wizard_progress_indicator" *ngIf="!isVideoMax" [class.width63per]="wizardView!='prescriptionSummary' || getIsVideo()" [class.width100per]="wizardView=='prescriptionSummary' && !getIsVideo()">
+                <div class="wizard">
+                    <div class="progress_indicator_wrapper subWizard">
+                        <a (click)="wizardView='symptomPrescription';routeToPage('symptomPrescription')" class="progress_indicator" [class.active]="wizardView=='symptomPrescription'">
+                            <span class="ic_progress" [class.past]="wizardView=='medicalPrescription' || wizardView=='prescriptionSummary'" [class.present]="wizardView=='symptomPrescription'">
+                            </span><span class="show-lg">Presenting Symptoms</span><span class="show-md">Symptoms</span></a>
+                        <a (click)="wizardView='medicalPrescription';routeToPage('medicalPrescription')" class="progress_indicator" [class.active]="wizardView=='medicalPrescription'">
+                            <span class="ic_progress" [class.future]="wizardView=='symptomPrescription'" [class.past]="wizardView=='prescriptionSummary'" [class.present]="wizardView=='medicalPrescription'">
+                            </span> Prescription
+                        </a>
+                        <a (click)="wizardView='prescriptionSummary';routeToPage('prescriptionSummary')" class="progress_indicator" [class.active]="wizardView=='prescriptionSummary'">
+                            <span class="ic_progress" [class.present]="wizardView=='prescriptionSummary'" [class.past]="wizardView!='prescriptionSummary'" [class.future]="wizardView=='symptomPrescription' || wizardView=='medicalPrescription'">
+                            </span> Summary
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="row">
+        <!-- <div class="col-md-12">
+           <embed src="{{dummyPdfUrl}}" type="pdf">
+        </div> -->
+        <div class="col-md-12">
+            <div class="pdf_prescription card" *ngIf="this.isFrom == 'digitizationqueue'">
+                <div class=" card-header">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-5 col-sm-7 col-xl-5 col-xs-9">
+                            <h4>Scanned Prescription</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body listOfcard">
+                    <object class="embed_tool" width="100%" id="scanned_prescription" type="application/pdf">
+                    </object>
+                </div>
+            </div>
+        </div>
+        <div class="row text_area_header" *ngIf="this.patientMedicalAdvise.prescriptionDigitizationStatus==5 &&
+        this.patientMedicalAdvise.digitizationManagerComments && this.patientMedicalAdvise.digitizationManagerComments!=undefined">
+            <div class="col-12" style="width:100%;padding: 15 px">
+                <form>
+                    <div class="form-group">
+                        <label for="manager_comments">Digitization Manager Comments</label>
+                        <textarea class="form-control" id="manager_comments" placeholder="{{patientMedicalAdvise.digitizationManagerComments}}" disabled rows="3" cols="110"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="doctor-prescription" [class.video_max]="isVideoMax">
+                <div class="symptoms-prescription" *ngIf="!isVideoMax" [class.width100per]="!getIsVideo() && wizardView=='prescriptionSummary'">
+                    <div *ngIf="wizardView=='symptomPrescription'">
+                        <ophthalmologyprescription *ngIf="patientMedicalAdvise?.serviceId==242">
+                        </ophthalmologyprescription>
+                        <symptomprescription></symptomprescription>
+                        <!-- <ophthalmologyprescription></ophthalmologyprescription> -->
+                    </div>
+                    <div *ngIf="wizardView=='medicalPrescription'">
+                        <medicalprescription></medicalprescription>
+                    </div>
+                    <div *ngIf="wizardView=='prescriptionSummary'">
+                        <prescriptionsummary *ngIf="!doctorService.isPrescriptionGenerated" (minMaxVideo)="minMaxVideo($event)" (postConsultVideoMaxView)="raisePostConsultVideo($event)"></prescriptionsummary>
+                    </div>
+                </div>
+                <div *ngIf="!isFrom || isFrom != 'digitizationqueue'" class="video-sec">
+                    <div class="row pres-btns" [class.hide]="isVideoMax || wizardView=='prescriptionSummary'">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary float-right" (click)="onClickImageAnnotator()">Image Annotator</button>
+                            <button class="btn btn-primary float-right" *ngIf="caseSheet && caseSheetUrl" (click)="onClickPrint(caseSheetUrl)">View Case Sheet
+                            </button>
+                            <patientphr class="float-right"></patientphr>
+                            <reports class="float-right"></reports>
+                            <button class="btn btn-primary float-right vitalsbtn" data-target="#wizardvitalsReadingComponentModel" data-toggle="modal" (click)="modelView='vitalsReadingComponent'">Vitals</button>
+                            <button *ngIf="isVideoConsultation() && enableClickCall" class="btn btn-primary float-right vitalsbtn" (click)="placeCall()">Call
+                                Patient</button>
+                            <button class="btn btn-primary float-right open-modal pres-detail" data-target="#template-pastprescription" data-toggle="modal">Prescription
+                                Details</button>
+                            <other_reports class="float-right"></other_reports>
+                            <div *ngIf="showQuestionnaire == true">
+                                <preconsultationsummary [patientQueue]="this.patientQueue" [showModal]="false">
+                                </preconsultationsummary>
+                            </div>
+
+                            <button *ngIf="isVideoConsultation() && !getIsVideo()" class="btn btn-primary float-right reconnect-video" (click)="setIsVideo(true)">Reconnect
+                                Video</button>
+                        </div>
+                    </div>
+                    <div *ngIf="getIsVideo()">
+                        <div *ngIf="!enableKaleyraVideo">
+                            <videocard (minMaxVideo)="minMaxVideo($event)" [sessionId]="getSessionId()"></videocard>
+                        </div>
+                        <div *ngIf="enableKaleyraVideo">
+                            <!-- Add Kalerya Video Compoent-->
+                            <kaleyravideo></kaleyravideo>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-pastprescription" [class.hide]="isVideoMax" [class.templateIsVideo]="getIsVideo()" [class.templateIsNotVideo]="!getIsVideo()">
+                    <div class="row" [class.hide]="isVideoMax">
+                        <div class="col-md-12" *ngIf="wizardView=='symptomPrescription'||wizardView=='medicalPrescription'">
+                            <shortsummary (wizardView)="nextPageButton()" (savePrescription)="savePrescriptionsOfPatient($event.patientMedicalAdvise, $event.autoSave)">
+                            </shortsummary>
+                        </div>
+                    </div>
+                    <div *ngIf="isFrom != 'digitizationqueue'" class="row" [class.hide]="isVideoMax || !(noOfTemplates>0)">
+                        <div class="col-md-12" [class.hide]="wizardView!='symptomPrescription'">
+                            <templatesbox (onClickTemplateDetails)="onClickTemplateDetails($event)" (noOfTemplates)="noOfTemplates=$event" (wizardView)="nextPageButton()" [total]="patientMedicalAdvise!=undefined && patientMedicalAdvise.diagnosisList!=undefined && patientMedicalAdvise.diagnosisList.length>=0?patientMedicalAdvise.diagnosisList.length:0">
+                            </templatesbox>
+                        </div>
+                    </div>
+                    <div *ngIf="isFrom != 'digitizationqueue'" class="row" [class.hide]="isVideoMax">
+                        <div class="col-md-12" [class.hide]="wizardView!='symptomPrescription'">
+                            <pastprescriptionsbox (onClickTest)="onClickTest($event)" (onClickPastPrescription)="onClickPastPrescription($event)" (wizardView)="nextPageButton()" [isFromDoctorWizard]="true">
+                            </pastprescriptionsbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="next_save" *ngIf="(!isVideoMax) && wizardView!='prescriptionSummary'">
+        <button class="btn btn-primary saveBtn width-100" *ngIf="!getIsVideo() && this.isFrom != 'digitizationqueue'" (click)="savePrescriptionsOfPatient()">Save</button>
+        <button id="templete-next-button" class="btn btn-danger nextBtn width-100" (click)="openTempletListView()">Next</button>
+    </div>
+</div>
+
+
+<div class="modal" style=" overflow-y: auto !important" id="videQuestionModel" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" *ngIf="videQuestionView && videoQuestion">
+                {{videoQuestion.title}}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    Close <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="videQuestionView && videoQuestion">
+                <div class="modal-body card-group">
+                    <div *ngIf="!videoQuestion.activities || videoQuestion.activities.length <  1" style="margin-left:40%">
+                        No Questions Data Found
+                    </div>
+                    <div class="w-100" *ngFor="let activity of videoQuestion.activities">
+
+                        <div class="">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-flush" *ngFor="let question of activity.question">
+                                    {{question.desc}}
+                                    <div class="font-weight-bold"> {{question.calcuatedAnswer}} </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default"  data-dismiss="modal" aria-label="Close">
+                          Ok
+                    </button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="printPDFWizardModel" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body row" style="text-align: center">
+                <div class="col-6 col-md-6 col-sm-6 col-xs-6">
+                    <button type="button" class="btn " style="width:100px" (click)="onClickPrint()">{{isVideo?'View
+                        PDF':'Print'}}</button>
+                </div>
+                <div class="col-6 col-md-6 col-sm-6 col-xs-6">
+                    <button type="button" class="btn " style="width:100px" (click)="closePrintView()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="modelIdprescriptiontemplate" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div *ngIf="hasPrescriptionTemplates && modelView=='prescriptiontemplate'">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prescriptionTemplateModelLabel">Template Details</h5>
+                    <button type="button" class="close" (click)="hideModel('#modelIdprescriptiontemplate');modelView='';hasPrescriptionTemplates=false" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" *ngIf="hasPrescriptionTemplates" style="min-height: 300px">
+                    <prescriptionsummary *ngIf="!doctorService.isPrescriptionGenerated" [isFrom]="'templateView'" (wizardView)="nextPageButton()" (minMaxVideo)="isVideoMax = false" [pastPrescription]="templateAdvice" [isFooterHidden]="isFooterHidden" (postConsultVideoMaxView)="raisePostConsultVideo($event)">
+                    </prescriptionsummary>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" style=" overflow-y: auto !important" id="modelIdwizardpastprescription" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div *ngIf="hasPastPrescriptions && ( modelView=='pastprescription' || modelView=='saveTemplate' )">
+                <div *ngIf="modelView=='pastprescription'" style="padding: 15px">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pastPrescriptionModelLabel">Prescription Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="model-body" *ngIf="modelView=='pastprescription'" style="min-height: 300px">
+                        <prescriptionsummary *ngIf="!doctorService.isPrescriptionGenerated" [isFrom]="'pastPrescription'" (wizardView)="nextPageButton()" (minMaxVideo)="isVideoMax = false" [pastPrescription]="pastPrescription" [isFooterHidden]="isFooterHidden" (postConsultVideoMaxView)="raisePostConsultVideo($event)">
+                        </prescriptionsummary>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="hasPastTests && modelView=='pastprescriptionTest'">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pastPrescriptionModelLabel">Test Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body card-group">
+                    <div *ngIf="!pastTests || pastTests.length <  1" style="margin-left:40%">
+                        No Past Tests Found
+                    </div>
+                    <div class="card mr-2" *ngFor="let test of pastTests">
+                        <div class="card-header">
+                            {{test.reportedDate | date}}
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                <div *ngFor="let testDetail of test.testDetailList">
+                                    {{testDetail.name}}
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item mt-1" *ngFor="let file of test.fileUrlList">
+                                    {{file.fileName}}
+
+                                    <button class="btn btn-primary float-right" (click)="openURLInNewTab(file.fileUrl)">Open</button>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="modelIdprescriptiontemplatesbox" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content {{modelView}}">
+            <div *ngIf="modelView=='templatesbox'">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="prescriptionTemplateModelLabel">Template Details</h5>
+                    <button type="button" class="close" (click)="hideModel('#modelIdprescriptiontemplatesbox');modelView='';" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="min-height: 300px">
+                    <div *ngIf="modelView=='templatesbox'">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <templatesbox (onClickTemplateDetails)="onClickTemplateDetails($event)" (wizardView)="nextPageButton()" (template)="setAdviceFromTemplate($event)" [total]="patientMedicalAdvise!=undefined && patientMedicalAdvise.diagnosisList!=undefined && patientMedicalAdvise.diagnosisList.length>=0?patientMedicalAdvise.diagnosisList.length:0">
+                                    </templatesbox>
+                                </div>
+                                <div class="col-md-8">
+                                    {{templateAdvice && templateAdvice.title}}
+                                    <prescriptionsummary *ngIf="hasPrescriptionTemplates && !doctorService.isPrescriptionGenerated" [isFrom]=" 'templateView' " (wizardView)="nextPageButton() " (minMaxVideo)="isVideoMax=false " [pastPrescription]="templateAdvice " [isFooterHidden]="isFooterHidden"
+                                        (postConsultVideoMaxView)="raisePostConsultVideo($event) ">
+                                    </prescriptionsummary>
+                                    <button class="btn btn-danger pull-right " (click)="nextPageButton() ">I'll Generate
+                                        my self</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="wizardvitalsReadingComponentModel" tabindex="-1 " role="dialog " aria-labelledby="modelLabel " aria-hidden="true ">
+    <div class="modal-dialog" [style.max-width]=" '1000px' " role="document ">
+
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal " aria-label="Close" (click)="closeModals()">
+                    <span aria-hidden="true ">&times;</span> Close
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="(patientQueue) && (modelView=='vitalsReadingComponent')">
+                <!-- <div class="modal-body "> -->
+                <vitalsReadingComponent [patientQue]="patientQueue " (onSubmitEmit)="closeModals() " [canNavigate]="false " [isFromDoctor]="true "></vitalsReadingComponent>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="wizardOtherReportsModel" tabindex="-1 " role="dialog " aria-labelledby="modelLabel " aria-hidden="true ">
+    <div class="modal-dialog" [style.max-width]=" '1000px' " role="document ">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal " aria-label="Close" (click)="closeModals()">
+                    <span aria-hidden="true ">&times;</span> Close
+                </button>
+            </div>
+            <!-- *ngIf="patientQueue" -->
+            <div class="modal-body">
+                <other_reports></other_reports>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+<div class="modal" id="requestConsentModel" tabindex="-1 " role="dialog " aria-labelledby="modelLabel "
+    aria-hidden="true ">
+    <div class="modal-dialog" [style.max-width]=" '1000px' " role="document ">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal " aria-label="Close" (click)="closeModals()">
+                    <span aria-hidden="true ">&times;</span> Close
+                </button>
+            </div>
+      
+            <div class="modal-body">
+                <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:5}"
+                    [allowNumbersOnly]="true"></ng-otp-input>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div *ngIf="this.showQuestionnaire == true">
+    <pre-questionnaire [patientQueue]="this.patientQueue" [viewQuestionnaire]="this.showQuestionnaire"
+        (onCloseModal)="onCloseModalPreQuestionnaire()"></pre-questionnaire>
+</div> -->
+<spinner-component></spinner-component>
+
+<div class="modal" style=" overflow-y: auto !important" id="imageAnnotator" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.max-width]="'1090px'" role="document">
+        <div class="modal-content">
+            <div class="modal-body row">
+                <div>
+                    <imagedrawing (cancel)="onCloseImageAnnotator()" (annotatedImage)="addAnnotatedImage($event)">
+                    </imagedrawing>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link href="https://unpkg.com/ionicons@4.4.0/dist/css/ionicons.min.css " rel="stylesheet ">

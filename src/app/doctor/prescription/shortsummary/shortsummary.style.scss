@@ -1,0 +1,70 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+.saveBtn{
+	color: #6c757d;
+    border-color: #6c757d;
+}
+.card-header h4{
+    font-size: 1.082rem;
+    margin: 5px 0 0 0;
+}
+.card-header{
+    padding: 5px 10px;
+}
+.service {
+    font-size: 11px !important;
+}
+.inner-list{
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: -1px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.saveBtn:hover{
+	color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+.nextBtn {
+    color: #fff;
+    // background-color: #dc3545;
+    background-color:$btn-next;
+    
+}
+.shortSumHead{
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+.shortSumSubHead{
+    font-weight: 600 !important;
+}
+.marginBottom0{
+    margin-bottom: 0 !important;
+}
+.card {
+    position: relative;
+    background-color: #FFF;
+    border: none;
+    -webkit-box-shadow: 0 2px 6px 0 #ccc;
+    -moz-box-shadow: 0 2px 6px 0 #ccc;
+    box-shadow: 0 2px 6px 0 #ccc;
+    margin: 0 0 20px 0;
+    display: block;
+}
+.saveBtn{
+	color: #6c757d;
+	border-color: #6c757d;
+}
+.saveBtn:hover{
+	color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+.btn-primary {
+    color: #FFF;
+    background-color: $btn-secondary;
+    border: 1px solid $btn-border-color;
+}

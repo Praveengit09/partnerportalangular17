@@ -1,0 +1,110 @@
+<h1 class="page-title">Order ID {{doctorHomeConsultTrack.orderId}}</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="info-head">Patient Information</h6>
+                <h5>{{doctorHomeConsultTrack.patientProfileDetails.title?doctorHomeConsultTrack.patientProfileDetails.title+". ":''}} {{doctorHomeConsultTrack.patientProfileDetails.fName?doctorHomeConsultTrack.patientProfileDetails.fName:''}} {{doctorHomeConsultTrack.patientProfileDetails.lName?this.doctorHomeConsultTrack.patientProfileDetails.lName:''}}
+                </h5>
+
+                <p>{{doctorHomeConsultTrack.deliveryAddress.address1}},<br> {{doctorHomeConsultTrack.deliveryAddress.address2}},
+                    <br> {{doctorHomeConsultTrack.deliveryAddress.cityName}},
+                    <br> {{doctorHomeConsultTrack.deliveryAddress.stateName}} - {{doctorHomeConsultTrack.deliveryAddress.pinCode}}
+                </p>
+                <p>{{doctorHomeConsultTrack.patientProfileDetails.contactInfo.mobile}}</p>
+            </div>
+            <div class="col-md-6">
+                <h6 class="info-head">Service Information</h6>
+                <h5>{{this.doctorHomeConsultTrack.serviceName}}</h5>
+                <h6 class="info-head">Consultation Fee</h6>
+                <h5>{{this.doctorHomeConsultTrack.payment.finalAmount}}</h5>
+                <h6 class="info-head ">Date & Time</h6>
+                <h5>{{doctorHomeConsultTrack.slotTime|date:'shortTime'}},{{doctorHomeConsultTrack.slotDate|date}}</h5>
+            </div>
+        </div>
+
+        <div class="status-info mt-3">
+            <p>Consultation Status</p>
+            <select id="invoiceCompletionStatusDrop" [(ngModel)]="dropDownIndexValue" [ngModelOptions]="{standalone: true}" (change)="doctorConsultationStatus($event.target.value)">
+                <option value="0">Select Consultation Status</option>
+                <option
+                    *ngIf="doctorHomeConsultTrack.invoiceCompletionStatus != 4 && doctorHomeConsultTrack.invoiceCompletionStatus != 5"
+                    value="3">Reached Patient</option>
+                <option value="4">Started Consultation</option>
+                <option value="5">Completed Consultation</option>
+                <option value="2">Cancel</option>
+
+
+            </select>
+            <!-- <p class="mt-2">Payment Status</p>
+            <select  *ngIf="paymentStatusIndex != 1" [(ngModel)]="paymentStatusIndex" [ngModelOptions]="{standalone: true}" (change)="doctorConsultationPaymentStatus($event.target.value)">
+                <option value="-1" >Select Payment Status</option>
+                <option value = "1">Paid</option>
+                <option value = "0">Not Paid</option>
+            </select>
+
+            <form action="#" class="color_cash" *ngIf="paymentStatusIndex == 1">
+                <span type="radio" name="paymentStatus" (change)="checkPaymentModeStatus(1)"> Paid</span>
+            </form> -->
+
+            <div class="row mt-2">
+                <div class="col-lg-12">
+                    <div class="paymode_cash">
+                        <label> Payment status </label>
+                        <form action="#" class="color_cash" *ngIf="changeStatus == false">
+                            <input type="radio" name="paymentStatus" [checked]='this.paymentStatusIndex == 1' (change)="doctorConsultationPaymentStatus(1)"> Paid&nbsp;&nbsp;
+                            <input type="radio" name="paymentStatus" [checked]='this.paymentStatusIndex == 0' (change)="doctorConsultationPaymentStatus(0)"> Not Paid
+                        </form>
+                        <form action="#" class="color_cash" *ngIf="changeStatus == true">
+                            <span type="radio" name="paymentStatus" (change)="doctorConsultationPaymentStatus(1)">
+                                Paid</span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-2">Payment Mode</p>
+            <form *ngIf='changeStatus == false'>
+                <p>
+                    <input type="radio" name="payment" [checked]="this.transactionTypeIndex == 2" (change)="checkPaymentMode(2)" checked> Cash&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="payment" [checked]="this.transactionTypeIndex == 5" (change)="checkPaymentMode(5)"> Mobile&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="payment" [checked]="this.transactionTypeIndex != 2 && this.transactionTypeIndex != 5" (change)="checkPaymentMode(0)"> Others
+                </p>
+                <div *ngIf="transactionTypeIndex == 0">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                            <select class="form-control" [(ngModel)]="transactionTypeIndex" (change)="checkOtherPaymentModeSelection($event.target.value)">
+                                <option value="0">Select</option>
+                                <option value="1">Card</option>
+                                <option value="8">PhonePe</option>
+                                <option value="6">Google Pay</option>
+                                <option value="7">PayTM</option>
+                                <option value="11">NEFT</option>
+                                <option value="12">UPI</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <input type="text" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form action="#" class="color_cash" *ngIf="changeStatus == true">
+                <span *ngIf="transactionTypeIndex == 1">CARD</span>
+                <span *ngIf="transactionTypeIndex == 2">CASH</span>
+                <span *ngIf="transactionTypeIndex == 3">ONLINE</span>
+
+                <span *ngIf="transactionTypeIndex == 5">MOBILE</span>
+                <span *ngIf="transactionTypeIndex == 6">GOOGLE PAY</span>
+                <span *ngIf="transactionTypeIndex == 7">PAYTM</span>
+                <span *ngIf="transactionTypeIndex == 8">PHONE PAY</span>
+            </form>
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+            <button class="update-btn mt-2" *ngIf='dropDownIndexValue != 2' (click)="onUpdate()">Update</button>
+
+            <button class="update-btn mt-2" *ngIf='dropDownIndexValue == 2' (click)="onUpdate()">Cancel</button>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<spinner-component></spinner-component>

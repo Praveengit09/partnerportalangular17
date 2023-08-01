@@ -1,0 +1,15 @@
+<ng-templete *ngIf="jeevoneSpinner==false || jeevoneSpinner==undefined || jeevoneSpinner==null">
+    <div *ngIf="active" class="loader">
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
+    </div>
+</ng-templete>
+<ng-templete *ngIf="jeevoneSpinner==true || jeevoneSpinner!=undefined || jeevoneSpinner!=null">
+    <div *ngIf="active" class="loader">
+        <div id="test" class="rotating"></div>
+    </div>
+</ng-templete>

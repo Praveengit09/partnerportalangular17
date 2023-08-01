@@ -1,0 +1,122 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Brand Financial Reports</h1>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <section class="row" widget="">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="row">
+
+                            <div class="form-group col-md-6 col-sm-5 col-xs-5 input_date respon_txt">
+                                <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-6 input_date respon_txt">
+                                    <datetime [(value)]="startDate" name="startDate" [placeholder]="'Start Date'" id="datepicker" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                                </div>
+                                <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-6 input_date respon_txt">
+                                    <datetime [(value)]="endDate" [placeholder]="'End Date'" name="endDate" id="datepicker2" [timepicker]="false" [datepicker]="datepickerOptEnd" (dateChange)="resetError()"></datetime>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12 col-xs-12">
+                        <div *ngIf="showAllBrands">
+                            <select id="brandSelect" class="form-control" *ngIf="brandList && brandList.length > 1 " (change)="onBrandSelect($event.target.value)">
+                                <option value=-1 selected>MyMedic</option>
+                                <option *ngFor="let brand of brandList;let i = index" [value]=i>{{brand.brandName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="downloadrecon_txt">
+                            <button type="submit" class="btn btn-danger  sub_txt width-100" role="button" (click)="onSubmitCall()">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12 order_list">
+                        <ul>
+
+                            <li>
+                                <div class="financial_total">Brand Revenue</div>
+                                <div class="slotsnumber">
+                                    <b>{{((brandRevenueFinancialStatement && brandRevenueFinancialStatement.totalBrandRevenue) ? brandRevenueFinancialStatement.totalBrandRevenue:0) | currency:'INR':true:'1.2-2'}}</b>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="financial_total">HS Revenue</div>
+                                <div class="slotsnumber">
+                                    <b>{{((brandRevenueFinancialStatement && brandRevenueFinancialStatement.totalHsRevenue) ? brandRevenueFinancialStatement.totalHsRevenue:0) | currency:'INR':true:'1.2-2'}}</b>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-lg-12 final_tablereport">
+                <section class="widget table_pading" widget>
+
+                    <div class="widget-body financial_report_tabletxt">
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped hs_tabletxt">
+                                <thead>
+                                    <tr class="table_head">
+                                        <th>Date</th>
+                                        <th>Brand Revenue</th>
+                                        <th>HS Revenue</th>
+                                        <th>Revenue Per Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let object of brandRevenueFinancialStatement.brandPeriodicFinancialStatementList">
+                                        <td class="admin_order">
+                                            {{object.date | date}}
+                                        </td>
+                                        <td class="admin_order">
+                                            {{object.brandRevenue}}
+                                        </td>
+                                        <td class="admin_order">
+                                            {{object.hsRevenue}}
+                                        </td>
+                                        <td class="admin_order">
+                                            <table>
+                                                <tbody>
+                                                    <tr *ngFor="let item of object.brandPocPerCategoryRevenueList">
+                                                        <td class="admin_order">
+                                                            Booking Type: {{item.basketTypeLabel}}
+                                                        </td>
+                                                        <td class="admin_order">
+                                                            Transaction Type: {{item.transactionPartnerTypeLabel}}
+                                                        </td>
+                                                        <td class="admin_order">
+                                                            Brand Revenue: {{item.pocRevenue}}
+                                                        </td>
+                                                        <td class="admin_order">
+                                                            HS Revenue: {{item.hsRevenue}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- {{object.revenuePerCategory}} -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>
+
+<!-- a link popup model code start here -->

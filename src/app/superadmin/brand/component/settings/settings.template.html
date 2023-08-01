@@ -1,0 +1,36 @@
+<h5><b>Manage Brand Setting</b></h5>&nbsp;
+<form>
+    <div class="col-md-3">
+        <label class="control-label" for="name">
+            <h6><b>Brand Id</b> </h6>
+        </label>
+        <label class="brandName"> <b>{{brandDetails.brandId}}</b></label>
+    </div>
+    <div class="col-md-3">
+        <label class="control-label" for="name">
+            <h6><b>Brand Name </b></h6>
+        </label>
+        <label class="brandName"><b>{{brandDetails.brandName}}</b> </label>
+    </div>
+    <hr class="text-line" />
+    <div class="col-md-4">
+        <label class="control-label" for="name">
+            <h6> <b>Manage Brand Configurations </b></h6>
+        </label>
+        <i class="fa fa-cog edit-icon" (click)="onBrandConfig()" aria-hidden="true"></i>
+    </div>
+    <hr class="text-line" />
+    <div class="col-md-4">
+        <label class="control-label" for="name">
+            <h6> <b>Manage Brand Mappings </b></h6>
+        </label>
+        <i class="fa fa-cog edit-icon" aria-hidden="true" (click)="onBrandAppMap()"></i>
+    </div>
+    <hr class="text-line" />
+    <div class="col-md-4">
+        <label class="control-label" for="name">
+            <h6> <b>Manage Diagnostic Slot Buffer </b></h6>
+        </label>
+        <i class="fa fa-cog edit-icon" (click)="onSlotBuffer()" aria-hidden="true"></i>
+    </div>
+</form>

@@ -1,0 +1,11 @@
+@import "../bookingreport/bookingreport.style.scss";
+#datepicker .datepicker {
+    min-width: 165px;
+    width: 100% !important;
+}
+::ng-deep .datepicker, .mat-form-field {
+    min-width: 165px;
+    width: 100% !important;
+}
+
+

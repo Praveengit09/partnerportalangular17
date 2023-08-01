@@ -1,0 +1,149 @@
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <h1 class="page-title">Update Pricing</h1>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+                <a class=" btn Update12" type="button" value="SEARCH" (click)="onSearchAndUpadateClick()">SEARCH AND
+                    UPDATE
+                    PRICE</a>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12 add_update">
+            <div class="form-group">
+                <a class=" btn Update12" type="button" value="ADD" (click)="onAddAndUpdate()">ADD AND
+                    UPDATE Test</a>
+            </div>
+        </div>
+    </div>
+    <p class="inventory_para">This is the page where you can update the Test Price.Please follow the steps mentioned
+        below :-</p>
+    <section class="widget03" widget="">
+        <div class="widget-body">
+            <form class="form-horizontal " role="form">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12">Download Pricing Template</h4>
+                            <div class="col-md-12"><label for="downloadScheduleType" class="lab_text">Schedule
+                                    Type</label></div>
+                            <div class="col-md-12">
+                                <input type="radio" name="downloadScheduleType" value="HomeCollection Schedule"
+                                    [checked]="this.downloadScheduleType == 1" (change)="checkedScheduleType(1,true)">
+                                Home
+                                Collection &nbsp;&nbsp;
+                                <input type="radio" name="downloadScheduleType" value="Walk-in Schedule"
+                                    [checked]="this.downloadScheduleType == 2" (change)="checkedScheduleType(2,true)">
+                                Walk-in
+                            </div>
+                            <div class="col-md-12"><label for="downloadType" class="lab_text">Download Type</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="radio" name="downloadType" value="Normal_File"
+                                    [checked]="this.downloadType == 2" (change)="checkedDownloadType(2)"> Flat Pricing
+                                &nbsp;&nbsp;
+                                <input type="radio" name="downloadType" value="Day_Time_File"
+                                    [checked]="this.downloadType == 1" (change)="checkedDownloadType(1)"> Day & Time
+                                Based Pricing &nbsp;&nbsp;
+                                <input type="radio" name="downloadType" value="Time_File"
+                                    [checked]="this.downloadType == 3" (change)="checkedDownloadType(3)"> Time Based
+                                Pricing
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-9">
+                                <div class="form-group mt-1">
+                                    <a class=" btn Update12" type="button" value="DOWNLOAD"
+                                        (click)="onDownloadButtonClick()">DOWNLOAD
+                                        EXCEL</a>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                <h1 class="number_uploadtxt">1</h1>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12" style="padding-bottom: 8px;">Updated Information</h4>
+                            <div class="col-md-10 col-sm-10 col-xs-9">
+                                <p class="successfully_upload">Now that you have successfully downloaded the
+                                    template,Please updated your information inventory information in the downloaded
+                                    template.
+                                </p>
+                                <p class="successfully_upload">Please note that the template is in .xlsx format. You
+                                    will require either Microsoft word, or open office in-order to edit the template.
+                                </p>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                <h1 class="number_uploadtxt" style="bottom: 20px;">2</h1>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12 widget_updated">
+
+                        <div class="row template_upload">
+                            <h4 class="upload_inventory col-md-12">Upload the Updated Template</h4>
+                            <div class="col-md-10 col-sm-10 col-xs-9">
+                                <div class="form-group row">
+                                    <div class="col-md-12"><label for="scheduleType" class="lab_text">Schedule
+                                            Type</label></div>
+                                    <div class="col-md-12">
+                                        <input type="radio" name="scheduleType" value="HomeCollection Schedule"
+                                            [checked]="this.scheduleType == 1" (change)="checkedScheduleType(1,false)">
+                                        Home
+                                        Collection &nbsp;&nbsp;
+                                        <input type="radio" name="scheduleType" value="Walk-in Schedule"
+                                            [checked]="this.scheduleType == 2" (change)="checkedScheduleType(2,false)">
+                                        Walk-in
+                                    </div>
+                                    <div class="col-md-12 mt-2"><label for="fileType" class="lab_text">File Type</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="radio" name="fileType" value="Normal_File"
+                                            [checked]="this.fileType == 2" (change)="checkedFileType(2)"> Flat Pricing
+                                        &nbsp;&nbsp;
+                                        <input type="radio" name="fileType" value="Day_Time_File"
+                                            [checked]="this.fileType == 1" (change)="checkedFileType(1)"> Day & Time
+                                        Based Pricing &nbsp;&nbsp;
+                                        <input type="radio" name="fileType" value="Time_File"
+                                            [checked]="this.fileType == 3" (change)="checkedFileType(3)"> Time Based
+                                        Pricing
+                                    </div>
+                                    <div class="col-md-12 mt-1">
+                                        <input #diagnosticFileUpload type="file" accept=".xls,.xlsx"
+                                            class="form-control" id="files" name="uploadfile"
+                                            (change)="fileUpload($event)" />
+                                        <input class="Update submitbtm mt-1" type="button" value="SUBMIT"
+                                            (click)="onUploadButtonClick()">
+                                    </div>
+                                </div>
+                                <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage">
+                                </hs-message>
+                                <div *ngIf="hasCheckBoxValidation">
+                                    <label class="error_class">{{checkBoxValidationMessage}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                <h1 class="number_uploadtxt">3</h1>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </form>
+        </div>
+    </section>
+</div>
+
+<spinner-component></spinner-component>

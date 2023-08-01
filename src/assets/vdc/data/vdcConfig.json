@@ -1,0 +1,110 @@
+{
+    "name": "Vijaya Diagnostic Centre",
+    "appId": 46,
+    "website": "https://vijayadiagnostic.com/",
+    "websiteLabel": "vijayadiagnostic.com",
+    "email": "info@vijayadiagnostic.com",
+    "contactnumber": "7623823456",
+    "iconspath": "assets/vdc/icons/",
+    "facebook": "https://www.facebook.com/",
+    "twitter": "https://twitter.com/",
+    "linkedin": "https://www.linkedin.com/company/",
+    "gtmKey": "",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "googleMapAPIKey": "AIzaSyC4azfkWH233PFGoizTQq4JBPbEPGC1HKU",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "internalFinanicalReports": false,
+        "centralHomeCare": false,
+        "digiReception": false,
+        "onboardingPartner": false,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": false,
+        "enableInPatientBilling": false,
+        "enableOtPatientBilling": false,
+        "disableSecondsRefresh": true,
+        "enablePresGenerationChanges": false
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "emailPrimaryConsumerLogin": false,
+        "mandateAlertnateContactNo": true,
+        "hideSidenavUserMetrics": true,
+        "enableCustomVdcName": true,
+        "enablePartialPayment": true,
+        "disableDiagnosticHomePartnerDiscount": true,
+        "disableDiagnosticHomePackageDiscount": true,
+        "disableDiagnosticHomeCouponDiscount": true,
+        "disableDiagnosticWalkinPackageDiscount": true,
+        "disableDiagnosticWalkinCouponDiscount": true,
+        "enableStrongPassword": true,
+        "enableLisPrimaryUserSelection": true
+    },
+    "doctorOptions": {
+        "enableDoctorWidgets": true,
+        "enableDoctorShareCard": true,
+        "enableDoctorChat": true,
+        "enableFixedNextBtn": true,
+        "disableDoctorWaitingTime": false,
+        "disablePromotionalDiagnosis": false,
+        "disablePrintVideoPresc": false,
+        "enableDeletePrescription": false,
+        "enableCustomDoctorQueue": false,
+        "enableOtpBasedConsent": false,
+        "disablePocSpecificDoctors": true
+    },
+    "pharmacyOptions": {
+        "enableStockValidation": false
+    },
+    "productOptions": {
+        "enableStockValidation": false
+    },
+    "diagnosticOptions": {
+        "enablePhleboVendorAssignment": true,
+        "lisIntegrated": true,
+        "enableMobileSearchWithoutDates": true,
+        "enableDiagnosticComments": false,
+        "enableBackGroundColor": true,
+        "enableButtonStatusFilter": true,
+        "enableReportSection": false,
+        "hideHomeCollectionPOCName": true,
+        "enableClientBilling": true,
+        "enableInvoiceSplitting": true,
+        "enableCreditUser": true,
+        "enableSpotBooking": true,
+        "enableHistoryForOrder": true
+    },
+    "firebaseConfig": {
+        "apiKey": "AIzaSyClygW_7SC8EYjwqvSFPqRyv3B8fqrnI6U",
+        "authDomain": "vijaya-diagnostics.firebaseapp.com",
+        "projectId": "vijaya-diagnostics",
+        "storageBucket": "vijaya-diagnostics.appspot.com",
+        "messagingSenderId": "607701576379",
+        "appId": "1:607701576379:web:6e32a481219f98b9cdd79e",
+        "measurementId": "G-RHKZW2QQSB"
+    },
+    "QA_URLS": {
+        "HSIGNZ_SERVER_URL": "https://api-qa.healthsignz.net/QA4HSignzAppServices/",
+        "POZ_SERVER_URL": "https://api-qa.healthsignz.net/QA4POZAppServices/",
+        "SEARCH_SERVER_URL": "https://api-qa.healthsignz.net/search/",
+        "CHAT_SERVER_URL": "https://api-qa.healthsignz.net/"
+    },
+    "UAT_URLS": {
+        "HSIGNZ_SERVER_URL": "https://api-uat.vijayadiagnostic.com/HSignzAppServices/",
+        "POZ_SERVER_URL": "https://api-uat.vijayadiagnostic.com/POZAppServices/",
+        "SEARCH_SERVER_URL": "https://api-uat.vijayadiagnostic.com/search/",
+        "CHAT_SERVER_URL": "https://api-uat.vijayadiagnostic.com/"
+    },
+    "LIVE_URLS": {
+        "HSIGNZ_SERVER_URL": "https://api-app.vijayadiagnostic.com/HSignzAppServices/",
+        "POZ_SERVER_URL": "https://api-app.vijayadiagnostic.com/POZAppServices/",
+        "SEARCH_SERVER_URL": "https://api-search.vijayadiagnostic.com/",
+        "CHAT_SERVER_URL": "https://api-chat.vijayadiagnostic.com/"
+    }
+}

@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-5 col-sm-6 col-xs-6"></div>
+    <div class="col-md-7 col-sm-6 col-xs-6">
+
+        <form ngNoForm method="post" id="paytmForm" action={{paytmform.transactionURL}} name="paytmForm"
+            style="display:hidden" *ngIf="paytmform">
+            <input type="hidden" name="mid" value={{paytmform.merchantId}}>
+            <input type="hidden" name="orderId" value={{paytmform.orderId}}>
+            <input type="hidden" name="txnToken" value={{paytmform.hash}}>
+        </form>
+
+        <!-- <button *ngIf="showPayOption && (!disablePaymentButton)" (click)="makePayment()" class="submit_txt">Pay
+            Now</button> -->
+
+
+    </div>
+</div>
+
+<spinner-component></spinner-component>

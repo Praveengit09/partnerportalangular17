@@ -1,0 +1,383 @@
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- <h1 class="pagedoc-title">Consultation Queue</h1> -->
+            <h1 class="page-title">Consultation Queue</h1>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-1 text-right">
+                <button type="button" class=" btn btn-primary" (click)="ngOnInit();">
+                    REFRESH
+                </button>
+                <button type="button" *ngIf="isVideoAudioEnable"
+                    [class.btn-success]="sessionBean && sessionBean.sessionId"
+                    [disabled]="!(sessionBean && sessionBean.sessionId)" class="btn onlineBtn"
+                    (click)="connectLiveNow()">
+                    <span class="glyphicon glyphicon-facetime-video onlineVideo"> </span>
+                    Connect
+                </button>
+                <button type="button" *ngIf="isVideoAudioEnable" [class.btn-success]="getIsOnline()"
+                    class="btn onlineBtn" (click)="updateDoctorStatus()">
+                    <span class="glyphicon glyphicon-facetime-video onlineVideo"> </span>
+                    {{ getIsOnline()?'Online':'Offline' }}
+                </button>
+            </div>
+            <div class="mb-2 text-right">
+                <label class="input-group-text" for="queueSortIndex">Sort By &nbsp;</label>
+                <select class="custom-select mr-1" id="queueSortIndex" [(ngModel)]="queueSortIndex"
+                    (change)="sortQueueData()" [ngModelOptions]="{standalone: true}">
+                    <option value="0">Slot Time</option>
+                    <option value="1">Waiting Time</option>
+                </select>
+                <datetime [(value)]="queueDate" name="queueDate" id="queueDate" [timepicker]="false"
+                    (dateChange)="getDoctorsConsultationQueue()" [datepicker]="datepickerOptEnd">
+                </datetime>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="this.enableCustomDoctorQueue == false">
+        <div class="col-md-12">
+            <section class="widget table_pading doctorqueue_widget" widget="">
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head tabledoc_head">
+                                <th>#</th>
+                                <th>Patient Details</th>
+                                <th>Booking Information</th>
+                                <th>Status</th>
+                                <th class="sort-default">
+                                    Service Type
+                                </th>
+                                <th>Consultation Type</th>
+                                <th *ngIf="scanAndUploadPrescriptions">
+                                    Upload Prescription
+                                </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="queueResponse">
+                            <tr class="doctor_serial" *ngFor="let queue of queueResponse;let i =index;">
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Patient Details" class="image_circle">
+                                    <div class="tabledatalabel-right">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div *ngIf="queue.patientProfilePic==''" class="user">
+                                                    <img alt="..." class="rounded-circle" src="assets/img/avatar.png">
+                                                </div>
+                                                <div *ngIf="queue.patientProfilePic!=''" class="user">
+                                                    <img alt="..." class="rounded-circle" style="height:67px"
+                                                        src={{queue.patientProfilePic}}>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-sm-8 col-xs-12 doctor_name">
+                                                <h6 (click)="navigateToPHRSummary(queue)" class="queueName">
+                                                    {{queue.patientTitle?queue.patientTitle+'. ':''}}
+                                                    {{(''+queue.patientFirstName).slice(0,22)}}
+                                                    {{queue.patientLastName?(''+queue.patientLastName).slice(0,22):''}}
+                                                </h6>
+                                                <p>{{queue.patientGender}}
+                                                    <br> {{queue.localDOBYear}}
+                                                    <br> {{queue.patientContactNumber}}
+                                                    <br> {{(queue.typeOfAppointment ==
+                                                    1)?'Follow-up':(queue.typeOfAppointment == 0)?'New':''}}
+
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Booking Information" class="docbooking">
+                                    <div class="tabledatalabel-right">
+                                        <h6>{{queue.time | date:'shortTime'}}</h6>
+                                        <p *ngIf="queue.visitDetails && (queue.visitDetails.lastVisitedDate > 0)">Last
+                                            Consultation {{queue.visitDetails.lastVisitedDate | date: 'yyyy-MM-dd'}}</p>
+
+
+                                    </div>
+                                </td>
+                                <!-- -->
+                                <td data-label="Status" class="docbooking">
+                                    <div class="tabledatalabel-right">
+                                        <h6 *ngIf="queue.status == 1">Booked</h6>
+                                        <h6 *ngIf="queue.status == 4">Waiting</h6>
+                                        <h6 *ngIf="queue.status == 5">Engaged</h6>
+                                        <h6 *ngIf="queue.status == 6">Checked</h6>
+                                        <h6 *ngIf="queue.status == 7">InPayment</h6>
+                                        <p *ngIf="queue.appointmentToken && queue.appointmentToken.length > 0"
+                                            class="remove_space">Token {{queue.appointmentToken }}
+                                        </p>
+                                        <p
+                                            *ngIf="(queue.status == 4 || queue.status == 5 || queue.status == 7 ) && queue.bookingSubType!=2">
+                                            In Queue <a *ngIf="queue.waitingTime>0">{{queue.waitingTime/60000 |
+                                                number:'1.0-0'}}</a>
+                                            <a *ngIf="queue.waitingTime<=0">{{0}}</a> min
+                                        </p>
+                                        <p *ngIf="(queue.status == 4 || queue.status == 5 ) && queue.bookingSubType==2"
+                                            style="color: red">
+                                            Video </p>
+                                    </div>
+                                </td>
+                                <td data-label="Service Type" class="general_phy">
+                                    <div class="tabledatalabel-right">
+                                        <!-- <span>{{getServiceName(item.serviceId)}}</span> -->
+                                        <span *ngIf="selectedDoctor != undefined">
+                                            <span *ngFor="let service of selectedDoctor.serviceList">
+                                                <span
+                                                    *ngIf="queue.serviceId == service.serviceId">{{service.serviceName}}</span>
+                                            </span>
+                                        </span>
+                                        <ul style="padding-left: 0px;">
+                                            <li>Visits ({{queue.visitDetails!=null?queue.visitDetails.noOfVisits:''}})
+                                            </li>
+                                            <li *ngIf="revenueGeneratedByCustomer">{{this.currency}}
+                                                {{(queue.visitDetails?queue.visitDetails.revenue:0)
+                                                |number :
+                                                '1.2-2'}}
+                                            </li>
+                                            <li *ngIf="doctorServiceType.get(queue.serviceId)">
+                                                {{doctorServiceType.get(queue.serviceId).serviceName}}</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td data-label="Consultation Type" class="docbooking">
+                                    <div class="tabledatalabel-right">
+                                        <h6>{{queue.bookingType == 1? 'Connect Now': subType[queue.bookingSubType]}}
+                                        </h6>
+                                    </div>
+                                </td>
+                                <td class="general_phy uploadpres-actionbtn" *ngIf="scanAndUploadPrescriptions">
+                                    <button class="btn btn-info uplad-pres"
+                                        (click)="getQueue(queue);uploadFilesList=[];successMsg='';successColor='black';openModelWithOutClose('uploadPrescription')">Upload
+                                        Prescription</button>
+                                </td>
+                                <td class="uploadpres-actionbtn">
+                                    <div *ngIf="queue.status == 0">
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onClickEngage(queue)">VACANT</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 1">
+                                        <button type="button" class="btn engage_txt">BOOKED</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 2">
+                                        <button type="button" class="btn engage_txt">BLOCK</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 3">
+                                        <button type="button" class="btn engage_txt">SHORT_BLOCK</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 4 || queue.status == 7">
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onClickEngage(queue)">Start</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 5">
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onClickEngage(queue)">Engage</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 6">
+                                        <button type="button" class="btn engage_txt">CHECKED</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row" *ngIf="this.enableCustomDoctorQueue == true">
+        <div class="col-md-12">
+            <section class="widget table_pading doctorqueue_widget" widget="">
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head tabledoc_head">
+                                <th>#</th>
+                                <th>Patient Details</th>
+                                <th>Consultation Details</th>
+                                <th>Prescription Questionnaire</th>
+                                <th>Request Consent</th>
+                                <th>Generate Prescription</th>
+
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="queueResponse">
+                            <tr class="doctor_serial" *ngFor="let queue of queueResponse;let i =index;">
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Patient Details" class="image_circle">
+                                    <div class="tabledatalabel-right">
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div *ngIf="queue.patientProfilePic==''" class="user">
+                                                    <img alt="..." class="rounded-circle" src="assets/img/avatar.png">
+                                                </div>
+                                                <div *ngIf="queue.patientProfilePic!=''" class="user">
+                                                    <img alt="..." class="rounded-circle" style="height:67px"
+                                                        src={{queue.patientProfilePic}}>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-sm-8 col-xs-12 doctor_name">
+                                                <h6 (click)="navigateToPHRSummary(queue)" class="queueName">
+                                                    {{queue.patientTitle?queue.patientTitle+'. ':''}}
+                                                    {{(''+queue.patientFirstName).slice(0,22)}}
+                                                    {{queue.patientLastName?(''+queue.patientLastName).slice(0,22):''}}
+                                                </h6>
+                                                <p>
+                                                    {{queue.localDOBYear}}
+                                                    <br /> {{queue.patientGender}}
+                                                    <span *ngIf="disablePatientContactNo">
+                                                        <br />{{queue.patientContactNumber}}</span>
+                                                    <br /> {{(queue.typeOfAppointment ==
+                                                    1)?'Follow-up':(queue.typeOfAppointment == 0)?'New':''}}
+                                                    <br />Visits({{queue.visitDetails!=null?queue.visitDetails.noOfVisits:''}})
+                                                    <br />{{this.currency}}
+                                                    {{(queue.visitDetails?queue.visitDetails.revenue:0) |number :
+                                                    '1.2-2'}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Booking Information" class="docbooking">
+                                    <div class="tabledatalabel-right">
+                                        <h6>{{queue.time | date:'shortTime'}}</h6>
+                                        <p class="remove_space"> {{queue.appointmentToken }}
+                                        </p>
+                                        <br />
+                                        <p class="remove_space"
+                                            *ngIf="(queue.status == 4 || queue.status == 5 || queue.status == 7 ) && queue.bookingSubType!=2">
+                                            In Queue <a *ngIf="queue.waitingTime>0">{{queue.waitingTime/60000 |
+                                                number:'1.0-0'}}</a>
+                                            <a *ngIf="queue.waitingTime<=0">{{0}}</a> min
+                                        </p>
+                                        <br />
+                                        <p class="remove_space" *ngIf="queue.status == 1">Booked</p>
+                                        <p class="remove_space" *ngIf="queue.status == 4">Waiting</p>
+                                        <p class="remove_space" *ngIf="queue.status == 5">Engaged</p>
+                                        <p class="remove_space" *ngIf="queue.status == 6">Checked</p>
+                                        <p class="remove_space" *ngIf="queue.status == 7">InPayment</p><br />
+                                        <p class="remove_space"
+                                            *ngIf="(queue.status == 4 || queue.status == 5 ) && queue.bookingSubType==2"
+                                            style="color: red">
+                                            Video </p>
+                                    </div>
+                                </td>
+                                <td class="uploadpres-actionbtn">
+                                    <div>
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onViewPrescriptionQuestionnaireClickHandler(queue)">View
+                                            Questionnaire</button>
+                                    </div>
+                                </td>
+                                <td class="uploadpres-actionbtn">
+                                    <div>
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onConsentRequestClickHandler(queue)">Request</button>
+                                    </div>
+                                </td>
+                                <td class="uploadpres-actionbtn">
+                                    <div *ngIf="queue.status == 0">
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onClickEngage(queue)">VACANT</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 1">
+                                        <button type="button" class="btn engage_txt">BOOKED</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 2">
+                                        <button type="button" class="btn engage_txt">BLOCK</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 3">
+                                        <button type="button" class="btn engage_txt">SHORT_BLOCK</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 4 || queue.status == 7">
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onClickEngage(queue)">Start</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 5">
+                                        <button type="button" class="btn engage_txt"
+                                            (click)="onClickEngage(queue)">Engage</button>
+                                    </div>
+                                    <div *ngIf="queue.status == 6">
+                                        <button type="button" class="btn engage_txt">CHECKED</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="uploadPrescription" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border: none">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>Close
+                </button>
+            </div>
+            <uploadcard (isNgOnItTriggered)="ngOnInit()" [fromDoctorQueue]="true"></uploadcard>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="connectNow" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><span class="glyphicon glyphicon-facetime-video onlineVideo"></span> Live Video
+                Consulatation
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>Close
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="liveNowQueue">
+                <div class="col-md-8 col-sm-8 col-xs-8 doctor_name">
+                    <h6 (click)="navigateToPHRSummary(liveNowQueue)" class="hoverClass">
+                        {{liveNowQueue.patientTitle?(liveNowQueue.patientTitle+". "):''}}
+                        {{liveNowQueue.patientFirstName}}
+                        {{liveNowQueue.patientLastName?liveNowQueue.patientLastName:''}}
+                    </h6>
+                    <p>{{liveNowQueue.patientGender}}, {{liveNowQueue.localDOBYear}}
+                        <br> {{liveNowQueue.patientContactNumber}}
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="onClickEngage(liveNowQueue)"
+                    data-dismiss="modal">Start
+                    Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- enabled only for jeevone -->
+<div *ngIf="this.showconsentpopup == true">
+
+    <requestconsent (onModalClose)='this.onModalClose()' [isFromqueue]="this.isFromqueue"
+        (emitConsentStatus)="checkConsentStatus($event)">
+    </requestconsent>
+</div>
+
+<!-- enabled only for jeevone -->
+<div *ngIf="this.showQuestionnaire == true">
+    <!-- <pre-questionnaire [patientQueue]="this.patientQueue" [viewQuestionnaire]="this.showQuestionnaire"
+        (onCloseModal)="onCloseModalPreQuestionnaire()"></pre-questionnaire> -->
+
+    <preconsultationsummary [patientQueue]="this.patientQueue" [viewQuestionnaire]="this.showQuestionnaire"
+        [showModal]="this.showModal" (onCloseModal)="onCloseModalPreQuestionnaire()">
+    </preconsultationsummary>
+</div>
+
+<spinner-component></spinner-component>

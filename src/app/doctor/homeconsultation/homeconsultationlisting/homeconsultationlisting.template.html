@@ -1,0 +1,119 @@
+<h1 class="page-title">Home Service Requests</h1>
+
+<div class="row">
+    <!-- <div class="col-lg-12">
+                <section class="widget table_pading" widget>
+                    <div class="widget-body">
+                        <hs-table [columns]="columns" [pagingList]="doctorHomeConsultList" [sort]="sorting" (buttonClick)="onButtonClicked($event)" [componentId]="'homeConsulatationsListTable'" (imageClick)="onImageClicked($event)" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                            Loading table...
+                        </hs-table>
+                    </div>
+                </section>
+            </div> -->
+    <!-- <div class="col-lg-12">
+        <section class="widget table_pading">
+            <div class="widget-body table-responsive">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>#</th>
+                            <th>Order Id</th>
+                            <th>Patient Information</th>
+
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>Engage</th>
+                            <th>Payment Receipt</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="doctorHomeConsultList">
+                        <tr *ngFor="let list of doctorHomeConsultList;let i =index;">
+                            <td>{{i+1}}</td>
+                            <td>{{list.orderId}}</td>
+                            <td class="patient-info">
+
+                                <p>{{(''+list.patientProfileDetails.fName).slice(0,22)}} &nbsp;{{(''+list.patientProfileDetails.lName).slice(0,22)}}</p>
+                                <span class="addresss">{{list.deliveryAddress.address1}},{{list.deliveryAddress.address2}}</span>
+                                <span>{{list.deliveryAddress.cityName}}</span>
+                                <span>{{list.deliveryAddress.stateName}}</span>
+                                <span>{{list.deliveryAddress.cityName}} - {{list.deliveryAddress.pinCode}}</span>
+                                <span>{{list.patientProfileDetails.contactInfo.mobile}}</span>
+                            </td>
+                          
+                            <td>{{list.slotDate|date:'dd-MM-yyyy'}}</td>
+                            <td>{{list.slotTime|date:'shortTime'}}</td>
+                            <td>
+                                <span *ngIf='list.payment.paymentStatus == 0'>Not Paid</span>
+                                <span *ngIf='list.payment.paymentStatus == 1'>Paid</span>
+                            </td>
+                            <td>
+                                <button class="btn width-100 mb-xs view-btn" *ngIf='list.invoiceCompletionStatus == 11&& list.cancellationStatus !=2 && list.cancellationStatus != 1' (click)="onButtonClicked(list)">Approved</button>
+                                <button class="btn width-100 mb-xs view-btn" *ngIf='list.invoiceCompletionStatus == 10 && list.cancellationStatus !=2 && list.cancellationStatus != 1' (click)="onButtonClicked(list)">Pending</button>
+                                <button class="btn width-100 mb-xs view-btn" *ngIf='list.invoiceCompletionStatus == 3&& list.cancellationStatus !=2 && list.cancellationStatus != 1' (click)="onButtonClicked(list)">Reached</button>
+                                <button class="btn width-100 mb-xs view-btn" *ngIf='list.invoiceCompletionStatus == 4&& list.cancellationStatus !=2 && list.cancellationStatus != 1' (click)="onButtonClicked(list)">Started</button>
+                                <button class="btn width-100 mb-xs view-btn-disabled " *ngIf='list.invoiceCompletionStatus == 5' (click)="onButtonClicked(list)">Completed</button>
+                                <button class="btn width-100 mb-xs view-btn-disabled " *ngIf='list.cancellationStatus == 2 || list.cancellationStatus == 1' (click)="onButtonClicked(list)">Cancelled</button>
+                            </td>
+                            <td><button class="btn width-100 mb-xs view-btn" [disabled]='list.cancellationStatus != 0 || list.invoiceCompletionStatus!=4' (click)="engageQueue(list)">Engage</button></td>
+                            <td>
+                                <a class="btn btn-xs" *ngIf="list.payment.paymentStatus == 1">
+                                    <img class="img_txt" src="assets/img/partner/pdf_icon_read.png" (click)="invoiceClick(list)">
+                                </a>
+                                <a class="btn btn-xs" *ngIf="list.payment.paymentStatus != 1">
+                                    <img class="img_txt" src="assets/img/partner/pdf_icon_disabled.png" (click)="invoiceClick(list)">
+                                </a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div> -->
+    <div class="col-lg-12">
+        <section class="widget table_pading hs-table" widget>
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="doctorHomeConsultList" [sort]="sorting"  
+                [componentId]="'homeConsulatationsListTable'" (clickEvent)="clickEventHandler($event)" 
+                [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<div class="modal fade" id="homeCounsultUploadPrescription" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border: none">
+            <div *ngIf="modalView=='upload'">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>Close
+                    </button>
+                </div>
+                <uploadcard (isNgOnItTriggered)="ngOnInit()" [fromDoctorQueue]="true"></uploadcard>
+            </div>
+            <div *ngIf="modalView=='uploadOrEngage'">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>Close
+                    </button>
+                </div>
+                <div class="modal-body row" style="text-align: center">
+                    <div class="col-md-6">
+                        <button type="button" class="btn " style="width:160px" (click)="modalView='upload'">Upload Prescription</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn " style="width:160px" (click)="routeToPrescription(queue)">Generate Prescription</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

@@ -1,0 +1,29 @@
+@mixin rectangularBox{
+    background-color: #fff;
+    box-shadow: 0.10px 0.10px 1px 1px #888888;
+}
+.thumb img{
+    height: 63px;
+    width: 63px;
+}
+.thumb{
+    @include rectangularBox;
+    margin: 10px 10px 40px 15px;
+    width: 100%;
+}
+.patientname{
+    font-weight: 800;
+}
+.form-custom-setting{
+    margin-left: 0px;
+}
+.address{
+    @include rectangularBox;
+    margin:0 0 20px 17px;
+}
+.edit{
+    float: right;
+}
+.error{
+    color: red;
+}

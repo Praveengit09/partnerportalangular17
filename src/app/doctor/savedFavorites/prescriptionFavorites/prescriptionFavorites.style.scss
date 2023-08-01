@@ -1,0 +1,175 @@
+.cardBodyItem label {
+    user-select: none;
+}
+
+.btn.bg-white {
+    outline: none;
+}
+
+.info-sec label {
+    font-size: 12px;
+    color: rgba(51, 51, 51, 0.8);
+    margin-left: 15px;
+}
+
+.selectLabel {
+    font-size: 12px;
+    color: rgba(51, 51, 51, 0.8);
+}
+
+.dropdown .btn {
+    width: 100%;
+    text-align: left;
+    max-width: 400px;
+}
+
+.dropdown .dropdown-menu {
+    top: 50px;
+    left: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+}
+
+.dropdown .btn .caret {
+    float: right;
+    margin-top: 5px;
+    width: 9px;
+    height: 15px;
+}
+
+.info-sec select {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), inset 0 2px 0 0 #ffffff;
+    background-image: linear-gradient(to bottom, #f2f2f2, #d4d4d4);
+    color: #4a4a4a;
+}
+
+.card {
+    margin-top: 22px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+    padding-bottom: 10px;
+}
+
+.card-header {
+    background: #fff;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
+    padding: 14px 15px 7px 15px;
+}
+
+.card-header h4 {
+    color: #4a4a4a;
+    font-size: 18px;
+    margin: 0;
+}
+
+.card-header small {
+    font-size: 12px;
+    line-height: 1.08;
+    letter-spacing: 0.1px;
+    color: rgba(51, 51, 51, 0.37);
+    border-bottom: 1px solid;
+    border-color: rgba(151, 151, 151, 0.45);
+    display: block;
+    padding-bottom: 2px;
+    margin-top: 4px;
+}
+
+.card-body {
+    min-height: 131px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #dbe9ee;
+}
+
+.cardBodyItem {
+    margin-right: 15px;
+}
+
+.cardBodyItem :checked+label {
+    outline: 2px solid #ff6d6d;
+}
+
+.cardBodyItem label {
+    box-shadow: 0px 3px 7px 2px rgba(150, 150, 150, 0.25);
+    position: relative;
+    cursor: pointer;
+    background: #ffffff;
+    min-width: 172px;
+    text-align: center;
+    padding: 12px 50px 11px 10px;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    color: rgba(51, 51, 51, 0.8);
+    text-transform: uppercase;
+    line-height: 17px;
+}
+
+.cardBodyItem label::before,
+.cardBodyItem label::after {
+    display: block;
+    height: 40px;
+    line-height: 28px;
+    position: absolute;
+    right: -2px;
+    text-align: center;
+    top: 0;
+    width: 40px;
+    border-left: 1px solid;
+    border-color: rgba(206, 206, 206, 0.52);
+    font-size: 20px;
+    padding-top: 7px;
+    font-family: FontAwesome;
+}
+
+.cardBodyItem input[type="checkbox"] {
+    display: none;
+}
+
+.cardBodyItem label::before {
+    content: "\f067";
+    color: rgba(206, 206, 206, 0.52);
+}
+
+.cardBodyItem label::after {
+    content: "\f00d";
+    background: #ff6d6d;
+    color: #fff;
+    display: none;
+}
+
+.cardBodyItem :checked+label::before {
+    display: none;
+}
+
+.cardBodyItem :checked+label:after {
+    display: block;
+}
+
+.cardBodyItem label.brandName::before,
+.cardBodyItem label.brandName::after {
+    height: 100%;
+}
+
+.cardBodyItem label.brandName::before {
+    padding-top: 16px;
+}
+
+.cardBodyItem label.brandName::after {
+    padding-top: 13px;
+}
+
+.float-right {
+    float: right;
+}
+
+.CardfooterColor {
+    background-color: #dbe9ee;
+}
+
+@media screen and (max-width: 575px) {
+    .info-sec .module {
+        margin-top: 10px;
+    }
+}

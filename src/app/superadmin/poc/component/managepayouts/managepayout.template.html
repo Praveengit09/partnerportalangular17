@@ -1,0 +1,137 @@
+<div class="table_size">
+    <h1 class="page-title">Payout Information</h1>
+    <form>
+        <div class="row">
+            <div class="col-md-8 payout-info">
+                <div class="form-group">
+                    <label class="control-label" for="name">Payout Duration
+                        <sup class="sgst_txt">*</sup>
+                    </label>
+                    <div class="row">
+                        <div class="col-sm-10 col-xs-10">
+                            <input id="brandName" name="name" type="text" maxlength="3" [(ngModel)]="payoutDetails.payoutDuration" placeholder="Payout Duration" class="form-control input-md" (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                        <div class="col-sm-2 col-xs-2">days</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Payout Enabled <sup class="sgst_txt">*</sup></label>
+                    <div>
+                        <input name="radio04" type="radio" value="0" [checked]="payoutDetails.payoutEnabled" (change)="changeData()"> Yes &nbsp;&nbsp;
+                        <input name="radio04" type="radio" value="1" [checked]="!payoutDetails.payoutEnabled" (change)="changeData()"> No
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="name">Payout Mode<sup class="sgst_txt">*</sup></label>
+                    <form action="#" class="color_cash">
+                        <input type="radio" name="payment" id="upi-payment" (change)="checkPayoutModeSelection(0)" checked> UPI &nbsp;&nbsp;
+                        <input type="radio" name="payment" id="neft-payment" [checked]="payoutDetails.payoutMode ==='neft' " (change)="checkPayoutModeSelection(1)"> NEFT &nbsp;&nbsp;
+                        <input type="radio" name="payment" id="imps-payment" [checked]="payoutDetails.payoutMode ==='imps' " (change)="checkPayoutModeSelection(2)"> IMPS &nbsp;&nbsp;
+                        <input type="radio" name="payment" [checked]="payoutDetails.payoutMode ==='paytm' " id="paytm-payment" (change)="checkPayoutModeSelection(3)"> PayTM
+                        <div class="payment-detail row" *ngIf="payoutDetails.payoutMode ==='upi' ">
+                            <div class="col-sm-10 c0l-xs-10">
+                                <label class="control-label" for="name">UPI Account Details
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <input id="upi" name="name" type="text" pattern="^\w+@\w+$" [(ngModel)]="payoutDetails.upiAccountDetails" placeholder="Ex:MobileNumber@upi" class="form-control input-md">
+                            </div>
+                        </div>
+
+                        <div class="payment-detail row" *ngIf="payoutDetails.payoutMode ==='neft' || payoutDetails.payoutMode ==='imps' ">
+                            <div class="col-sm-10 col-xs-10">
+                                <label class="control-label" for="Details">Bank Account Details </label>
+                                <div class="bank-details">
+                                    <label class="control-label" for="name">Account Holder Name
+                                        <sup class="sgst_txt">*</sup>
+                                    </label>
+                                    <input id="upi" name="name" [(ngModel)]="payoutDetails.bankAccountDetails.accountHolderName" (keypress)="validation.onlyAlphabetsWithSpace($event)" type="text" placeholder="Name" class="form-control input-md">
+
+                                    <label class="control-label" for="Account">Account Number
+                                        <sup class="sgst_txt">*</sup>
+                                    </label>
+                                    <input id="upi" name="Account" type="text" [(ngModel)]="payoutDetails.bankAccountDetails.accountNo" (keypress)="validation.onlyNumbers($event)" placeholder="Account Number" class="form-control input-md">
+
+                                    <label class="control-label" for="Re-Account"> Re-Enter Account Number
+                                        <sup class="sgst_txt">*</sup>
+                                    </label>
+                                    <input id="upi" name="Re-Account" type="text" [(ngModel)]="confirmAccountNumber" placeholder="Re-Enter Account Number" class="form-control input-md">
+
+                                    <label class="control-label" for="ifsc">IFSC code
+                                        <sup class="sgst_txt">*</sup>
+                                    </label>
+                                    <input id="upi" name="ifsc" type="text" [(ngModel)]="payoutDetails.bankAccountDetails.ifscCode" (keypress)="validation.noSpecialCharacters($event)" placeholder="IFSC" class="form-control input-md">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-detail row" *ngIf="payoutDetails.payoutMode ==='paytm'">
+                            <div class="col-sm-10 col-xs-10">
+                                <label class="control-label" for="name">Paytm Account No
+                                    <sup class="sgst_txt">*</sup>
+                                </label>
+                                <input id="paytmNum" name="name" maxlength="10" [(ngModel)]="payoutDetails.paytmAccountNo" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}" type="text" placeholder="Mobile Number registered with Paytm" class="form-control input-md">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Email
+                        <sup class="sgst_txt">*</sup>
+                    </label>
+                    <div class="row Email" *ngFor="let email of emailList;let i =index;trackBy:trackByFn">
+                        <div class="col-sm-10 col-xs-10">
+                            <input type="text" name="email+{{i}}" id="email+{{i}}" [(ngModel)]="emailList[i]" ngModel #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="E-Mail" required class="form-control input-md">
+                        </div>
+                        <div class="col-sm-2 col-xs-2">
+                            <span>
+                            <a class="add_remove_button" *ngIf="emailList.length > 1">
+                            <i class="fa fa-times removetxt_icon" aria-hidden="true" (click)="removeEmail(i)"></i></a>
+                            &nbsp;
+                            <a class="add_plus_button" *ngIf="i+1 == emailList.length">
+                                <i aria-hidden="true" class="fa fa-plus addtxt_icon2" (click)="addEmail()"></i>
+                            </a>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="name">Contact Number
+                        <sup class="sgst_txt">*</sup>
+                    </label>
+                    <div class="row contact_number" *ngFor="let contact of contactList;let i =index;trackBy:trackByFn">
+                        <div class="col-sm-10 col-xs-10">
+                            <input type="text" name="mobileNumber+{{i}}" id="phone+{{i}}" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" pattern=".{10}|.{10,}" title="Minimum 10 characters required" placeholder="Phone" [(ngModel)]="contactList[i]"
+                                required class="form-control input-md">
+                        </div>
+                        <div class="col-sm-2 col-xs-2">
+                            <a class="add_plus_button" *ngIf="i+1 == contactList.length">
+                                <i aria-hidden="true" class="fa fa-plus addtxt_icon2" (click)="addApplyButton()"></i>
+                            </a>
+                        </div>
+                        <!-- <div class="col-md-4">
+                            <a *ngIf="contactList.length > 2">
+                                <i aria-hidden="true" class="fa fa-remove removetxt_icon"
+                                    (click)="removeAddress(i)"></i></a>
+                            <a *ngIf="contactList.length < 3" autocomplete="off">
+                                <i aria-hidden="true" class="fa fa-plus addtxt_icon2" (click)="addApplyButton()"></i>
+    
+                            </a>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button id="singlebutton" name="singlebutton" class="btn  Update" (click)="onPayoutSubmit()">
+                        Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+</div>
+<spinner-component></spinner-component>

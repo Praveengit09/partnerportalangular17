@@ -1,0 +1,41 @@
+{
+    "name": "Megsan Diagnostics",
+    "appId": 40,
+    "website": "http://megsandiagnostics.com/",
+    "websiteLabel": "megsandiagnostics.com",
+    "email": "info@megsandiagnostics.com",
+    "contactnumber": "1800 120 303 303",
+    "iconspath": "assets/megsan/icons/",
+    "facebook": "https://www.facebook.com/MegsanDiagnostics",
+    "twitter": "https://twitter.com/MegsanDiagnos/",
+    "linkedin": "https://www.linkedin.com/",
+    "gtmKey": "UA-92315709-3",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "internalFinanicalReports": false,
+        "centralHomeCare": false,
+        "digiReception": false,
+        "onboardingPartner": true,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": true,
+        "enableInPatientBilling": false
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "emailPrimaryConsumerLogin": false
+    },
+    "doctorOptions": {
+        "enableDoctorWidgets": true,
+        "enableDoctorShareCard": true,
+        "enableDoctorChat": true,
+        "enableFixedNextBtn": true,
+        "disableDoctorWaitingTime": false,
+        "disablePromotionalDiagnosis": false,
+        "disablePrintVideoPresc": false
+    }
+}

@@ -1,0 +1,62 @@
+<div class="row doctor_chatwidget">
+    <div class="col-md-4 col-sm-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contact-search">
+                    <form class="doc-search-input">
+                        <input type="text" name="search" id="doc-search-input" (keyup)="searchContacts($event.target.value)" autocomplete="off" placeholder="Search for doctors">
+                        <i class="fa fa-search"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row recent-chartscontainer">
+            <div class="col-md-12">
+                <ul class="search-results list-group list-group-flush" *ngIf="doctorSearchResults && (doctorSearchResults.length>0)">
+                    <h5 class="ml-1">Chats</h5>
+                    <ng-container *ngFor="let doc of doctorSearchResults">
+                        <li class="list-group-item" *ngIf="doc.empId != authService.userAuth.employeeId" (click)="addDocToContactList(doc)">
+                            <div class="recent-charts">
+                                <div class="user">
+                                    <img alt="..." class="rounded-circle" src="{{getImageOfContact(doc)}}">
+                                </div>
+                                <div class="doctor_name">
+                                    <h5 class="queueName">{{doc.title}}{{doc.firstName}} {{doc.lastName}}</h5>
+                                </div>
+                            </div>
+                        </li>
+                    </ng-container>
+                </ul>
+                <div class="recent-chartswidget">
+                    <h5 class="ml-1">Contacts</h5>
+                    <ng-container *ngFor="let contact of getContactList()">
+                        <div class="recent-charts" *ngIf="contact.firstName" [class.selected]="isSelectedContact(contact)" (click)="openConversion(contact)">
+                            <div class="user">
+                                <img alt="..." class="rounded-circle" src="{{getImageOfContact(contact)}}">
+                            </div>
+                            <div class="doctor_name">
+                                <h5 class="queueName">{{contact.firstName}} {{contact.lastName}}</h5>
+                                <span *ngIf="contact.onlineStatus==1"><i class="fa fa-circle fa-1"
+                                        [class.online]="contact.onlineStatus==1"
+                                        [class.offline]="contact.onlineStatus!=1"></i></span>
+                                <span *ngIf="contact.userType == 1">{{contact.gender?(contact.gender):''}}{{contact.age?(',
+                                    '+contact.age+' Years'):''}}</span>
+                                <span *ngIf="contact.userType == 2">{{contact.gender?(contact.gender):''}}</span>
+                                <div *ngIf="contact.noOfUnreadConversations && contact.noOfUnreadConversations>0">
+                                    {{contact.noOfUnreadConversations}} unread message{{contact.noOfUnreadConversations>1?'s':''}}
+                                </div>
+                                <div *ngIf="contact.lastConversationTime && contact.lastConversationTime>0">
+                                    {{getTimeFromNow(contact.lastConversationTime)}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-sm-8">
+        <ng-container *ngIf="userId">
+            <chatroom [userId]="userId" (update)="updateChatRoom($event)"></chatroom>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+@import "../../../prescription/reports/reports.style.scss";
+// th{
+//     color: #64819E !important;
+//     text-transform: capitalize !important;
+//     font-size: 15px;
+//     line-height: 1.73;
+// }
+.profile-image img{
+    border: 1px solid #ddd;
+    border-radius: 1px;
+    padding: 5px;
+    width: 49px;
+    height:auto;
+}
+table h5{
+    font-size: 14px;
+    line-height: 1.29;
+    margin: 0;
+    font-weight: 500;
+}
+
+.packages_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .packages_widget {
+        border: none !important;
+    }
+}
+
+
+@media screen and (min-width:601px) {
+    .packages_widget table{
+        min-width: 600px;
+    }
+}

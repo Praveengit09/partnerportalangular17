@@ -1,0 +1,58 @@
+<hs-message [isError]="deliveryType=='error'" [show]="deliveryType=='error'" [messages]="['Page Not Found !! Please check your path!']"></hs-message>
+<div class="table_size" *ngIf="deliveryType != 'error'">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Order List</h1>
+
+    <div class="row">
+        <div class="col-lg-6 col-6 neworder-refresh">
+            <select name="select-time" id="timeperiod" [(ngModel)]="timePeriod" (change)="filterDisplayData()">
+                <option value="present">Present</option>
+                <option value="past">Past</option>
+                <option value="future">Future</option>
+                <option value="all">All</option>
+            </select>
+        </div>
+        <div class="col-lg-6 col-6 neworder-refresh">
+            <button type="button" class="btn btn-primary searchresult_resetbtn" role="button" (click)="getRefreshedorderList('');">
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="refresh_txt">REFRESH</span>
+            </button>
+        </div>
+        <div class="col-lg-12">
+            <!-- <section class="widget table_pading hs-table" widget> -->
+
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="displayList" [sort]="sorting" [dataMsg]="'No data found'" (clickEvent)="clickEventHandler($event)" [componentId]="deliveryType+'delivery'" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+            </div>
+            <!-- </section> -->
+        </div>
+    </div>
+</div>
+
+<!-- The View Orders Modal -->
+<div class="modal" id="viewOrderModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body delivery_popup">
+                <delivery-product-details [selectedOrder]="selectedOrder" [cartType]="productListType">
+                </delivery-product-details>
+                <div class="row">
+                    <div class="container col-12">
+                        <div class="btn btn-warning" (click)="updateDelivery(selectedOrder.actionStatus)" *ngIf="selectedOrder.actionStatus == actionStatus.CUSTOMER_APPROVED 
+                        ||selectedOrder.actionStatus == actionStatus.DELIVERY_INITIATED
+                        ||selectedOrder.actionStatus == actionStatus.OUT_FOR_DELIVERY">
+                            {{selectedOrder.actionStatus == actionStatus.CUSTOMER_APPROVED ? 'Initiate Delivery' : selectedOrder.actionStatus == actionStatus.DELIVERY_INITIATED ? 'Out For Delivery' : selectedOrder.actionStatus == actionStatus.OUT_FOR_DELIVERY ? selectedOrder.cashPaymentAmount>0
+                            ? 'Collect Rs '+ finalAmount +' & Complete Delivery':'Complete Delivery' :selectedOrder.actionStatus == actionStatus.COMPLETED ? 'Delivered':'In Process'}}
+                        </div>
+                        <button *ngIf="selectedOrder.actionStatus == actionStatus.COMPLETED" disabled>Delivered
+                        </button>
+                        <div class="btn btn-danger ml-2" data-dismiss="modal">Close</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

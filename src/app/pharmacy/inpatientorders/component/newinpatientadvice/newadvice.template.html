@@ -1,0 +1,102 @@
+<ng-template [ngIf]="!basketRequest?.cartItemList[0]?.orderId">
+    <div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+        <h1 class="page-title">New Order Details</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="newadd_patient" widget="">
+                <div class="col-sm-4 col-xs-12 patient_txt patientpop">
+                    <p>Patient
+                        <i aria-hidden="true" class="fa fa-plus add_patient" data-toggle="modal"
+                            data-target="#registerPatientModal" data-backdrop="static" data-keyboard="false"></i>
+                    </p>
+                    <h4 *ngIf="selectedRegisteredProfile">
+                        {{selectedRegisteredProfile?.selectedProfile?.title?selectedRegisteredProfile?.selectedProfile.title+".
+                        ":''}} {{selectedRegisteredProfile?.selectedProfile?.fName}} {{
+                        selectedRegisteredProfile?.selectedProfile?.lName?selectedRegisteredProfile?.selectedProfile?.lName:''}}
+                    </h4>
+                </div>
+                <div class="col-sm-4 col-xs-12 mrgn patient_txt">
+                    <doctor-search (doctorListSearchEvent)="setSelectedDoctorDetails($event)" [pocId]='pocId'
+                        [empId]='empId' [city]='city' [doctorsList]='doctorDetails' [isMatEnable]="true">
+                    </doctor-search>
+                </div>
+                <div class="col-sm-4 col-xs-12 patient_txt">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter inpatient number</mat-label>
+                        <input matInput class="form-control hs-select" id="inpatientno"
+                            placeholder="Enter inpatient number" autocomplete="off"
+                            [(ngModel)]="basketRequest.cartItemList[0].inPatientNo"
+                            (keypress)="setInpatientNumber($event)" />
+                    </mat-form-field>
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+
+</ng-template>
+
+<ng-template [ngIf]="basketRequest?.cartItemList[0]?.orderId">
+    <div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+        <h1 class="page-title">Order Details</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="newadd_patient" widget="">
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                    <p>Patient</p>
+                    <h4>{{basketRequest?.cartItemList[0]?.patientProfileDetails?.title?basketRequest?.cartItemList[0]?.patientProfileDetails?.title+'.
+                        ':''}} {{basketRequest?.cartItemList[0]?.patientProfileDetails?.fName}}
+                        {{basketRequest?.cartItemList[0]?.patientProfileDetails?.lName?basketRequest?.cartItemList[0]?.patientProfileDetails?.lName:''}}
+                        <br />
+                        {{basketRequest?.cartItemList[0]?.patientProfileDetails?.contactInfo?basketRequest?.cartItemList[0]?.patientProfileDetails?.contactInfo?.mobile:''}}
+                    </h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12  patient_txt">
+                    <p>Doctor</p>
+                    <h4> {{basketRequest?.cartItemList[0]?.doctorDetail?.title}}
+                        {{basketRequest?.cartItemList[0]?.doctorDetail?.firstName}}
+                        {{basketRequest?.cartItemList[0]?.doctorDetail?.lastName?basketRequest?.cartItemList[0]?.doctorDetail?.lastName:''}}
+                    </h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt"
+                    *ngIf="basketRequest?.cartItemList[0]?.orderId!=undefined && basketRequest?.cartItemList[0]?.orderId!=null">
+                    <p>Order ID</p>
+                    <h4>{{basketRequest?.cartItemList[0]?.orderId}}</h4>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+</ng-template>
+
+
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<medicinesales [triggerCount]="triggerCount" (calculateEvent)="onCalculateEvent($event)"></medicinesales>
+
+
+
+<div class="width-100per">
+    <button mat-button role="button" class="submit_txt" (click)="onclickNext()">Next</button>
+</div>
+
+<br>
+<!-- ***************************************** -->
+<div class="modal left " id="registerPatientModal">
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component [isPatientFetch]='true' [componentId]="'registerPatientModal'"
+                (closeModel)="closeModel('#registerPatientModal')" (onRegisterNewUser)="onRegisterNewUser($event)">
+
+            </patientregister-component>
+        </div>
+    </div>
+</div>
+
+
+<spinner-component></spinner-component>

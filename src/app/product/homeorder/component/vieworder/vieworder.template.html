@@ -1,0 +1,401 @@
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="row" *ngIf="processOrderDetails.remarks">
+    <div class="col-md-12">
+        <p>
+            <span class="remarks">Remarks:</span> {{processOrderDetails.remarks}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-12 processid_text">
+        <h1 class="page-title">Order ID: {{processOrderDetails.orderId}}</h1>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+        <button type="button" class="btn reject_btn" data-toggle="modal" (click)="onInvoiceClick()" data-target="#invoiceModal">VIEW INVOICE</button>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-6" *ngIf="processOrderDetails.actionStatus!=this.actionStatus.NEW 
+    && processOrderDetails.actionStatus!=this.actionStatus.COMPLETED 
+    && processOrderDetails.actionStatus!=this.actionStatus.PENDING_CUSTOMER_APPROVAL 
+    && processOrderDetails.actionStatus!=this.actionStatus.REJECTED 
+    && processOrderDetails.actionStatus!=this.actionStatus.CANCELLED 
+    && processOrderDetails.actionStatus!=this.actionStatus.PENDING_VENDOR_DELIVERY_APPROVAL">
+        <button type="button" class="btn reject_btn" data-toggle="modal" data-target="#rejectModal">CANCEL
+            ORDER</button>
+        <!-- (click)="onDeliveredClick()" -->
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <section class="newadd_process  row" widget="">
+        <div class="col-md-12 col-sm-12 col-xs-12 panding_approvetxt" *ngIf="processOrderDetails.actionStatus==actionStatus.PENDING_CUSTOMER_APPROVAL">
+            <!-- <p>Order Modified, Awaiting Customer Approval</p> -->
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 processid_text" *ngIf="processOrderDetails.actionStatus==actionStatus.CUSTOMER_APPROVED">
+            <!-- <p>Order Modified, Customer Approved</p> -->
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 processid_text" *ngIf="processOrderDetails.actionStatus==actionStatus.VENDOR_DELIVERY_INITIATED || processOrderDetails.actionStatus==actionStatus.DELIVERY_INITIATED">
+            <p>Out for Delivery</p>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt arrprove_pending">
+            <p>Patient</p>
+            <h4>{{processOrderDetails.cartItem.patientProfileDetails.title?processOrderDetails.cartItem.patientProfileDetails.title+". ":''}} {{processOrderDetails.cartItem.patientProfileDetails.fName}} {{processOrderDetails.cartItem.patientProfileDetails.lName?processOrderDetails.cartItem.patientProfileDetails.lName:''}}
+            </h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt arrprove_pending">
+            <p>Delivery Area &amp; Address</p>
+            <h4> {{processOrderDetails.address}}
+            </h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt arrprove_pending prescription_jpg">
+        </div>
+    </section>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding" *ngIf="processOrderDetails.cartItem.convertedDocumentUrlList!=null && processOrderDetails.cartItem.convertedDocumentUrlList.length>0">
+    <h2>Prescription Documents</h2>
+</div>
+<div class="col-lg-12" *ngIf="processOrderDetails.cartItem.convertedDocumentUrlList!=null && processOrderDetails.cartItem.convertedDocumentUrlList.length>0">
+    <section class="newadd_process  row" widget="">
+        <div class="col-lg-12 prescription_scroll" *ngFor="let item of processOrderDetails.cartItem.convertedDocumentUrlList ; let i =index">
+            <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup" data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+            <div *ngIf="item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() == 'pdf'">
+                <embed width="100%" height="100%" id="pdfEmbed" />
+                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')" class="image_clickpdf" data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding">
+    <h2>Order Details</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="process_widget table_pading producthomeorder_detailwidget widget-shadow" widget="">
+
+            <div class="widget-body table-responsive table-datalabel">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">
+                                #
+                            </th>
+
+                            <th class="">
+                                Product Name
+                            </th>
+                            <th class="">
+                                Quantity
+                            </th>
+                            <th class="">
+                                Gross Rate (Per unit)
+                            </th>
+                            <th class="">
+                                Total Tax
+                            </th>
+                            <th class="sort-true">
+                                Total Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of processOrderDetails.cartItem.productList ; let i =index">
+                        <tr>
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Product Name">
+                                <div class="tabledatalabel-right"><span>{{item.productName}}</span></div><br>
+                                <div>Batch NO:{{item?.stockDetails?.batchNo}}</div>
+                            </td>
+                            <td data-label="Quantity">
+                                <div class="tabledatalabel-right"><span>{{item.quantity}} </span></div><br>
+                                <div>Available Quantity:{{item?.stockDetails?.totalAvailableQuantity}}</div>
+                            </td>
+                            <td data-label="Gross Rate (Per unit)">
+                                <div class="tabledatalabel-right">{{item.grossPrice|currency:'INR':true:'1.2-2'}}</div>
+                            </td>
+                            <td data-label="Total Tax">
+                                <div class="tabledatalabel-right">
+                                    {{item.taxationAmount | currency:'INR':true:'1.2-2'}}
+                                    <br> CGST({{item.taxes?item.taxes.cgst:0}}%): {{(item.totalTaxes?item.totalTaxes.cgstAmount:0) | currency:'INR':true:'1.2-2'}}
+                                    <br> SGST({{item.taxes?item.taxes.sgst:0}}%): {{(item.totalTaxes?item.totalTaxes.sgstAmount:0) |currency:'INR':true:'1.2-2'}}
+                                    <br> IGST({{item.taxes?item.taxes.igst:0}}%): {{(item.totalTaxes?item.totalTaxes.igstAmount:0) | currency:'INR':true:'1.2-2'}}
+                                </div>
+                            </td>
+                            <td data-label="Total Amount">
+                                <div class="tabledatalabel-right"><span>
+                                        {{item.finalAmount |currency:'INR':true:'1.2-2'}} </span></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+        <div class="col-md-12 col-sm-12 col-xs-12 process_padding">
+            <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+        <form action="#" class="from_txt" novalidate="">
+            <view-pay-summary [cartItem]="processOrderDetails.cartItem" [showCartPaid]="false" [showCartPayable]="false"></view-pay-summary>
+            <!-- <div class="row process_original">
+
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Rate Subtotal</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{processOrderDetails.cartItem.payment.originalAmount | currency:'INR':true:'1.2-2'}} </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{processOrderDetails.cartItem.userPackageId>0 && processOrderDetails.cartItem.packageName!=null?processOrderDetails.cartItem.packageName:'NA'}}
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package Discount </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{(processOrderDetails.cartItem.userPackageId>0?processOrderDetails.cartItem.payment.packageDiscountAmount:'0.0') |currency:'INR':true:'1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Other Discounts </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{(processOrderDetails.cartItem.payment.otherDiscountAmount?processOrderDetails.cartItem.payment.otherDiscountAmount:'0.0') | currency:'INR':true:'1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377;
+                    {{(processOrderDetails.cartItem?.payment.usedWalletAmount?processOrderDetails.cartItem.payment.usedWalletAmount:'0') | number : '1.2-2'}}
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Taxes </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{processOrderDetails.cartItem.payment.taxationAmount | currency:'INR':true:'1.2-2'}}</div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    &#8377; {{processOrderDetails.cartItem.payment.totalCashbackAmount | number : '1.2-2'}}</div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Shipping Charges</div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{processOrderDetails.cartItem.deliveryAmount|currency:'INR':true:'1.2-2'}}</div>
+                <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Billing Amount </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    {{processOrderDetails.cartItem.payment.finalAmount | currency:'INR':true:'1.2-2'}}
+                </div>      
+            </div>-->
+            <div class="row process_original margin-0">
+                <ng-template [ngIf]="processOrderDetails && processOrderDetails.actionStatus!=actionStatus.PENDING_CUSTOMER_APPROVAL">
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount paid online : </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(processOrderDetails.onlinePaymentAmount?processOrderDetails.onlinePaymentAmount:0) |currency:'INR':true:'1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount collected :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{processOrderDetails.cartItem.payment.amountPaid? processOrderDetails.cartItem.payment.amountPaid :0 | number : '1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt" *ngIf="processOrderDetails.cartItem.payment.finalAmount != processOrderDetails.cartItem.payment.amountPaid && (processOrderDetails.cartItem.payment.finalAmount - +processOrderDetails.cartItem.payment.amountPaid >=0 )">
+                        Amount to be collected :</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="processOrderDetails.cartItem.payment.finalAmount != processOrderDetails.cartItem.payment.amountPaid && (processOrderDetails.cartItem.payment.finalAmount - +processOrderDetails.cartItem.payment.amountPaid >=0 )">
+                        &#8377; {{processOrderDetails.cartItem.payment.finalAmount - +processOrderDetails.cartItem.payment.amountPaid | number : '1.2-2'}}
+                    </div>
+                </ng-template>
+            </div>
+            <!-- processOrderDetails.actionStatus == actionStatus.REJECTED || -->
+            <div class="row process_original margin-0" *ngIf="processOrderDetails.actionStatus == actionStatus.NEW 
+                || processOrderDetails.actionStatus == actionStatus.PENDING_VENDOR_DELIVERY_APPROVAL">
+                <div class="col-md-12 col-sm-12 col-xs-12 order-btn">
+                    <button class="processsubmit_txt2" role="button" value="Accept Order" (click)="onAcceptOrder()">ACCEPT ORDER </button>
+                    <button class="processsubmit_txt" role="button" value="Accept Order" (click)="onRejectOrder()">REJECT ORDER</button>
+                </div>
+            </div>
+            <div class="row process_original margin-0" id="assignAgentList" *ngIf="this.processOrderDetails.orderId && this.processOrderDetails.cartItem.productList!= null
+                && (this.processOrderDetails.actionStatus == this.actionStatus.CUSTOMER_APPROVED
+                || this.processOrderDetails.actionStatus == this.actionStatus.DELIVERY_INITIATED
+                || this.processOrderDetails.actionStatus == this.actionStatus.OUT_FOR_DELIVERY)">
+                <!-- <div class="col-md-12 col-sm-12 col-xs-12  row"> -->
+                <select id="poc_select" class="form-control col-sm-6 col-md-6 col-xs-12 mr-1 mb-1" [(ngModel)]="agentEmpId" [ngModelOptions]="{standalone: true}">
+                        <option value="" disabled>-- Select Agent --</option>
+                        <option *ngFor="let emp of agentList;let i = index" [value]="emp.empId">{{emp.title}}
+                            {{emp.firstName}} {{emp.lastName}}</option>
+                    </select>
+                <button class="processsubmit_txt assign_agent_btn col-sm-5 col-md-5 col-xs-12" role="button" value="Accept Order" (click)="assignAgent()">ASSIGN AGENT</button>
+                <!-- </div> -->
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8 col-sm-8 col-xs-8 offset-md-4">
+        <div class="edit_process row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-4 col-sm-4 col-xs-4" *ngIf="processOrderDetails.actionStatus != actionStatus.VENDOR_APPROVED "> </div>
+            <div class="col-md-3 col-sm-4 col-xs-4" *ngIf="(processOrderDetails.actionStatus== actionStatus.VENDOR_APPROVED 
+                || processOrderDetails.actionStatus == actionStatus.CUSTOMER_APPROVED) 
+                && !processOrderDetails.employeeAccepted">
+                <button class="processsubmit_txt edt_btn" role="button" value="Pay Now" (click)="onGenerateEditOrder()">{{processOrderDetails.orderType == 3?'ADD ORDER':'EDIT ORDER'}}</button>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4" *ngIf="processOrderDetails.actionStatus == actionStatus.VENDOR_APPROVED ">
+                <!-- && calculatedData && processOrderDetails.cartItem.payment.finalAmount==calculatedData.finalAmount -->
+                <button class="processsubmit_txt" role="button" value="Pay Now" (click)="onGenerateConfirmOrder()">CONFIRM ORDER</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="rejectModal" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content row digo_popuotxt">
+            <div class="modal-header custom-modal-header col-md-12">
+                <h4 class="modal-title">Cancelling Order</h4>
+            </div>
+            <div class="modal-body row body_rejecttxt">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <form name="info_form" class="form-inline" action="#" method="post">
+                        <!-- <h5 class="reject_ordertxt">Reject Order</h5> -->
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12 reason_remark">
+                            <label class="reason_txt">Reason</label>
+                            <textarea class="form-control" [(ngModel)]="processOrderDetails.remarks" name="msg" rows="4" placeholder="Items not available"></textarea>
+                        </div>
+                        <hs-message [isError]="isError" [show]="showMessagetxt" [messages]="errorMessage"></hs-message>
+                        <div class="form-group col-sm-12">
+                            <button type="submit" class="btn reject_buttontxt" (click)="onRejectButtonClicked()">CANCEL
+                                ORDER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--invoice Modal -->
+<div class="modal fade" id="invoiceModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">VIEW INVOICES</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped custab">
+                    <thead>
+
+                        <tr>
+                            <th>INVOICE ID</th>
+                            <th>TYPE</th>
+                            <th class="text-center">VIEW</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let invoice of invoiceDetailList">
+                        <td>{{invoice.invoiceId}}</td>
+                        <td>{{(invoice.instrumentType == 1 || invoice.instrumentType == 4)?'Credit Memo':'Invoice'}}
+                        </td>
+                        <td *ngIf="invoice.pdfUrlWithHeader || invoice.pdfUrlWithHeader" class="text-center">
+                            <a class="btn  btn-xs">
+                                <img class="img_txt" src="assets/img/partner/pdf_icon_read.png" (click)="invoiceClick(invoice)">
+                            </a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- deliveryremarkspopup -->
+
+<div id="deliveryremarkspopup" class="modal in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content row digo_popuotxt">
+            <div class="modal-header custom-modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Delivery Remarks</h4>
+            </div>
+            <div class="modal-body enquery_txt">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <span class="row" style="margin:0px;width: 100%;" *ngIf="processOrderDetails.cartItem && processOrderDetails.cartItem.payment &&  processOrderDetails.cartItem.payment.paymentStatus!= 1">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Payment Mode : </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <form action="#" class="color_cash">
+                                <input type="radio" name="paymant" value="0" checked
+                                    (change)="checkPaymentModeSelection(2)"> Cash
+                                <input type="radio" name="paymant" value="1" (change)="checkPaymentModeSelection(1)">
+                                Card
+                            </form>
+                        </div>
+                    </span>
+                    <div class="form-group description_text">
+                        <label class="col-md-12">Comments</label>
+                        <textarea class="form-control col-md-12 description_text" [(ngModel)]="processOrderDetails.remarks" name="msg" rows="4" placeholder="Enter Message"></textarea>
+                    </div>
+                    <hs-message [isError]="isError" [show]="showMessagetxt" [messages]="errorMessage"></hs-message>
+                    <div class="form-group col-sm-12">
+                        <button type="submit" class="btn btn-danger pull-right submit_textenquery" (click)="onRemarkSubmitClicked()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- sliderImage -->
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="prescription-modal">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop" *ngIf="prescriptionType=='img'">
+                    </div>
+                    <div id="pdfView3" class="pdf" *ngIf="prescriptionType!='img'">
+
+                        <object class="embed_tool" width="100%" height="100%" id="pdfView2" (clikc)="hideToolBar($event)" type="application/pdf"> </object>
+
+                    </div>
+                    <div class="form-group image_download">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank" *ngIf="processOrderDetails.actionStatus != actionStatus.NEW
+                        && processOrderDetails.actionStatus != actionStatus.PENDING_VENDOR_DELIVERY_APPROVAL">Download</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="onGenerateBack()"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>{{modalMessage}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onGenerateBack()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="position:fixed">
+    <spinner-component></spinner-component>
+</div>

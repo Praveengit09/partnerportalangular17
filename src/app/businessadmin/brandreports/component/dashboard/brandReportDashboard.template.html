@@ -1,0 +1,138 @@
+<div class="brand_date">
+    <hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <hs-message [isError]="isDate1" [show]="isDisplay1" [messages]="message1"></hs-message>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-title">Brand Dashboard</h1>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row serbrand_txt date-filterPOC">
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="filter_brand">
+                        <h6 class="sub-title">Filter by Brand</h6>
+                        <form>
+                            <select id="poc_select" class="form-control" *ngIf="brandList"
+                                (change)="onBrandSelect($event.target.value)" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="indexBrandId">
+                                <option value=-1>Select</option>
+                                <option *ngFor="let brand of brandList;let i = index" [value]="brand.brandId">
+                                    {{brand.brandName}}</option>
+                            </select>
+
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-6 input_date respon_txt">
+
+                    <datetime [(value)]="selectDate.startDate" name="startDate" id="datepicker" [placeholder]="'Start Date'"
+                        (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts">
+                    </datetime>
+
+                </div>
+
+                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-6 input_date respon_txt">
+                    <!-- <label for="strength" class="all_textboxtxt">End Date</label> -->
+                    <datetime [(value)]="selectDate.endDate" name="endDate" id="datepicker" [placeholder]="'End Date'"
+                        (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOptEnd">
+                    </datetime>
+                </div>
+                <!-- <div class="form-group col-xl-2 col-lg-4 col-md-4">
+                    <button type="submit" class="btn btn-danger brandsub_txt  sub_txt width-100" role="button"
+                        (click)="getBrandRevenueReport()">
+                        Submit
+                    </button>
+                </div> -->
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 pl-0">
+                    <select name="past_date" id="past_date" class="form-control state_select days_interval"
+                        (change)="onDateOptionChange($event.target.value)" [(ngModel)]="dropDownIndexForPastDate"
+                        [ngModelOptions]="{standalone: true}">
+                        <option [value]=1>Day Wise</option>
+                        <option [value]=2>Week Wise</option>
+                        <option [value]=3>Month Wise</option>
+
+                    </select>
+                    <!-- [(ngModel)]="dropDownIndexForPastDate" -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xl-12 mt-2 revenue_border">
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 border_right">
+                <h5>Total Revenue</h5>
+                <p>{{((totalRevenues != null && totalRevenues.totalRevenue != undefined) ? totalRevenues.totalRevenue:0)
+                    | currency:'INR':true:'1.2-2'}}</p>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 border_right">
+                <h5>Total Payables</h5>
+                <p>{{((totalRevenues != null && totalRevenues.totalPayableAmount != undefined) ?
+                    totalRevenues.totalPayableAmount:0) | currency:'INR':true:'1.2-2'}}</p>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <h5>Total Receivables</h5>
+                <p>{{((totalRevenues != null && totalRevenues.totalReceivableAmount != undefined) ?
+                    totalRevenues.totalReceivableAmount:0) | currency:'INR':true:'1.2-2'}}</p>
+            </div>
+        </div>
+    </div>
+
+    <pocrevenue [selectDate]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"
+        [brandId]="this.selectedBrandId"></pocrevenue>
+    <pocservice [selectDate]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"
+        [brandId]="this.selectedBrandId"></pocservice>
+    <statepoc [selectDate]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"
+        [brandId]="this.selectedBrandId"></statepoc>
+
+    <!--<div class="col-xl-12 mt-2 revenue_border">
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 border_right">
+                <h5>Total Revenue</h5>
+                <p>{{((totalRevenues != null && totalRevenues.totalRevenue != undefined) ? totalRevenues.totalRevenue:0)
+                    | currency:'INR':true:'1.2-2'}}</p>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 border_right">
+                <h5>Total Payables</h5>
+                <p>{{((totalRevenues != null && totalRevenues.totalPayableAmount != undefined) ?
+                    totalRevenues.totalPayableAmount:0) | currency:'INR':true:'1.2-2'}}</p>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <h5>Total Receivables</h5>
+                <p>{{((totalRevenues != null && totalRevenues.totalReceivableAmount != undefined) ?
+                    totalRevenues.totalReceivableAmount:0) | currency:'INR':true:'1.2-2'}}</p>
+            </div>
+        </div>
+    </div>  -->
+
+    <div class="table_size pt-3">
+        <div class="row pt-2">
+            <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+                <h3>Revenues </h3>
+                <revenue [selectDate]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"
+                    [brandId]="this.selectedBrandId">
+                </revenue>
+                <br> <br> <br>
+            </div>
+
+            <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+                <h3>Revenue Per Poc </h3>
+                <revenueperpoc [selectDate]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"
+                    [brandId]="this.selectedBrandId">
+                </revenueperpoc>
+                <br> <br> <br>
+            </div>
+
+            <div *ngIf="hasBusinessAdminRole" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 grapps_txt">
+                <h3>Revenue Per Service </h3>
+                <revenueperservice [selectDate]="this.selectedDates" [dropDownIndexForPastDate]="this.dropDownIndexForPastDate"
+                    [brandId]="this.selectedBrandId">
+                </revenueperservice>
+                <br> <br> <br>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

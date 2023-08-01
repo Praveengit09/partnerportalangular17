@@ -1,0 +1,677 @@
+<div class="row" id="vital-readings">
+    <div class="col-md-12">
+        <section class="widget">
+
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <h1 class="page-title">Vital Readings</h1>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="well-block">
+                        <div class="well-title text-line">
+                            <h4 class="vitals-text">Todays Vitals Readings</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-9 col-md-12 border_text">
+                                <section class="widget_txt row" widget="">
+
+                                    <div class="col-md-7">
+                                        <h5 class="vitals-text">Patient Information</h5>
+                                        <div class="row">
+                                            <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                                                *ngIf="patientQue.patientProfilePic == undefined || patientQue.patientProfilePic == null || patientQue.patientProfilePic==''">
+                                                <img class="rounded-circle" src="assets/img/avatar.png" alt="..." />
+                                            </span>
+                                            <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                                                *ngIf="patientQue.patientProfilePic != undefined && patientQue.patientProfilePic != null && patientQue.patientProfilePic!=''">
+                                                <img class="rounded-circle" src={{patientQue?.patientProfilePic}}
+                                                    alt="..." />
+                                            </span>
+                                            <span class="col-lg-10 col-md-9 col-sm-9 col-xs-9">
+
+                                                <h4>{{(patientQue.patientTitle?patientQue.patientTitle+'. ':'')+patientQue.patientFirstName+" "+(patientQue.patientLastName?patientQue.patientLastName:'')}}
+                                                </h4>
+                                                <p>{{common.getAge(patientQue.patientDOB).split(",")[0]+common.getAge(patientQue.patientDOB).split(",")[1]}}
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 apt_detail">
+                                        <h5 class="vitals-text">Appointment Details</h5>
+                                        <h4>{{patientQue.doctorTitle}}{{emptyStr}}{{patientQue.doctorFirstName}}{{emptyStr}}{{patientQue.doctorLastName?patientQue.doctorLastName:''}}
+                                        </h4>
+                                        <p>{{patientQue.visitedTime | date:'short'}}</p>
+                                    </div>
+                                </section>
+
+                            </div>
+                        </div>
+                        <br />
+                        <form>
+                            <!-- Form start -->
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4" *ngIf="heightUnitBoolean">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Enter your height
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:1,name:'Height'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <select id="feet" name="feet" class="form-control"
+                                            [(ngModel)]="dropDownIndexForFeet" [ngModelOptions]="{standalone:true}"
+                                            (change)="onFeetDropDownChange($event.target.value);calculateBMI()">
+                                            <option [value]="0">Select Feet</option>
+                                            <option [value]="1">1</option>
+                                            <option [value]="2">2</option>
+                                            <option [value]="3">3</option>
+                                            <option [value]="4">4</option>
+                                            <option [value]="5">5</option>
+                                            <option [value]="6">6</option>
+                                            <option [value]="7">7</option>
+                                            <option [value]="8">8</option>
+                                            <option [value]="9">9</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Text input-->
+                                <div class="col-lg-3 col-md-4" *ngIf="heightUnitBoolean">
+                                    <div class="form-group">
+                                        <label class="control-label" for="email">Inches</label>
+                                        <select id="inch" name="inch" class="form-control"
+                                            [(ngModel)]="dropDownIndexForInch" [ngModelOptions]="{standalone:true}"
+                                            (change)="onInchDropDownChange($event.target.value);calculateBMI()">
+                                            <option [value]="0">Select Inch</option>
+                                            <option [value]="0">0</option>
+                                            <option [value]="1">1</option>
+                                            <option [value]="2">2</option>
+                                            <option [value]="3">3</option>
+                                            <option [value]="4">4</option>
+                                            <option [value]="5">5</option>
+                                            <option [value]="6">6</option>
+                                            <option [value]="7">7</option>
+                                            <option [value]="8">8</option>
+                                            <option [value]="9">9</option>
+                                            <option [value]="10">10</option>
+                                            <option [value]="11">11</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4" *ngIf="heightUnitBoolean!=true">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Height</label>
+                                        <input type="number" id="height" (keypress)="validateNumber($event)"
+                                            class="form-control" placeholder="Enter Height" name="height"
+                                            [(ngModel)]="heightCms"
+                                            (keyup)="onHeightCmChange($event.target.value);calculateBMI()">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="email">Units</label>
+                                        <select class="form-control"
+                                            (change)="onHeightUnitDropDownChange($event.target.value)"
+                                            [(ngModel)]="dropDownIndexForHeightUnit"
+                                            [ngModelOptions]="{standalone:true}">
+                                            <option *ngFor="let unit of heightUnit;let i = index" [value]=i>{{unit}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Weight
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:3,name:'Weight'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="text" id="weight" (keypress)="validateNumber($event)"
+                                            class="form-control" placeholder="Enter Weight" name="weight"
+                                            [(ngModel)]="weight" maxlength="3"
+                                            (keyup)="onWeightChange($event.target.value);calculateBMI()">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="email">Units</label>
+
+                                        <select id="weightunit" name="weightunit" class="form-control"
+                                            (change)="onWeightUnitDropDownChange($event.target.value)"
+                                            [(ngModel)]="dropDownIndexForWeightUnit"
+                                            [ngModelOptions]="{standalone:true}">
+                                            <option *ngFor="let wunit of weightUnit;let i = index" [value]=i>{{wunit}}
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- one row end here -->
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">BMI
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:45,name:'BMI'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="number" disabled="disabled" (keypress)="validateNumber($event)"
+                                            id="Bmi" class="form-control" name="Bmi" [(ngModel)]="bmi" value={{bmi}}>
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">Kg/m²</label>
+                                    </div>
+                                </div>
+
+                                <!-- one row end here -->
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Temperature
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:59,name:'Temperature'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type='text' id="temperature" (keypress)="validateNumber($event)"
+                                            (change)="validateNumberFormat(temperature,'temperature')"
+                                            class="form-control" placeholder="Enter Temperature" name="temperature"
+                                            [(ngModel)]="temperature">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">Fahrenheit</label>
+                                    </div>
+                                    <p class="errormsg">{{error}}</p>
+                                </div>
+
+                                <!-- one row end here -->
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Pulse Rate
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:13,name:'Pulse Rate'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="text" id="pulserate" (keypress)="validateNumber($event)"
+                                            (change)="validateNumberFormat(pulseRate,'pulseRate')" class="form-control"
+                                            placeholder="Enter  Pulse Rate" name="pulserate" [(ngModel)]="pulseRate">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">Bpm</label>
+                                    </div>
+                                </div>
+
+                                <!-- one row end here -->
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Systolic Bp
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:14,name:'Systolic Bp'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="text" id="systolicbp" (keypress)="validateNumber($event)"
+                                            (change)="validateNumberFormat(systolicbp,'systolicbp')"
+                                            class="form-control" placeholder="Enter Systolic Bp" name="systolicbp"
+                                            [(ngModel)]="systolicbp">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">mmHg</label>
+                                    </div>
+                                </div>
+
+                                <!-- one row end here -->
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Diastolic Bp
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:19,name:'Diastolic Bp'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="text" id="diastolicbp" (keypress)="validateNumber($event)"
+                                            (change)="validateNumberFormat(diastolicbp,'diastolicbp')"
+                                            class="form-control" placeholder="Enter Diastolic Bp" name="diastolicbp"
+                                            [(ngModel)]="diastolicbp">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">mmHg</label>
+                                    </div>
+                                </div>
+
+                                <!-- one row end here -->
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Respiratory Rate
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:15,name:'Respiratory Rate'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="text" id="respiratoryrate" (keypress)="validateNumber($event)"
+                                            (change)="validateNumberFormat(respiratoryRate,'respiratoryRate')"
+                                            class="form-control" placeholder="Enter Respiratory Rate"
+                                            name="respiratoryrate" [(ngModel)]="respiratoryRate">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">Bpm</label>
+                                    </div>
+                                </div>
+
+                                <!-- one row end here -->
+                                <!-- one row start here -->
+                                <!-- Text input-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Spo2
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:12,name:'Spo2'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="text" id="spo2" (keypress)="validateNumber($event)"
+                                            (change)="validateNumberFormat(spo2,'spo2')" class="form-control"
+                                            placeholder="Enter Spo2" name="spo2" [(ngModel)]="spo2">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">%</label>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="col-md-6" *ngIf="checkAge<14">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date">Head Circumference
+                                            <span *ngIf="isFromDoctor"
+                                                (click)="getPHRGraphplots({reportId:60,name:'Head Circumference'})"
+                                                class="tabledatalabel-right"><i
+                                                    class="glyphicon glyphicon-stats"></i>View Graph</span>
+                                        </label>
+                                        <input type="text" id="headcircumference" (keypress)="validateNumber($event)"
+                                            (change)="validateNumberFormat(headcircumference,'headcircumference')"
+                                            class="form-control" placeholder="Enter Head Circumference"
+                                            name="headcircumference" [(ngModel)]="headcircumference">
+                                    </div>
+                                </div>
+                                <!-- Select Basic -->
+                                <div class="col-md-3" *ngIf="checkAge<14">
+                                    <div class="form-group">
+                                        <label class="control-label" for="date"></label>
+                                        <label class="weight_txt">cms</label>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="temperature">Temperature (F) 
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="temperature" name="temperature" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="bp">BP (Mm/Hg)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6">
+                                                <input type="text" class="form-control" id="systolicbp" name="systolicbp" placeholder="Systolic">
+                                            </div>
+                                            <div class="col-md-6 col-xs-6">
+                                                <input type="text" class="form-control" id="diastolicbp" name="diastolicbp" placeholder="Diastolic">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="pulserate">Pulse Rate (Bpm)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="pulserate" name="pulserate" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="height">Height (Cm/Feet-Inch)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="height" name="height" placeholder="0">
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6">
+                                                <select id="feet" name="feet" class="form-control pr-0">
+                                                    <option [value]="0">Select Feet</option>
+                                                    <option [value]="1">1</option>
+                                                    <option [value]="2">2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 col-xs-6">
+                                                <select id="inch" name="inch" class="form-control pr-0">
+                                                    <option [value]="0">Select Inch</option>
+                                                    <option [value]="1">1</option>
+                                                    <option [value]="2">2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="weight">Weight (Kg)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="weight" name="weight" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="Bmi">BMI
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="Bmi" name="Bmi" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label" for="bloodgroup">Blood Group</label>
+                                        <select id="bloodgroup" name="bloodgroup" class="form-control">
+                                        <option [value]="0">Select</option>
+                                        <option [value]="1">A+</option>
+                                        <option [value]="2">B+</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="fastingpp">Fasting & PP
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-md-6 col-xs-6">
+                                                <input type="text" class="form-control" id="fastingpp" name="fastingpp" placeholder="0">
+                                            </div>
+                                            <div class="col-md-6 col-xs-6">
+                                                <input type="text" class="form-control" id="fastingpp" name="fastingpp" placeholder="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="sugarrandom">Sugar Random
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="sugarrandom" name="sugarrandom" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="headcircumference">Head Circumference (Cm)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="headcircumference" name="headcircumference" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="serumcreatininc">Serum Creatininc (Mg/Dl)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="serumcreatininc" name="serumcreatininc" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="lipidprofile">Lipid Profile (Mg/Dl)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="lipidprofile" name="lipidprofile" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="respiratoryrate">Respiratory Rate (Per Min)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="respiratoryrate" name="respiratoryrate" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="spo2">Spo2 (%)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="spo2" name="spo2" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label w-100" for="pefr">PEFR (L/Min)
+                                            <span class="float-right"><i class="glyphicon glyphicon-stats"></i></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="pefr" name="pefr" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label" for="duct">Duct</label>
+                                        <input type="text" class="form-control" id="duct" name="duct" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group vital-widget">
+                                        <label class="control-label" for="tension">Tension</label>
+                                        <input type="text" class="form-control" id="tension" name="tension" placeholder="">
+                                    </div>
+                                </div> -->
+
+                                <!-- Button -->
+                                <div class="col-md-12">
+                                    <div class="form-group float-right">
+                                        <!-- <input type="submit" class="Update" data-toggle="modal" data-target="#vitalModal" value="SAVE & CONTINUE"> -->
+                                        <!-- <button type="submit" class="Update" value="SAVE & CONTINUE"
+                                            (click)="updatedVitals()"></button> -->
+                                        <button type="button" class="btn-serch mt-2" value="SAVE & CONTINUE"
+                                            (click)="updatedVitals()">Submit</button>
+
+
+                                        <!-- <label class="errormsg" *ngIf="isSubmit">{{errorMsg}}</label> -->
+                                        <p class="errormsg">{{errorMessage}}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- form end -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<spinner-component></spinner-component>
+
+
+<div id="vitalModal" class="modal fade" role="dialog">
+    <div class="modal-dialog model-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title" style="color:#44BBC5">Mandatory Informations Missing</h2>
+            </div>
+            <p class="errormes">Some of the Mandatory Information must be filled before updating Vitals.Please use the
+                below form</p>
+            <div class="modal-body mandatoryclass">
+
+                <div class="form-group row">
+                    <label class="col-md-4 control-label">Select the Gender</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label class="input_label">
+                            <input type="radio" name="gender" class="male" value="Male" />
+                            <span class="input_gender input_male"></span>
+                            <span class="text-center gender male">Male</span>
+                        </label>
+                        <label class="input_label">
+                            <input type="radio" name="gender" class="female" value="Female" />
+                            <span class="input_gender input_female"></span>
+                            <span class="text-center gender female">Female</span>
+                        </label>
+                        <label class="input_label">
+                            <input type="radio" name="gender" class="others" value="Others" />
+                            <span class="input_gender input_others"></span>
+                            <span class="text-center gender others">Others</span>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row">
+
+                    <div class="col-sm-6 ageclass">
+                        <label class="radio-inline date_txt">
+                            <input type="radio" name="ageButton" value="0" [checked]="isDOB"
+                                (change)="checkAgeSelection(0)"> Date of
+                            Birth
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ageButton" value="1" [checked]="isAge"
+                                (change)="checkAgeSelection(1)"> Age
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="isDOB">
+                    <label for="birthdate" class="col-md-4">Age/Date of Birth</label>
+                    <div class="col-sm-6">
+                        <datetime [(value)]="memberDate" name="datepicker" id="datepicker" [datepicker]="datepickerOpts"
+                            [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="isAge">
+                    <label for="birthdate" class="col-md-4 control-label" *ngIf="isAge">How old are you?</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" required placeholder="Enter Age" name="aname" id="aname"
+                            (keypress)="validation.onlyNumbers($event)" [(ngModel)]="registrationVo.age">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="vital_modelView" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [class.modal-dialog-centered]="modelView=='reportGraph'" role="document">
+        <div class="modal-content" *ngIf="modelView">
+            <div *ngIf="modelView=='reportGraph'">
+                <div class="modal-header">
+                    <h5 class="modal-title d-inline-block" id="exampleModalLabel">{{report.name}} Graph</h5>
+                    <button type="button" class="close" (click)="closeModal('#vital_modelView')">
+                        Close<span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="dropdown">
+                        <!-- 1 week, 1 month, 6 months, 1 yr ,default 1 month -->
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                            id="perioddropdownMenuButton" (mouseover)="toggleDropdown('#perioddropdownMenuButton')"
+                            aria-haspopup="true" aria-expanded="false">
+                            Interval : {{graphIntervals[graphIntervalsIndex].label}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="perioddropdownMenuButton">
+                            <ng-container *ngFor="let graphInterval of graphIntervals;let i = index">
+                                <a class="dropdown-item" [class.active]="graphIntervalsIndex==i"
+                                    (click)="graphIntervalsIndex=i;getPHRGraphplots()">{{graphInterval.label}}
+                                </a>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div *ngIf="reportResponse">
+                        <reportgraph [startingDate]="graphIntervals[graphIntervalsIndex].startingDate"
+                            [xAxisStep]="graphIntervals[graphIntervalsIndex].step" [reportResponse]="reportResponse"
+                            [graphLabel]="report.name"></reportgraph>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

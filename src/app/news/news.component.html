@@ -1,0 +1,161 @@
+<div class="best_quality_section container">
+<div class="row">
+  <div class="col-sm-6 col-12">
+    <div class="card " (click)="assignData(1)">
+      <img class="card-img-top img-fluid img-thumbnail" src="../../assets/jeevone/icons/news.png" alt="Card image" />
+    </div>
+    <h3 class='mt-1'>News</h3>
+  
+    <div class="carousel_slide"  *ngIf="showNewsData">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let a of showData; let i = index" [ngClass]="{'active': i === 1}">
+            <a href="{{a.url}}" class="h4 text-info">{{a.title}}</a>
+            <div>
+              <span>{{a.description}}</span>
+            </div>
+          </div>
+          
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-12">
+    <div class="card">
+      <img (click)="assignData(4)" class="card-img-top" src="../../assets/jeevone/icons/reciepe.png" alt="Card image" />
+    </div>
+    <h3 class='mt-1'>Reciepes</h3>
+    <div *ngIf="showReciepe">
+      <ul>
+        <div class="col-12 details_section card" *ngFor="let a of recipies">
+          <a href="{{a.recipe.url}}">
+            <img src="{{a.recipe.image}}" style="border-radius: 10px;" alt=""><br>
+            <a class="h4 text-info">{{a.recipe.label}}</a></a>
+          <p class="h4 text-info"><b>Calories</b> : {{a.recipe.calories}}</p>
+    
+          <p class="h4 text-info"><b>DietLabels</b></p>
+          <div *ngFor="let a1 of a.recipe.dietLabels ">
+            <p>{{a1}}</p>
+          </div>
+        </div>
+    
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <!-- <div class=" d-none">
+    <div class="card">
+      <img (click)="assignData(2)" class="card-img-top" src="../../assets/jeevone/icons/stocks.png" alt="Card image" />
+    </div>
+    <h3 class='mt-1'>Stocks</h3>
+  </div>
+  <div class="d-none">
+    <div class="card">
+      <img (click)="assignData(3)" class="card-img-top" src="../../assets/jeevone/icons/weather.png" alt="Card image" />
+    </div>
+    <h3 class='mt-1'>Weather</h3>
+  </div> -->
+
+
+
+
+</div>
+<!-- <div *ngIf="showNewsData"> --
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <!-- ngfor loop using get dynamic value and ngclass for add acive class --
+      <div class="carousel-item" *ngFor="let a of showData; let i = index" [ngClass]="{'active': i === 1}">
+        <a href="{{a.url}}" class="h4 text-info">{{a.title}}</a>
+        <div>
+          <span>{{a.description}}</span>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>-->
+
+
+
+
+<div *ngIf="showStocks">
+  <h3> <b>Symbol</b> : {{stocksMeta.symbol}}</h3>
+  <h3> <b>Interval</b> : {{stocksMeta.interval}}</h3>
+  <h3> <b>Currency</b> : {{stocksMeta.currency}}</h3>
+  <h3> <b>TimeZone</b> : {{stocksMeta.exchange_timezone}}</h3>
+  <h3> <b>Mic Code</b> : {{stocksMeta.mic_code}}</h3>
+  <h3> <b>Exchange</b> : {{stocksMeta.exchange}}</h3>
+  <h3> <b>Type</b> : {{stocksMeta.type}}</h3><br> <br>
+  <hr>
+  <ul>
+    <div class=" card " *ngFor="let a of stocks">
+      <div class="card-img-top">
+        <a class="h4 text-info">Date: {{a.datetime}}</a><br>
+        <a class="h4 text-info">Open: {{a.open}}</a><br>
+        <a class="h4 text-info">High: {{a.high}}</a><br>
+        <a class="h4 text-info">Low: {{a.low}}</a><br>
+        <a class="h4 text-info">Close: {{a.close}}</a><br>
+        <a class="h4 text-info">Volume: {{a.volume}}</a><br>
+      </div>
+      <div>
+        <span>{{a.description}}</span>
+      </div>
+    </div>
+
+
+  </ul>
+</div>
+
+
+<div *ngIf="showWeather">
+  <ul>
+    <div class="col-10 details_section card">
+      <p class="h4 text-info"><b>Name</b> : {{weatherReport.location.name}}</p>
+      <p class="h4 text-info"><b>Country</b> : {{weatherReport.location.country}}</p>
+      <p class="h4 text-info"><b>Region</b> : {{weatherReport.location.region}}</p>
+      <p class="h4 text-info"><b>Lat</b> : {{weatherReport.location.lat}}</p>
+      <p class="h4 text-info"><b>Lon</b> : {{weatherReport.location.lon}}</p>
+      <p class="h4 text-info"><b>LocalTime</b> : {{weatherReport.location.localtime}}</p>
+      <p class="h4 text-info"><b>WindSpeed</b> : {{weatherReport.current.wind_speed}}</p>
+      <p class="h4 text-info"><b>WindDegree</b> : {{weatherReport.current.wind_degree}}</p>
+      <p class="h4 text-info"><b>Temperature</b> : {{weatherReport.current.temperature}}</p>
+      <p class="h4 text-info"><b>Observation Time</b> : {{weatherReport.current.observation_time}}</p>
+      <p class="h4 text-info"><b>Pressure</b> : {{weatherReport.current.pressure}}</p>
+      <p class="h4 text-info"><b>Humidity</b> : {{weatherReport.current.humidity}}</p>
+      <p class="h4 text-info"><b>Cloudcover</b> : {{weatherReport.current.cloudcover}}</p>
+
+      <div>
+        <span>{{a.description}}</span>
+      </div>
+    </div>
+
+
+  </ul>
+</div>
+
+

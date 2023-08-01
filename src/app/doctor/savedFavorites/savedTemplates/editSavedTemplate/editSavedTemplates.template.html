@@ -1,0 +1,852 @@
+<div class="form-group row">
+    <label for="templateName" class="col-sm-2 col-form-label col-form-label-lg">Template Name :</label>
+    <div class="col-sm-6 col-md-6">
+        <input type="text" class="templateName form-control form-control-lg" id="templateName" placeholder="Enter template name" [(ngModel)]="templateDetail.title" (keyup)="print(templateDetail.title)">
+    </div>
+    <div class="col-sm-4 col-md-4 departmentList">
+        <label for="department_name">Select Department</label>
+        <select class="form-control" id="department_name" (change)="getSuggestedList()">
+            <!-- <option>General Physician</option> -->
+            <option *ngFor="let service of serviceList" value="{{service.serviceId}}">{{service.serviceName}}
+            </option>
+        </select>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12 mb-xs">
+                <h4>Diagnosis</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 mt-xs">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i></div>
+                    </div>
+                    <input type="text" class="form-control searchInput" id="inlineFormInputGroupDiagnosis" (keyup)="searchForMoreDiagnoses($event)" placeholder="Search for more diagnosis">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="text-lg-center  col-form-label-lg watermark" *ngIf="displayDiagnoses.length==0&&addSuggestedDiagnoses.length<2">
+            Search and add diagnosis
+        </div>
+        <ul class="list-inline">
+            <li class="list-inline-item" *ngIf="addSuggestedDiagnoses!=''">
+                <div class="cardBodyItem">
+                    <input type="checkbox" id="addDiagnoses" [checked]="false" [value]="false" name="diagnoses" (click)="addSuggestedDiagnosess()" />
+                    <label for="addDiagnoses">Add "{{addSuggestedDiagnoses}}" as Diagnosis</label>
+                </div>
+            </li>
+            <li class="list-inline-item" *ngFor="let diagnosis of displayDiagnoses;let i=index">
+                <ng-template [ngIf]="diagnosis && diagnosis.name">
+                    <div class="cardBodyItem">
+                        <input type="checkbox" id="diagnosis{{i}}" name="diagnosis" (click)="onClickColumDiagnosis(diagnosis,i)" [value]="diagnosis.isSelected" [checked]="diagnosis.isSelected" />
+                        <label for="diagnosis{{i}}">{{diagnosis.name}}</label>
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12 mb-xs">
+                <h4>Medicines</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 mt-xs">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i></div>
+                    </div>
+
+                    <input type="text" class="form-control searchInput" id="inlineFormInputGroupMedicines" (keyup)="searchForMoreMedicines($event)" placeholder="Search for more medicines">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="text-lg-center  col-form-label-lg watermark" *ngIf="displayMedicines.length==0&&addSuggestedMedicine.length<2">
+            Search and add medicine
+        </div>
+        <ul class="list-inline">
+            <li class="list-inline-item" *ngIf="addSuggestedMedicine!=''">
+                <div class="cardBodyItem">
+                    <input type="checkbox" id="addMedicine" [checked]="false" [value]="false" name="medicines" (click)="addSuggestedMedicines()" />
+                    <label for="addMedicine">Add "{{addSuggestedMedicine}}" as medicine</label>
+                </div>
+            </li>
+            <li class="list-inline-item" *ngFor="let medicine of displayMedicines;let i=index">
+                <div class="cardBodyItem">
+                    <ng-template [ngIf]="medicine && medicine.productName">
+                        <input type="checkbox" id="medicine{{i}}" name="medicines" (click)="onClickMedicines(medicine,i)" [value]="medicine.isSelected" [checked]="medicine.isSelected" />
+                        <label for="medicine{{i}}" [class.brandName]="(medicine.productName!=undefined||medicine.productName!=null)">
+                            <div class="ailment_text">{{medicine.productName}}
+                                {{medicine.medicineStrength?('('+medicine.medicineStrength+')'):''}}
+                            </div>
+                            <div class="ailment_text" *ngIf="medicine.brandName">{{medicine.brandName}}
+                            </div>
+                        </label>
+                    </ng-template>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12 mb-xs">
+                <h4>Investigations</h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 mt-xs">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text searchInput searchIcon"><i class="icon ion-md-search"></i></div>
+                    </div>
+                    <input type="text" class="form-control searchInput" id="inlineFormInputGroupInvestigations" (keyup)="searchForMoreInvestigations($event)" placeholder="Search for more investigations">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="text-lg-center  col-form-label-lg watermark" *ngIf="displayInvestigations.length==0&&addSuggestedInvestigation.length<2">
+            Search and add investigations
+        </div>
+
+        <ul class="list-inline">
+            <li class="list-inline-item" *ngIf="addSuggestedInvestigation!=''">
+                <div class="cardBodyItem">
+                    <input type="checkbox" id="addInvestigation" [checked]="false" [value]="false" (click)="addSuggestedInvestigations()" name="investigations" />
+                    <label for="addInvestigation">Add "{{addSuggestedInvestigation}}" as
+                        Investigation</label>
+                </div>
+            </li>
+            <li class="list-inline-item" *ngFor="let investigation of displayInvestigations;let i=index">
+                <ng-template [ngIf]="investigation && investigation.serviceName">
+                    <div class="cardBodyItem">
+                        <input type="checkbox" id="investigation{{i}}" name="investigations" (click)="onClickInvestigations(investigation,i)" [value]="investigation.isSelected" [checked]="investigation.isSelected" />
+                        <label for="investigation{{i}}">{{investigation.serviceName}}</label>
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="float-right">
+    <button class="btn btn-primary mt-1 width-200" (click)="saveTemplate()">Save</button>
+</div>
+
+
+
+
+<div class="modal" style=" overflow-y: auto !important" id="diagnosismodelId" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" [style.width]="'300px'" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body row" style="text-align: center">
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px" (click)="onClickDiagnosis(false)">Provisional</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px" (click)="onClickDiagnosis(true)">Final</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" style=" overflow-y: auto !important" id="medicinemodelId" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.width]="modelView=='immunization'?('255px'):'auto'" role="document">
+        <div class="modal-content">
+            <div *ngIf="modelView=='medicine' && medicine!=null && medicine!=undefined">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{medicine.productName}}</h5>
+                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                        Close
+                        <!-- <span aria-hidden="true">&times;</span> -->
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 ">
+                            <div class="card mb-2 bg-primary medicineArea pt-4">
+                                <div class="col-12 doseArea">
+                                    <h6>{{!isWriteCustomDosages?' Select Dose':'Custom Dosages'}}</h6>
+                                    <ul class="list-inline" *ngIf="!isWriteCustomDosages">
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos1" name="dos" value="0-0-0-1" />
+                                                            <label for="dos1">
+                                                                <span class="ailment_text">0 - 0 - 0 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos2" name="dos" value="0-1-0-0" />
+                                                            <label for="dos2">
+                                                                <span class="ailment_text">0 - 1 - 0 - 0</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos3" name="dos" value="1-0-0-1" />
+                                                            <label for="dos3">
+                                                                <span class="ailment_text">1 - 0 - 0 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos4" name="dos" value="1-0-1-0" />
+                                                            <label for="dos4">
+                                                                <span class="ailment_text">1 - 0 - 1 - 0</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos5" name="dos" value="0-1-1-0" />
+                                                            <label for="dos5">
+                                                                <span class="ailment_text">0 - 1 - 1 - 0</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos6" name="dos" value="1-1-1-0" />
+                                                            <label for="dos6">
+                                                                <span class="ailment_text">1 - 1 - 1 - 0</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos7" name="dos" value="1-1-0-1" />
+                                                            <label for="dos7">
+                                                                <span class="ailment_text">1 - 1 - 0 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos8" name="dos" value="1-1-1-1" />
+                                                            <label for="dos8">
+                                                                <span class="ailment_text">1 - 1 - 1 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos9" name="dos" value="0-0-1-0" />
+                                                            <label for="dos9">
+                                                                <span class="ailment_text">0 - 0 - 1 - 0</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos10" name="dos" value="1-0-0-0" />
+                                                            <label for="dos10">
+                                                                <span class="ailment_text">1 - 0 - 0 - 0</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos11" name="dos" value="0-1-0-1" />
+                                                            <label for="dos11">
+                                                                <span class="ailment_text">0 - 1 - 0 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos12" name="dos" value="1-1-0-0" />
+                                                            <label for="dos12">
+                                                                <span class="ailment_text">1 - 1 - 0 - 0</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos13" name="dos" value="0-0-1-1" />
+                                                            <label for="dos13">
+                                                                <span class="ailment_text">0 - 0 - 1 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos14" name="dos" value="0-1-1-1" />
+                                                            <label for="dos14">
+                                                                <span class="ailment_text">0 - 1 - 1 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="radio" id="dos15" name="dos" value="1-0-1-1" />
+                                                            <label for="dos15">
+                                                                <span class="ailment_text">1 - 0 - 1 - 1</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+                                    </ul>
+
+
+                                    <div class="row mt-4" *ngIf="isWriteCustomDosages">
+                                        <div class="col-2 mt-2 customDose">
+                                            <div class="form-group">
+                                                <label for="Dosage_1">Dosage</label>
+                                                <input class="form-control form-control-sm" id="Dosage_1" type="text" placeholder="Enter dose" (keydown)="validateNumber('#Dosage_1',$event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time_1">Select Time</label>
+                                                <select class="form-control" id="time_1">
+                                                    <option value="1800000">06:00 AM</option>
+                                                    <option value="3600000">06:30 AM</option>
+                                                    <option value="5400000">07:00 AM</option>
+                                                    <option value="7200000">07:30 AM</option>
+                                                    <option value="9000000">08:00 AM</option>
+                                                    <option value="10800000">08:30 AM</option>
+                                                    <option value="12600000">09:00 AM</option>
+                                                    <option value="14400000">09:30 AM</option>
+                                                    <option value="16200000">10:00 AM</option>
+                                                    <option value="18000000">10:30 AM</option>
+                                                    <option value="19800000">11:00 AM</option>
+                                                    <option value="21600000">11:30 AM</option>
+                                                    <option value="23400000">12:00 PM</option>
+                                                    <option value="25200000">12:30 PM</option>
+                                                    <option value="27000000">01:00 PM</option>
+                                                    <option value="28800000">01:30 PM</option>
+                                                    <option value="30600000">02:00 PM</option>
+                                                    <option value="32400000">02:30 PM</option>
+                                                    <option value="34200000">03:00 PM</option>
+                                                    <option value="36000000">03:30 PM</option>
+                                                    <option value="37800000">04:00 PM</option>
+                                                    <option value="39600000">04:30 PM</option>
+                                                    <option value="41400000">05:00 PM</option>
+                                                    <option value="43200000">05:30 PM</option>
+                                                    <option value="45000000">06:00 PM</option>
+                                                    <option value="46800000">06:30 PM</option>
+                                                    <option value="48600000">07:00 PM</option>
+                                                    <option value="50400000">07:30 PM</option>
+                                                    <option value="52200000">08:00 PM</option>
+                                                    <option value="54000000">08:30 PM</option>
+                                                    <option value="55800000">09:00 PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 mt-2 customDose">
+                                            <div class="form-group">
+                                                <label for="Dosage_2">Dosage</label>
+                                                <input class="form-control form-control-sm" id="Dosage_2" type="text" placeholder="Enter dose" (keydown)="validateNumber('#Dosage_2',$event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time_2">Select Time</label>
+                                                <select class="form-control " id="time_2">
+                                                    <option value="1800000">06:00 AM</option>
+                                                    <option value="3600000">06:30 AM</option>
+                                                    <option value="5400000">07:00 AM</option>
+                                                    <option value="7200000">07:30 AM</option>
+                                                    <option value="9000000">08:00 AM</option>
+                                                    <option value="10800000">08:30 AM</option>
+                                                    <option value="12600000" selected>09:00 AM</option>
+                                                    <option value="14400000">09:30 AM</option>
+                                                    <option value="16200000">10:00 AM</option>
+                                                    <option value="18000000">10:30 AM</option>
+                                                    <option value="19800000">11:00 AM</option>
+                                                    <option value="21600000">11:30 AM</option>
+                                                    <option value="23400000">12:00 PM</option>
+                                                    <option value="25200000">12:30 PM</option>
+                                                    <option value="27000000">01:00 PM</option>
+                                                    <option value="28800000">01:30 PM</option>
+                                                    <option value="30600000">02:00 PM</option>
+                                                    <option value="32400000">02:30 PM</option>
+                                                    <option value="34200000">03:00 PM</option>
+                                                    <option value="36000000">03:30 PM</option>
+                                                    <option value="37800000">04:00 PM</option>
+                                                    <option value="39600000">04:30 PM</option>
+                                                    <option value="41400000">05:00 PM</option>
+                                                    <option value="43200000">05:30 PM</option>
+                                                    <option value="45000000">06:00 PM</option>
+                                                    <option value="46800000">06:30 PM</option>
+                                                    <option value="48600000">07:00 PM</option>
+                                                    <option value="50400000">07:30 PM</option>
+                                                    <option value="52200000">08:00 PM</option>
+                                                    <option value="54000000">08:30 PM</option>
+                                                    <option value="55800000">09:00 PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 mt-2 customDose">
+                                            <div class="form-group">
+                                                <label for="Dosage_3">Dosage</label>
+                                                <input class="form-control form-control-sm" id="Dosage_3" type="text" placeholder="Enter dose" (keydown)="validateNumber('#Dosage_3',$event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time_3">Select Time</label>
+                                                <select class="form-control " id="time_3">
+                                                    <option value="1800000">06:00 AM</option>
+                                                    <option value="3600000">06:30 AM</option>
+                                                    <option value="5400000">07:00 AM</option>
+                                                    <option value="7200000">07:30 AM</option>
+                                                    <option value="9000000">08:00 AM</option>
+                                                    <option value="10800000">08:30 AM</option>
+                                                    <option value="12600000">09:00 AM</option>
+                                                    <option value="14400000">09:30 AM</option>
+                                                    <option value="16200000">10:00 AM</option>
+                                                    <option value="18000000">10:30 AM</option>
+                                                    <option value="19800000">11:00 AM</option>
+                                                    <option value="21600000">11:30 AM</option>
+                                                    <option value="23400000" selected>12:00 PM</option>
+                                                    <option value="25200000">12:30 PM</option>
+                                                    <option value="27000000">01:00 PM</option>
+                                                    <option value="28800000">01:30 PM</option>
+                                                    <option value="30600000">02:00 PM</option>
+                                                    <option value="32400000">02:30 PM</option>
+                                                    <option value="34200000">03:00 PM</option>
+                                                    <option value="36000000">03:30 PM</option>
+                                                    <option value="37800000">04:00 PM</option>
+                                                    <option value="39600000">04:30 PM</option>
+                                                    <option value="41400000">05:00 PM</option>
+                                                    <option value="43200000">05:30 PM</option>
+                                                    <option value="45000000">06:00 PM</option>
+                                                    <option value="46800000">06:30 PM</option>
+                                                    <option value="48600000">07:00 PM</option>
+                                                    <option value="50400000">07:30 PM</option>
+                                                    <option value="52200000">08:00 PM</option>
+                                                    <option value="54000000">08:30 PM</option>
+                                                    <option value="55800000">09:00 PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 mt-2 customDose">
+                                            <div class="form-group">
+                                                <label for="Dosage_4">Dosage</label>
+                                                <input class="form-control form-control-sm" id="Dosage_4" type="text" placeholder="Enter dose" (keydown)="validateNumber('#Dosage_4',$event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time_4">Select Time</label>
+                                                <select class="form-control " id="time_4">
+                                                    <option value="1800000">06:00 AM</option>
+                                                    <option value="3600000">06:30 AM</option>
+                                                    <option value="5400000">07:00 AM</option>
+                                                    <option value="7200000">07:30 AM</option>
+                                                    <option value="9000000">08:00 AM</option>
+                                                    <option value="10800000">08:30 AM</option>
+                                                    <option value="12600000">09:00 AM</option>
+                                                    <option value="14400000">09:30 AM</option>
+                                                    <option value="16200000">10:00 AM</option>
+                                                    <option value="18000000">10:30 AM</option>
+                                                    <option value="19800000">11:00 AM</option>
+                                                    <option value="21600000">11:30 AM</option>
+                                                    <option value="23400000">12:00 PM</option>
+                                                    <option value="25200000">12:30 PM</option>
+                                                    <option value="27000000">01:00 PM</option>
+                                                    <option value="28800000">01:30 PM</option>
+                                                    <option value="30600000">02:00 PM</option>
+                                                    <option value="32400000">02:30 PM</option>
+                                                    <option value="34200000" selected>03:00 PM</option>
+                                                    <option value="36000000">03:30 PM</option>
+                                                    <option value="37800000">04:00 PM</option>
+                                                    <option value="39600000">04:30 PM</option>
+                                                    <option value="41400000">05:00 PM</option>
+                                                    <option value="43200000">05:30 PM</option>
+                                                    <option value="45000000">06:00 PM</option>
+                                                    <option value="46800000">06:30 PM</option>
+                                                    <option value="48600000">07:00 PM</option>
+                                                    <option value="50400000">07:30 PM</option>
+                                                    <option value="52200000">08:00 PM</option>
+                                                    <option value="54000000">08:30 PM</option>
+                                                    <option value="55800000">09:00 PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 mt-2 customDose">
+                                            <div class="form-group">
+                                                <label for="Dosage_5">Dosage</label>
+                                                <input class="form-control form-control-sm" id="Dosage_5" type="text" placeholder="Enter dose" (keydown)="validateNumber('#Dosage_5',$event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time_5">Select Time</label>
+                                                <select class="form-control " id="time_5">
+                                                    <option value="1800000">06:00 AM</option>
+                                                    <option value="3600000">06:30 AM</option>
+                                                    <option value="5400000">07:00 AM</option>
+                                                    <option value="7200000">07:30 AM</option>
+                                                    <option value="9000000">08:00 AM</option>
+                                                    <option value="10800000">08:30 AM</option>
+                                                    <option value="12600000">09:00 AM</option>
+                                                    <option value="14400000">09:30 AM</option>
+                                                    <option value="16200000">10:00 AM</option>
+                                                    <option value="18000000">10:30 AM</option>
+                                                    <option value="19800000">11:00 AM</option>
+                                                    <option value="21600000">11:30 AM</option>
+                                                    <option value="23400000">12:00 PM</option>
+                                                    <option value="25200000">12:30 PM</option>
+                                                    <option value="27000000">01:00 PM</option>
+                                                    <option value="28800000">01:30 PM</option>
+                                                    <option value="30600000">02:00 PM</option>
+                                                    <option value="32400000">02:30 PM</option>
+                                                    <option value="34200000">03:00 PM</option>
+                                                    <option value="36000000">03:30 PM</option>
+                                                    <option value="37800000">04:00 PM</option>
+                                                    <option value="39600000">04:30 PM</option>
+                                                    <option value="41400000">05:00 PM</option>
+                                                    <option value="43200000">05:30 PM</option>
+                                                    <option value="45000000" selected>06:00 PM</option>
+                                                    <option value="46800000">06:30 PM</option>
+                                                    <option value="48600000">07:00 PM</option>
+                                                    <option value="50400000">07:30 PM</option>
+                                                    <option value="52200000">08:00 PM</option>
+                                                    <option value="54000000">08:30 PM</option>
+                                                    <option value="55800000">09:00 PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 mt-2 customDose">
+                                            <div class="form-group">
+                                                <label for="Dosage_6">Dosage</label>
+                                                <input class="form-control form-control-sm" id="Dosage_6" type="text" placeholder="Enter dose" (keydown)="validateNumber('#Dosage_6',$event)">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time_6">Select Time</label>
+                                                <select class="form-control" id="time_6">
+                                                    <option value="1800000">06:00 AM</option>
+                                                    <option value="3600000">06:30 AM</option>
+                                                    <option value="5400000">07:00 AM</option>
+                                                    <option value="7200000">07:30 AM</option>
+                                                    <option value="9000000">08:00 AM</option>
+                                                    <option value="10800000">08:30 AM</option>
+                                                    <option value="12600000">09:00 AM</option>
+                                                    <option value="14400000">09:30 AM</option>
+                                                    <option value="16200000">10:00 AM</option>
+                                                    <option value="18000000">10:30 AM</option>
+                                                    <option value="19800000">11:00 AM</option>
+                                                    <option value="21600000">11:30 AM</option>
+                                                    <option value="23400000">12:00 PM</option>
+                                                    <option value="25200000">12:30 PM</option>
+                                                    <option value="27000000">01:00 PM</option>
+                                                    <option value="28800000">01:30 PM</option>
+                                                    <option value="30600000">02:00 PM</option>
+                                                    <option value="32400000">02:30 PM</option>
+                                                    <option value="34200000">03:00 PM</option>
+                                                    <option value="36000000">03:30 PM</option>
+                                                    <option value="37800000">04:00 PM</option>
+                                                    <option value="39600000">04:30 PM</option>
+                                                    <option value="41400000">05:00 PM</option>
+                                                    <option value="43200000">05:30 PM</option>
+                                                    <option value="45000000">06:00 PM</option>
+                                                    <option value="46800000">06:30 PM</option>
+                                                    <option value="48600000">07:00 PM</option>
+                                                    <option value="50400000">07:30 PM</option>
+                                                    <option value="52200000">08:00 PM</option>
+                                                    <option value="54000000">08:30 PM</option>
+                                                    <option value="55800000" selected>09:00 PM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="list-inline mt-1 mb-0">
+                                        <li class="list-inline-item">
+                                            <div class="form-group custom_chk_btn">
+                                                <div class="column dose">
+                                                    <div class="row">
+                                                        <div class="column dose">
+                                                            <input type="checkbox" id="stat" name="stat" value="true" />
+                                                            <label for="stat">
+                                                                <span class="ailment_text statLabel">Stat</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-primary" (click)="onClickAddMedicine(true)">SOS</button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button type="button" class="btn btn-outline-danger" (click)="isWriteCustomDosages=!isWriteCustomDosages">{{!isWriteCustomDosages?'Write
+                                                Custom Dosages':'Select Dose'}}</button>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="width:50%">
+                            <div class="form-group" *ngIf="medicine.addedByDoctor">
+                                <label for="qty_dose">Select Drug Form</label>
+                                <input list="medicineTypeOpt" class="form-control form-control-sm medicineTypeInput" id="medicineTypeInput" type="text" placeholder="Enter type of medicine">
+                                <datalist id="medicineTypeOpt">
+                                    <option value="AMPOULE"></option>
+                                    <option value="CAPLET"></option>
+                                    <option value="CAPSULE"></option>
+                                    <option value="CREAM"></option>
+                                    <option value="DENTAL CONES"></option>
+                                    <option value="DOUCHES"></option>
+                                    <option value="DROPS"></option>
+                                    <option value="ELIXIR"></option>
+                                    <option value="EMULSION"></option>
+                                    <option value="GARGLES"></option>
+                                    <option value="GEL"></option>
+                                    <option value="GRANULES"></option>
+                                    <option value="INFUSION PUMP"></option>
+
+                                    <option value="INHALER"></option>
+                                    <option value="INJECTION"></option>
+                                    <option value="IUD"></option>
+                                    <option value="KIT"></option>
+                                    <option value="LINCTUSES"></option>
+                                    <option value="LINIMENT"></option>
+
+
+                                    <option value="LIQUID"></option>
+                                    <option value="LOTION"></option>
+                                    <option value="LOZENGE"></option>
+                                    <option value="MAGMAS"></option>
+                                    <option value="MOUTH WASHES"></option>
+                                    <option value="NEBULIZER/ATOMIZER"></option>
+
+                                    <option value="OINTMENT"></option>
+                                    <option value="PAINTS"></option>
+                                    <option value="PASTE"></option>
+                                    <option value="PASTILLES"></option>
+                                    <option value="PATCH"></option>
+                                    <option value="PELLETS"></option>
+
+                                    <option value="PELLETS"></option>
+                                    <option value="PESSARY"></option>
+                                    <option value="PILLS"></option>
+                                    <option value="PLASTERS"></option>
+                                    <option value="POULTICE"></option>
+                                    <option value="POWDER"></option>
+
+                                    <option value="SHAMPOO"></option>
+                                    <option value="SOAP"></option>
+                                    <option value="SOLUTION"></option>
+                                    <option value="SPRAY"></option>
+                                    <option value="STRIP"></option>
+                                    <option value="SUPPOSITORY"></option>
+                                    <option value="SUSPENSION"></option>
+
+                                    <option value="SWAB"></option>
+                                    <option value="SYRUP"></option>
+                                    <option value="TABLET"></option>
+                                    <option value="TINCTURES"></option>
+                                    <option value="TROCHE"></option>
+                                </datalist>
+                            </div>
+                            <div class="form-group" *ngIf="!isWriteCustomDosages">
+                                <label for="qty_dose">Quantity Per Dose</label>
+                                <input class="form-control form-control-sm quantityPerDose" id="qty_dose" type="number" min="1" placeholder="Enter quantity" value="1" (keydown)="validateNumber('#qty_dose',$event)">
+                            </div>
+                            <div class="form-group">
+                                <label for="unit_med">Select unit (*)</label>
+                                <input list="unit_med" class="form-control form-control-sm quantityPerDose" id="qty_unit" type="text" placeholder="Enter Unit" [value]="unit_med">
+                                <datalist id="unit_med">
+                                    <option *ngFor="let pharmacyType of pharmacyTypes" value="{{pharmacyType}}">
+                                        {{pharmacyType}}
+                                    </option>
+                                </datalist>
+                            </div>
+                            <!-- <div class="form-group" *ngIf="unit_med=='Other'">
+                                <label for="qty_unit">Enter unit</label>
+                               
+                            </div> -->
+                            <div class="form-group">
+                                <label for="freq_med">Select Frequency (*)</label>
+                                <select class="form-control " id="frequency_med">
+                                    <option value="0">Please select</option>
+                                    <option *ngFor="let frequency of frequencyOfPharmacy" value="{{frequency.display}}">
+                                        {{frequency.display}}
+                                    </option>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="col-6" style="width:50%">
+                            <div class="form-group">
+                                <label class="form-text ">Enter Duration (*)</label>
+                                <input type="number" min="1" list="dur_opt" class="form-control form-control-sm" id="dur_med" placeholder="Enter duration in days" (keydown)="validateNumber('#dur_med',$event);validateNumberWithMaxWithDigit('#dur_med',$event)">
+                                <datalist id="dur_opt">
+                                    <option value="1">1 Day</option>
+                                    <option value="2">2 Days</option>
+                                    <option value="3">3 Days</option>
+                                    <option value="5">5 Days</option>
+                                    <option value="7">7 Days</option>
+                                    <option value="10">10 Days</option>
+                                    <option value="14">2 Weeks</option>
+                                    <option value="21">3 Weeks</option>
+                                    <option value="30">1 Month</option>
+                                    <option value="60">2 Months</option>
+                                    <option value="90">3 Months</option>
+                                    <option value="120">4 Month</option>
+                                    <option value="180">6 Months</option>
+                                    <option value="365">1 Year</option>
+                                </datalist>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-text">Meal Intake Information</label>
+                                <input type="text" list="food_opt" class="form-control form-control-sm" id="food_info" placeholder="Enter meal info">
+                                <datalist id="food_opt">
+                                    <!-- <option value="">Please select</option> -->
+                                    <option value="Before Meals">Before Meals</option>
+                                    <option value="After Meals">After Meals</option>
+                                    <option value="Not Applicable">Not Applicable</option>
+                                </datalist>
+                            </div>
+                            <!-- <div class="form-group">
+                                <small class="text-muted" for="food_info">Or, Enter Meal Intake Information</small>
+                            </div> -->
+
+                            <div class="form-group">
+                                <label for="route_opt">Select Route</label>
+                                <input type="text" list="route_opt" class="form-control form-control-sm" id="route_info" placeholder="Enter route info">
+                                <datalist id="route_opt">
+                                    <option value="" selected>Please select</option>
+                                    <option value="Ophthalmic">Ophthalmic</option>
+                                    <option value="Buccal">Buccal</option>
+                                    <option value="Topical">Topical</option>
+                                    <option value="Oral">Oral</option>
+                                    <option value="Ear">Ear</option>
+                                    <option value="Nasal">Nasal</option>
+                                    <option value="Sublingual">Sublingual</option>
+                                    <option value="IM">IM</option>
+                                    <option value="IV">IV</option>
+                                    <option value="SC">SC</option>
+                                    <option value="IDir">IDir</option>
+                                </datalist>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="alert alert-danger " *ngIf="errorMessage!=''" style="text-align:center">
+                        {{errorMessage}}
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="onClickAddMedicine(false)">Add
+                        Medicine</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<link href="https://unpkg.com/ionicons@4.4.0/dist/css/ionicons.min.css" rel="stylesheet">

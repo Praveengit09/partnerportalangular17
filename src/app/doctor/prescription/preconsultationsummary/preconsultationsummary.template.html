@@ -1,0 +1,216 @@
+<button type="button" class="btn btn-primary btn-style" *ngIf="showModal == false"
+    (click)="onPrecheckbtnClickHandler()">
+    Pre-Consultation History
+</button>
+<div>
+    <div class="modal" style=" overflow-y: auto !important" id="PreConsultationModel" tabindex="-1" role="dialog"
+        aria-labelledby=" Pre-ConsultationModelLongTitle" aria-hidden="true" data-backdrop="static"
+        data-keyboard="false">
+        <div class="modal-dialog pre_consulwidth" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Pre-ConsultationLongTitle">Pre-Consultation Details</h5>
+                    <button type="button" class="close btn_closes" data-dismiss="modal" aria-label="Close"
+                        (click)="this.closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <ul class="list-group onboarding_txt question_border row">
+                        <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div>
+                                Name:&nbsp;&nbsp;<b>{{patientName}}</b>
+                                <!-- <p class=" font-weight-bold">
+                                </p> -->
+                            </div>
+                        </li>
+                        <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div>
+                                Age:&nbsp;&nbsp;<b>{{commonUtil.getAgeForall(patientQueue.patientDOB)}}</b>
+                                <!-- <div class=" font-weight-bold">
+                                    {{commonUtil.getAgeForall(patientQueue.patientDOB)}}
+                                </div> -->
+                            </div>
+                        </li>
+                        <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div>
+                                Gender:&nbsp;&nbsp;<b>{{patientQueue.patientGender}}</b>
+                                <!-- <div class=" font-weight-bold"> 
+                                </div> -->
+                            </div>
+                        </li>
+
+
+                        <ng-container *ngFor="let activity of onboardingPrescriptionQuestionnaire.activities">
+
+                            <li class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngFor="let question of activity.question">
+                                <ng-container *ngIf="question.calcuatedAnswer !='' && question.calcuatedAnswer !=undefined &&
+                            question.calcuatedAnswer !=null && question.calcuatedAnswer !='NaN' ">
+                                    {{question.desc}}:
+                                    <b> {{question.calcuatedAnswer }} &nbsp;
+                                        {{question.unit}}
+                                    </b>
+                                </ng-container>
+                                <ng-container *ngIf="question.calcuatedAnswer =='' || question.calcuatedAnswer ==undefined ||
+                            question.calcuatedAnswer ==null || question.calcuatedAnswer =='NaN' ">
+                                    {{question.desc}}:
+                                    <b> Not Answered</b>
+                                </ng-container>
+
+                            </li>
+
+                        </ng-container>
+                    </ul>
+
+                </div>
+
+                <div class="modal-body border_top_indicator">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="progress_indicator_wrapper progess_section">
+                            <a class="progress_indicator row" [class.active]="currentView=='precheck-questionnaire'"
+                                (click)="currentView='precheck-questionnaire';routeToPage('precheck-questionnaire')">
+                                <ul>
+                                    <li class="ic_progress col-2"
+                                        [class.present]="currentView=='precheck-questionnaire'"
+                                        [class.future]="currentView!='precheck-questionnaire'"></li>
+                                    <li class="col-10">Pre-Consultation Questionnaire</li>
+                                </ul>
+
+                            </a>
+
+                            <a class="progress_indicator padding_bottm row float_right"
+                                [class.active]="currentView=='previsit'"
+                                (click)="currentView='previsit';routeToPage('previsit')">
+                                <ul>
+                                    <li class="ic_progress col-2" [class.present]="currentView=='previsit'"
+                                        [class.future]="currentView!='previsit'"></li>
+                                    <li class="col-10"> Pre-visit History</li>
+                                </ul>
+
+                            </a>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mt-2" *ngIf="currentView=='previsit' && this.consentVerified == true">
+                        <section class="widget table_pading hs-table" widget>
+                            <div class="widget-body">
+                                <hs-table [columns]="columns" [pagingList]="pastPrescriptions" [sort]="sorting"
+                                    (clickEvent)="clickEventHandler($event)" [componentId]="'PatientprevisitListTable'"
+                                    [perPage]="perPage" [dataMsg]="dataMsg" [total]="patientPastPrescriptionCount"
+                                    (pageClick)="onPage($event)">
+
+                                </hs-table>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="modal-body" *ngIf="this.consentVerified == false && currentView=='previsit'">
+
+
+                        <div class="row report-consent">
+
+                            <p class="">Please enter otp given by the patient to access reports of <span
+                                    class="queueName">{{requestConsentForPatient}}</span>
+                            </p>
+                            <div class="row otp-sec">
+                                <div class="col-9">
+                                    <ng-otp-input (onInputChange)="onOtpChange($event)"
+                                        [config]="{length:6,inputClass:'reportsotpinput'}" [allowNumbersOnly]='true'>
+                                    </ng-otp-input>
+                                </div>
+                                <div class="col-3 verify">
+                                    <button class="verify_btn" (click)="verifyConsentOtpHandler()">Verify</button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="mt-2 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                        *ngIf="(this.viewQuestionnaire == true )&& (currentView == 'precheck-questionnaire' || currentView == 'onboarding') ">
+                        <div *ngIf="!prescriptionQuestionnaire.activities || prescriptionQuestionnaire.activities.length <  1"
+                            style="margin-left:40%">
+                            No Questions Data Found
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-columns">
+                                    <div *ngFor="let activity of prescriptionQuestionnaire.activities"
+                                        class="family-container manual-flip">
+                                        <div class="card card_display">
+                                            <div class="general_padding">
+                                                <div class="card-body card_body_padding">
+                                                    <ul class="list-group onboarding_txt row">
+
+                                                        <li class="col-lg-12 col-sm-12 col-sx-12 col-sm-12 list-group-item"
+                                                            *ngFor="let question of activity.question">
+                                                            <div class="row">
+                                                                <ng-container
+                                                                    *ngIf="question.calcuatedAnswer !='' && question.calcuatedAnswer !=undefined &&
+                                                    question.calcuatedAnswer !=null && question.calcuatedAnswer !='NaN' ">
+                                                                    <div class="col-md-6 col-xs-8">{{question.desc}}:
+                                                                    </div>
+                                                                    <div class="col-md-6 col-xs-4 gregory">
+                                                                        <b> {{question.calcuatedAnswer }} &nbsp;
+                                                                            {{question.unit}}
+                                                                        </b>
+                                                                    </div>
+                                                                </ng-container>
+                                                                <ng-container
+                                                                    *ngIf="question.calcuatedAnswer == '' || question.calcuatedAnswer == undefined || question.calcuatedAnswer == null || question.calcuatedAnswer == 'NaN' ">
+
+                                                                    <div class="col-md-6 col-xs-8"> {{question.desc}}
+                                                                    </div>
+                                                                    <div class="col-md-6 col-xs-4 gregory"> <b> Not
+                                                                            Answered
+                                                                        </b></div>
+
+                                                                </ng-container>
+
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- end front panel -->
+
+                                            <!-- end back panel -->
+                                        </div>
+                                        <!-- end card -->
+                                    </div>
+                                </div>
+                                <!-- end card-container -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" style=" overflow-y: auto !important" id="modalpastpres" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true" *ngIf="showPastPres">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-label="Close">
+                    <span aria-hidden="true">Close &times;</span>
+                </button>
+                <h5 class="modal-title" id="pastPres">Prescription Details</h5>
+            </div>
+            <div class="model-body" style="min-height: 300px;">
+                <prescriptionsummary [isFrom]="'pastPrescription'" [pastPrescription]="this.prescription"
+                    [isFooterHidden]="true"></prescriptionsummary>
+            </div>
+        </div>
+    </div>
+</div>

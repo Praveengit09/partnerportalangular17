@@ -1,0 +1,432 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h1 class="page-title">Prescription Approval</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-md-4 thumb">
+                <div class="row">
+                    <div class="col-md-4 col-xs-4">
+                        <img *ngIf="patientPriscription.patientProfilePic =='' || patientPriscription.patientProfilePic == undefined || patientPriscription.patientProfilePic == null" class="rounded-circle" src="assets/img/avatar.png" alt="...">
+                        <img *ngIf="patientPriscription.patientProfilePic !='' && patientPriscription.patientProfilePic != undefined && patientPriscription.patientProfilePic != null" class="rounded-circle" [src]="patientPriscription.patientProfilePic" alt="...">
+                    </div>
+                    <div class="col-md-8 col-xs-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="patientname">{{patientPriscription.patientTitle?patientPriscription.patientTitle+'. ':''}}
+                                    {{(''+patientPriscription.patientFirstName).slice(0,22)+"
+                                    "+(patientPriscription.patientLastName?(''+patientPriscription.patientLastName).slice(0,22):'')}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span *ngIf="patientPriscription.patientGender !=null ">{{patientPriscription.patientGender}},</span>
+                                <span *ngIf="patientPriscription.patientDOB !=undefined && patientPriscription.patientDOB>0">
+                                    {{common.getAge(patientPriscription.patientDOB).split(",")[0]+common.getAge(patientPriscription.patientDOB).split(",")[1]}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">M : {{patientPriscription.patientContactNumber}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section *ngIf="patientPriscription.pharmacyAdvises == undefined && patientPriscription.investigationAdvises == undefined">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="error">No Records to approve</p>
+        </div>
+    </div>
+</section>
+
+<div *ngIf="patientPriscription.pharmacyAdvises != undefined && patientPriscription.pharmacyAdvises!=null && patientPriscription.pharmacyAdvises.pharmacyAdviceList != undefined && patientPriscription.pharmacyAdvises.pharmacyAdviceList !=null && patientPriscription.pharmacyAdvises.pharmacyAdviceList.length>0">
+    <section>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 class="top-title">Pharmacy Orders</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    <b>How would you like to purchase medicine
+                        ?
+                    </b>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <p>
+                    <input type="radio" name="deliverytype" (change)="setPurchaseType(1,1)" checked> From Pharmacy(Walk-in)
+                </p>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <p>
+                    <input type="radio" name="deliverytype" (change)="setPurchaseType(2,1)"> Home Delivery</p>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-6">
+                <p>
+                    <input type="radio" name="deliverytype" (change)="setPurchaseType(3,1)"> No</p>
+            </div>
+        </div>
+
+
+        <section *ngIf="pharmacyPurchaseType==1">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <b>Select Centre</b>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-5 col-md-5">
+                    <div class="form-group">
+                        <select class="form-control" id="pocList" (change)="setSelectedPoc($event.target.value, 1)">
+                            <option value="-1">Select Centre</option>
+                            <option *ngFor="let poc of pocList" value="{{poc.pocId}}">{{poc.pocName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section *ngIf="pharmacyPurchaseType==2">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <b>Select Centre</b>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-5 col-md-5">
+                    <div class="form-group">
+                        <select class="form-control" id="pocList1" (change)="setSelectedPoc($event.target.value, 2)">
+                            <option value="-1">Select Centre</option>
+                            <option *ngIf="showPoc" value="-2">Central Pharmacy</option>
+                            <option *ngFor="let poc of pocList1" value="{{poc.pocId}}">{{poc.pocName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section *ngIf="pharmacyPurchaseType==2">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <b>Select Delivery Address</b>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-5 col-md-5">
+                    <div class="form-group">
+                        <select class="form-control" id="pharmacyAddressSelect1" (change)="setSelectedAddress($event.target.value, 1)">
+                            <option value="-1">Select Address</option>
+                            <option *ngFor="let address of patientAddressList" value="{{address.addressId}}"
+                                [selected]="pharmacyAddress!=undefined && address!=undefined && address.addressId===pharmacyAddress.addressId">{{address.addressType
+                                == 0? 'Home Address': (address.addressType == 1? 'Office Address': (address.addressType
+                                == 3? 'Emergency Address':(address.label!=undefined && address.label!=null &&
+                                address.label.length>0?address.label:'Other
+                                Address')))}}
+                            </option>
+                            <option value="0">Add New</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <section *ngIf="this.pharmacyAddress!=undefined && this.pharmacyAddress!=null">
+                <div class="row">
+                    <div class="col-md-4 address">
+                        <p class="edit" (click)="modifyAddress(pharmacyAddress)">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </p>
+                        <p></p>
+                        <p>{{pharmacyAddress.address1}}, {{pharmacyAddress.address2}}</p>
+                        <p>{{pharmacyAddress.cityName}}, {{pharmacyAddress.stateName}} - {{pharmacyAddress.pinCode}}
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+</div>
+
+
+<div *ngIf="patientPriscription.investigationAdvises != undefined && patientPriscription.investigationAdvises!=null && patientPriscription.investigationAdvises.routedToPoc != undefined && patientPriscription.investigationAdvises.routedToPoc != null && patientPriscription.investigationAdvises.routedToPoc.length>0 && patientPriscription.investigationAdvises.routedToPoc[0].pocId != undefined && patientPriscription.investigationAdvises.routedToPoc[0].pocId > 0">
+    <section>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 class="top-title">Diagnostic Orders</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <p>
+                    <b>How would you like your tests to be conducted
+                        ?
+                    </b>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-4">
+                <p>
+                    <input type="radio" name="deliverytypediagnostic" (change)="setPurchaseType(1,2)" checked> Walk-in
+                </p>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-5">
+                <!-- *ngIf="pocListt.length>0 && this.homeDelivery" -->
+                <p>
+                    <input type="radio" name="deliverytypediagnostic" (change)="setPurchaseType(2,2)"> Collect from Home ( Central )
+                </p>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <p>
+                    <input type="radio" name="deliverytypediagnostic" (change)="setPurchaseType(3,2)"> No</p>
+            </div>
+        </div>
+
+
+        <section *ngIf="diagnosticPurchaseType==1">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <b>Select Centre</b>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-5 col-md-5">
+                    <div class="form-group">
+                        <select class="form-control" id="pocList2" (change)="setSelectedPocList($event.target.value, 1)">
+                            <option value="-1">Select Centre</option>
+                            <option *ngFor="let poc of pocList2" value="{{poc.pocId}}">{{poc.pocName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section *ngIf="diagnosticPurchaseType==2">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <b class="text-danger">Some of the tests are not home collected</b>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <b>Select Home Collection Address</b>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-5 col-md-5">
+                    <div class="form-group">
+                        <select class="form-control" id="diagnosticAddressSelect1" (change)="setSelectedAddress($event.target.value, 2)">
+                            <option value="-1">Select Address</option>
+                            <option *ngFor="let address of patientAddressList" value="{{address.addressId}}"
+                                [selected]="diagnosticAddress!=undefined && address!=undefined && address.addressId===diagnosticAddress.addressId">{{address.addressType
+                                == 0? 'Home Address': (address.addressType == 1? 'Office Address': (address.addressType
+                                == 3? 'Emergency Address':(address.label!=undefined && address.label!=null &&
+                                address.label.length>0?address.label:'Other
+                                Address')))}}
+                            </option>
+                            <option value="0">Add New</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <section *ngIf="this.diagnosticAddress!=undefined && this.diagnosticAddress!=null">
+                <div class="row">
+                    <div class="col-md-4 address">
+                        <p class="edit" (click)="modifyAddress(diagnosticAddress)">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </p>
+                        <p></p>
+                        <p>{{diagnosticAddress.address1}}, {{diagnosticAddress.address2}}</p>
+                        <p>{{diagnosticAddress.cityName}}, {{diagnosticAddress.stateName}} - {{diagnosticAddress.pinCode}}
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+</div>
+
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+<div class="row" *ngIf="this.patientPriscription.pharmacyAdvises.pharmacyAdviceList || this.patientPriscription.investigationAdvises.investigationList">
+    <div class="col-md-5 col-md-5 col-md-5">
+        <div class="form-group">
+            <button type="button" class="btn btn-danger" (click)="submitPrescriptionApproval()">Submit</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="success">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <p>Prescription has been approved successfully.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="goToPrescription()">Go to prescription list</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Update Address Model -->
+<div class="modal fade" tabindex="-1" role="dialog" id="updateAddress">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Update Address</h4>
+            </div>
+            <div class="modal-body">
+                <hs-message [isError]="isErrorPopup" [show]="showMessagePopup" [messages]="errorMessagePopup">
+                </hs-message>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Type</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <select class="form-control" id="addressType" [(ngModel)]="editAddress.addressType" (change)="selectedAddressType()">
+                                <option value="-1">Select Type</option>
+                                <option value="0" [selected]="editAddress!=undefined && editAddress.addressType == 0">
+                                    Home</option>
+                                <option value="1" [selected]="editAddress!=undefined && editAddress.addressType == 1">
+                                    Office</option>
+                                <option value="3" [selected]="editAddress!=undefined && editAddress.addressType == 3">
+                                    Emergency</option>
+                                <option value="2" [selected]="editAddress!=undefined && editAddress.addressType == 2">
+                                    Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <section *ngIf="editAddress.addressType == 2">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>
+                                <b>Name of this address</b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-5 col-md-5">
+                            <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="editAddress.label" placeholder="Address name">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 1</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 1" [(ngModel)]="editAddress.address1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Address Line 2</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Address Line 2" [(ngModel)]="editAddress.address2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>Pin Code</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input type="text" maxlength="6" class="form-control" placeholder="Enter PIN Code" [(ngModel)]="editAddress.pinCode" (keyup)="searchByPinCode($event.target.value)" (keypress)="validation.onlyNumbers($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>City</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputcity" type="text" [(ngModel)]="editAddress.cityName" placeholder="City" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p>
+                            <b>State</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-5 col-md-5">
+                        <div class="form-group">
+                            <input class="form-control" id="disabledInputstate" type="text" [(ngModel)]="editAddress.stateName" placeholder="State" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="saveAddress()">Save Address</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

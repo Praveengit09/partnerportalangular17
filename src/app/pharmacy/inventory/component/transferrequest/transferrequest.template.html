@@ -1,0 +1,125 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">New Request</h1>
+
+<div class="row">
+    <div class="col-xl-3 col-lg-4 filter-payment">
+        <h4>Center Name<sup class="sgst_txt">*</sup></h4>
+        <hs-select [defaultSelectLabel]="'Enter Center Name'" [selectColumns]="selectColumns" [defaultSelectField]="'pocName'"
+            [selectTotal]="pocListTotal" [selectResults]="pocList" [multiCheckVarName]="'pocId'"
+            (searchTrigger)="getListOfPocs($event)" (selectTrigger)="onPocSelect($event)">
+        </hs-select>
+    </div>
+</div>
+
+<div *ngIf="pocDetails.pocId" class="mt-2">
+    <div class="row">
+        <div class="col-md-4 address">
+            <h4 class="page-title">Center Details:</h4>
+            <h4>{{pocDetails.pocName}}</h4>
+            <p>{{pocDetails.address.address1}}, {{pocDetails.address.address2}}</p>
+            <p>{{pocDetails.address.cityName}}, {{pocDetails.address.stateName}} - {{pocDetails.address.pinCode}}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="table_size">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <button type="submit" class="button_addtxt place_chack" value="Add" id='addButton'
+                (click)="addNewMedicineRow()">
+                <i class="fa fa-plus add_txt" aria-hidden="true"></i> Add </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading stockorder-widget" widget>
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table new_table table-striped">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="">Medicine Name</th>
+                                <th class="">Batch No</th>
+                                <th class="">Expiry Date</th>
+                                <th class="">Current Quantity</th>
+                                <th class="">Quantity <span>(In Packages)</span>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of stockReportResponseList; let i= index">
+                            <tr>
+                                <td data-label="Medicine Name">
+                                    <div class="tabledatalabel-right">
+                                        <hs-select [defaultSelectLabel]="'Product Name'"
+                                            [selectColumns]="selectColumns" [defaultSelectField]="'productName'"
+                                            [selectTotal]="prodResultLength" [selectResults]="productResults"
+                                            (searchTrigger)="searchProduct($event)" [multiCheckVarName]="'productId'"
+                                            (selectTrigger)="selectedProduct($event,i)">
+                                        </hs-select>
+                                    </div>
+                                </td>
+                                <td data-label="Batch No">
+                                    <div class="tabledatalabel-right">{{item.stockDetails.batchNo}}</div>
+                                </td>
+                                <td data-label="Expiring On">
+                                    <div class="tabledatalabel-right">{{item.stockDetails.expiryDate | date : 'MMM , y' }}</div>
+                                </td>
+                                <td data-label="Current Quantity">
+                                    <div class="tabledatalabel-right">                                        
+                                        <p>{{item.totalAvailableQuantity | number : '1.2-2'}}
+                                            {{item.packingInformation.packageType}}</p>
+                                    </div>
+                                </td>
+                                <td data-label="Quantity">
+                                    <div class="tabledatalabel-right">
+                                        <input type="text" class="form-control"
+                                            (keypress)="validateNumberInputOnly($event)" placeholder="Enter Quantity"
+                                            [(ngModel)]="item.requiredQuantity">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="tabledatalabel-right"><i class="fa fa-times removetxt_icon"
+                                            aria-hidden="true" (click)="remove(item)"></i></div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="item.isErrorFound" class="addproduct_errormsg">
+                                <td colspan="8">
+                                    <hs-message [isError]="item.isErrorFound" [show]="item.isErrorFound"
+                                        [messages]="item.isErrorMsg"></hs-message>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <nav aria-label="Page navigation pull-right" *ngIf="stockReportResponseList.length>noOfReportsPerPage">
+                <ul class="pagination pull-right">
+                    <li class="page-item" *ngIf="indexOfPage!=1" [class.disabled]="indexOfPage==1">
+                        <a class="page-link" tabindex="-1" (click)="changePageIndex(indexOfPage-1)">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" [class.currentPage]="indexOfPage==(i+1)"
+                            *ngFor="let j of getNumberOfPages();let i=index" (click)="changePageIndex(i+1)">
+                            {{i+1}}
+                        </a>
+                    </li>
+                    <li class="page-item" *ngIf="indexOfPage!=(getNumberOfPages().length)"
+                        [class.disabled]="indexOfPage==(getNumberOfPages().length)">
+                        <a class="page-link" (click)="changePageIndex(indexOfPage+1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row subbtn">
+        <div class="width-100per">
+            <button role="button" class="submit_txt" (click)="onSubmit()">CONFIRM</button>
+        </div>
+    </div>
+</div>
+
+</div>

@@ -1,0 +1,369 @@
+.liststyle {
+    list-style: none;
+    display: inline;
+    padding-top: 20px;
+}
+
+.checkboxlist {
+    display: inline;
+}
+
+.custom_chk {
+    display: inline-block;
+    // float: left;
+    padding-left: 0px;
+}
+
+.component-entry {
+    padding-top: 20px;
+}
+
+.family-ques {
+    padding-bottom: 14px;
+}
+
+input[type='number'] {
+    appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.custom_chkbox {
+    float: left;
+    padding-left: 3px;
+}
+
+.next_personal {
+    padding-left: 0px;
+}
+
+.form-group {
+    clear: both;
+}
+
+.component_txt {
+    padding-top: 15px;
+}
+
+.form-actions {
+    clear: both;
+    background-color: transparent;
+}
+
+.list-unstyled {
+    float: left;
+    width: 100%;
+}
+
+.list-unstyled li {
+    display: inline-block;
+    // float: left;
+    width: 50%;
+}
+
+.primary {
+    color: #1DC8D5;
+    clear: both;
+    padding-top: 20px;
+}
+
+.control {
+    font-size: 18px;
+    position: relative;
+    display: block;
+    margin-bottom: 15px;
+    padding-left: 0px;
+    cursor: pointer;
+}
+
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.date_txt {
+    padding-right: 25px;
+}
+
+.control__indicator {
+    position: absolute;
+    top: 2px;
+    right: 0px;
+
+    width: 20px;
+    height: 20px;
+    background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+    border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input~.control__indicator,
+.control input:focus~.control__indicator {
+    background: #ccc;
+}
+
+/* Checked state */
+.control input:checked~.control__indicator {
+    background: #fff;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked~.control__indicator,
+.control input:checked:focus~.control__indicator {
+    background: #fff;
+}
+
+/* Disabled state */
+.control input:disabled~.control__indicator {
+    pointer-events: none;
+    opacity: .6;
+    background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+    position: absolute;
+    display: none;
+    content: '';
+}
+
+/* Show check mark */
+.control input:checked~.control__indicator:after {
+    display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+    top: 4px;
+    left: 8px;
+    width: 5px;
+    height: 10px;
+    transform: rotate(45deg);
+    border: solid #e64f40;
+    border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled~.control__indicator:after {
+    border-color: #7b7b7b;
+}
+
+progress {
+    height: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.29);
+    background-color: #fff;
+    color: #f15f57;
+    width: 100%;
+    border-radius: 4px;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #fff;
+}
+
+progress::-webkit-progress-value {
+    background-color: #f15f57;
+}
+
+progress::-moz-progress-bar {
+    background-color: #f15f57;
+}
+
+progress[value]::-webkit-progress-value::before {
+    content: '80%';
+    position: absolute;
+    right: 0;
+    top: -125%;
+}
+
+.question_txt {
+    box-sizing: border-box;
+    padding: 101px;
+    width: 10px;
+    transform: scale(2);
+    -ms-transform: scale(2);
+    -webkit-transform: scale(2);
+    padding: 0px;
+    margin-right: 15px;
+}
+
+.progress_bar ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.progress_bar ul li {
+    display: inline;
+    float: left;
+}
+
+.progress_txt {
+    padding-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-box {
+    padding-top: 0px;
+}
+
+.f1 {
+    padding: 0px;
+
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.f1-steps {
+    overflow: hidden;
+    position: relative;
+    margin-top: 10px;
+}
+
+.ageBox {
+    width: 60%;
+    display: -webkit-inline-box;
+}
+
+.ageInline {
+    display: inline;
+
+}
+
+.basic_txt {
+
+    margin-bottom: 0px;
+}
+
+.f1-progress {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ddd;
+}
+
+.f1-progress-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    background: #1dc8d5;
+}
+
+.f1-step {
+    position: relative;
+    float: left;
+    text-align: center;
+}
+
+.f1-step-icon {
+    display: inline-block;
+    height: 40px;
+    margin-top: 7px;
+
+    font-size: 16px;
+    color: #fff;
+    line-height: 40px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.f1-step.activated .f1-step-icon {
+    background: #fff;
+    border: 1px solid #f35b3f;
+    color: #f35b3f;
+    line-height: 38px;
+}
+
+.f1-step.active .f1-step-icon {
+    width: 48px;
+    height: 48px;
+    margin-top: 0;
+    background: #f35b3f;
+    font-size: 22px;
+    line-height: 48px;
+}
+
+.f1-step p {
+    color: #828282;
+    text-align: center;
+    word-break: break-word;
+    font-size: 13px;
+    width: 93px;
+}
+
+.progress_step {
+    width: 12% !important;
+}
+
+.progress_step p {
+    width: 125px !important;
+}
+
+.f1-step.activated p {
+    color: #f35b3f;
+}
+
+.f1-step.active p {
+    color: #f35b3f;
+}
+
+.f1 fieldset {
+    display: none;
+    text-align: left;
+}
+
+.f1-buttons {
+    text-align: right;
+}
+
+.f1 .input-error {
+    border-color: #f35b3f;
+}
+
+.f1-step a .past {
+    background: url(../../../../assets/img/phr3.png) no-repeat;
+
+
+}
+
+.f1-step a .present {
+    background: url(../../../../assets/img/phr1.png) no-repeat;
+
+}
+
+.f1-step a .future {
+    background: url(../../../../assets/img/phr.png) no-repeat;
+
+
+}
+
+.ic_progressbar {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+}
+
+.progress_indicator {
+
+    text-decoration: none;
+}
+
+.progress_indicator:hover {
+    text-decoration: none;
+}
+
+.custom_chk input[type="checkbox"]:last-child {
+    display: block !important;
+}

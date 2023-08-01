@@ -1,0 +1,135 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Order Details</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="newadd_patient" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                <p>Patient</p>
+                <h4>{{cartItem?.patientProfileDetails?.title?cartItem.patientProfileDetails?.title+'.
+                    ':''}}
+                    {{cartItem?.patientProfileDetails?.fName}}
+                    {{cartItem?.patientProfileDetails?.lName?cartItem.patientProfileDetails?.lName:''}}
+                    <br />
+                    {{cartItem?.patientProfileDetails?.contactInfo?cartItem.patientProfileDetails?.contactInfo.mobile:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <h4> {{cartItem?.doctorDetail?.title}}
+                    {{cartItem?.doctorDetail?.firstName}}
+                    {{cartItem?.doctorDetail?.lastName?cartItem.doctorDetail?.lastName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt"
+                *ngIf="cartItem?.orderId!=undefined && cartItem?.orderId!=null">
+                <p>Order ID</p>
+                <h4>{{cartItem?.orderId}}</h4>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12 perscripton_txt">
+            Prescription
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading invoice_widget" widget>
+                <div class="widget-body table-datalabel widget-shadow">
+                    <table class="table table-striped">
+                        <thead class="table_head">
+                            <tr class="table_head">
+                                <th style="width: 16%;">Product Code</th>
+                                <th style="width: 13%;">Medicine Name</th>
+                                <th style="width:13%;">Composition</th>
+                                <th>Package</th>
+                                <th class="">Quantity</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody *ngFor="let item of cartItem?.pharmacyList; let i = index">
+
+                            <tr *ngIf="item.productName">
+                                <td data-label="Product Code">
+                                    <div class="tabledatalabel-right">
+                                        {{item?.productCode || 0}}
+                                        <p class='schedule_txt'>Schedule:{{item?.schedule}}</p>
+                                        <p class='schedule_txt'>Expiry Date:{{item?.stockDetails?.expiryDate | date:'MMM
+                                            y'}}</p>
+                                    </div>
+                                </td>
+                                <td data-label="Medicine Name">
+                                    <div class="tabledatalabel-right">
+                                        {{item?.productName||''}}
+                                        <p class='schedule_txt' style="color:blue;">Batch
+                                            No:{{item?.stockDetails?.batchNo}}
+                                        </p>
+                                        <p class='schedule_txt'>Rack:{{item?.stockDetails?.rackNo}}</p>
+                                    </div>
+                                </td>
+                                <td data-label="Composition">
+                                    <div class="tabledatalabel-right">{{item?.genericMedicine?.genericMedicineName||''}}
+                                    </div>
+                                </td>
+                                <td data-label="Package">
+                                    <div class="tabledatalabel-right">{{item?.drugForm||''}}/{{item?.packageSoldLoose?
+                                        'Loose' : item?.packingInformation?.packageType }} </div>
+                                </td>
+                                <td data-label="Quantity">
+                                    <div class="tabledatalabel-right">{{item?.quantity||0}}</div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<!-- //enabling edit option for individual order -->
+<div class="col-lg-12 mt-4">
+    <button mat-button role="button" class="submit_txt submit_btn pay-now-btn"
+        *ngIf="this.showIndividualOrderSummary || (this.isEditOrder == true)"
+        (click)="this.onEditbuttonClickHandler()">Edit Order
+    </button>
+</div>
+<div class="col-lg-12 mt-4">
+    <button mat-button role="button" class="submit_txt submit_btn pay-now-btn"
+        *ngIf="this.showConsolidatedSummary && (this.isEditOrder == false)" (click)="this.onViewPdfClickHandler()">VIEW
+        PDF
+    </button>
+</div>
+<div class="col-lg-12 mt-4">
+    <button mat-button role="button" class="submit_txt pay-now-btn back_btn" (click)="this.gotoOtPatientPharmacyOrderList()">Back
+    </button>
+</div>
+
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="gotoOtPatientPharmacyOrderList()"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>{{modalMessage}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                    (click)="gotoOtPatientPharmacyOrderList()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

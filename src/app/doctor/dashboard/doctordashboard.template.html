@@ -1,0 +1,266 @@
+<h1 class="page-title">Dashboard</h1>
+
+<div class="row" *ngIf='this.enableWidgets == true'>
+
+
+    <div class="col-xl-3 col-lg-12 widget-rightpadding">
+        <div class="doctor-widget doctorsummary-widget">
+            <div>
+                <h6>Appointments</h6>
+                <select class="category adjust_select_tag_margin" (change)="changeConsultationData($event.target.value)">
+                    <option value="Today">Today</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{doctorDashboardSummary?.consultationsCountBatch ? doctorDashboardSummary?.consultationsCountBatch : 0}}</h2>
+                        <small>Total Patients</small>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="selectedConsultation == 'Today'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{doctorConsultatonsResponse?.dayConsultations ? doctorConsultatonsResponse?.dayConsultations : 0}}</h2>
+                        <small>Consultations for today</small>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="selectedConsultation == 'Weekly'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{doctorConsultatonsResponse?.weekConsultations ? doctorConsultatonsResponse?.weekConsultations : 0}}</h2>
+                        <small>Consultations for Week</small>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="selectedConsultation == 'Monthly'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{doctorConsultatonsResponse?.monthConsultations ? doctorConsultatonsResponse?.monthConsultations : 0}}</h2>
+                        <small>Consultations  for Month</small>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-12 widget-rightpadding">
+        <div class="doctor-widget doctorsummary-widget">
+            <div>
+                <h6>Tokens</h6>
+                <select class="category adjust_select_tag_margin" (change)="selectedTokenParam = $event.target.value">
+                    <option value="Today">Today</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="doctor-widgetinfo">
+                        <!-- <h2>{{tokenSummary?.currentToken ? tokenSummary?.currentToken : 0}}</h2> -->
+                        <h2>{{tokenSummary?.currentToken ? tokenSummary?.currentToken : (this.currentToken ? this.currentToken : 0)}}</h2>
+                        <small>Current Token</small>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="selectedTokenParam == 'Today'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{tokenSummary?.dayTokenCount ? tokenSummary?.dayTokenCount : 0}}</h2>
+                        <small>for today</small>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="selectedTokenParam == 'Weekly'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{tokenSummary?.weekTokenCount ? tokenSummary?.weekTokenCount : 0}}</h2>
+                        <small>for Week</small>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="selectedTokenParam == 'Monthly'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{tokenSummary?.monthTokenCount ? tokenSummary?.monthTokenCount : 0}}</h2>
+                        <small>for Month</small>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="col-xl-2 col-lg-12 widget-rightpadding" *ngIf="enableDoctorRevenue">
+        <div class="doctor-widget doctorsummary-widget">
+            <h6>Revenue</h6>
+            <select class="revenue_sec adjust_select_tag_margin" (change)="selectedRevenueParam = $event.target.value">
+                <option value="Today">Today</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+            </select>
+            <div class="row">
+                <div class="col-md-12 col-sm-12" *ngIf="selectedRevenueParam == 'Today'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{doctorRevenueResponse?.dayRevenue ? doctorRevenueResponse?.dayRevenue : 0}}</h2>
+                        <small>Revenue for today</small>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12" *ngIf="selectedRevenueParam == 'Weekly'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{doctorRevenueResponse?.weekRevenue ? doctorRevenueResponse?.weekRevenue : 0}}</h2>
+                        <small>Revenue for Week</small>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12" *ngIf="selectedRevenueParam == 'Monthly'">
+                    <div class="doctor-widgetinfo">
+                        <h2>{{doctorRevenueResponse?.monthRevenue ? doctorRevenueResponse?.monthRevenue : 0 }}</h2>
+                        <small>Revenue for Month </small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-12 widget-rightpadding">
+        <div class="doctor-widget doctorsummary-widget">
+            <doctorPrescriptionSummary [isFromDoctorDashboard]='true'></doctorPrescriptionSummary>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="row mt-2">
+    <div class="col-lg-4 widget-rightpadding">
+        <div class="doctor-widget video-consult mb-1" *ngIf="isVideoAudioEnable == true">
+            <div class="consult-icon"><img src="assets/icon/ic-video-call-dashboard.png"></div>
+            <div class="consult-info">
+                <h5>Live Video Consultation</h5>
+                <span class="online"> {{ getIsOnline()?'Online':'Offline' }}</span>
+
+                <div class="toggle-btn">
+                    <label class="switch">
+                        <input type="checkbox" [checked]="getIsOnline()" (click)='updateDoctorStatus()'>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="doctor-widget" *ngIf='this.pocDetails.length > 0'>
+            <h6>My Schedules</h6>
+            <ul>
+                <li class="pocDetails" *ngFor='let list of pocDetails;let i = index'>
+                    <h5>{{list.pocDetail.pocName}}, {{list.pocDetail.locality}}</h5>
+                    <ul>
+                        <li class="pl-0 schedulelist" *ngFor='let schedulelist of list.scheduleList;let j = index'>
+                            <span>{{schedulelist[0].dateTiming[0][0]|date:'shortTime'}}
+                                to
+                                {{schedulelist[0].dateTiming[0][(schedulelist[0].dateTiming[0].length)-1] |
+                                date:'shortTime'}}</span>
+                            <span>{{list.daysList[j]}}</span>
+                        </li>
+                    </ul>
+
+
+                </li>
+
+            </ul>
+        </div>
+        <div class="widget-rightpadding" *ngIf="doctorShareCard">
+            <div class="doctor-widget doctorsummary-widget">
+                <h6>Share</h6>
+                <ul>
+                    <li>Share my details on the app and website to my patients, friends and family.</li>
+                    <li>
+                        <button (click)="copyInputMessage()" value="click to copy">{{isMobile?'Share':'Copy
+                            Message'}}
+                            <i *ngIf="isMobile" class="fa fa-share-alt" aria-hidden="true"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 widget-rightpadding">
+        <div class="doctor-widget">
+            <div class="docdashboard-header">
+                <h6 class="header_width">Patients in Queue</h6>
+                <button type="button" class="btn" *ngIf="queueResponse.length > 0" (click)='goToConsultationQueue()'>Consultation Queue</button>
+            </div>
+
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body" *ngIf='this.enableCustomDoctorQueue == false'>
+                    <hs-table [columns]="columns" [pagingList]="queueResponse" [sort]="sorting" [isStaticPaging]="true" [componentId]="'doctorDashboardListTable'" (clickEvent)="clickEventHandler($event)" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    </hs-table>
+                    <hs-table [columns]="columns" *ngIf="queueResponse.length<=0" [dataMsg]="dataMsg"></hs-table>
+                </div>
+                <div class="widget-body" *ngIf='this.enableCustomDoctorQueue == true'>
+                    <hs-table [columns]="customColumns" [pagingList]="queueResponse" [sort]="sorting" [isStaticPaging]="true" [componentId]="'doctorDashboardListTable'" (clickEvent)="clickEventHandler($event)" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    </hs-table>
+                    <hs-table [columns]="customColumns" *ngIf="queueResponse.length<=0" [dataMsg]="dataMsg"></hs-table>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="modal fade" id="doctordashboardUploadPrescription" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="border: none">
+            <div *ngIf="modalView=='upload'">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>Close
+                    </button>
+                </div>
+                <uploadcard (isNgOnItTriggered)="ngOnInit()" [fromDoctorQueue]="true"></uploadcard>
+            </div>
+            <div *ngIf="modalView=='uploadOrEngage'">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>Close
+                    </button>
+                </div>
+                <div class="modal-body row" style="text-align: center">
+                    <div class="col-md-6">
+                        <button type="button" class="btn " style="width:160px" (click)="modalView='upload'">Upload
+                            Prescription</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn " style="width:160px" (click)="generatePrescriptionClickHandler(queue)">Generate
+                            Prescription</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- enabled only for jeevone -->
+<div *ngIf="this.showconsentpopup == true">
+    <requestconsent (onModalClose)='this.onModalClose()' (emitConsentStatus)="checkConsentStatus($event)">
+    </requestconsent>
+</div>
+
+<!-- enabled only for jeevone -->
+<div *ngIf="this.showQuestionnaire == true">
+    <!-- <pre-questionnaire [patientQueue]="this.patientQueue" [viewQuestionnaire]="this.showQuestionnaire"
+        (onCloseModal)="onCloseModalPreQuestionnaire()"></pre-questionnaire> -->
+
+    <preconsultationsummary [patientQueue]="this.patientQueue" [viewQuestionnaire]="this.showQuestionnaire" [showModal]="this.showModal" (onCloseModal)="onCloseModalPreQuestionnaire()">
+    </preconsultationsummary>
+</div>
+
+
+
+
+<spinner-component></spinner-component>

@@ -1,0 +1,196 @@
+<div *ngIf="!addNewTest">
+    <h1 class="page-title">Search And Update Price</h1>
+    <div class="row">
+        <div class="col-xl-6 col-lg-6">
+            <hs-select [defaultSelectLabel]="'Search Service Name'" [defaultSelectField]="'serviceName'"
+                [selectColumns]="selectTestName" class="diagnostic-testsearch" [selectResults]="serviceNameSearchList"
+                (searchTrigger)="searchTests($event)" (selectTrigger)="getSearchTestName($event)"></hs-select>
+        </div>
+        <div class="form-group col-md-2 submit-btn">
+            <button class="btn btn-danger  sub_txt width-150" role="button" (click)="onClickNewTest()">
+                Add New Service
+            </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="addNewTest">
+    <h1 class="page-title">Add New Service</h1>
+</div>
+<div class="card-body col-xl-6 col-lg-12" *ngIf="showSummary">
+    <div class="list-inline">
+        <div class="col-xl-12 col-lg-12 mt-1" *ngIf="!addNewTest">
+            <div class="row">
+                <h4>Service Name:</h4>
+                <h5 class="col-8 col-8 mt-1 pl-1 test_name">
+                    {{selectedTest.serviceName}}</h5>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1" *ngIf="addNewTest">
+            <h4>Service Name <sup class="color_red">*</sup></h4>
+        </div>
+        <div class="col-xl-10 col-lg-10" *ngIf="addNewTest">
+            <input type="text" class="form-control" placeholder="Enter Your Service Name"
+                [(ngModel)]="selectedTest.serviceName" name="serviceName">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Service Category <sup class="color_red">*</sup></h4>
+        </div>
+        <div class="col-xl-10 col-lg-10">
+            <select class="form-control" (change)="onTestSelectChange($event.target.value)"
+                [(ngModel)]="selectedTest.categoryId" [ngModelOptions]="{standalone : true}">
+                <option value="0">Enter Your Service Category</option>
+                <option *ngFor="let test of categoryList,let i=index" [value]="test.categoryId">{{test.categoryName}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>MRP <sup class="color_red">*</sup></h4>
+        </div>
+        <div class="col-xl-10 col-lg-10">
+            <input type="text" class="form-control" placeholder="Enter Your MRP" [(ngModel)]="selectedTest.grossPrice"
+                name="grossPrice" (keypress)="validateNumberInputOnly($event)"
+                (keyup)="onEnterPressed($event.target.value)" maxlength="6">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Sale Price <sup class="color_red">*</sup></h4>
+        </div>
+        <div class="col-xl-10 col-lg-10">
+            <input type="text" class="form-control" placeholder="Enter Your Sale price"
+                [(ngModel)]="selectedTest.netPrice" name="netPrice" (keypress)="validateNumberInputOnly($event)"
+                (keyup)="onEnterPressed($event.target.value)">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Discount Price</h4>
+        </div>
+        <div class="col-xl-10 col-lg-10">
+            <input type="text" class="form-control" placeholder="Enter Your Discount Price"
+                [(ngModel)]="selectedTest.discountPrice" name="discountPrice"
+                (keypress)="validateNumberInputOnly($event)" (keyup)="onEnterPressed($event.target.value)">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Description</h4>
+        </div>
+        <div class="col-xl-10 col-lg-10">
+            <input type="text" class="form-control" placeholder="Enter Your Description"
+                [(ngModel)]="selectedTest.description" name="description">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Department 1</h4>
+        </div>
+
+        <div class="col-xl-10 col-lg-10" *ngFor="let item of serviceList">
+            <select id="poc_select4" class="form-control" *ngIf="item.categoryId >=10000 && item.categoryId < 20000"
+                (change)="onDepartmentSelectChange1($event.target.value)" [(ngModel)]="selectedTest.departmentId1"
+                [ngModelOptions]="{standalone : true}">
+                <option value=0>select the category</option>
+                <option *ngFor="let category of item.subServiceList" [value]="category.categoryId">
+                    {{category.categoryName}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2 submit-btn" *ngIf="showAddDepartment1">
+            <button class="btn btn-danger  sub_txt width-150" role="button" (click)="onClickNewDepartment(1)">
+                Add New Department
+            </button>
+        </div>
+
+
+        <div class="col-xl-10 col-lg-10" *ngIf="!showAddDepartment1">
+            <input type="text" class="form-control" placeholder="Enter New Department"
+                [(ngModel)]="selectedTest.departmentName1" name="departmentId1">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Department 2</h4>
+        </div>
+        <div class="col-xl-10 col-lg-10" *ngFor="let item of serviceList">
+            <select id="poc_select3" class="form-control" *ngIf="item.categoryId >=20000 && item.categoryId < 30000"
+                (change)="onDepartmentSelectChange2($event.target.value)" [(ngModel)]="selectedTest.departmentId2"
+                [ngModelOptions]="{standalone : true}">
+                <option value=0>select the category</option>
+                <option *ngFor="let category of item.subServiceList" [value]="category.categoryId">
+                    {{category.categoryName}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2 submit-btn" *ngIf="showAddDepartment2">
+            <button class="btn btn-danger  sub_txt width-150" role="button" (click)="onClickNewDepartment(2)">
+                Add New Department
+            </button>
+        </div>
+
+        <div class="col-xl-10 col-lg-10" *ngIf="!showAddDepartment2">
+            <input type="text" class="form-control" placeholder="Enter New Department"
+                [(ngModel)]="selectedTest.departmentName2" name="departmentId2">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Department 3</h4>
+        </div>
+        <div class="col-xl-10 col-lg-10" *ngFor="let item of serviceList; let k=index">
+            <select id="poc_select2" class="form-control" *ngIf="item.categoryId>=30000 && item.categoryId<40000"
+                (change)="onDepartmentSelectChange3($event.target.value)" [(ngModel)]="selectedTest.departmentId3"
+                [ngModelOptions]="{standalone : true}">
+                <option value=0>select the category</option>
+                <option *ngFor="let category of item.subServiceList" [value]="category.categoryId">
+                    {{category.categoryName}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2 submit-btn" *ngIf="showAddDepartment3">
+            <button class="btn btn-danger  sub_txt width-150" role="button" (click)="onClickNewDepartment(3)">
+                Add New Department
+            </button>
+        </div>
+
+        <div class="col-xl-10 col-lg-10" *ngIf="!showAddDepartment3">
+            <input type="text" class="form-control" placeholder="Enter New Department"
+                [(ngModel)]="selectedTest.departmentName3" name="departmentId3">
+        </div>
+
+        <div class="col-xl-12 col-lg-12 mt-1">
+            <h4>Department 4</h4>
+        </div>
+        <div class="col-xl-10 col-lg-10" *ngFor="let item of serviceList">
+            <select id="poc_select1" class="form-control" *ngIf="item.categoryId >=40000"
+                (change)="onDepartmentSelectChange4($event.target.value)" [(ngModel)]="selectedTest.departmentId4"
+                [ngModelOptions]="{standalone : true}">
+                <option value=0>select the category</option>
+                <option *ngFor="let category of item.subServiceList" [value]="category.categoryId">
+                    {{category.categoryName}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2 submit-btn" *ngIf="showAddDepartment4">
+            <button class="btn btn-danger  sub_txt width-150" role="button" (click)="onClickNewDepartment(4)">
+                Add New Department
+            </button>
+        </div>
+
+        <div class="col-xl-10 col-lg-10" *ngIf="!showAddDepartment4">
+            <input type="text" class="form-control" placeholder="Enter New Department"
+                [(ngModel)]="selectedTest.departmentName4" name="departmentId4">
+        </div>
+        <br />
+        <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage">
+        </hs-message>
+        <div class="row mt-2">
+            <div class="col-md-6 pl-0">
+                <button type="button" class="btn button_update width-100" role="button" (click)="updateTestCreation()">
+                    Update
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-danger float-right cancel_txt width-100" role="button"
+                    (click)="updatesCancel()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

@@ -1,0 +1,121 @@
+<ng-template [ngIf]="!cartItem?.orderId">
+    <div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+        <h1 class="page-title">New Order Details</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="newadd_patient" widget="">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4  patient_txt patientpop">
+                        <p>Patient
+                            <i aria-hidden="true" class="fa fa-plus add_patient" data-toggle="modal"
+                                data-target="#registerPatientModal" data-backdrop="static" data-keyboard="false"></i>
+                        </p>
+                        <h4 *ngIf="selectedRegisteredProfile">
+                            {{selectedRegisteredProfile?.selectedProfile?.title?selectedRegisteredProfile?.selectedProfile.title+".
+                            ":''}} {{selectedRegisteredProfile?.selectedProfile?.fName}} {{
+                            selectedRegisteredProfile?.selectedProfile?.lName?selectedRegisteredProfile?.selectedProfile?.lName:''}}
+                        </h4>
+                    </div>
+                    <div class="col-md-4 col-sm-4 patient_txt mt-1 ml-1">
+                        <doctor-search (doctorListSearchEvent)="setSelectedDoctorDetails($event)" [pocId]='pocId'
+                            [empId]='empId' [city]='city' [doctorsList]='doctorDetails' [isMatEnable]="true">
+                        </doctor-search>
+                    </div>
+    
+                </div>
+                
+            </section>
+        </div>
+    </div>
+
+    <!-- <div *ngIf="enableInPatientBilling" class="inpatient-sec">
+        <h5>InPatient</h5>
+        <label class="switch">
+            <input type="checkbox" [checked]="cartItem.inPatientBilling"
+                (change)="InPatientChanged()" id="inPatientBilling">
+            <span class="slider round"></span>
+        </label>
+    </div> -->
+</ng-template>
+
+<ng-template [ngIf]="cartItem?.orderId">
+    <div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+        <h1 class="page-title">Order Details</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="newadd_patient" widget="">
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                    <p>Patient</p>
+                    <h4>{{cartItem?.patientProfileDetails?.title?cartItem?.patientProfileDetails?.title+'.
+                        ':''}} {{cartItem?.patientProfileDetails?.fName}}
+                        {{cartItem?.patientProfileDetails?.lName?cartItem?.patientProfileDetails?.lName:''}}
+                        <br />
+                        {{cartItem?.patientProfileDetails?.contactInfo?cartItem?.patientProfileDetails?.contactInfo?.mobile:''}}
+                    </h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                    <p>Doctor</p>
+                    <h4> {{cartItem?.doctorDetail?.title}}
+                        {{cartItem?.doctorDetail?.firstName}}
+                        {{cartItem?.doctorDetail?.lastName?cartItem?.doctorDetail?.lastName:''}}
+                    </h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 patient_txt"
+                    *ngIf="cartItem?.orderId!=undefined && cartItem?.orderId!=null">
+                    <p>Order ID</p>
+                    <h4>{{cartItem?.orderId}}</h4>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+</ng-template>
+
+
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="medicine">
+    <medicinesales [triggerCount]="triggerCount" (calculateEvent)="onCalculateEvent($event)" [disablePricing]="true">
+    </medicinesales>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-5 col-sm-6 col-xs-12"></div>
+    <div class="col-md-7 col-sm-6 col-xs-12">
+
+
+        <button role=" button" class="btn submit_btn" value="Submit" (click)="onConfirmOrNextClickHandler()"
+            *ngIf="!isEditOrder">Confirm</button>
+        <button role=" button" class="btn submit_btn" value="Submit" (click)="onConfirmOrNextClickHandler()"
+            *ngIf="isEditOrder">Update Order</button>
+        <button role="button" class="btn back_btn " value="Submit"
+            (click)="gotoOtPatientPharmacyOrderList()">Back</button>
+
+
+    </div>
+</div>
+
+
+
+
+
+<br>
+<!-- ***************************************** -->
+<div class="modal left " id="registerPatientModal">
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component [isPatientFetch]='true' [componentId]="'registerPatientModal'"
+                (closeModel)="closeModel('#registerPatientModal')" (onRegisterNewUser)="onRegisterNewUser($event)">
+
+            </patientregister-component>
+        </div>
+    </div>
+</div>
+
+
+<spinner-component></spinner-component>

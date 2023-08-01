@@ -1,0 +1,111 @@
+<h1 class="page-title">Payment Information</h1>
+<section>
+    <h5>Community</h5>
+    <p>Community Details</p>
+    <h6> {{communityPaymentsTrack.pocDetails?communityPaymentsTrack.pocDetails.pocName:""}}</h6>
+    <span>
+        {{communityPaymentsTrack.pocDetails?communityPaymentsTrack.pocDetails.address.address1:""}},{{communityPaymentsTrack.pocDetails?communityPaymentsTrack.pocDetails.address.areaName:""}},{{communityPaymentsTrack.pocDetails?communityPaymentsTrack.pocDetails.address.cityName:""}},{{communityPaymentsTrack.pocDetails?communityPaymentsTrack.pocDetails.address.stateName:""}},
+        {{communityPaymentsTrack.pocDetails?communityPaymentsTrack.pocDetails.address.pinCode:""}}
+    </span>
+    <h5>Manager</h5>
+    <p>Community Manager</p>
+    <button class='add-managerbtn' data-toggle="modal" data-target="#registerPatientModal" (click)="addManager()" *ngIf='!showManagerDetails '>Add Manager</button>
+    <span *ngIf='communityPaymentsTrack.profileId != 0'>
+        <h6>{{communityPaymentsTrack?.profileDetails.title?communityPaymentsTrack.profileDetails.title+". ":''}}
+            {{(''+communityPaymentsTrack?.profileDetails.fName).slice(0,22)}}
+            {{communityPaymentsTrack?.profileDetails.lName?(''+communityPaymentsTrack?.profileDetails.lName).slice(0,22):''}}
+        </h6>
+        <h6>{{communityPaymentsTrack?.profileDetails?.contactInfo?.mobile}} </h6>
+    </span>
+    <span *ngIf='showManager == true'>
+        <h6>{{selectedRegisteredProfile?.selfProfile.title?selectedRegisteredProfile.selfProfile.title+". ":''}}
+            {{(''+selectedRegisteredProfile?.selfProfile.fName).slice(0,22)}}
+            {{selectedRegisteredProfile?.selfProfile.lName?(''+selectedRegisteredProfile?.selfProfile.lName).slice(0,22):''}}
+        </h6>
+        <p>{{selectedRegisteredProfile?.selfProfile.contactInfo.mobile}}</p>
+    </span>
+
+    <div class="payment-info">
+        <h5>Payment Information</h5>
+        <p>Renewal</p><span>{{communityPaymentsTrack?.toDate|date}}</span><br>
+        <p>Amount</p>
+        <span>{{(communityPaymentsTrack.amount!=undefined?communityPaymentsTrack.amount:0) | currency:'INR':true:'1.2-2'}}</span>
+    </div>
+
+    <div>
+        <h5>Payment Information</h5>
+        <p>Payment Status</p>
+        <select *ngIf="this.communityPaymentsTrack.paymentStatus != 1" class="form-control" [(ngModel)]="paymentStatusIndex" [ngModelOptions]="{standalone: true}" (change)="checkPaymentStatus($event.target.value)" id='transactionTypeStausDrop' [disabled]="transactionType == 5">
+            <!-- <option value='-1'>Select Payment Status</option> -->
+            <option value='0'>Not Paid</option>
+            <option value='1'>Paid</option>
+        </select>
+
+        <span *ngIf="this.communityPaymentsTrack.paymentStatus == 1">paid</span>
+    </div>
+
+    <br>
+
+    <div *ngIf="this.communityPaymentsTrack.paymentStatus != 1">
+        <p class="mt-1">Payment Mode</p>
+        <input type="radio" name="community_payment" [checked]="this.transactionType == 2" (change)="checkPaymentModeSelection(2)">&nbsp;Cash&nbsp;&nbsp;
+        <!-- <input type="radio" name="community_payment" [checked]="this.transactionType == 3" (change)="checkPaymentModeSelection(3)">&nbsp;Online<br> -->
+        <input type="radio" name="community_payment" [checked]="this.transactionType==5" (change)="checkPaymentModeSelection(5)"> Mobile&nbsp;&nbsp;
+        <input type="radio" name="community_payment" [checked]="(this.transactionType!=2 && this.transactionType !=5)" id="other-payment" (change)="checkPaymentModeSelection(0)"> Others
+        <div *ngIf='this.transactionType!=2 && this.transactionType !=5'>
+            <div class="row">
+                <div class="col-lg-6">
+                    <select class="form-control" [(ngModel)]="dropDownIndexValue" [ngModelOptions]="{standalone: true}" (change)="checkPaymentModeSelection($event.target.value)">
+                        <option value="0">Select</option>
+                        <option value="1">Card</option>
+                        <option value="8">PhonePe</option>
+                        <option value="6">Google Pay</option>
+                        <option value="7">PayTM</option>
+                        <option value="11">NEFT</option>
+                        <option value="12">UPI</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <form action="#" class="color_cash" *ngIf="this.communityPaymentsTrack.paymentStatus == 1">
+        <p class="mt-1">Payment Mode</p>
+        <span *ngIf="this.communityPaymentsTrack.transactionType == 1">CARD</span>
+        <span *ngIf="this.communityPaymentsTrack.transactionType == 2">CASH</span>
+        <span *ngIf="this.communityPaymentsTrack.transactionType == 3">ONLINE</span>
+        <span *ngIf="this.communityPaymentsTrack.transactionType == 5">MOBILE</span>
+        <span *ngIf="this.communityPaymentsTrack.transactionType == 6">GOOGLE PAY</span>
+        <span *ngIf="this.communityPaymentsTrack.transactionType == 7">PAYTM</span>
+        <span *ngIf="this.communityPaymentsTrack.transactionType == 8">PHONE PAY</span>
+    </form>
+
+
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <button class='update_button mt-1' *ngIf="this.communityPaymentsTrack.paymentStatus == 0" (click)='onUpdate()'>update</button>
+        </div>
+
+    </div>
+
+
+
+
+</section>
+
+<!--<p>model###########<p> -->
+<div class="modal left " id="registerPatientModal">
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component (closeModel)="closeModel('#registerPatientModal')" (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

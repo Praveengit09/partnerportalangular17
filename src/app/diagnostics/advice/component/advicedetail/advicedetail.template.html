@@ -1,0 +1,242 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <h1 class="page-title">Order Details</h1>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <section *ngIf="isPatientDetails" class="widget_txt11" widget="">
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                <p>Patient Name
+                    <h4>{{slotItem.patientProfileDetails.title?slotItem.patientProfileDetails.title+". ":''}} {{slotItem.patientProfileDetails.fName}} {{slotItem.patientProfileDetails.lName?slotItem.patientProfileDetails.lName:''}}
+                    </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <span *ngIf="slotItem.doctorDetail!=undefined ">
+                    <h4> {{slotItem.doctorDetail.title}}
+                        {{slotItem.doctorDetail.firstName}}
+                        {{slotItem.doctorDetail.lastName?slotItem.doctorDetail.lastName:""}}
+
+                    </h4>
+                </span>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Order ID</p>
+                <h4>{{slotItem.orderId}}</h4>
+            </div>
+        </section>
+
+        <section *ngIf="!isPatientDetails" class="newadvice_patient" widget="">
+
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt patientpop">
+                <p>Patient
+                    <i *ngIf="!selectedRegisteredProfile.selectedProfile.fName" aria-hidden="true" class="fa fa-plus add_patient" data-toggle="modal" data-target="#registerPatientModal" data-backdrop="static" data-keyboard="false"></i>
+                </p>
+                <h4 *ngIf="selectedRegisteredProfile">
+                    {{selectedRegisteredProfile.selectedProfile.title?selectedRegisteredProfile.selectedProfile.title+". ":''}} {{selectedRegisteredProfile.selectedProfile.fName}} {{ selectedRegisteredProfile.selectedProfile.lName?selectedRegisteredProfile.selectedProfile.lName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <doctor-search (doctorListSearchEvent)="setSelectedDoctorDetails($event)" [pocId]='pocId' [empId]='empId' [city]='city'></doctor-search>
+            </div>
+        </section>
+
+    </div>
+</div>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="table_size">
+
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12 perscripton_txt">
+            Tests
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="this.newAdvice || (this.slotItem?.doctorId > 0
+            && this.slotItem?.payment.paymentStatus != 2)">
+            <button type="submit" (click)="onChangeTest()" class="button_addtxt add_medicine" value="Add Test" data-toggle="modal" data-target="#myModal2">
+                <i class="fa fa-plus add_txt" aria-hidden="true"></i>Add Test</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="process_widget table_pading" widget>
+
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table new_table">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="head_dogo">#</th>
+                                <th class="">Test Name</th>
+                                <th class="">Original Price</th>
+                                <th class="">Offer Price</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngIf="slotItem !=undefined">
+
+                            <tr *ngFor="let item of slotItem.serviceList; let i = index">
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Test Name">
+                                    <div class="tabledatalabel-right">{{item.serviceName}}</div>
+                                </td>
+                                <td data-label="Original Price" class="test-amount">
+                                    <div class="tabledatalabel-right">
+                                        &#x20B9;
+                                        <input type="text" min="0" step="any" oninput="validity.valid||(value='');" class="noscroll" placeholder="" value={{item}} [(ngModel)]="item.grossPrice" (keyup)="onAmountChanges($event.target.value,i,true)" (change)="onAmountChanges($event.target.value,i,true)"
+                                            maxlength="10" (keypress)="validateNumberInputOnly($event)" />
+                                    </div>
+                                </td>
+                                <!-- <td data-label="Offer Price" class="test-amount">
+                                    <div class="tabledatalabel-right">&#x20B9;{{item.netPrice}}</div>
+                                </td> -->
+                                <td data-label="Offer Price" class="test-amount">
+                                    <div class="tabledatalabel-right">&#x20B9;
+                                        <input type="text" min="0" step="any" oninput="validity.valid||(value='');" class="noscroll" placeholder="" value={{item}} [(ngModel)]="item.netPrice" (keyup)="onAmountChanges($event.target.value,i,false)" (change)="onAmountChanges($event.target.value,i,false)"
+                                            maxlength="10" (keypress)="validateNumberInputOnly($event)" /></div>
+                                </td>
+                                <td>
+                                    <div class="tabledatalabel-right"><i class="fa fa-times removetxt_icon" aria-hidden="true" (click)="remove(i)"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+        <form action="#" class="from_txt">
+            <!-- <div class="row"> -->
+            <!-- [parentProfileId]="this.slotItem.parentProfileId" -->
+            <!-- [pocId]="this.pocId" -->
+            <ng-template [ngIf]="this.slotItem.parentProfileId>0 && this.slotItem.serviceList.length>0">
+                <app-slotbookingdiscount [slotBookingDetails]="this.slotItem" [discountType]="discountType" [promotionalDiscount]="this.promotionalDiscountAmount" (calculateDiscount)="onCalculateDiscount($event)" [isOldRecord]="this.isOldRecord">
+                </app-slotbookingdiscount>
+            </ng-template>
+
+
+            <div class="">
+                <div class="row" *ngIf="this.slotItem.payment.finalAmount>0 && this.slotItem.serviceList.length>0">
+                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt paymode_txt">Payment mode: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-12 paymode_cash">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" checked (change)="checkPaymentModeSelection(2)"> Cash &nbsp;&nbsp;
+                            <input type="radio" name="paymant" (change)="checkPaymentModeSelection(5)"> Mobile &nbsp;&nbsp;
+                            <input type="radio" name="paymant" id="other-payment" (change)="checkPaymentModeSelection(9)"> Others
+                            <div class="other-paymentdetails">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                        <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                                <option value="0">Select</option>
+                                                <option value="1">Card</option>
+                                                <option value="8">PhonePe</option>
+                                                <option value="6">Google Pay</option>
+                                                <option value="7">PayTM</option>
+                                                <option value="11">NEFT</option>
+                                                <option value="12">UPI</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <input type="text" placeholder="Transaction Id" [ngModelOptions]="{standalone: true}" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" *ngIf="isOtherDiscountCashPaymentHide == true">
+                    <div class="col-md-5 col-sm-6 col-xs-12 total_txt paymode_txt">Payment mode: </div>
+                    <div class="col-md-7 col-sm-6 col-xs-12 paymode_cash">
+                        <form action="#" class="color_cash">
+                            <input type="radio" name="paymant" value="0" checked (change)="checkPaymentModeSelection(1)"> Card
+                            <input type="radio" name="paymant" value="1" checked (change)="checkPaymentModeSelection(2)"> Mobile
+                            <input type="radio" name="paymant" id="other-payment" (change)="checkPaymentModeSelection(0)"> Others
+                            <div class="other-paymentdetails">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                                <option value="0">Select</option>
+                                                <option value="1">Card</option>
+                                                <option value="8">PhonePe</option>
+                                                <option value="6">Google Pay</option>
+                                                <option value="7">PayTM</option>
+                                                <option value="11">NEFT</option>
+                                                <option value="12">UPI</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" placeholder="Transaction Id" [ngModelOptions]="{standalone: true}" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <button role="button" class="submit_txt" value="Submit" (click)="onSubmit()">Submit</button>
+                <div hs-notification></div>
+            </div>
+            <!-- </div> -->
+        </form>
+    </div>
+</div>
+<br>
+<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog model_txt addtest-popup" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title add_medtxt" id="myModalLabel">Add Tests</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" class="form-horizontal">
+                    <div class="form-group dropdown">
+
+                        <label for="Test" class="all_textboxtxt">Test Name</label>
+                        <hs-select [defaultSelectLabel]="'Enter Test Name'" [selectColumns]="selectColumns" [defaultSelected]="investigationInfo" [defaultSelectField]="'serviceName'" [selectTotal]="searchTestsTotal" [selectResults]="searchedTests" (searchTrigger)="searchTests($event)"
+                            (selectTrigger)="getTestName($event)"></hs-select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity" class="all_textboxtxt">Original Price</label>
+                        <input type="text" [(ngModel)]="investigationInfo.grossPrice" class="form-control" placeholder="Enter value" name="testAmount" id="testAmount" ngModel (keyup)="onAmountChange($event.target.value, -1)" (change)="onAmountChange($event.target.value, -1)"
+                            maxlength="10" (keypress)="validateNumberInputOnly($event)">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity" class="all_textboxtxt">Offer Price</label>
+                        <!-- {{investigationInfo.netPrice}} -->
+                        <input [readonly]="isReadOnly" type="text" [(ngModel)]="investigationInfo.netPrice" class="form-control" placeholder="Enter value" name="offerAmount" id="offerAmount" ngModel (keyup)="onAmountChange($event.target.value, -2)" (change)="onAmountChange($event.target.value, -2)"
+                            maxlength="10" (keypress)="validateNumberInputOnly($event)">
+                    </div>
+                    <input type="button" class="Update" value="ADD TEST" (click)="addNewTest()">
+                    <br>
+                    <br>
+                    <hs-message [isError]="isErrorTest" [show]="showMessageTest" [messages]="errorMessageTest">
+                    </hs-message>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal left  register–patient" id="registerPatientModal">
+    <div class="modal-dialog model_txt1 model_register patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component (closeModel)="closeModel('#registerPatientModal')" (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+        </div>
+    </div>
+</div>
+
+
+<spinner-component></spinner-component>

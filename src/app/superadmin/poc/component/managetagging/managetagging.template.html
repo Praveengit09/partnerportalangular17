@@ -1,0 +1,177 @@
+<div class="table_size">
+    <h1 class="page-title">Doctor Favorite Roles</h1>
+
+    <section class="widget_emlopyee docfavroles_widget table-datalabel widget-shadow">
+        <div class="table-responsive table-employeetxt">
+            <table class="table table-striped table-hover table_emp">
+                <thead>
+                    <tr>
+                        <th>Doctors List</th>
+                        <th>Receptionist</th>
+                        <th>Cashier</th>
+                        <th>Vitals</th>
+                        <th>Schedule Manager</th>
+                        <th>Print Prescription</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-content" *ngFor="let doctorMapping of doctorRoleMapping; let k=index">
+                        <td data-label="Doctors List">
+                            <div class="tabledatalabel-right">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="user">
+                                            <img class="rounded-circle" src="{{doctorMapping.doctor.imageUrl?doctorMapping.doctor.imageUrl:'assets/img/avatar.png'}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-12 doct_name_title">
+
+                                        {{doctorMapping.doctor.title}}{{emptyString}}{{doctorMapping.doctor.firstName}}{{emptyString}}{{doctorMapping.doctor.lastName}}
+
+                                        <!-- <P class="specialist_title">Hsadmin portal</P> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-label="Receptionist">
+                            <div class="tabledatalabel-right">
+                                <p id="receptionLabel{{k}}">
+                                    <span *ngIf="doctorMapping.receptionist!=undefined && doctorMapping.receptionist!=null"
+                                        class="reception_txt">
+                                        <ul>
+                                            <li class="recptionLine" *ngFor="let item of doctorMapping.receptionist">
+                                                {{item.firstName?item.firstName:''}}
+                                                {{emptyString}}{{item.lastName?item.lastName:''}}
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </p>
+                                <!-- <select class="form-control" id="receptionFrom{{k}}"
+                             style="display: none" name="receptionFrom{{k}}" *ngIf="receptionList"
+                            (change)="onReceptionChange($event.target.value, k)">
+                            <option value=0>Select Reception</option>
+                            <option data-emailaddress="sergio@tix.com" *ngFor="let reception of ;let i = index" [value]=i+1>{{reception.firstName}}{{emptyString}}{{reception.lastName}}</option>
+                        </select> -->
+
+                                <angular4-multiselect id="receptionFrom{{k}}" style="display: none" [data]="receptionList"
+                                    [(ngModel)]="doctorMapping.receptionist" [settings]="dropdownSettings"
+                                    (ngModelChange)="onReceptionChange($event, k)" (onSelectAll)="onSelectAll($event)"
+                                    (onDeSelectAll)="onDeSelectAll($event)">
+                                </angular4-multiselect>
+                            </div>
+                        </td>
+                        <td data-label="Cashier">
+                            <div class="tabledatalabel-right">
+                                <p id="cashierLabel{{k}}">
+                                    <span *ngIf="doctorMapping.cashier!=undefined && doctorMapping.cashier!=null" class="reception_txt">
+                                        <ul>
+                                            <li class="recptionLine" *ngFor="let item of doctorMapping.cashier">
+                                                {{item.firstName?item.firstName:''}}{{emptyString}}{{item.lastName?item.lastName:''}}
+                                            </li>
+                                        </ul>
+
+                                    </span>
+                                </p>
+                                <!-- <select class="form-control" id="cashierFrom{{k}}" style="display: none" name="cashierFrom{{k}}"
+                            *ngIf="cashierList" (change)="onCashierChange($event.target.value, k)">
+                            <option value=0>Select Cashier</option>
+                            <option data-emailaddress="sergio@tix.com" *ngFor="let cashier of cashierList;let i = index"
+                                [value]=i+1>{{cashier.firstName}}{{emptyString}}{{cashier.lastName}}</option>
+                        </select> -->
+                                <angular4-multiselect id="cashierFrom{{k}}" style="display: none" [data]="cashierList"
+                                    [(ngModel)]="doctorMapping.cashier" [settings]="dropdownSettings" (ngModelChange)="onCashierChange($event, k)"
+                                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                </angular4-multiselect>
+                            </div>
+                        </td>
+                        <td data-label="Vitals">
+                            <div class="tabledatalabel-right">
+                                <p id="vitalLabel{{k}}">
+                                    <span class="reception_txt" *ngIf="doctorMapping.vital!=undefined && doctorMapping.vital!=null">
+                                        <ul>
+                                            <li class="recptionLine" *ngFor="let item of doctorMapping.vital">
+                                                {{item.firstName?item.firstName:''}}{{emptyString}}{{item.lastName?item.lastName:''}}
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </p>
+                                <!-- <select class="form-control" id="vitalFrom{{k}}" style="display: none" name="vitalFrom{{k}}"
+                            *ngIf="vitalList" (change)="onVitalChange($event.target.value, k)">
+                            <option value=0>Select Vital</option>
+                            <option data-emailaddress="sergio@tix.com" *ngFor="let vital of vitalList;let i = index"
+                                [value]=i+1>{{vital.firstName}}{{emptyString}}{{vital.lastName}}</option>
+                        </select> -->
+                                <angular4-multiselect id="vitalFrom{{k}}" style="display: none" [data]="vitalList"
+                                    [(ngModel)]="doctorMapping.vital" [settings]="dropdownSettings" (ngModelChange)="onVitalChange($event, k)"
+                                    (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                                </angular4-multiselect>
+                            </div>
+                        </td>
+                        <td data-label="Schedule Manager">
+                            <div class="tabledatalabel-right">
+                                <p id="scheduleLabel{{k}}">
+                                    <span class="reception_txt" *ngIf="doctorMapping.scheduleManager!=undefined && doctorMapping.scheduleManager!=null">
+                                        <ul>
+                                            <li class="recptionLine" *ngFor="let item of doctorMapping.scheduleManager">
+                                                {{item.firstName?item.firstName:''}}{{emptyString}}{{item.lastName?item.lastName:''}}</li>
+                                        </ul>
+                                    </span>
+                                </p>
+                                <!-- <select class="form-control" id="scheduleFrom{{k}}" style="display: none"
+                            name="scheduleFrom{{k}}" *ngIf="scheduleManagerList"
+                            (change)="onScheduleChange($event.target.value, k)">
+                            <option value=0>Select Schedule</option>
+                            <option data-emailaddress="sergio@tix.com"
+                                *ngFor="let schedule of scheduleManagerList;let i = index" [value]=i+1>
+                                {{schedule.firstName}}{{emptyString}}{{schedule.lastName}}</option>
+                        </select> -->
+                                <angular4-multiselect id="scheduleFrom{{k}}" style="display: none" [data]="scheduleManagerList"
+                                    [(ngModel)]="doctorMapping.scheduleManager" [settings]="dropdownSettings"
+                                    (ngModelChange)="onScheduleChange($event, k)" (onSelectAll)="onSelectAll($event)"
+                                    (onDeSelectAll)="onDeSelectAll($event)">
+                                </angular4-multiselect>
+                            </div>
+                        </td>
+                        <td data-label="Print Prescription">
+                            <div class="tabledatalabel-right">
+                                <p id="prescriptionLabel{{k}}">
+                                    <span class="reception_txt" *ngIf="doctorMapping.printPrescription!=undefined && doctorMapping.printPrescription!=null">
+                                        <ul>
+                                            <li class="recptionLine" *ngFor="let item of doctorMapping.printPrescription">
+                                                {{item.firstName?item.firstName:''}}{{emptyString}}{{item.lastName?item.lastName:''}}
+                                            </li>
+                                        </ul>
+
+                                    </span>
+                                </p>
+                                <!-- <select class="form-control" id="prescriptionFrom{{k}}" style="display: none"
+                            name="prescriptionFrom" *ngIf="printprescriptionList"
+                            (change)="onPrintPrescriptionChange($event.target.value, k)">
+                            <option value=0>Select Prescription</option>
+                            <option data-emailaddress="sergio@tix.com"
+                                *ngFor="let prescription of printprescriptionList;let i = index" [value]=i+1>
+                                {{prescription.firstName}}{{emptyString}}{{prescription.lastName}}</option>
+                        </select> -->
+                                <angular4-multiselect id="prescriptionFrom{{k}}" style="display: none" [data]="printprescriptionList"
+                                    [(ngModel)]="doctorMapping.printPrescription" [settings]="dropdownSettings"
+                                    (ngModelChange)="onPrintPrescriptionChange($event, k)" (onSelectAll)="onSelectAll($event)"
+                                    (onDeSelectAll)="onDeSelectAll($event)">
+                                </angular4-multiselect>
+                            </div>
+                        </td>
+                        <td class="save_editbtn">
+                            <button id="singlebutton{{k}}" name="singlebutton" style="display: none" class="btn  Update"
+                                (click)="onSave(doctorMapping,k)">SAVE</button>
+                            <button id="editbutton{{k}}" name="editbutton" class="btn  Update" (click)="onEdit(doctorMapping,k)">EDIT</button>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+<spinner-component></spinner-component>

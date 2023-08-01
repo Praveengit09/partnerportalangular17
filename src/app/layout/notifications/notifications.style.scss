@@ -1,0 +1,73 @@
+.profile-info, .call-btns {
+    text-align: center;
+}
+.profile-info .user {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+}
+.profile-info .user img {
+    width: 100%;
+    height: 100%;
+}
+.call-btns .ignore-call {
+    background: #F53B35;
+}
+.call-btns .ignore-call .fa-phone {
+    -ms-transform: rotate(134deg); /* IE 9 */
+    -webkit-transform: rotate(134deg); /* Safari 3-8 */
+    transform: rotate(134deg);
+}
+.call-btns button {
+    width: 80px;
+    height: 35px;
+    border-radius: 8px;
+    font-size: 20px;
+    color: #fff;
+}
+.call-btns .accept-call {
+    background: #68B91E;
+}
+
+#modelIdincomingcall {
+    z-index: 20002;
+}
+
+.bounce {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 0.5s infinite linear;
+    -o-animation: bounce 0.5s infinite linear;
+    -webkit-animation: bounce 0.5s infinite linear;
+    animation: bounce 0.5s infinite linear;
+  }
+  @-webkit-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  @-moz-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  @-o-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  @-ms-keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }
+  @keyframes bounce {
+      0% { top: 0; }
+      50% { top: -0.2em; }
+      70% { top: -0.3em; }
+      100% { top: 0; }
+  }

@@ -1,0 +1,50 @@
+// th{
+//     color: #64819E !important;
+//     text-transform: capitalize !important;
+//     font-size: 15px;
+//     line-height: 1.73;
+//     padding: 19px 15px 17px 15px;
+// }
+.profile-image img{
+    border: 1px solid #ddd;
+    border-radius: 1px;
+    padding: 5px;
+    width: 49px;
+    height:auto;
+}
+table h5{
+    font-size: 14px;
+    line-height: 1.29;
+    font-weight: 500;
+}
+table h5, table p{
+    margin: 0;
+}
+table th:nth-child(3){
+    min-width: 130px;
+}
+.email .tabledatalabel-right{
+    color: #EF5611 !important;
+    text-decoration: underline;
+}
+table p.small{
+    line-height: 1.33;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+.partnerNetwork_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .partnerNetwork_widget {
+        border: none !important;
+    }
+}
+
+@media screen and (min-width:601px) {
+    .partnerNetwork_widget table{
+        min-width: 600px;
+    }
+}
+

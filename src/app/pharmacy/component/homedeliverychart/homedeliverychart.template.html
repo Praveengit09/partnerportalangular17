@@ -1,0 +1,17 @@
+<div class="widget-body">
+    <div class="pull-right row day7_txt">
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <select name="homecollectionindex{{componentId}}" id="homecollectionindex{{componentId}}" class="form-control select_perday state_select" (change)="onHomeDateChange($event.target.value)" [(ngModel)]="dropDownIndexHomeCollection" [ngModelOptions]="{standalone: true}">
+				  <option [value]=0 >Past 7 Days</option>
+				  <option [value]=1 >Past 15 Days</option>
+				  <option [value]=2> Past 30 Days</option>
+				
+				</select>
+        </div>
+    </div>
+    <div *ngIf="nvd32DataHome != undefined">
+        <div nvd3-chart [chart]="nvd32ChartHome" [datum]="nvd32DataHome">
+            <svg></svg>
+        </div>
+    </div>
+</div>

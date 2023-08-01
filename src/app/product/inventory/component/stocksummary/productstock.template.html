@@ -1,0 +1,101 @@
+<div class="table_size" id="stock_template">
+
+    <h1 class="page-title">Stock Information</h1>
+
+    <section class="widget table_pading" widget="">
+        <div class="widget-body">
+            <div class="row">
+                <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage" class="col-md-12 col-sm-12 col-xs-12" *ngIf="!isNoDataFound"></hs-message>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row filter_stock">
+                        <div class="col-md-6 col-sm-6 col-xs-6 filter-txt">Filters</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 reset-filter-txt filter-txt">
+                            <a class="reset_stock" (click)="onResetFilterButtonClick()">Reset Filters</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-sm-12  supplier_txt">
+                        <div class="row filter">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="form-group">
+                                    <!-- <label>Supplier Name</label> -->
+                                    <hs-select [defaultSelectLabel]="'Supplier Name'" [selectColumns]="selectColumns"
+                                        [defaultSelected]="updateSupplierOrderListRequest.supplierDetails" [defaultSelectField]="'pocName'"
+                                        [selectTotal]="supplierResultLength" [selectResults]="supplierResult" (searchTrigger)="searchSupplier($event)"
+                                         [isMatEnable]="true" [multiCheckVarName]="'pocId'"
+                                        (selectTrigger)="getSupplierId($event.pocName)"></hs-select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="form-group">
+                                    <!-- <label>Product Name</label> -->
+                                    <hs-select [defaultSelectLabel]="'Product Name'" [selectColumns]="selectColumns" [defaultSelected]="updateSupplierOrderListRequest.productName" [defaultSelectField]="'productName'" [selectTotal]="searchProductLength" [selectResults]="searchResult" (searchTrigger)="searchProduct($event)"
+                                        (change)="searchProduct($event)" [isMatEnable]="true" [multiCheckVarName]="'productId'" (selectTrigger)="getProductId($event.productName)"></hs-select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 input_date respon_txt">
+                                <div class="form-group">
+                                    <!-- <label>Expiring By</label> -->
+                                    <!-- <br /> -->
+                                    <hs-datepicker (onDateSubmit)="onDateSubmit($event)" [isMatEnable]="true" [placeholder]="'Expiring By'"></hs-datepicker>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <!-- <div class="form-group"> -->
+                                <!-- <label>Quantity</label>
+                                    <br> -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Quantity</mat-label>
+                                    <mat-select id="quantity" name="quantity" [(ngModel)]="quantity" [ngModelOptions]="{standalone:true}">
+                                        <mat-option value="0">Please select</mat-option>
+                                        <mat-option value="100">{{"
+                                            <=100 "}}</mat-option>
+                                        <mat-option value="200 ">{{"<=200 "}}</mat-option>
+                                        <mat-option value="300 ">{{"<=300 "}}</mat-option>
+                                        <mat-option value="400 ">{{"<=400 "}}</mat-option>
+                                        <mat-option value="500 ">{{"<=500 "}}</mat-option>
+                                        <mat-option value="1000 ">{{"<=1000 "}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <!-- </div> -->
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-danger width-100 search_btn1 " type="submit "
+                            (click)="onSearchButtonClick() ">SEARCH</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row ">
+        <div class="col-md-8 col-sm-6 col-xs-12 perscripton_txt ">
+
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 ">
+            <button type="submit " class="button_addtxt place_chack " value="Add Member " role="button "
+                (click)="onPlaceOrderClick() "> Place an Order</button>
+
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-lg-12 ">
+            <section class="widget table_pading " widget>
+
+                <div class="widget-body ">
+                    <hs-table [columns]="columns " [sort]="sorting " [pagingList]="stockReportResponseList "
+                        [isNoDataFoundVisible]="noDataFoundShow " [componentId]=" 'productStockTable' "
+                        [total]='stockReportResponseList.length' [perPage]="perPage " (pageClick)="onPage($event) "
+                        class="productStockTable ">
+                        Loading table...
+                    </hs-table>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

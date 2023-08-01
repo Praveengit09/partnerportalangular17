@@ -1,0 +1,181 @@
+<h1 class="modal-title add_medtxt">Calendar Booking</h1>
+
+<section class="booking-calender">
+    <div class="row">
+        <div class="col-xl-12 col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <datetime [(value)]="date" [datepicker]="datepickerOpts" [timepicker]="false"
+                [datepicker]="{ icon: 'fa fa-calendar'}" (dateChange)="getDoctorAvailableSlots()">
+            </datetime>
+        </div>
+    </div>
+        <h3 class="header_color">{{toDate | date : 'EEEE, MMMM d, y'}}</h3>
+    <div class="row refreshbtn">
+        <div class="col-6 refresh_in">
+            <auto-refresh (refreshEvent)="pageRefresh($event)" [componentName]='calendarbooking'></auto-refresh>
+            </div>
+            <div class="col-6 ref_button">
+                <button type="button" class="btn btn-primary" role="button" (click)="getDoctorAvailableSlots()">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+    </div>
+    </div>
+    <br>
+
+    <div>
+
+        <div class="table-responsive" *ngIf="dataCheck">
+            <table class="table table-bordered">
+                <thead class="clrhead vdcheader">
+                    <tr class="table_sticky">
+                        <th class="table-header">Timings</th>
+                        <th *ngFor="let list of headerList" class="table-header">{{list.firstName}} <br />
+                            {{list.qualificationName}} <br /> {{list.registrationNumber}}
+                            <br /> Rs.{{list.liveNowFee}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of data;let i = index" class="table_sticky">
+                        <td *ngFor="let item of row; let j =index">
+                            <label class="timing-txt" *ngIf="item > 0" (click)="bookedSlot(i,j)">
+                                <span>{{item | date: 'hh:mm a'}}</span>
+                            </label>
+                            <label class="available-txt" *ngIf="item.length > 0" data-toggle="modal"
+                                data-target="#myrecption" (click)="bookedSlot(i,j)">
+                                <span>{{item }}</span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="!dataCheck" class="notfound">
+            <h3>no data found</h3>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal left" id="myrecption" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+
+    <div class="modal-dialog model_txt1 patientregister-modaldialog" role="document">
+        <div class="modal-content patient-registerpopup">
+            <patientregister-component (onRegisterNewUser)="onRegisterNewUser($event)"></patientregister-component>
+        </div>
+    </div>
+</div>
+
+<div class="modal right fade" id="recption-3">
+
+    <div class="modal-dialog model_txt1 patientinfo_popup">
+        <div *ngIf="selectedProfile">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span class="close_txt buttonClose" aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title add_medtxt">Payment Information</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" class="form-horizontal form_txt" #signupForm="ngForm">
+                        <div class="form-group">
+                            <p class="text-line">Appointment Summary</p>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-8 col-sm-8 col-xs-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="doctor" class="editdoc_txt">Doctor</label>
+                                        <input type="text" class="doctor_input" name="name" readonly
+                                            [value]="selctedSlotInfo.doctorName">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="date" class="editdoc_txt">Date</label>
+                                        <input type="text" class="doctor_input" name="date" readonly
+                                            [value]="selctedSlotInfo.date">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="time" class="editdoc_txt">Time Slot </label>
+                                        <input type="text" class="doctor_input" name="time" readonly
+                                            [value]="selctedSlotInfo.slot">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-line">Patient Information</p>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-10">
+                                <label for="name" class="editdoc_txt">Name</label>
+                                <input type="text" class="doctor_input" name="name" readonly
+                                    value="{{selectedProfile.title?selectedProfile.title+'. ':''}} {{selectedProfile.fName}} {{selectedProfile.lName?selectedProfile.lName:''}}">
+                                <br>
+                                <label for="age" class="editdoc_txt">Age</label>
+                                <label
+                                    style="font-weight: 600;">{{commonUtil.getAge(this.selectedProfile.dob).split(",")[0]+commonUtil.getAge(this.selectedProfile.dob).split(",")[1]}}</label>
+                                <br>
+                                <label for="gender" class="editdoc_txt">Gender </label>
+                                <input type="text" class="doctor_input" name="gender" readonly
+                                    value="{{selectedProfile.gender}}">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <p class="text-line">Booking For</p>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="booking" id="video" value="video" checked
+                                *ngIf="hasVideoDoc==true" (change)="onBookingTypeChange(3)">
+                            <label for="inPerson" *ngIf="hasVideoDoc==true">&nbsp;Video</label>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-line">Payment Information</p>
+                            <app-slotbookingdiscount [slotBookingDetails]="this.slotBookingDetails"
+                                [discountType]="discountType" (calculateDiscount)="onCalculateDiscount($event)"
+                                [isReception]=true>
+                            </app-slotbookingdiscount>
+
+                        </div>
+
+                        <div class="form-group" *ngIf="finalAmount>0">
+                            <p class="text-line">Payment Method</p>
+                        </div>
+                        <div class="form-group" *ngIf="finalAmount>0">
+                            <label for="mobile">&nbsp;Mobile</label>
+                        </div>
+                        <button class="Update sbt_btn" role="button" type="button"
+                            (click)="updatePaymentProviderDetails()">CONFIRM</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Booking Confirmed</h4>
+            </div>
+            <div class="modal-body">
+                <p>Your slot has been booked successfully!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<spinner-component></spinner-component>

@@ -1,0 +1,17 @@
+<div class="container">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [streetViewControl]="false" [scrollwheel]="false" [zoom]="zoom" (mapReady)="mapReady($event)">
+        <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" id="Map-Search" class="controls" #search [formControl]="searchControl" [(ngModel)]="address">
+
+        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="onDragEnd($event)"></agm-marker>
+        <button id="Settings" class="toggle-button controls button">
+            <img src="https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png">
+        </button>
+    </agm-map>
+    <div>{{address}}</div>
+    <p *ngIf="isError" style="color:red;" class="ErrorMessage">{{addProductError}}</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn  Update" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-default btn Update" data-dismiss="modal" (click)="onChooseLocationClick()">Choose Location</button>
+
+</div>

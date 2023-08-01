@@ -1,0 +1,113 @@
+@import "../../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+
+.transform_txt002 {
+    svg .nv-controlsWrap {
+        display: none;
+    }
+}
+
+.state_revenue {
+    padding: 20px 6px;
+
+    .d-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .all_card {
+        border-radius: 4px;
+        padding: 0px;
+    }
+
+    .top_header {
+        background-color: white;
+        margin: 0px 10px;
+        padding: 2rem 1rem 1rem;
+        border-bottom: 1px solid #EDEEF0;
+        border-radius: 4px 4px 0px 0px;
+    }
+
+    .state_revenue_card {
+        background: #F9F9FA;
+        border-radius: 1px;
+        padding: 1rem;
+        margin: 0px 10px;
+        border-radius: 0px 0px 4px 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .percentage_green {
+        color: #059669 !important;
+        font-weight: 800;
+    }
+
+    .percentage_red {
+        color: #DC2626 !important;
+        font-weight: 800;
+    }
+
+    .percentage_yello {
+        color: #ffff00 !important;
+        font-weight: 800;
+    }
+    
+    h1,
+    span {
+        font-weight: 600;
+        font-size: 15px;
+        color: #626C74;
+    }
+
+    .revenue_card {
+        background-color: white;
+        border-radius: 1px;
+        padding: 10px;
+        margin: 7px 0px;
+        border-radius: 2px;
+
+        p {
+            font-size: 15px;
+            color: #626C74;
+            font-weight: 600;
+        }
+
+        h2,
+        h6 {
+            font-weight: 700;
+            color: #41484D;
+        }
+
+        h4,
+        small {
+            font-weight: 400;
+            color: #059669;
+        }
+
+        h5 {
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 20px;
+            color: #41484D;
+        }
+    }
+
+}
+
+@media screen and (max-width: 991px) {
+    .state_revenue {
+        padding: 12px 10px;
+
+        .state_revenue_card {
+            margin: 0px;
+        }
+
+        .top_header {
+            margin-top: 2rem !important;
+            margin: 0px;
+        }
+    }
+}

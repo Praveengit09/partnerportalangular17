@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12 processid_text prescription_padding">
+        <h2><span>OrderId : {{supplierAdviseTrack.orderId}}</span></h2>
+    </div>
+
+
+    <div class="col-md-6 col-sm-6 col-xs-12 processid_text prescription_padding mb-2">
+        <h2><span>Centre Name: {{supplierAdviseTrack.pocDetails.pocName}}</span></h2>
+    </div>
+
+    <div *ngIf="supplierAdviseTrack.additionalMessage" class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding mb-2">
+        <ul>
+            <li>
+                <h4>Note: {{supplierAdviseTrack.additionalMessage}}</h4>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="supplierAdviseTrack.pharmacyNote" class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding mb-2">
+        <ul>
+            <li>
+                <h4>Pharmacy Note: {{supplierAdviseTrack.pharmacyNote}}</h4>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body table-responsive table-datalabel widget-shadow">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th class="">
+                                #
+                            </th>
+
+                            <th class="">
+                                Medicine Name
+                            </th>
+
+                            <th class="">
+                                Quantity
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of supplierAdviseTrack.pharmacyList? supplierAdviseTrack.pharmacyList : supplierAdviseTrack.productList ; let i =index">
+                        <tr>
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Medicine Name">
+                                <div class="tabledatalabel-right">
+                                    <span>{{item.productName}} </span>
+                                </div>
+                            </td>
+                            <td data-label="Quantity">
+                                <div class="tabledatalabel-right"><span>{{item.quantity}} </span></div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+        <div class="row supplier_txt">
+            <div class="col-md-4 col-sm-4 col-xs-4 process_padding">
+                <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+            </div>
+
+            <div class="col-md-6 col-sm-4 col-xs-4 process_padding" *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 0">
+                <button role="button" class="processbotton_txt processdone_txt accept_txt" (click)="onSubmit(2)">ACCEPT</button>
+            </div>
+
+            <div class="col-md-2 col-sm-4 col-xs-4 process_padding" *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 0">
+                <button role="button" class="processbotton_txt processdone_txt1 accept_txt" (click)="onSubmit(21)">REJECT</button>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 process_padding" *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 2">
+                <button role="button" class="processbotton_txt processdone_txt1 accept_txt m-0" (click)="updateOrder()">Send Quatation</button>
+            </div>
+            
+            <div class="col-md-6 col-sm-6 col-xs-6 process_padding" *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 23">
+                <button role="button" class="processbotton_txt processdone_txt1 accept_txt m-0" (click)="updateOrder()">Resend Quatation</button>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-6 process_padding" *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 6">
+                <button role="button" class="processbotton_txt processdone_txt1 accept_txt m-0" (click)="updateOrder()">Generate Invoice</button>
+            </div>
+        </div>
+        <textarea name="message" id="supliermsg" class="form-control mt-3" rows="3"  *ngIf="supplierAdviseTrack.invoiceCompletionStatus == 0"
+        placeholder="Note / Suggestion Tips Type Here . . ."
+        [(ngModel)]="supplierNote"></textarea>
+        <div class="row supplier_txt"> 
+        </div>
+    </div>
+</div>

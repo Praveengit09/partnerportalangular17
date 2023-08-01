@@ -1,0 +1,22 @@
+<mat-form-field *ngIf="timepicker==false" appearance="outline" class="datepicker">
+  <mat-label>{{placeholder}}</mat-label>
+  <input matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy" [(ngModel)]="date" [min]="startDate" [max]="endDate"
+    (keydown)="validateDate($event)" (dateChange)="dateInput('change', $event)" [disabled]="readonly">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <span matTooltip="{{(timepicker==true)?'Now':'Today'}}" class="glyphicon glyphicon-record defaultTime"
+    (click)="setTodayDate()">
+  </span>
+</mat-form-field>
+
+<mat-form-field *ngIf="timepicker==true" class="w-150" appearance="outline">
+  <mat-label>{{placeholder}}</mat-label>
+  <input matInput class="timeInput" atp-time-picker maxlength="5" [(ngModel)]="time_To"
+    (ngModelChange)="timeValidation()" placeholder="{{placeholder}}" />
+  <div class="time12">
+    {{getTime12Hr()}}
+  </div>
+  <span matTooltip="{{(timepicker==true)?'Now':'Today'}}" class="glyphicon glyphicon-record defaultTime"
+    (click)="setTodayDate()">
+  </span>
+</mat-form-field>

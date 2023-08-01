@@ -1,0 +1,105 @@
+<div class="row" *ngIf="!selectedOrder">
+    Something Went Wrong !!
+</div>
+<div class="row" *ngIf="selectedOrder">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h5>Order Id: {{selectedOrder.orderId}}</h5>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-6 ">
+        <div class="card">
+            <div class="card-body delivery_txt">
+                <h3>Pick up Address</h3>
+                <ng-container *ngIf="  selectedOrder.cartItem && selectedOrder.cartItem.pocDetails as poc">
+                    <strong>
+                        {{poc.pocName}} <br />
+                    </strong>
+                    <div>
+                        {{poc.address.areaName}}, {{poc.address.address1}}, {{poc.address.address2}}, {{poc.address.cityName}}, {{poc.address.pinCode}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-6 ml-auto">
+        <div class="card">
+            <div class="card-body delivery_txt">
+                <h3>Delivery Address</h3>
+                <ng-container *ngIf="selectedOrder.cartItem && selectedOrder.cartItem.patientProfileDetails as patient">
+                    <strong>
+                        {{patient.title}} {{patient.fName}} {{patient.lName}},
+                        {{patient.contactInfo && patient.contactInfo.mobile}} <br />
+                    </strong>
+                    <div *ngIf="selectedOrder.cartItem.deliveryAddress as address ">
+                        {{address.areaName}}, {{address.address1}}, {{address.address2}}, {{address.cityName}}, {{address.pinCode}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 container mt-1 mb-1">
+        <h3>Products</h3>
+        <table class="table product_table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="selectedOrder.cartItem as cartItem">
+                <tr *ngFor="let item of cartItem[cartType]">
+                    <td>{{item.productName}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.stockDetails && item.stockDetails.expiryDate | date}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="container col-6" id="payments_details">
+        <div *ngIf="selectedOrder.cartItem&&selectedOrder.cartItem.payment as payment">
+            <div class="row">
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Original Amount :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{payment.originalAmount | number : '1.0-2'}}</div>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Taxes :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{payment.taxationAmount | number : '1.0-2'}}
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Total Discount :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{payment.otherDiscountAmount+payment.packageDiscountAmount | number : '1.0-2'}}
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Wallet Discount :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{payment.usedWalletAmount?payment.usedWalletAmount:'0' | number : '1.0-2'}}
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Cashback Amount :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{payment.totalCashbackAmount|| 0 | number : '1.0-2'}}
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Platform Charges:</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{(payment.platformCharges?payment.platformCharges:0) |currency:'INR':true:'1.2-2'}}</div>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Delivery Charges :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{selectedOrder.cartItem.deliveryAmount | number : '1.0-2'}}</div><br><br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Payment Status :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{payment.paymentStatus == 1 ? 'Paid' : payment.paymentStatus == 0 ? 'Not Paid' : payment.paymentStatus == 2 ? 'Pending' : 'Pending'}}
+                </div><br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Total Amount :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt"> <strong>
+                        &#8377; {{payment.finalAmount | number : '1.0-2'}} </strong> </div><br><br>
+                <ng-container *ngIf="this.actionStatus.COMPLETED !=selectedOrder.actionStatus">
+                    <div class="col-md-7 col-sm-6 col-xs-6 total_txt"><strong>Amount To Be Collect:</strong></div>
+                    <div class="col-md-5 col-sm-6 col-xs-6 total_txt"> <strong>
+                            &#8377; {{selectedOrder.cartItem.payment.paymentStatus != 0 ?selectedOrder.cartItem.payment.finalAmount - selectedOrder.cartItem.payment.amountPaid : selectedOrder.cashPaymentAmount | number : '1.0-2'}} </strong> </div><br><br>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+
+</div>

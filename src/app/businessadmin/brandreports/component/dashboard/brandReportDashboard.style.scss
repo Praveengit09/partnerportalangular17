@@ -1,0 +1,36 @@
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap//scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+.grapps_txt {
+    margin: 8px 8px;
+    background-color: #fff;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+    height: 465px;
+}
+.grapps_txt h3 {
+    padding-top: 14px;
+}
+.mat-form-field{
+    top: 23px;
+}
+.brandsub_txt{
+    margin-top: 30px;
+}
+.revenue_border{
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.border_right{
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+.days_interval{
+    margin-top: 24px;
+    line-height: 7.125;
+    height: calc(3rem - 2px) !important;
+    border-radius: 4px;
+}
+.filter_brand{
+    margin-top: -7px;
+}
+.filter_brand select{
+    height: calc(3rem - 2px) !important;
+}

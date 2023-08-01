@@ -1,0 +1,229 @@
+.widget_poc{
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 30px 25px;
+}
+.listrole{
+    list-style: none;
+    padding: 0px;
+}
+.widget_emp1{
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 4px 1px #e6e6e6;
+  margin-top: 20px;
+  padding: 30px 25px;
+}
+.packagelist_img{
+    width: 107px;
+    height: 93px;
+    border-radius: 22px;
+}
+.package_title{
+    width: 123px;
+}
+.partner_poctxt1 {
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 20px;
+}
+.prinston_txt{
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0px;
+}
+.serial_number{
+    margin-bottom: 0px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.serial_number .mobil_numbertxt{
+    padding: 0px;
+}
+.pocname_txt .viewedit_button{
+    float: right;
+}
+.pocname_txt .view_employees{
+    position: relative;
+    top: 135px;
+    padding: 10px 30px;
+    font-size: 16px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #ff6d6d;
+    border-color: #ff6d6d;
+    border: none;
+}
+.pocname_txt .view_emptxt{
+    margin-right: 15px;
+}
+.poc_service{
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+.service {
+    margin: 0px;
+}
+.service .service_poctxt{
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 0px;
+}
+.service_poctxt .medical_services{
+    padding: 18px 20px 0px;
+    margin-bottom: 0px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.service_poctxt hr{
+    margin-top: 8px;
+}
+.service_poctxt .cardiology_txt{
+    margin: 0px;
+    padding: 0px 4px;
+    margin-bottom: 15px;
+}
+.service_poctxt .cardiology_txt .medical_test{
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.67);
+}
+.medical_pocServicestxt{
+    margin-right: 27px;
+    max-width: 64%;
+}
+.service .partner_poctxt {
+    box-shadow: 0px 0px 4px 1px #e6e6e6;
+    margin-top: 20px;
+    padding: 20px;
+}
+.medical_testnumber{
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 23px;
+}
+  .employee_img{
+    width:72px;
+    height: 72px;
+    border: 2px solid #fafbfa;
+    margin-top: 30px;
+  }
+  .edit_pencil ,.doctor_table tbody tr td .fa-pencil{
+
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 50%;
+    border-color: #231616;
+    border: 1px solid rgba(0, 0, 0, 0.32);
+    margin-top: 8px;
+}
+.edit_pencil .fa-pencil{
+    font-size: 23px;
+    color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    padding: 11px 12px;
+    cursor: pointer;
+}
+.medical_package{
+    border-radius: 12px;
+    width: 140px;
+    height: 120px;
+    border-style: groove;
+}
+////// check box css start here ////
+
+
+
+.span_pseudo, .chiller_cb span:before, .chiller_cb span:after {
+    content: "";
+    display: inline-block;
+    background: #fff;
+    width: 0;
+    height: 0.2rem;
+    position: absolute;
+    transform-origin: 0% 0%;
+  }
+  
+  .chiller_cb {
+    position: relative;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  .chiller_cb input {
+    display: none;
+  }
+  .chiller_cb input:checked ~ span {
+    background: #fd2727;
+    border-color: #fd2727;
+  }
+  .chiller_cb input:checked ~ span:before {
+    width: 1rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.3s;
+  }
+  .chiller_cb input:checked ~ span:after {
+    width: 0.4rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.2s;
+  }
+  .chiller_cb input:disabled ~ span {
+    background: #ececec;
+    border-color: #dcdcdc;
+  }
+  .chiller_cb input:disabled ~ label {
+    color: #dcdcdc;
+  }
+  .chiller_cb input:disabled ~ label:hover {
+    cursor: default;
+  }
+  .chiller_cb label {
+    padding-left: 2rem;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    margin-bottom:0;
+  }
+  .chiller_cb span {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid #ccc;
+    position: absolute;
+    left: 0;
+    transition: all 0.2s;
+    z-index: 1;
+    box-sizing: content-box;
+  }
+  .chiller_cb span:before {
+    transform: rotate(-55deg);
+    top: 1rem;
+    left: 0.37rem;
+  }
+  .chiller_cb span:after {
+    transform: rotate(35deg);
+    bottom: 0.35rem;
+    left: 0.2rem;
+  }
+  
+
+////// check box css end here ////
+
+@media screen and (max-width: 575px) {
+    .edit_pencil {
+        width: 40px;
+        height: 40px;
+    }
+    .edit_pencil .fa-pencil {
+        padding: 7px 10px;
+    }
+    .employee_img {
+        width: 60px;
+        height: 60px;
+    }
+}

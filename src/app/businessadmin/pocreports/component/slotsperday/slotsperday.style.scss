@@ -1,0 +1,18 @@
+@import "../../../../../../node_modules/nvd3/build/nv.d3";
+@import "../../../../scss/variables";
+@import "../../../../../../node_modules/bootstrap/scss/_variables";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
+
+
+    
+@media (max-width: 350px) {
+    .transform_txt5{
+        svg .nv-controlsWrap .nv-legend{
+            transform: translate(-75px,5px) !important;
+        }
+        .nvd3-svg .tick text{
+            font-size: 9px;
+        }
+    }
+   
+}

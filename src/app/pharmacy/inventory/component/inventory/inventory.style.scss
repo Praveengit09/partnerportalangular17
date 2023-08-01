@@ -1,0 +1,214 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/theme.scss';
+
+.widget_txt {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 25px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: auto !important;
+    margin-top: 2px;
+}
+
+.widget_txt .patient_txt h4,
+.widget_txt .patient_txt p {
+    margin: 0px;
+    font-weight: 400;
+
+}
+
+.widget-body {
+    overflow-x: scroll;
+}
+
+.advice_text {
+    padding-left: 0px;
+    color: #14a9b5;
+}
+
+.advice_text h2 {
+    font-size: 30px;
+    color: #14a9b5;
+    font-weight: 500;
+}
+
+.widget-body {
+    overflow-x: hidden;
+}
+
+.search-result a {
+    word-wrap: break-word;
+    line-height: 20px;
+}
+
+.generictxt {
+    z-index: 999999;
+}
+
+.product_table {
+    border-right: none;
+}
+
+.Update {
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    // border: solid 1px #ec6262;
+    background-color: $btn-danger-bg;
+    border-color: $btn-danger-border;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+
+.Update1 {
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #446B88;
+    border: solid 1px #446B88;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+
+input[type='number'] {
+    appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+
+}
+
+.ErrorMessage {
+    color: red;
+}
+
+.totalAmount {
+    margin-left: -21px;
+}
+
+.customize-alert {
+    border-color: black;
+}
+
+.customize-close {
+    color: red;
+}
+
+.search-result {
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    padding: 5px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    left: 0px;
+    right: 44px;
+    width: 234px;
+    height: 30px;
+}
+
+.search-result:hover {
+    color: #eee;
+    background-color: #607D8B;
+}
+
+#search-result {
+    position: absolute;
+    margin-left: -15px;
+    min-width: 177px;
+    z-index: 1;
+}
+
+#search-genericname-result {
+    position: absolute;
+    margin-left: -15px;
+    z-index: 1;
+}
+
+#search-productname-result {
+    width: 236px;
+    position: absolute;
+    margin-left: 0px;
+    z-index: 11111111;
+    overflow-y: auto;
+    max-height: 170px;
+    overflow-x: hidden;
+    padding: 0px;
+}
+
+.sgst_txt {
+    font-size: 23px;
+    top: -1px;
+    color: #ff0000;
+}
+
+#search-productcode-result {
+    position: absolute;
+    margin-left: -15px;
+    z-index: 1;
+    height: 224px;
+    overflow: auto;
+}
+
+.form-inline .input-group {
+    display: inline-table !important;
+}
+
+.input-group.date .input-group-addon {
+    width: auto !important;
+}
+
+label {
+    width: 100%;
+}
+
+::ng-deep .mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .datepicker {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+$mat-md: screen and (min-width: 768px);
+
+@media #{$mat-md} {
+    ::ng-deep .datepicker {
+        max-width: 236px;
+    }
+}
+
+@media only screen and (max-width: 1307px) {
+    .product_table .remove-btn {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-width: 1499px) and (min-width: 1200px) {
+    .supplier-info .col-xl-2 {
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
+    }
+}
+
+.inventory_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .inventory_widget {
+        border: none !important;
+    }
+}

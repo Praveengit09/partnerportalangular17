@@ -1,0 +1,496 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/theme.scss';
+
+.advice_text {
+    padding-left: 0px;
+}
+
+.model_register {
+    margin: 0px
+}
+
+.patient_txt {
+    float: left;
+}
+
+.with_txt {
+    font-size: 10px;
+    margin-bottom: 0px;
+    line-height: 10px;
+}
+
+.widget_txt11 {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: 80px;
+    margin-top: 10px;
+}
+
+.widget_txt11 .patient_txt h4,
+.widget_txt11 .patient_txt p {
+    margin: 0px;
+    font-weight: 400;
+}
+
+.fname-txt {
+    width: 15px;
+    font-size: 13px;
+    text-align: center;
+    border: none;
+}
+
+.input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.fname_2txt {
+    width: 600px !important;
+    font-size: 13px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.fname_21txt {
+    width: 100px;
+    font-size: 13px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.fname_3txt {
+    width: 70px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.fname_4txt {
+    width: 110px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.fname_5txt {
+    width: 130px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.fname_6txt {
+    width: 50px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.paymode_cash {
+    float: right;
+}
+
+input[placeholder],
+[placeholder],
+*[placeholder] {
+    color: #000 !important;
+}
+
+.perscripton_txt {
+    font-size: 24px;
+    // color: rgba(20, 169, 181, 0.8);
+    color: $precription-title;
+    font-weight: 500;
+}
+
+.from_txt {
+    width: 540px;
+}
+
+.from_txt,
+.submit_txt {
+    float: right;
+}
+
+.add_medtxt {
+    padding: 0px 43px 0px;
+    font-size: 30px;
+    // color: #14a9b5;
+    color: $title-color;
+    font-weight: 500;
+}
+
+.model_txt {
+    float: right;
+    right: 0px;
+    width: 400px;
+}
+
+.modal-body {
+    position: relative;
+    padding: 0px 45px 0px !important;
+}
+
+.modal.right .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.left.in .modal-dialog,
+.modal.right.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    min-height: 100%;
+    margin: 0 auto;
+    bottom: 0;
+}
+
+.input_date .form-control {
+    padding: 10px 5px;
+}
+
+.dropdown-menu {
+    font-size: 13px;
+    padding: 20px 15px;
+}
+
+.modal-header {
+    border-bottom-color: transparent;
+    background-color: transparent;
+    padding: 15px 15px 11px 0px;
+    border-bottom: none;
+}
+
+.close_txt {
+    font-size: 40px;
+}
+
+.Update {
+    width: 172px;
+    height: 17px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    width: 172px;
+    height: 40px;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    // border: solid 1px #ec6262;
+    background-color: $btn-danger-bg;
+    border-color: $btn-danger-border;
+}
+
+.all_textboxtxt {
+    font-size: 14px;
+    width: 100%;
+}
+
+.other_discount .quantity_txt {
+    padding: 0px;
+    margin: 0px;
+    color: #ff0000;
+    text-align: left;
+    padding-right: 100px;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.other_discount .quantity_txt sup {
+    font-size: 18px;
+    top: -1px;
+}
+
+.submit_txt {
+    background-color: #dd5826;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 5px 35px;
+    font-weight: 500;
+}
+
+.submit_txt:focus {
+    outline: none;
+}
+
+.total_txt {
+    font-weight: 500;
+}
+
+.form-inline .input-group {
+    display: flex;
+}
+
+.head_dogo {
+    width: 50px;
+}
+
+.model_txt1 {
+    float: right;
+    right: 0px;
+    width: 500px;
+}
+
+@media only screen and (min-width: 320px) {
+    .widget_txt11 {
+        height: 150px;
+    }
+    .widget_txt11 .patient_txt h4 {
+        font-size: 16px;
+    }
+    .widget_txt11 .patient_txt p {
+        font-size: 13px;
+    }
+    .patient_txt {
+        padding-bottom: 8px;
+    }
+    input[placeholder],
+    [placeholder],
+    *[placeholder] {
+        color: #000 !important;
+        border: 1px solid rgba(0, 0, 0, 0.47);
+    }
+    .from_txt {
+        width: auto;
+    }
+    .modal-header {
+        padding: 15px 15px 11px 30px;
+    }
+    .modal-body {
+        position: relative;
+        padding: 0px 45px 0px 75px !important;
+    }
+}
+
+@media only screen and (min-width: 640px) {
+    .widget_txt11 {
+        height: 70px;
+    }
+    .widget_txt11 .patient_txt h4 {
+        font-size: 13px;
+    }
+    .from_txt {
+        width: 540px;
+    }
+    .modal-header {
+        padding: 15px 15px 11px 0px;
+    }
+    .modal-body {
+        position: relative;
+        padding: 0px 45px 0px 45px !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .widget_txt11 .patient_txt h4 {
+        font-size: 21px;
+    }
+    .widget_txt11 {
+        height: 80px;
+    }
+    .patient_txt {
+        padding-bottom: 0px;
+    }
+    .from_txt {
+        width: 540px;
+    }
+}
+
+input[type='number'] {
+    @include appearance(textfield);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.other-paymentdetails {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.other-paymentdetails input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: calc(2.5rem - 2px);
+}
+
+#other-payment:checked~.other-paymentdetails {
+    display: block !important;
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+    .from_txt {
+        width: 490px;
+    }
+}
+
+.fname_discount_text {
+    max-width: 65px;
+    width: 100%;
+    font-size: 13px;
+    text-align: left;
+    padding-left: 13px;
+}
+
+.test-amount {
+    min-width: 210px;
+}
+
+.newadvice_patient {
+    padding: 10px 20px !important;
+    height: 85px;
+    position: relative;
+    margin-bottom: 35px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.patientpop p {
+    margin-bottom: 0px;
+}
+
+.patientpop h4 {
+    margin-top: 0px;
+}
+
+.md-input {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.md-input .md-form-control {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: none;
+    border-bottom: 2px solid #CACACA;
+    box-shadow: none;
+    width: 100%;
+}
+
+.md-input label {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.md-input .bar:before {
+    left: 50%;
+}
+
+.md-input .bar:after {
+    right: 50%;
+}
+
+.md-input .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.md-input .md-form-control:focus~label,
+.md-input .md-form-control:valid~label {
+    top: -15px;
+    font-size: 14px;
+    color: #183D5D;
+}
+
+.md-input .bar:before,
+.md-input .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 0px;
+    position: absolute;
+    background: #03A9F4;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.md-input .md-form-control:focus~.bar:before,
+.md-input .md-form-control:focus~.bar:after {
+    width: 50%;
+}
+
+.md-input .md-form-control:focus {
+    outline: 0px;
+}
+
+.patient_row {
+    padding: 0px !important;
+}
+
+.widget_txt {
+    padding: 30px 20px;
+}
+
+.newadvice_patient {
+    padding: 30px 20px !important;
+    height: 85px;
+    position: relative;
+    margin-bottom: 35px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.patient_row {
+    padding: 0px !important;
+}
+
+.process_widget {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+}
+
+.process_widget .table {
+    margin-bottom: 0px;
+}
+
+@media screen and (max-width: 600px) {
+    .addtest-popup {
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .process_widget {
+        border: 2px solid #e6e6e6 !important;
+    }
+}
+
+::ng-deep .modal-open {
+    overflow: auto !important;
+}

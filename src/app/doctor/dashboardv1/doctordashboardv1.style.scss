@@ -1,0 +1,216 @@
+.page-titles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.heading {
+    font-family: 'Nexa';
+    font-weight: 700;
+    font-size: 22px;
+    color: #09096D;
+}
+
+.sub-heading {
+    font-family: 'Nexa';
+    font-weight: 700;
+    font-size: 18px;
+    color: #09096D;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 26px;
+    box-shadow: 0px 0px 17px #E8E8E8;
+    padding: 15px 25px;
+}
+
+.rupees-logo {
+    font-family: 'Nexa';
+    border: 1.8px solid #09096D;
+    font-size: 18px;
+    padding: 1px 7px;
+    border-radius: 50%;
+    font-weight: bolder;
+}
+
+.card-titles {
+    font-family: 'Nexa';
+    font-size: 18px;
+    font-weight: 400;
+    color: #7C7C7C;
+}
+
+.card-body-price {
+    display: flex;
+    justify-content: center;
+}
+
+.card-price {
+    font-family: 'Nexa';
+    font-size: 40px;
+    font-weight: 700;
+    color: #09096D;
+    justify-self: center;
+
+}
+
+.number_card {
+    display: flex;
+    justify-content: center;
+    background: #E8DCFF;
+    border-radius: 26px;
+    box-shadow: 0px 0px 17px #F2F1FF;
+}
+
+.patient-number {
+    font-family: 'Nexa';
+    font-weight: bold;
+    font-size: 30px;
+    color: #09096D;
+}
+
+.mb_p {
+    margin-bottom: 0.5rem;
+}
+
+.hospital-section {
+    font-family: 'Nexa';
+
+    .hospital-title {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .hospital_name {
+        background: #FFFFFF;
+        border-radius: 26px;
+        box-shadow: 0px 0px 17px #E8E8E8;
+        padding: 10px;
+
+        hr {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-slot {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+
+            .hospital-heading {
+                color: #09096D;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .hospital-subheading {
+                font-size: 14px;
+                font-weight: 400;
+                color: #7C7C7C;
+            }
+
+            .timing-section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .timing {
+                font-size: 18px;
+                font-weight: 700;
+                color: #7C7C7C;
+            }
+        }
+
+        .app-slot:hover {
+            background: #E8DCFF;
+            border-radius: 20px;
+
+            .timing {
+                color: #09096D;
+            }
+        }
+
+        .active {
+            border-right: 3px solid #09096D;
+        }
+    }
+
+}
+
+.pd {
+    padding: 30px 30px 0px 30px;
+}
+
+.card-graph {
+    background: #ffffff;
+    border-radius: 26px;
+
+    box-shadow: 0px 4px 47px #E8E8E8;
+    padding: 15px 25px;
+}
+
+.graph-titles {
+    font-family: 'Nexa';
+    font-size: 14px;
+    color: #09096D;
+    text-align: center;
+}
+
+.card-img {
+    background: #F8F8F8;
+    border-radius: 26px;
+    box-shadow: 0px 0px 17px #E8E8E8;
+    padding: 10px;
+}
+
+.card-img-des {
+    font-family: 'Nexa';
+    font-size: 14px;
+    font-weight: 400;
+    color: #7C7C7C;
+}
+
+.img-card {
+    img {
+        width: 100%;
+        height: 82.17px;
+        border-radius: 16.39px;
+    }
+}
+
+.logo-rupee {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #09096D;
+    text-align: center;
+    font-weight: bolder;
+    color: #09096D;
+    margin-right: 0.5rem;
+    margin-top: 2px;
+}
+
+.logo_icon {
+    margin-right: 0.5rem;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    margin-top: 2px;
+    margin-left: -5px;
+
+    img {
+        width: 18px;
+        height: 20px;
+    }
+}
+
+.card-title {
+    display: flex;
+}
+
+@media screen and (max-width: 1200px) {
+    .padding_right {
+        padding-right: 3rem !important;
+    }
+}

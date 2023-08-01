@@ -1,0 +1,40 @@
+<div class="table_size">
+   
+    <h1 class="page-title">Miscellaneous Orders List </h1>
+   
+  
+
+    <div class="row">
+        <div class="col-lg-12">
+            <mat-form-field appearance="outline" class="search-orders">
+                <mat-label>Order Id/Mobile Number</mat-label>
+                <input (change)="onInputChange()" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}"
+                    type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                    placeholder="Enter Order Id/Mobile Number"   onkeydown="return /[a-z,0-9]/i.test(event.key)">
+                <i class="fa fa-search" aria-hidden="true" matSuffix
+                    (click)="getQueueBasedOnOrderIdAndMobileNo()"></i>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                (click)="onRefresh();">
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="refresh_txt">REFRESH</span>
+            </button>
+            <button type="button" class="button_addtxt" role="button" (click)="onGenerateNewOrder()">New Order</button>
+        </div>
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="miscellaneousOrdersList" [sort]="sorting"
+                        (clickEvent)="clickEventHandler($event)" [componentId]="'miscOrdersListTable'"  [dataMsg]="dataMsg"
+                        [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<spinner-component></spinner-component>

@@ -1,0 +1,581 @@
+
+@import "../../../../scss/variables";
+@import "../../../../scss/theme.scss";
+
+.button_block {
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 5px 35px;
+    font-weight: 500;
+}
+
+.advice_text {
+    padding-left: 0px;
+}
+
+.address_text h4{
+    padding-left: 25px;
+    font-size: 30px;
+    // color: #14a9b5;
+    color: $title-color;
+    font-weight: 500;
+}
+
+::ng-deep .pac-container {
+    z-index: 1000000 !important;
+}
+
+.edit {
+    padding-left: 15px;
+}
+
+.save_btn {
+    float: right;
+}
+
+.advice_text h2 {
+    font-size: 30px;
+    // color: #14a9b5;
+    color: $title-color;
+    font-weight: 500;
+}
+.generic_control {
+    font-weight: 400;
+    padding: 0px 12px;
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+.patient_txt {
+    float: left;
+}
+
+.color_cash {
+    font-size: 500;
+}
+
+.widget_txt1234 {
+    position: relative;
+    margin-bottom: 35px;
+    padding: -1px 20px;
+    border-radius: 0.2rem;
+    height: 50px;
+    margin-top: 10px;
+    background: #fff;
+}
+
+.widget_txt1234 .patient_txt h4,
+.widget_txt1234 .patient_txt p {
+    margin: 0px;
+    font-weight: 400;
+}
+.generic_pupop {
+    width: 700px;
+    height: 400px;
+}
+
+.fname-txt {
+    font-size: 13px;
+    resize: none;
+}
+
+.input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.fname_2txt {
+    width: 100px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.fname_3txt {
+    width: 100px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.fname_4txt {
+    width: 100px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.fname_5txt {
+    width: 100px;
+    font-size: 13px;
+    text-align: center;
+}
+.fname_6txt {
+    width: 50px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.brand-txt {
+    width: 140px;
+    font-size: 13px;
+    text-align: center;
+    resize: none;
+    height: 25px;
+}
+
+.autocom_box .completer-holder .completer-input {
+    width: 130px;
+}
+input[placeholder],
+[placeholder],
+*[placeholder] {
+    color: #000 !important;
+}
+
+.perscripton_txt {
+    font-size: 24px;
+    // color: rgba(20, 169, 181, 0.8);
+    color: $precription-title;
+    font-weight: 500;
+}
+
+.from_txt {
+    width: 350px;
+    line-height: 35px;
+}
+
+.from_txt,
+.submit_txt {
+    float: right;
+}
+
+.add_medtxt {
+    padding: 0px 43px 0px;
+    font-size: 30px;
+    color: $title-color;
+    font-weight: 500;
+}
+
+.model_txt {
+    float: right;
+    right: 0px;
+    width: 400px;
+}
+
+.model_txt1 {
+    float: right;
+    right: 0px;
+    width: 40%;
+}
+
+.modal-body {
+    position: relative;
+    padding: 0px 45px 0px !important;
+}
+
+.dropdown-menu {
+    font-size: 13px;
+    padding: 20px 15px;
+}
+
+.modal-header {
+    border-bottom-color: transparent;
+    background-color: transparent;
+    padding: 15px 15px 11px 0px;
+    border-bottom: none;
+}
+
+.close_txt {
+    font-size: 40px;
+}
+
+.Update {
+    width: 172px;
+    height: 17px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    width: 172px;
+    height: 40px;
+    border-radius: 2px;
+    // background-color: #ff6d6d;
+    // border: solid 1px #ec6262;
+    border: solid 1px $btn-danger-border;
+    background-color: $btn-danger-bg;
+}
+
+.all_textboxtxt {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+}
+
+.submit_txt {
+    background-color: #dd5826;
+    @extend .button_block;
+}
+
+.submit_txt:focus {
+    outline: none;
+}
+
+.total_txt {
+    font-weight: 500;
+}
+
+.form-inline .input-group {
+    display: flex;
+}
+
+@media only screen and (min-width: 320px) {
+    .widget_txt1234 {
+        height: 150px;
+    }
+
+    .widget-body {
+        overflow-x: scroll;
+    }
+
+    .widget_txt1234 .patient_txt h4 {
+        font-size: 16px;
+    }
+
+    .widget_txt1234 .patient_txt p {
+        font-size: 19px;
+    }
+
+    .patient_txt {
+        padding-bottom: 8px;
+    }
+
+    input[placeholder],
+    [placeholder],
+    *[placeholder] {
+        color: #000 !important;
+        border: 1px solid rgba(0, 0, 0, 0.47);
+    }
+
+    .from_txt {
+        width: auto;
+    }
+
+    .modal-header {
+        padding: 15px 15px 11px 30px;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 0px 45px 0px 75px !important;
+    }
+}
+
+@media only screen and (min-width: 640px) {
+    .widget_txt1234 {
+        height: 110px;
+    }
+
+    .widget_txt1234 .patient_txt h4 {
+        font-size: 13px;
+    }
+
+    .from_txt {
+        width: 350px;
+    }
+
+    .modal-header {
+        padding: 15px 15px 11px 0px;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 0px 45px 0px 45px !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .widget_txt1234 .patient_txt h4 {
+        font-size: 18px;
+    }
+
+    .widget_txt1234 {
+        height: 150px;
+    }
+
+    .contact_details {
+        padding-top: 80px;
+    }
+
+    .patient_txt {
+        padding-bottom: 0px;
+    }
+
+    .from_txt {
+        width: 550px;
+    }
+    .widget-body {
+        overflow-x: hidden;
+    }
+}
+
+////////////////////// onboarding popup code start here //////////
+#enquirypopup .modal-dialog {
+    width: 676px;
+    padding: 0px;
+    position: relative;
+}
+
+#enquirypopup .modal-dialog {
+    width: 676px;
+    padding: 0px;
+    position: relative;
+}
+
+.digo_popuotxt {
+    top: 120px;
+}
+
+#enquirypopup .modal-dialog:before {
+    content: '';
+    height: 0px;
+    width: 0px;
+    border-left: 50px solid #17B6BB;
+    border-right: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    position: absolute;
+    top: 121px;
+    left: -14px;
+    z-index: 99;
+}
+
+.custom-modal-header {
+    text-align: center;
+    color: #17b6bb;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-top: 0px solid;
+}
+
+#enquirypopup .modal-dialog .close {
+    z-index: 99999999;
+    color: white;
+    text-shadow: 0px 0px 0px;
+    font-weight: normal;
+    top: 4px;
+    right: 10px;
+    position: absolute;
+    opacity: 1;
+}
+
+.custom-modal-header .modal-title {
+    font-size: 18px;
+    padding-left: 59px;
+}
+
+#enquirypopup .modal-dialog:after {
+    content: '';
+    height: 0px;
+    width: 0px;
+    border-right: 50px solid #17b6bb;
+    border-bottom: 50px solid transparent;
+    position: absolute;
+    top: 121px;
+    right: -14px;
+    z-index: 999999;
+}
+
+.form-group {
+    margin-bottom: 15px !important;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+}
+
+////////////////////// onboarding popup code end here //////////
+.rejectbtn {
+    float: right;
+}
+
+.rej_text {
+    padding-left: 50px;
+}
+
+.editbutton {
+    @extend .button_block;
+}
+
+.editremove_txt {
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    // background-color: #ff6d6d;
+    background-color: $btn-danger-bg;
+    border-radius: 50%;
+    font-size: 20px;
+    padding-left: 5px;
+    padding-top: 2px;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.errMsg {
+    color: red;
+}
+
+.other-paymentdetails {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.other-paymentdetails input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: calc(2.5rem - 2px);
+}
+
+#other-payment:checked~.other-paymentdetails {
+    display: block !important;
+}
+
+#deliveryremarkspopup .custom-modal-header,
+#deliveryremarkspopup .modal-body,
+#deliveryremarkspopup .description_text {
+    width: 100%;
+}
+
+@media screen and (max-width: 575px) {
+    .modal-body {
+        padding: 0 40px !important;
+    }
+    .pr-0 {
+        padding-right: 15px !important;
+    }
+}
+
+.process_widget {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+}
+
+.process_widget .table {
+    margin-bottom: 0px;
+}
+
+@media screen and (max-width: 600px) {
+    .from_txt .submit_txt,
+    .from_txt .editbutton {
+        padding: 5px 20px;
+    }
+}
+
+@media screen and (min-width: 601px) {
+
+    .table td {
+        width: 14%;
+    }
+
+    .process_widget {
+        border: 2px solid #e6e6e6 !important;
+    }
+}
+.editorder_updatebtn .submit_txt {
+    float: left;
+}
+
+//------------------------- image ----------
+
+.newadd_process {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+}
+
+.newadd_processcroll {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.newadd_process .patient_txt h4 {
+    font-size: 21px;
+}
+
+.prescription_scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-top: 25px;
+}
+
+.prescription_jpg h4 {
+    color: #11a9b5;
+}
+
+.prescription_padding {
+    padding-left: 0px;
+}
+
+.download_imagetxt {
+    padding: 10px 15px;
+    background-color: #214d8d;
+    color: #fff;
+    float: right;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.image_download {
+    margin-left: 40%;
+}
+
+.image_sliderpop {
+    width: 100% !important;
+    object-fit: contain;
+    max-height: 85vh;
+}
+
+.image_clickpopup {
+    height: 175px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.image_clickpdf {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+.slider_close {
+    font-size: 30px;
+    color: #000;
+}
+
+.modal-body {
+    margin-top: 0px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 5px;
+}
+.processdone_txt {
+        // background-color: #1dc8d5;
+       // border-color: #1dc8d5;
+       color:$white;
+        background-color: $btn-secondary;
+        border-color: $btn-secondary;
+     }
+      .editbutton {
+        color: #fff;
+        // background: #14a9b5;
+        background-color: $btn-bg-color;
+     }

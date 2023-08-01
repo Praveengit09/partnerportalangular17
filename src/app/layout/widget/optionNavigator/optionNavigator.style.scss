@@ -1,0 +1,45 @@
+.progress_indicator_wrapper a .past {
+  background: url("../../../assets/img/sprite.png") -255px -71px transparent no-repeat;
+}
+.progress_indicator_wrapper a .present {
+  background: url("../../../assets/img/sprite.png") -192px -71px transparent no-repeat;
+}
+.progress_indicator_wrapper a .future {
+  background: url("../../../assets/img/sprite.png") -224px -71px transparent no-repeat;
+}
+@media screen and (max-width: 359px) {
+  .progress_indicator_wrapper a span {
+    margin-left: 12px;
+  }
+}
+.progress_indicator_wrapper {
+  padding: 5px 0 0 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-top: 25px;
+}
+.progress_indicator_wrapper a {
+  display: inline-block;
+  width: 25%;
+  padding: 15px 0;
+  color: #999;
+  text-decoration: none;
+  vertical-align: top;
+  line-height: 1.714em;
+  border-bottom: 2px solid #f9f9f9;
+  margin: 0;
+  // float: left;
+}
+.progress_indicator_wrapper a.active {
+  border-bottom: 2px solid #1dc8d5;
+}
+.progress_indicator_wrapper a span {
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+.ic_progress {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+}

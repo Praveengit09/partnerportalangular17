@@ -1,0 +1,51 @@
+import { SymptomNote } from "./../../model/advice/symptomNote";
+
+export class PaymentInfo {
+
+    public batchNumber: string;
+    public batchNumberTemp: string;
+    public expiryDate: any;
+    public quantity: number;
+    public price: number;
+    public rackNumber: string;
+    public totalAmount: number;
+    public productCode: string;
+    public productId: number;
+    public productName: string;
+    public genericName: string;
+    public companyName: string;
+    public schedule: string;
+    public packageQuantity: number;
+    public packageUnit: string;
+    public dosage: string;
+    public typeId: number;
+    public typeName: string;
+    public totalQuantity: number;
+    // public skuId: string;
+    // public id: number;
+    // public type: number;
+    // public typeName: string;
+    // public title: string;
+    // public dosage: string;
+    // public amount: number;
+    // public brandName: string;
+    // public quantityToHave: string;
+    // public totalQuantity: number;
+    // public goToKart: number;
+    // public iconType: string;
+    // public iconUrl: string;
+    // public note: Array<SymptomNote>;
+    // public times: Array<number>;
+    // public doses: Array<number>;
+    // public takenWhen: string;
+    // public genericName:string;
+    // public duration: string;
+    // public customDose: string;
+    // public customDuration: string;
+    // public batchNumber: string;
+    // public expiryDate: any;
+    // public price: number;
+    // public durationValue: number;
+    // public route: string;
+    // public addedByDoctor: boolean;
+}

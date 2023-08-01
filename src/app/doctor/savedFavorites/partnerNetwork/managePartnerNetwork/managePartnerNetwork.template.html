@@ -1,0 +1,96 @@
+<h1 class="page-title">Manage Partner Network</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="mb-1">Add New Partner</h3>
+    </div>
+    <div class="col-lg-12">
+        <div class="widget new-partner">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 mb-xs">
+                    <h5><label for="partner_type">Select Partner Type</label></h5>
+                    <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone : true}"
+                        *ngIf="partnerTitles" (change)="onTitleChange($event.target.value)">
+                        <option value=0>Please Select </option>
+                        <option *ngFor="let title of partnerTitles;let i = index" [value]=i+1>{{title.type}}</option>
+                    </select>
+                </div>
+                <div class="form-group dropdown col-lg-3 col-md-4 mt-xs">
+                    <h5><label>Enter Partner Name</label></h5>
+                    <!-- <input name="" type="Select" placeholder="Enter Partner Name" id="partner_name" class="form-control"> -->
+                    <hs-select [defaultSelectLabel]="'Enter Partner Name'" [selectColumns]="selectColumns"
+                        [selectTotal]="searchTestsTotal" [selectResults]="searchedTests"
+                        (searchTrigger)="searchTests($event)" (selectTrigger)="getTestName($event)"></hs-select>
+
+                </div>
+                <div class="card-body col-md-12">
+                    <div class="list-inline" *ngIf=" partnerNetworkList != undefined">
+                        <div class="list-inline-item" *ngFor="let item of partnerNetworkList; let i = index">
+                            <!-- <textarea readonly class="cardBodyItem" rows="2" id="comment{{item.serviceId}}" value={{item.serviceName}} [(ngModel)]="item.serviceName"></textarea> -->
+                            <div class="cardBodyItem diagnostic-tests">
+                                <span id="comment{{item.id}}">{{item.pocName}}</span>
+                                <i class="fa fa-times remove_txt" aria-hidden="true" (click)="remove(i)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+                <div class="col-md-12"><button class="btn btn-danger mt-1" (click)="addToPartners()" type="submit">Add
+                        To My Partners</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="mb-1">Manage Existing Partners</h3>
+    </div>
+    <div class="col-lg-12">
+        <section class="widget table_pading managepartnerNetwork_widget widget-shadow">
+            <div class="widget-body table-responsive table-datalabel">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>#</th>
+                            <th>Partner Information</th>
+                            <th>Category Type</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th><input name="" type="checkbox" id="ApplyTests" (click)="applyTests()">&nbsp;Select all
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of this.partnerNetworks ; let i =index">
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Partner Information">
+                                <div class="tabledatalabel-right">
+                                    <h5>{{item.details.pocName}}</h5>
+                                    <p class="small">
+                                        {{item.details.address.address1}}{{item.details.address.cityName}}{{item.details.address.stateName}}
+                                    </p>
+                                </div>
+                            </td>
+                            <td data-label="Category Type">{{item.Type}}</td>
+                            <td data-label="Mobile">
+                                <div class="tabledatalabel-right">{{item.details.contactList}}</div>
+                            </td>
+                            <td data-label="Email" class="email">
+                                <div class="tabledatalabel-right">{{item.details.email?item.details.email:NA}}</div>
+                            </td>
+                            <td>
+                                <div class="tabledatalabel-right">
+                                    <input name="" type="checkbox" id="Selecteditem{{i}}"
+                                        (click)="removePartner(item)">&nbsp;Select to remove
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <button class="btn btn-danger float-right" type="submit" (click)="removeSelectedPartner()">Remove</button>
+    </div>
+</div>

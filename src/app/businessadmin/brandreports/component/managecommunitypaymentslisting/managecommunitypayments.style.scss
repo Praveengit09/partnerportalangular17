@@ -1,0 +1,239 @@
+@import "../../../../layout/widget/ngtable/ngtable.style.scss";
+@import "../../../../scss/theme.scss";
+
+.widget {
+    border-radius: 2px;
+    padding: 20px 15px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border: none !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.widget h5 {
+    font-size: 18px;
+    color: #333333;
+    margin-top: 0;
+}
+
+.widget button {
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    border: solid 1px #f06363;
+    background-color: #ff6d6d;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.43;
+    color: #ffffff;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    margin-top: 3px;
+}
+
+.float_Right {
+    text-align: right;
+}
+
+.button_addtxt {
+    float: none;
+}
+
+.button_addtxt1 {
+    background-color: #d6e5e8;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    padding: 14px 20px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    cursor: not-allowed;
+    line-height: 19px;
+}
+
+.widget .form-control,
+.widget select,
+.widget .form-inline .input-group-addon {
+    border-radius: 2px;
+    border: solid 1px #d6e5e8;
+    background-color: #f3fafc;
+    height: 26px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 0.6);
+}
+
+.widget .file-upload {
+    line-height: 10px;
+    height: auto;
+}
+
+.widget .form-inline .input-group,
+.widget select {
+    width: 100%;
+}
+
+.widget .form-inline .form-control {
+    border-right: none;
+}
+
+.widget .form-inline .input-group-addon {
+    padding: 0 10px;
+    border-left: none;
+    border-left: none;
+}
+
+.widget .form-inline .input-group-addon .glyphicon {
+    top: 3px;
+}
+
+table {
+    width: 100%;
+    min-width: 600px;
+}
+
+table td h6 {
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+table td span {
+    font-size: 12px;
+    width: 162px;
+    display: block;
+    line-height: 16px;
+}
+
+table td p {
+    font-size: 16px;
+}
+
+table tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f7f7f7;
+}
+
+@media screen and (max-width: 767px) {
+    .col-sm-8 .widget .col-sm-6 {
+        margin-bottom: 10px;
+    }
+}
+
+.aria_filter_txt {
+    padding-bottom: 35px;
+}
+
+.filter_txt {
+    float: right;
+    margin-left: 15px;
+    width: 185px;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1017px) {
+    .filter_txt select {
+        width: 125px;
+    }
+}
+
+@media screen and (max-width: 459px) {
+    .reset_btn .reset_txt {
+        display: none;
+    }
+    .reset_btn {
+        width: auto;
+    }
+    .btn .glyphicon {
+        right: 0;
+    }
+}
+
+.filter_txt select {
+    padding: 6px 5px;
+    border-radius: 2px;
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.18);
+}
+
+.select_city {
+    margin-right: 0px;
+}
+
+.sub-title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.error_class {
+    color: #ff6d6d;
+}
+
+.template_class {
+    color: #ffffff;
+}
+
+table p.small {
+    line-height: 1.33;
+    font-size: 12px;
+}
+
+.pdf {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+::ng-deep .datepicker {
+    width: 100% !important;
+    min-width: 165px;
+}
+
+@media screen and (min-width: 1200px) {
+    // max-width: 236px;
+}
+
+@media screen and (max-width: 1350px) and (min-width: 1200px) {
+    .payment-report .widget .col-xl-3 {
+        flex: 0 0 29%;
+        max-width: 29%;
+    }
+    .payment-report .widget .col-xl-6 {
+        flex: 0 0 42%;
+        max-width: 42%;
+    }
+}
+
+.view_button {
+    width: 75px;
+    height: 26px;
+    border-radius: 2px;
+    background-color: #60c2c9;
+    text-align: center;
+}
+
+.table.inner-border {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table.inner-border>thead>tr>th,
+table.inner-border>thead>tr>td,
+table.inner-border>tbody>tr>th,
+table.inner-border>tbody>tr>td,
+table.inner-border>tfoot>tr>th,
+table.inner-border>tfoot>tr>td {
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+
+table.inner-border>thead>tr> :last-child,
+table.inner-border>tbody>tr> :last-child,
+table.inner-border>tfoot>tr> :last-child {
+    border-right: 0;
+}
+
+table.inner-border> :last-child>tr:last-child>td,
+table.inner-border> :last-child>tr:last-child>th {
+    border-bottom: 0;
+}

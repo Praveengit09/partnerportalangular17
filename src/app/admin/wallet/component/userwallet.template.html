@@ -1,0 +1,198 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+
+    <div class="col-lg-12">
+        <h1 class="page-title">Search Patient Wallet</h1>
+        <mat-form-field appearance="outline" class="search-orders">
+            <mat-label>Mobile Number</mat-label>
+            <input type="text" autocomplete="off" id="search" [(ngModel)]="mobileNo" [ngModelOptions]="{standalone: true}" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Mobile Number" (keypress)="validateNumberInputOnly($event)" maxlength="10">
+            <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getUserDetails()"></i>
+        </mat-form-field>
+    </div>
+    <form action="#">
+        <div class="row ml-0 mr-0">
+
+            <div class="col-lg-12">
+                <h3 *ngIf="selectedProfile" class="my-2">Patient Wallet Details</h3>
+            </div>
+            <div class="col-lg-8">
+                <section class="widget_txt row card-effect" *ngIf="selectedProfile">
+
+                    <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                        <h5 class="total_txt">Patient Name: </h5>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7">
+                        <h5 class="total_txt">
+                            {{ (selectedProfile.fName?selectedProfile.fName:'') + ' ' + (selectedProfile.lName?selectedProfile.lName:'') }}
+                        </h5>
+                    </div>
+
+
+
+                    <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                        <h5 class="total_txt">Patient Mobile Number:</h5>
+                    </div>
+
+                    <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7">
+                        <h5 class="total_txt">{{selectedProfile.contactInfo.mobile || ''}}</h5>
+                    </div>
+
+
+                    <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                        <h5 class="total_txt">Gender:</h5>
+                    </div>
+
+                    <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7">
+                        <h5 class="total_txt">{{selectedProfile.gender}}</h5>
+                    </div>
+
+
+
+                    <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                        <h5 class="total_txt">Age:</h5>
+                    </div>
+
+                    <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7">
+                        <h5 class="total_txt">
+                            {{commonUtil.getAge(selectedProfile.dob).split(",")[0]+commonUtil.getAge(selectedProfile.dob).split(",")[1]}}
+                        </h5>
+                    </div>
+
+
+
+                    <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                        <h5 class="total_txt">Wallet Balance:</h5>
+                    </div>
+
+                    <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7">
+                        <h5 class="total_txt">
+                            {{ walletBalance && walletBalance > 0 ? walletBalance : 0 }} points
+                        </h5>
+                    </div>
+
+
+
+                </section>
+            </div>
+
+            <div class="col-lg-12">
+                <div *ngIf="walletBalance > 0">
+                    <h3 class="my-2">Use Wallet</h3>
+                    <div class="col-lg-8 card-effect">
+                        <section class="use-wallet">
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                                    <h5 class="total_txt">Bill Amount:</h5>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7 inpt-fld">
+                                    <mat-form-field appearance="outline">
+                                        <input type="number" autocomplete="off" id="billAmount" [(ngModel)]="billAmount" [ngModelOptions]="{standalone: true}" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Bill Amount" (keypress)="validateNumberInputOnly($event)" maxlength="10">
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                                    <h5 class="total_txt">Wallet Amount:</h5>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7 inpt-fld">
+                                    <mat-form-field appearance="outline">
+                                        <input type="number" autocomplete="off" id="walletAmountUsed" [(ngModel)]="walletAmountUsed" [ngModelOptions]="{standalone: true}" (keyup)="onEnterPressed($event)" matInput placeholder="Enter Wallet Amount" (keypress)="validateNumberInputOnly($event)"
+                                            maxlength="10">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                                    <h5 class="total_txt">Includes Health Packages:</h5>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7 inpt-fld">
+                                    <input type="radio" name='radioPackage' [checked]='packageSelected' (change)="onPackageChange(true)"> Yes &nbsp;
+                                    <input type="radio" name='radioPackage' [checked]='!packageSelected' (change)="onPackageChange(false)"> No &nbsp;
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                                    <h5 class="total_txt">Bill Number:</h5>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7 inpt-fld">
+                                    <mat-form-field appearance="outline">
+                                        <input type="text" autocomplete="off" id="referenceId" matInput placeholder="Enter Bill Number" [(ngModel)]="referenceId" [ngModelOptions]="{standalone: true}">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-lg-7 col-xl-5">
+                                    <h5 class="total_txt">Remarks:</h5>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-lg-5 col-xl-7 inpt-fld">
+                                    <mat-form-field appearance="outline">
+                                        <input type="text" autocomplete="off" id="referenceId" matInput placeholder="Enter Remarks" [(ngModel)]="remarks" [ngModelOptions]="{standalone: true}">
+                                    </mat-form-field>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12 my-1">
+                                    <button type="button" class="btn btn-primary width-110 mb-xs" role="button" (click)="checkAndUpdateWallet()">
+                                        Update Wallet
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+                        </section>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </form>
+</div>
+<br>
+
+
+<spinner-component></spinner-component>
+
+<div class="modal fade" id="showwalletmessage">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="page-title">Wallet Update</h4>
+            </div>
+            <div class="modal-body">
+
+                <div *ngIf="walletAmountUsed > 0">
+                    Only {{this.walletAmountUsed}} points can be used from the wallet. Do you want to proceed further?
+                </div>
+                <div *ngIf="walletAmountUsed == 0">
+                    Wallet points cannot be utilized for this purchase.
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button *ngIf="walletAmountUsed > 0" type="button" class="btn btn-default" data-dismiss="modal" (click)="updateWallet()">Yes</button>
+                <button *ngIf="walletAmountUsed > 0" type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button *ngIf="walletAmountUsed == 0" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

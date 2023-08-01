@@ -1,0 +1,139 @@
+<div class="table_size">
+
+    <h1 class="page-title">Configure Roles</h1>
+    <div class="row form-group">
+
+        <label class="col-md-2 control-label" for="selectbasic">
+            <b>Select Role</b>
+        </label>
+        <div class="col-md-3">
+            <select class="form-control" *ngIf="rolesNameList" (change)="onRoleChange($event.target.value)">
+                <option value=0>Select Role</option>
+                <option *ngFor="let role of rolesNameList;let i = index" [value]=i+1>{{role.roleName}}</option>
+            </select>
+        </div>
+        <div class="col-md-4 col-sm-10 col-xs-7 edit_penc_text1" *ngIf="empId==1 && selectedRole!=undefined && selectedRole!=null">
+            <span class="input-group-btn">
+                <button class="btn btn-danger width-130 mb-xs botton_txtsearch done_txt" role="button" data-toggle="modal" data-target="#myModal50">Edit Role</button>
+            </span>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-5 btn_prsearch" *ngIf="empId==1">
+            <span class="input-group-btn">
+                <button class="btn btn-danger width-130 mb-xs botton_txtsearch done_txt" role="button" (click)="openModal('#myModal37')">Add New Role</button>
+            </span>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-sm-6 col-xs-12">
+            <h4>{{selectedRole!=undefined && selectedRole!=null?selectedRole.roleName:''}}</h4>
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="selectedRole!=undefined && selectedRole!=null">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body brandlist_table87">
+                    <hs-table [columns]="columns" [pagingList]="permissionList" [sort]="sorting" (clickEvent)="clickEventHandler($event)"  [componentId]="'orderHistoryRemarkListTable'"
+                        [perPage]="perPage" [total]="total" (pageClick)="onPage($event)" >
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal37" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Role Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-5 col-sm-5">
+                        <label for="name">Role Name</label>
+                        <input type="text" class="form-control input-sm" id="name" [(ngModel)]="roleName" [ngModelOptions]="{standalone: true}" placeholder="Enter Role Name">
+                    </div>
+
+                </div>
+                <div class="">
+                    <h5>Screen Name</h5>
+                </div>
+                <hr/>
+                <div class="row" *ngFor="let role of tempPermissionList;let i = index;let j=index">
+                    <div class="col-md-4">
+                        <h5>{{role.permissionName}}</h5>
+                    </div>
+                    <div class="col-md-6 label_text">
+                        <div class="form-check">
+                            <label class="view_text">
+                                <input type="checkbox" id="view1{{j}}" name="view1{{j}}" [checked]="role.value==1" (click)="onValueCheckedView1(role,i)">
+                                <span class="label-text">View</span>
+                            </label>
+                            <label class="view_text">
+                                <input type="checkbox" id="edit1{{j}}" name="edit1{{j}}" [checked]="role.value==2" (click)="onValueCheckedEdit1(role,i)">
+                                <span class="label-text">Edit</span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnGetValue" (click)="onRoleSubmit()" Value="Get Value">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<!--Edit  Modal start here -->
+<div class="modal fade" id="myModal50" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="modal-title" *ngIf="selectedRole">Permissions For Role - {{selectedRole.roleName}}</h4>
+                <div class="">
+                    <h5>Screen Name</h5>
+                </div>
+                <hr/>
+                <div class="row" *ngFor="let role of permissionList;let i = index;let j = index">
+                    <div class="col-md-4">
+                        <h5>{{role.permissionName}}</h5>
+                    </div>
+                    <div class="col-md-6 label_text">
+                        <div class="form-check">
+                            <label class="view_text">
+                                <input type="checkbox" id='view{{j}}' name='view{{j}}' [checked]="role.value==1" (click)="onValueCheckedView(role,i)">
+                                <span class="label-text">View</span>
+                            </label>
+                            <label class="view_text">
+                                <input type="checkbox" id='edit{{j}}' name='edit{{j}}' [checked]="role.value==2" (click)="onValueCheckedEdit(role,i)">
+                                <span class="label-text">Edit</span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnGetValue" Value="Get Value" (click)="onSubmit()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->

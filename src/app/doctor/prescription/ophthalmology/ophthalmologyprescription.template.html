@@ -1,0 +1,289 @@
+<div class="casesheet mt-2">
+    <div class="row">
+        <div class="col-md-2">
+            <p (click)="print(patientMedicalAdvise)">AR</p>
+        </div>
+        <div class="col-md-5">
+            <p>Right: <input type="number" [(ngModel)]="patientMedicalAdvise.ophthalmology.right.ar"
+                    class="form-control d-inline-block w-auto" /></p>
+        </div>
+        <div class="col-md-5">
+            <p>Left: <input type="number" [(ngModel)]="patientMedicalAdvise.ophthalmology.left.ar"
+                    class="form-control d-inline-block w-auto" /></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p>Present Glasses Power </p>
+        </div>
+        <div class="col-md-5">
+            <p>Right: <input type="number" [(ngModel)]="patientMedicalAdvise.ophthalmology.right.presentGlassesPower"
+                    class="form-control d-inline-block w-auto" /></p>
+        </div>
+        <div class="col-md-5">
+            <p>Left: <input type="number" [(ngModel)]="patientMedicalAdvise.ophthalmology.left.presentGlassesPower"
+                    class="form-control d-inline-block w-auto" /></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Present Glasses Duration <input type="text"
+                    [(ngModel)]="patientMedicalAdvise.ophthalmology.presentGlassesDuration"
+                    class="form-control d-inline-block w-auto" /></p>
+        </div>
+    </div>
+    <section class="widget table_pading" widget="">
+        <div class="widget-body table-responsive table-datalabel widget-shadow">
+            <table class="table table-hover table-striped table-bordered hs_tabletxt mb-0">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>SPHERE</th>
+                        <th>CYL</th>
+                        <th>AXIS</th>
+                        <th>ADD</th>
+                        <th>CVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Right</div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.arSphere" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.arCLY" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.arAxis" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.arAdd" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.arCVA" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Left</div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.arSphere" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.arCLY" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.arAxis" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.arAdd" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.arCVA" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <p class="mt-3">Subjective Correction</p>
+    <section class="widget table_pading" widget="">
+        <div class="widget-body table-responsive table-datalabel widget-shadow">
+            <table class="table table-hover table-striped table-bordered hs_tabletxt mb-0">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>UVA</th>
+                        <th>SPHERE</th>
+                        <th>CYL</th>
+                        <th>AXIS</th>
+                        <th>ADD</th>
+                        <th>CVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Right</div>
+                        </td>
+                        <td data-label="UVA">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.scUVA" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.scSphere" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.scCLY" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.scAxis" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.scAdd" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.right.scCVA" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="">
+                            <div class="tabledatalabel-right">Left</div>
+                        </td>
+                        <td data-label="UVA">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.scUVA" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="SPHERE">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.scSphere" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CYL">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.scCLY" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="AXIS">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.scAxis" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="ADD">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.scAdd" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                        <td data-label="CVA">
+                            <div class="tabledatalabel-right"><input
+                                    [(ngModel)]="patientMedicalAdvise.ophthalmology.left.scCVA" type="number"
+                                    class="form-control" /></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <p>
+                Dominent Eye:
+                <label>RE <input [(ngModel)]="patientMedicalAdvise.ophthalmology.right.isDominent"
+                        type="checkbox" /></label>&nbsp;&nbsp;
+                <label>LE <input [(ngModel)]="patientMedicalAdvise.ophthalmology.left.isDominent"
+                        type="checkbox" /></label>
+            </p>
+            <section class="widget table_pading" widget="">
+                <div class="widget-body table-responsive table-datalabel widget-shadow">
+                    <table class="table table-hover table-striped table-bordered hs_tabletxt mb-0">
+                        <thead>
+                            <tr>
+                                <th>IOP</th>
+                                <th>Right Eye</th>
+                                <th>Left Eye</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="IOP">
+                                    <div class="tabledatalabel-right">NCT</div>
+                                </td>
+                                <td data-label="Right Eye">
+                                    <div class="tabledatalabel-right"><input
+                                            [(ngModel)]="patientMedicalAdvise.ophthalmology.right.IOPnct" type="number"
+                                            class="form-control" /></div>
+                                </td>
+                                <td data-label="Left Eye">
+                                    <div class="tabledatalabel-right"><input
+                                            [(ngModel)]="patientMedicalAdvise.ophthalmology.left.IOPnct" type="number"
+                                            class="form-control" /></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="IOP">
+                                    <div class="tabledatalabel-right">AT</div>
+                                </td>
+                                <td data-label="Right Eye">
+                                    <div class="tabledatalabel-right"><input
+                                            [(ngModel)]="patientMedicalAdvise.ophthalmology.right.IOPat" type="number"
+                                            class="form-control" /></div>
+                                </td>
+                                <td data-label="Left Eye">
+                                    <div class="tabledatalabel-right"><input
+                                            [(ngModel)]="patientMedicalAdvise.ophthalmology.left.IOPat" type="number"
+                                            class="form-control" /></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <p>SAC Washout(Syringing):</p>
+            <p>RE: <input [(ngModel)]="patientMedicalAdvise.ophthalmology.right.sac" type="number"
+                    class="form-control d-inline-block w-auto" /></p>
+            <p>LE: <input [(ngModel)]="patientMedicalAdvise.ophthalmology.left.sac" type="number"
+                    class="form-control d-inline-block w-auto" /></p>
+        </div>
+    </div>
+
+    <p class="mt-3">OCULAR EXAMINATION</p>
+    Ocular Movements:
+    <label class="ocular_movementlabel">FULL <input [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isFull"
+            type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">Restricted <input
+            [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isRestricted" type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">RCS <input [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isRCS"
+            type="checkbox" value="" /></label>
+    <!-- <label class="ocular_movementlabel">RCS <input [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isRCS" type="checkbox" value="" /></label> -->
+    <label class="ocular_movementlabel">RDS <input [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isRDS"
+            type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">LCS <input [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isLCS"
+            type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">LDS <input [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isLDS"
+            type="checkbox" value="" /></label>
+    <label class="ocular_movementlabel">Others <input [(ngModel)]="patientMedicalAdvise.ophthalmology.oe.isOthers"
+            type="checkbox" value="" /></label>
+</div>
+
+<!-- <imagepointer [imageUrl]="'assets/img/ophthalmology/img_anterior_segment.png'" (onSave)="patientMedicalAdvise.ophthalmology.right.anteriorSegment=$event"></imagepointer> -->
+<!-- <imagepointer [imageUrl]="'assets/img/ophthalmology/img_anterior_segment.png'" (onSave)="patientMedicalAdvise.ophthalmology.left.anteriorSegment=$event"></imagepointer> -->

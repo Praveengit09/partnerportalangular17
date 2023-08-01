@@ -1,0 +1,85 @@
+.contact_number{
+  margin-left: 0px;
+  margin-right: 0px;
+  .add_plus_button{
+    top: 23px;
+    position: absolute;
+  }
+  .addtxt_icon2 {
+    margin-top: 10px;
+  }
+}
+.pac-container {
+  z-index: 100000;
+}
+
+.agm-map {
+  height: 400px;
+}
+
+.widget {
+  margin-bottom: 5px;
+}
+
+.add_newfield_icon {
+  margin-top: 30px;
+}
+
+.sgst_txt{
+  font-size: 23px;
+  top: -1px;
+  color: #ff0000;
+}
+.Update {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+  padding: 5px 30px;
+  text-transform: uppercase;
+  color: #fff !important;
+}
+
+.list_title2 {
+  margin-left: 15px;
+}
+
+@media only screen and (min-width: 320px) {
+  .botton_txtdigo {
+    padding: 5px 0px;
+    font-size: 14px;
+    border-radius: 3px;
+    width: 123px;
+    color: #fff;
+  }
+  .widget-body {
+    overflow-x: scroll;
+  }
+  th,
+  td {
+    min-width: 135px;
+  }
+}
+
+@media only screen and (min-width: 568px) {
+  .widget-body {
+    overflow-x: scroll;
+  }
+  th,
+  td {
+    min-width: 200px;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .widget-body {
+    overflow-x: inherit;
+  }
+  th,
+  td {
+    min-width: 0px;
+  }
+}

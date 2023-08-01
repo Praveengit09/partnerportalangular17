@@ -1,0 +1,582 @@
+<div class="table_size">
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget">
+                <div class="widget-body">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                            <h2 class="welcome_txt">Update Your Personal Health Record</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12   col-md-12   col-lg-12 col-lg-offset-3 form-box">
+                            <form role="form" action="" method="post" class="f1">
+                                <div class="f1-steps">
+                                    <div class="f1-progress">
+                                        <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 6%;">
+                                        </div>
+                                    </div>
+                                    <div class="f1-step" *ngIf="!isFromDoctor && !isNurse">
+                                        <a class="progress_indicator active" (click)="onHeaderClick(0)">
+                                            <div class="f1-step-icon" *ngIf="pageIndex == 0">
+                                                <span class="ic_progressbar present"></span>
+                                            </div>
+                                            <div class="f1-step-icon" *ngIf="pageIndex != 0">
+                                                <span class="ic_progressbar future"></span>
+                                            </div>
+                                            <div class="f1-step-icon" *ngIf="false">
+                                                <span class="ic_progressbar future"></span>
+                                            </div>
+                                            <p>
+                                                General <br /> Information
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <div *ngFor="let phrCategories of phr.phr;let i = index;">
+                                        <div class="f1-step" *ngIf="phrCategories.title !='TestDetail'">
+                                            <a class="progress_indicator" (click)="onHeaderClick(i+1)">
+                                                <div class="f1-step-icon" *ngIf="pageIndex == i+1">
+                                                    <span class="ic_progressbar present"></span>
+                                                </div>
+                                                <div class="f1-step-icon" *ngIf="pageIndex != i+1">
+                                                    <span class="ic_progressbar future"></span>
+                                                </div>
+                                                <div class="f1-step-icon" *ngIf="false">
+                                                    <span class="ic_progressbar future"></span>
+                                                </div>
+                                                <p>{{phrCategories.title}}</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="f1-step" *ngIf="!isFromDoctor && !isNurse">
+                                        <a class="progress_indicator active" (click)="onPhysicalClick()">
+                                            <div class="f1-step-icon">
+                                                <span class="ic_progressbar future"></span>
+                                            </div>
+                                            <div class="f1-step-icon" *ngIf="false">
+                                                <span class="ic_progressbar future"></span>
+                                            </div>
+                                            <p>Physicals</p>
+                                        </a>
+                                    </div>
+                                    <div class="f1-step" *ngIf="!isFromDoctor && !isNurse">
+                                        <a class="progress_indicator active" (click)="onLabTestsClick()">
+                                            <div class="f1-step-icon">
+                                                <span class="ic_progressbar future"></span>
+                                            </div>
+                                            <div class="f1-step-icon" *ngIf="false">
+                                                <span class="ic_progressbar future"></span>
+                                            </div>
+                                            <p>Lab Tests</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div *ngIf="pageIndex == 0 && !isFromDoctor && !isNurse">
+                        <h2>1. General Information</h2>
+                        <legend>
+                            <h3 class="primary">Basic Information</h3>
+                        </legend>
+                        <div class="form-group row">
+                            <label class="col-sm-4 control-label">Title*</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" (change)="onTitleChange($event.target.value)" [value]="registrationVo.title">
+                  <option value="undefined">select Title</option>
+                  <option *ngFor="let title of titlesList;let i = index" [value]="title">{{title}}.
+                  </option>
+                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fname" class="col-md-4 control-label">Name</label>
+                            <div class="col-md-3 mb-xs">
+                                <div class="field_wrap">
+                                    <input type="text" class="form-control" id="fname" placeholder="Enter your first name" value="{{registrationVo.fName}}" name="fname" [(ngModel)]="registrationVo.fName" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="field_wrap">
+                                    <input type="text" class="form-control" id="lname" placeholder="Enter your last name" value="{{registrationVo.lName}}" name="lname" [(ngModel)]="registrationVo.lName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">Gender</label>
+                            <div class="col-sm-6">
+                                <label class="input_label">
+                  <input type="radio" #gender="ngModel" name="gender" class="male" value="Male"
+                    [(ngModel)]="registrationVo.gender" [checked]="registrationVo.gender == 'Male' ? 'true':'false'" />
+                  <span class="input_gender input_male"></span>
+                  <span class="text-center gender male">Male</span>
+                </label>
+                                <label class="input_label">
+                  <input type="radio" #gender="ngModel" name="gender" class="female" value="Female"
+                    [(ngModel)]="registrationVo.gender"
+                    [checked]="registrationVo.gender == 'Female' ? 'true':'false'" />
+                  <span class="input_gender input_female"></span>
+                  <span class="text-center gender female">Female</span>
+                </label>
+                                <label class="input_label">
+                  <input type="radio" #gender="ngModel" name="gender" class="others" value="Others"
+                    [(ngModel)]="registrationVo.gender"
+                    [checked]="registrationVo.gender == 'Others' ? 'true':'false'" />
+                  <span class="input_gender input_others"></span>
+                  <span class="text-center gender others">Others</span>
+                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">Referral Code</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="referralCode" [(ngModel)]="registrationVo.referralCode" placeholder="Enter Referral Code (if any)" maxlength="15" />
+                                <!--<input type="text" class="form-control" name="referralCode" [(ngModel)]="registrationVo.referralCode" placeholder="Enter Referral Code (if any)" maxlength="15" disabled="disabled" *ngIf="registrationVo.referralCode != undefined || registrationVo.referralCode != null"/>-->
+                            </div>
+                        </div>
+                        <legend>
+                            <h3 class="primary">How old are you?</h3>
+                        </legend>
+                        <div class="form-group row">
+                            <label for="birthdate" class="col-md-4 control-label"></label>
+                            <div class="col-sm-6 ">
+                                <label class="radio-inline date_txt">
+                  <input type="radio" name="ageButton" value="0" [checked]="isDOB" (change)="checkAgeSelection(0)" />
+                  Date of Birth
+                </label>
+                                <label class="radio-inline">
+                  <input type="radio" name="ageButton" value="1" [checked]="isAge" (change)="checkAgeSelection(1)" />
+                  Age
+                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="isDOB">
+                            <label for="birthdate" class="col-md-4">Age/Date of Birth</label>
+                            <div class="col-sm-6">
+                                <datetime [(value)]="memberDate" name="datepicker" id="datepicker" [datepicker]="datepickerOpts" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="isAge">
+                            <label for="birthdate" class="col-md-4 control-label" *ngIf="isAge">How old are you?</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" maxlength="3" (keypress)="validation.onlyNumbers($event)" class="form-control ageBox" required placeholder="Years" name="anameyear" id="anameyear" [(ngModel)]="ageYears" [disabled]="isAge1" (keypress)="validation.onlyNumbers($event)"
+                                        (keyup)="checkAgeYearvalidation(ageYears)" />Years
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" maxlength="2" (keypress)="validation.onlyNumbers($event)" class="form-control ageBox" required placeholder="Months" name="anamemon" id="anamemon" [(ngModel)]="ageMonths" [disabled]="isAge1" (keypress)="validation.onlyNumbers($event)"
+                                        (keyup)="checkAgeMonthvalidation(ageMonths)" />Months
+                                </div>
+                            </div>
+                        </div>
+
+                        <legend>
+                            <h3 class="primary">Social Information</h3>
+                        </legend>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">Social Handle</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="twitter" name="twitter" maxlength="20" placeholder="@jhon doe" [(ngModel)]="socialHandle" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">About Me</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="about" name="about" maxlength="250" placeholder="few words about you" [(ngModel)]="aboutMe" />
+                            </div>
+                        </div>
+
+                        <legend>
+                            <h3 class="primary">Contact Info</h3>
+                        </legend>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">Mobile Numbers</label>
+                            <div class="col-sm-6">
+                                <input *ngIf="this.registrationVo.relationShip == 0" type="text" disabled class="form-control" id="mobile" maxlength="10" minlength="10" (keypress)="validateNumberInputOnly($event)" placeholder="Your mobile number" value="{{registrationVo.contactInfo.mobile}}"
+                                    name="mobile" [(ngModel)]="registrationVo.contactInfo.mobile" />
+                                <input *ngIf="this.registrationVo.relationShip != 0" type="text" class="form-control" id="mobile" maxlength="10" minlength="10" (keypress)="validateNumberInputOnly($event)" placeholder="Your mobile number" value="{{registrationVo.contactInfo.mobile}}"
+                                    name="mobile" [(ngModel)]="registrationVo.contactInfo.mobile" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">Email</label>
+                            <div class="col-sm-6">
+                                <!-- <input type="email" *ngIf="this.registrationVo.relationShip == 0" disabled class="form-control"
+                  id="email" placeholder="Your email" value="{{registrationVo.contactInfo.email}}" name="email"
+                  [(ngModel)]="registrationVo.contactInfo.email" /> -->
+                                <input type="email" class="form-control" id="email" placeholder="Your email" value="{{registrationVo.contactInfo.email}}" name="email" [(ngModel)]="registrationVo.contactInfo.email" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-4 control-label">&nbsp;</div>
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                    <input type="checkbox" class="ec_check" id="ec_check" [checked]="isResidencialAddressVisible"
+                      (change)="onResidencialAddressCheckBoxClick()" />
+                    Add Residential Address
+                  </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="em_contact" id="em_contact" *ngIf="isResidencialAddressVisible">
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Address 1</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="rc_addr1" placeholder="Building name, street" value="{{residencialAddress.address1}}" name="rc_addr1" [(ngModel)]="residencialAddress.address1" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Address 2</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="rc_addr2" placeholder="Lane, suburb" value="{{residencialAddress.address2}}" name="rc_addr2" [(ngModel)]="residencialAddress.address2" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">State</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="state" id="state" class="form-control" disabled [(ngModel)]="residencialAddress.stateName" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">City</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="city" id="city" class="form-control" disabled [(ngModel)]="residencialAddress.cityName" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">PIN/Zip Code</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="zip_code" maxlength="6" minlength="6" (keypress)="validateNumberInputOnly($event)" placeholder="Enter your PIN/Zip code" (keyup)="getStateCityByPinCode($event.target.value,1)" (change)="getStateCityByPinCode($event.target.value,1)"
+                                        value="{{residencialAddress.pinCode}}" name="zip_code" [(ngModel)]="residencialAddress.pinCode" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-4 control-label">&nbsp;</div>
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                    <input type="checkbox" class="ins_check" id="ins_check" [checked]="isOfficeAddressVisible"
+                      (change)="onOfficeAddressCheckBoxClick()" />
+                    Add Official Address
+                  </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ins_details" id="ins_details" *ngIf="isOfficeAddressVisible">
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Address 1</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="ec_addr1" placeholder="Building name, street" [(ngModel)]="officeAddress.address1" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Address 2</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="ec_addr2" placeholder="Lane, suburb" [(ngModel)]="officeAddress.address2" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">State</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="state" id="state" class="form-control" disabled [(ngModel)]="officeAddress.stateName" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">City</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="city" id="city" class="form-control" disabled [(ngModel)]="officeAddress.cityName" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">PIN/Zip Code</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="zip_code" placeholder="Enter your PIN/Zip code" [(ngModel)]="officeAddress.pinCode" maxlength="6" minlength="6" (keypress)="validateNumberInputOnly($event)" (keyup)="getStateCityByPinCode($event.target.value,2)"
+                                        (change)="getStateCityByPinCode($event.target.value,2)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-4 control-label">&nbsp;</div>
+                            <div class="col-sm-6">
+                                <div class="checkbox">
+                                    <label>
+                    <input type="checkbox" class="ins_check1" id="ins_check1" [checked]="isEmergencyAddressVisible"
+                      (change)="onEmergencyAddressCheckBoxClick()" />
+                    Add Emergency Contact
+                  </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ins_details1" id="ins_details1" *ngIf="isEmergencyAddressVisible">
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="ec_name" placeholder="Enter the person's name" [(ngModel)]="registrationVo.emergencyContact.name" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Mobile</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="ec_mobile" placeholder="Enter the person's mobile" [(ngModel)]="registrationVo.emergencyContact.mobile" maxlength="10" minlength="10" (keypress)="validateNumberInputOnly($event)" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Email</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="ec_email" placeholder="Enter the person's email" [(ngModel)]="registrationVo.emergencyContact.email" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Address 1</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="ec_addr1" placeholder="Building name, street" [(ngModel)]="registrationVo.emergencyContact.address.address1" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">Contact Person's Address 2</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="ec_addr2" placeholder="Lane, suburb" [(ngModel)]="registrationVo.emergencyContact.address.address2" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">State</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="state" id="state" class="form-control" disabled [(ngModel)]="registrationVo.emergencyContact.address.stateName" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">City</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="city" id="city" class="form-control" disabled [(ngModel)]="registrationVo.emergencyContact.address.cityName" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label">PIN/Zip Code</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="zip_code" placeholder="Enter your PIN/Zip code" [(ngModel)]="registrationVo.emergencyContact.address.pinCode " maxlength="6" minlength="6" (keypress)="validateNumberInputOnly($event)" (keyup)="getStateCityByPinCode($event.target.value,3)"
+                                        (change)="getStateCityByPinCode($event.target.value,3)" />
+                                </div>
+                            </div>
+                        </div>
+                        <legend>
+                            <h3 class="primary">Topics of Interests</h3>
+                        </legend>
+                        <br />
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 next_personal">
+                            What are your topics of interests?
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 liststyle" *ngFor="let areaOfInterest of areaOfInterestList; let i = index ">
+                                <input type="checkbox" class="checkbox" (change)="areaOfInterest.isChecked = !areaOfInterest.isChecked" [checked]="areaOfInterest.isChecked" />
+                                <label>{{areaOfInterest.name}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="pageIndex != 0 && dataVisibility">
+                        <div *ngFor="let activity of this.phr.phr[pageIndex-1].activities">
+                            <div *ngIf="activity.text!='Address'&& activity.text!='Emergency Contact'">
+                                <h3 class="primary">{{activity.text}}</h3>
+
+                                <div *ngFor="let question of activity.question;let i = index">
+                                    <div class="form-group row" component_options_for_height *ngIf="question.componentId == 1 && activity.taskId == 100">
+                                        <label class="col-md-4 control-label">{{question.desc}}</label>
+                                        <div class="col-md-2" *ngIf="heightUnitBoolean">
+                                            <div class="field_wrap">
+                                                <select id="feet" name="feet" (change)="updateUpdatedBy(question)" class="form-control" [(ngModel)]="dropDownIndexForFeet" [ngModelOptions]="{standalone:true}" (change)="onFeetDropDownChange($event.target.value);calculateBMI()">
+                          <option [value]="0" selected>Select Feet</option>
+                          <option [value]="1">1</option>
+                          <option [value]="2">2</option>
+                          <option [value]="3">3</option>
+                          <option [value]="4">4</option>
+                          <option [value]="5">5</option>
+                          <option [value]="6">6</option>
+                          <option [value]="7">7</option>
+                          <option [value]="8">8</option>
+                          <option [value]="9">9</option>
+                        </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" *ngIf="heightUnitBoolean">
+                                            <div class="field_wrap">
+                                                <select id="inch" name="inch" (change)="updateUpdatedBy(question)" class="form-control" [(ngModel)]="dropDownIndexForInch" [ngModelOptions]="{standalone:true}" (change)="onInchDropDownChange($event.target.value);calculateBMI()">
+                          <option [value]="0" selected>Select Inch</option>
+                          <option [value]="1">1</option>
+                          <option [value]="2">2</option>
+                          <option [value]="3">3</option>
+                          <option [value]="4">4</option>
+                          <option [value]="5">5</option>
+                          <option [value]="6">6</option>
+                          <option [value]="7">7</option>
+                          <option [value]="8">8</option>
+                          <option [value]="9">9</option>
+                          <option [value]="10">10</option>
+                          <option [value]="11">11</option>
+                        </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" *ngIf="!heightUnitBoolean">
+                                            <div class="form-group">
+                                                <input type="text" id="height" (change)="updateUpdatedBy(question)" class="form-control" placeholder="Enter Height" name="height" [(ngModel)]="heightCms" (keypress)="validateDecimalValue($event)" (keyup)="onHeightCmChange($event.target.value);calculateBMI()"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <select class="form-control" (change)="updateUpdatedBy(question)" (change)="onHeightUnitDropDownChange($event.target.value);" [(ngModel)]="dropDownIndexForHeightUnit" [ngModelOptions]="{standalone:true}">
+                          <option *ngFor="let unit of heightUnit;let i = index" [value]="i">{{unit}}</option>
+                        </select>
+                                            </div>
+                                            <!-- /input-group -->
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" component_options *ngIf="question.componentId == 1 && activity.taskId != 100">
+                                        <label class="col-md-4 control-label">{{question.desc}}</label>
+                                        <div class="col-md-3">
+                                            <div class="field_wrap">
+                                                <select name="feet" id="feet" (change)="updateUpdatedBy(question)" class="form-control" [(ngModel)]="feet">
+                          <option *ngFor="let choice of question.choices[0]" [value]="choice.option">{{choice.option}}
+                          </option>
+                        </select>
+                                            </div>
+                                            <!-- /input-group -->
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="field_wrap">
+                                                <select name="inches" id="inches" (change)="updateUpdatedBy(question)" class="form-control" [(ngModel)]="inch">
+                          <option *ngFor="let choice of question.choices[1]" [value]="choice.option">{{choice.option}}
+                          </option>
+                        </select>
+                                            </div>
+                                            <!-- /input-group -->
+                                        </div>
+                                    </div>
+                                    <div class="form-group row component_txt" component_Entry_for_weight *ngIf="question.componentId == 2 && activity.taskId == 101">
+                                        <label class="col-md-4 control-label">{{question.desc}}</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="number" (change)="updateUpdatedBy(question)" *ngIf="question.inputType == 2 && question.maxLength == 0" id="weight" class="form-control" placeholder="Enter Weight" name="weight" [(ngModel)]="weight" (keyup)="onWeightChange($event.target.value);calculateBMI()"
+                                                    min="0" oninput="validity.valid||(value='');" step="0.01" (keypress)="validateDecimalValue($event)" />
+                                                <input type="number" (change)="updateUpdatedBy(question)" *ngIf="question.inputType == 2 && question.maxLength != 0" maxlength="{{question.maxLength}}" id="weight" min="0" oninput="validity.valid||(value='');" step="0.01" class="form-control" placeholder="Enter Weight"
+                                                    name="weight" [(ngModel)]="weight" (keyup)="onWeightChange($event.target.value);calculateBMI()" (keypress)="validateDecimalValue($event)" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select id="weightunit" (change)="updateUpdatedBy(question)" name="weightunit" class="form-control" (change)="onWeightUnitDropDownChange($event.target.value)" [(ngModel)]="dropDownIndexForWeightUnit" [ngModelOptions]="{standalone:true}">
+                        <option *ngFor="let wunit of weightUnit;let i = index" [value]="i">{{wunit}}</option>
+                      </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row component_txt" component_Entry *ngIf="question.componentId == 2 && activity.taskId != 101">
+                                        <label class="col-md-4 control-label">{{question.text}}</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" (change)="updateUpdatedBy(question)" *ngIf="question.inputType == 2 && question.maxLength == 0" (keypress)="validateNumberInputOnly($event)" class="form-control" id="ec_addr1" placeholder="{{question.text}}" name="entry" [(ngModel)]="question.ans"
+                                            />
+                                            <input type="text" (change)="updateUpdatedBy(question)" *ngIf="question.inputType == 2 && question.maxLength != 0" maxlength="{{question.maxLength}}" (keypress)="validateNumberInputOnly($event)" class="form-control" id="ec_addr1" placeholder="{{question.text}}"
+                                                name="entry" [(ngModel)]="question.ans" />
+                                            <input type="text" (change)="updateUpdatedBy(question)" *ngIf="question.inputType != 2" class="form-control" id="ec_addr1" placeholder="{{question.text}}" name="entry" [(ngModel)]="question.ans" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row component_txt" component_Entry_for_bmi *ngIf="question.componentId == 2 && activity.taskId == 101">
+                                        <h3 class="primary col-md-12 control-label">BMI</h3>
+                                        <p class="col-md-4 control-label">Your BMI (Kg/m²)</p>
+                                        <div class="col-md-6">
+                                            <input type="number" (change)="updateUpdatedBy(question)" readonly id="Bmi" class="form-control" name="Bmi" [(ngModel)]="bmi" value="{{bmi}}" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" component_option *ngIf="question.componentId == 0">
+                                        <label for="marital_status" class="col-md-4 control-label">{{question.text}}</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" (change)="updateUpdatedBy(question)" [(ngModel)]="question.ans">
+                        <option *ngFor="let choice of question.choices[0]" [value]="choice.id">{{choice.option}}
+                        </option>
+                      </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-8" *ngIf="question.componentId == 4">
+                                        <input type="checkbox" class="question_txt" (change)="updateUpdatedBy(question)" id="{{question.id}}" name="{{question.id}}" [checked]="question.isChecked" [value]="question.isChecked" (change)="question.isChecked = !question.isChecked" />
+                                        <label for="{{question.id}}">
+                      <span class="ailment_text">{{question.text}}</span>
+                    </label>
+                                    </div>
+                                    <div class="col-md-7 family-ques" *ngIf="question.componentId == 5">
+                                        <input type="checkbox" id="{{question.id}}+99" (change)="updateUpdatedBy(question)" name="{{question.id}}+99" class="custom-chk1 question_txt" [checked]="question.ans=='' ? false : true" [value]="question.ans=='' ? false : true" (change)="onFamilyHeaderCheckboxChange(question)"
+                                        />
+                                        <label for="{{question.id}}+99">
+                      <span class="ailment_icon diabetes"></span>
+                      <span class="ailment_text">{{question.text}}</span>
+                    </label>
+                                        <div class="checkbox-group">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div>
+                                                        <ul class="list-unstyled">
+                                                            <li *ngFor="let choice of question.choices[0]">
+                                                                <input type="checkbox" (change)="updateUpdatedBy(question)" class="question_txt" id="{{choice.id}}" name="{{choice.id}}" [checked]="choice.isChecked" (change)="manageCheckofFamilyQues(question,choice)" />
+                                                                <label for="{{choice.id}}">{{choice.option}}</label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-sm-offset-4 col-sm-7 next_personal">
+                                <button type="submit" class="btn btn-primary" (click)="onSaveAndContinueClick()" *ngIf="pageIndex == 0">
+                  Save &amp; Continue
+                </button>
+                                <button type="button" class="btn btn-inverse" *ngIf="pageIndex == phr.phr.length-1 && dataVisibility" (click)="onUpdateClick()">
+                  Update
+                </button>
+                                <button type="button" class="btn btn-inverse" *ngIf="pageIndex != phr.phr.length-1 && pageIndex != 0 && dataVisibility" (click)="onNextClick()">
+                  Next
+                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    $(document).on("click", ".navbar-collapse.in", function(e) {
+        if ($(e.target).is("a")) {
+            $(this).collapse("hide");
+        }
+    });
+</script>
+<script src="js/classie.js"></script>
+<script>
+    function init() {
+        window.addEventListener("scroll", function(e) {
+            var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+                shrinkOn = 200,
+                nav = document.querySelector("nav");
+            if (distanceY > shrinkOn) {
+                classie.add(nav, "smaller");
+            } else {
+                if (classie.has(nav, "smaller")) {
+                    classie.remove(nav, "smaller");
+                }
+            }
+        });
+    }
+    window.onload = init();
+</script>
+
+<spinner-component></spinner-component>

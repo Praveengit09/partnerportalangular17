@@ -1,0 +1,100 @@
+.mat-form-field {
+    width: 100% !important;
+    min-width: 150px;
+}
+
+.date_txt ::ng-deep .datepicker {
+    width: 100% !important;
+    min-width: 150px;
+}
+
+.date_txt ::ng-deep .datepicker input {
+    text-align: left !important;
+}
+
+@media screen and (min-width:992px) {
+    .orderIdmrgn .search-orders {
+        margin-top: 24px !important;
+    }
+}
+
+.btn{
+    margin-top: 5px;
+}
+
+
+.buttonCounts {
+    margin-left: 0px;
+}
+
+.paymentPendingOrders {
+    background-color: #f59a4b;
+}
+
+.cancelledOrders {
+    background-color: #999999;
+    /*padding-right: 10px;*/
+}
+
+.appOrders{
+    background-color:#FF6D6D;
+}
+.centerOrders{
+    background-color:rgb(213, 140, 213);
+}
+.websiteOrders{
+    background-color:cornflowerblue;
+}
+
+.vendorUnAssignedOrders {
+    background-color: #CD5C5C;
+}
+
+.vendorRejectedOrders {
+    background-color: #9f6f21;
+}
+
+.phleboUnAssignedOrders {
+    background-color: #27d2b3;
+}
+
+.phleboRejected {
+    background-color: #fe4343;
+}
+
+.addresschgd {
+    background-color: #23D6D5;
+}
+
+.notification {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    margin: 5px;
+    border: 1px solid #00000073;
+}
+
+.notification:focus {
+    outline: none;
+}
+
+.all_fillter_btn .active {
+    border: 2px solid #00000073 !important;
+}
+.notification .inside-badge{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #555555;
+    border-radius: 100px;
+    margin-left: 5px;
+}

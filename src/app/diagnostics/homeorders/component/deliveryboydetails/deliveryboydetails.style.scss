@@ -1,0 +1,44 @@
+.button_addtxt {
+    background-color: #14a9b5;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    float: right;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    cursor: pointer;
+}
+
+.fname_discount_text {
+    width: 150px;
+    margin: 8px;
+}
+
+.title {
+    margin-left: 5px;
+}
+
+#inventoryModal .modal-header .close {
+    margin-top: 5px;
+}
+
+#inventoryModal input[type=number]::-webkit-inner-spin-button,
+#inventoryModal input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+#inventoryModal input[type=number] {
+    @include appearance(textfield);
+}
+.add-inventorybtn {
+    text-align: right;
+}
+.add-inventorybtn .button_addtxt {
+    float: none;
+}
+.add-inventorybtn p {
+    margin-right: 5px;
+}

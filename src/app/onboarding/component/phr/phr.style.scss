@@ -1,0 +1,109 @@
+progress {
+	height: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.29);
+    background-color: #fff;
+    color: #f15f57;
+    width: 100%;
+    border-radius: 4px;
+}
+
+progress::-webkit-progress-bar {  
+	background-color: #fff;
+}  
+progress::-webkit-progress-value {  
+	background-color: #f15f57;
+}  
+
+progress::-moz-progress-bar {  
+	background-color: #f15f57;
+}  
+progress[value]::-webkit-progress-value::before {
+  content: '80%';
+  position: absolute;
+  right: 0;
+  top: -125%;
+}
+.progress_bar ul{
+list-style: none;
+padding-left: 0px;
+}
+.progress_bar ul li{
+    display: inline;
+    float: left;
+}
+.progress_txt{
+    padding-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.form-box {
+    padding-top: 0px;
+}
+.f1 {
+    padding: 0px;
+    background: #fff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.f1-steps {
+    overflow: hidden;
+    position: relative;
+    margin-top: 10px;
+}
+.basic_txt{
+ 
+    margin-bottom: 0px;
+}
+.f1-progress { position: absolute; top: 24px; left: 0; width: 100%; height: 1px; background: #ddd; }
+.f1-progress-line { position: absolute; top: 0; left: 0; height: 1px; background: #1dc8d5; }
+
+.f1-step { position: relative; float: left; text-align: center; width:14%; }
+
+.f1-step-icon {
+	display: inline-block;   height: 40px; margin-top:7px; 
+    
+	font-size: 16px; color: #fff; line-height: 40px;
+	-moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;
+}
+.f1-step.activated .f1-step-icon {
+	background: #fff; border: 1px solid #f35b3f; color: #f35b3f; line-height: 38px;
+}
+.f1-step.active .f1-step-icon {
+	width: 48px; height: 48px; margin-top: 0; background: #f35b3f; font-size: 22px; line-height: 48px;
+}
+.f1-step p { color: #ccc; text-align: center; }
+.f1-step.activated p { color: #f35b3f; }
+.f1-step.active p { color: #f35b3f; }
+
+.f1 fieldset { display: none; text-align: left; }
+
+.f1-buttons { text-align: right; }
+
+.f1 .input-error { border-color: #f35b3f; }
+.f1-step a .past {
+   background: url(../../../../assets/img/phr3.png) no-repeat;
+   
+    
+}
+.f1-step a .present {
+   background: url(../../../../assets/img/phr1.png) no-repeat;
+  
+}
+.f1-step a .future {
+  background: url(../../../../assets/img/phr.png)   no-repeat;
+ 
+ 
+}
+.ic_progressbar {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+}
+.progress_indicator{
+ 
+text-decoration: none;
+}
+.progress_indicator:hover{
+  text-decoration: none;  
+}

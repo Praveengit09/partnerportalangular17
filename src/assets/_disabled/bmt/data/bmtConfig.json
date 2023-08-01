@@ -1,0 +1,48 @@
+{
+    "name": "Book My Diagnostics",
+    "appId": 43,
+    "website": "https://bookmydiagnostics.com/",
+    "websiteLabel": "bookmydiagnostics.com",
+    "email": "info@bookmydiagnostics.com",
+    "contactnumber": "7623823456",
+    "iconspath": "assets/bmt/icons/",
+    "facebook": "https://www.facebook.com/",
+    "twitter": "https://twitter.com/",
+    "linkedin": "https://www.linkedin.com/company/",
+    "gtmKey": "UA-92315709-3",
+    "specialFeatures": {
+        "adminBrand": false,
+        "adminRoles": false,
+        "internalFinanicalReports": false,
+        "centralHomeCare": false,
+        "digiReception": false,
+        "onboardingPartner": true,
+        "appOnboardingRequest": false,
+        "misReports": false,
+        "communityPackages": true,
+        "enableInPatientBilling": false
+    },
+    "customizations": {
+        "allBrandsAccess": false,
+        "referredByCheckout": false,
+        "walletEnabled": false,
+        "postWalletEnabled": false,
+        "emailPrimaryConsumerLogin": false
+    },
+    "doctorOptions": {
+        "enableDoctorWidgets": true,
+        "enableDoctorShareCard": true,
+        "enableDoctorChat": true,
+        "enableFixedNextBtn": true,
+        "disableDoctorWaitingTime": false,
+        "disablePromotionalDiagnosis": false,
+        "disablePrintVideoPresc": false,
+        "enableDeletePrescription": false
+    },
+    "pharmacyOptions": {
+        "enableStockValidation": false
+    },
+    "productOptions": {
+        "enableStockValidation": false
+    }
+}

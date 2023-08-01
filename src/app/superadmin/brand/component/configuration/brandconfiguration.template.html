@@ -1,0 +1,245 @@
+<div class="table_size">
+
+    <h1 class="page-title">Brand Configurations</h1>
+
+    <form>
+        <!-- Form start -->
+        <!-- <div class="row"> [(ngModel)]="brandDetails.brandName"-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="name">AppId</label>
+                <input id="appId" name="name" type="text" [(ngModel)]="brandConfigurations.appId" placeholder="App Id"
+                    class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">BrandId</label>
+                <input name="brandId" type="text" [(ngModel)]="brandConfigurations.brandId" placeholder="brandId"
+                    class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Small Platform</label>
+                <input name="smallPlatform" [(ngModel)]="brandConfigurations.smallPlatform" type="text"
+                    placeholder="Small Platform" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Capital Platform</label>
+                <input name="capitalPlatform" [(ngModel)]="brandConfigurations.capitalPlatform" type="text"
+                    placeholder="Capital Platform" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Partner Text</label>
+                <input name="partnerText" [(ngModel)]="brandConfigurations.partnerText" type="text"
+                    placeholder="Partner Text" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Caption Text</label>
+                <input name="captionText" [(ngModel)]="brandConfigurations.captionText" type="text"
+                    placeholder="CaptionText" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Brand Site Url</label>
+                <input name="brandSiteUrl" [(ngModel)]="brandConfigurations.brandSiteUrl" type="text"
+                    placeholder="brand Site Url" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Contact Email</label>
+                <input name="contactEmail" [(ngModel)]="brandConfigurations.contactEmail" type="text"
+                    placeholder="Contact Email" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Support Email</label>
+                <input name="supportEmail" [(ngModel)]="brandConfigurations.supportEmail" type="text"
+                    placeholder="Support Email" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Brand Logo Url</label>
+                <input name="brandLogoUrl" [(ngModel)]="brandConfigurations.brandLogoUrl" type="text"
+                    placeholder="Brand Logo Url" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Footer Image Url</label>
+                <input name="footerImageUrl" type="text" [(ngModel)]="brandConfigurations.footerImageUrl"
+                    placeholder="Footer Image Url" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Sprite Image Url</label>
+                <input name="spriteImageUrl" type="text" [(ngModel)]="brandConfigurations.spriteImageUrl"
+                    placeholder="Sprite Image Url" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Footer Text</label>
+                <input name="footerText" type="text" [(ngModel)]="brandConfigurations.footerText"
+                    placeholder="Footer Text" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Playstore Url</label>
+                <input name="playstoreUrl" type="text" [(ngModel)]="brandConfigurations.playstoreUrl"
+                    placeholder="Playstore Url" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Appstore Url</label>
+                <input name="appstoreUrl" type="text" [(ngModel)]="brandConfigurations.appstoreUrl"
+                    placeholder="Appstore Url" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">DeepLink</label>
+                <input name="deeplink" type="text" [(ngModel)]="brandConfigurations.deeplink" placeholder="Deeplink"
+                    class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">ConsumerPortal Url</label>
+                <input name="consumerPortalUrl" type="text" [(ngModel)]="brandConfigurations.consumerPortalUrl"
+                    placeholder="ConsumerPortal Url" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">SequenceId Prefix</label>
+                <input name="sequenceIdPrefix" type="text" [(ngModel)]="brandConfigurations.sequenceIdPrefix"
+                    placeholder="SequenceId Prefix" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Sequence Counter Prefix</label>
+                <input name="sequenceCounterPrefix" type="text" [(ngModel)]="brandConfigurations.sequenceCounterPrefix"
+                    placeholder="Sequence Counter Prefix" class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Sqs Url</label>
+                <input name="sqsUrl" type="text" placeholder="Sqs Url" [(ngModel)]="brandConfigurations.sqsUrl"
+                    class="form-control input-md">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Sqs Queue Name</label>
+                <input name="sqsQueueName" type="text" [(ngModel)]="brandConfigurations.sqsQueueName"
+                    placeholder="Sqs Queue Name" class="form-control input-md">
+            </div>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="col-md-5">
+                <label class="list_title5">Would you like to Enable Sqs Queue?</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation" [checked]="brandConfigurations.sqsQueueEnabled"
+                        (change)="changeData('sqsQueueEnabled')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+        <div class="row col-md-12">
+            <div class="col-md-5">
+                <label class="list_title5">Would you like to Enable AutoRoutingPrescription?</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation"
+                        [checked]="brandConfigurations.autoRoutingPrescriptionEnabled"
+                        (change)="changeData('autoRoutingPrescriptionEnabled')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+        <div class="row col-md-12">
+            <div class="col-md-5">
+                <label class="list_title5">Would you like to Enable PrescriptionPharmacyHomeDelivery?</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation"
+                        [checked]="brandConfigurations.prescriptionPharmacyHomeDeliveryEnabled"
+                        (change)="changeData('prescriptionPharmacyHomeDeliveryEnabled')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+        <div class="row col-md-12">
+            <div class="col-md-5">
+                <label class="list_title5">Would you like to Enable PrescriptionDiagnosticHomeDelivery?</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation"
+                        [checked]="brandConfigurations.prescriptionDiagnosticHomeDeliveryEnabled"
+                        (change)="changeData('prescriptionDiagnosticHomeDeliveryEnabled')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+        <div class="row col-md-12">
+            <div class="col-md-5">
+                <label class="list_title5">Would you like to Enable PrescriptionPharmacyWalkin?</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation"
+                        [checked]="brandConfigurations.prescriptionPharmacyWalkinEnabled"
+                        (change)="changeData('prescriptionPharmacyWalkinEnabled')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+        <div class="row col-md-12">
+            <div class="col-md-5">
+                <label class="list_title5">Would you like to Enable PrescriptionDiagnosticWalkin?</label>
+            </div>
+            <div class="col-md-2">
+                <label class="switch">
+                    <input type="checkbox" id="homeConsultation"
+                        [checked]="brandConfigurations.prescriptionDiagnosticWalkinEnabled"
+                        (change)="changeData('prescriptionDiagnosticWalkinEnabled')">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>&nbsp;
+
+        &nbsp;<div class="col-md-12">
+            <div class="form-group">
+                <button id="singlebutton" name="singlebutton" class="btn  Update" (click)="submitBrandConfig()">{{"Submit"
+                    | uppercase}}</button>
+            </div>
+        </div>
+        <!-- </div> -->
+    </form>
+
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+</div>
+<spinner-component></spinner-component>

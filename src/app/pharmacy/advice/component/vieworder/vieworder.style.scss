@@ -1,0 +1,229 @@
+
+.advice_text{
+    padding-left: 0px;
+}
+.advice_text h2{
+font-size: 30px;
+    color: #14a9b5;
+    font-weight: 500;
+}
+.patient_txt{
+float: left;
+}
+.with_txt{
+margin-bottom: 0px;
+font-size: 11px;
+}
+.schedule_txt{
+    border-top: none!important;
+    padding: 0px !important;
+    color:#000;
+   
+    font-size: 12px;
+    margin-bottom: 0px;
+
+}
+.back_btn{
+    // float: right;
+    color:#fff;
+    background: #14a9b5;
+    margin-top: 15px;
+}
+.submit_btn {
+    // float: right;
+    color: #ffffff;
+    background-color: #dd5826;
+    margin-top: 15px;
+}
+.widget_txt2 {
+   position: relative;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    margin-top: 10px;
+    float: left;
+    width: 100%;
+  
+}
+.widget_txt2 .patient_txt h4,.widget_txt2  .patient_txt p{
+    margin: 0px;
+    font-weight: 400;
+
+}
+.fname-txt{
+width: 120px;
+font-size: 13px;
+    text-align: center;
+}
+.fname_2txt{
+    width: 60px;
+    font-size: 13px;
+    text-align: center;
+}
+.fname_3txt{
+width: 70px;
+font-size: 13px;
+    text-align: center;
+}
+.fname_4txt{
+width: 110px;
+font-size: 13px;
+    text-align: center;
+}
+.fname_5txt{
+width: 130px;
+font-size: 13px;
+    text-align: center;
+}
+.fname_6txt{
+width: 50px;
+font-size: 13px;
+    text-align: center;
+}
+input[placeholder], [placeholder], *[placeholder] {
+    color: #000 !important;
+}
+.perscripton_txt{
+font-size: 24px;
+  color: rgba(20, 169, 181, 0.8);
+  font-weight: 500;
+  
+  } 
+.from_txt{
+width: 540px;
+}
+.from_txt, .submit_txt{
+    float: right;
+}
+
+.add_medtxt{
+padding: 0px 43px 0px;
+    font-size: 30px;
+    color: #14a9b5;
+    font-weight: 500;
+}
+
+.model_txt{
+float: right;
+    right: 0px;
+    width: 400px;
+}
+.modal-body {
+    position: relative;
+    padding: 0px 45px 25px !important;
+}
+
+.modal.right.fade .modal-dialog {
+		right: -320px;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		        transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
+	
+	.modal.right.fade.in .modal-dialog {
+		right: 0;
+    margin: 0px;
+	}
+  .modal-content {
+		border-radius: 0;
+		border: none;
+	}
+
+	.modal-header {
+	border-bottom-color: transparent;
+    background-color: transparent;
+      padding: 15px 15px 11px 0px;
+    border-bottom: none;
+}
+.close_txt{
+font-size: 40px;
+}
+.Update {
+  width: 172px;
+  height: 17px;
+ 
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  width: 172px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+}
+.all_textboxtxt {
+
+
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+.prient_txt{
+background-color: rgba(123, 106, 106, 0.38) !important;
+    border: 1px solid #ececec !important;
+    color: #000 !important;
+    margin-right: 0px;
+}
+
+.submit_txt{
+    background-color: #dd5826;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 5px 35px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.total_txt{
+    font-weight: 500;
+}
+@media only screen and (min-width: 320px) {
+    .widget-body { overflow-x: scroll; }
+}
+@media only screen and (min-width: 1200px) {
+    .widget-body { overflow-x:hidden; }
+}
+
+@media screen and (max-width: 400px) {
+    .from_txt {
+        width: auto;
+    }
+}
+
+.invoice_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .invoice_widget {
+        border: none !important;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .table td{
+        width: 11%!important;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .widget_txt2 .patient_txt {
+        margin-bottom: 15px;
+    }
+}
+.from_txt .col-md-5, .from_txt .col-md-7 {
+    margin-bottom: 25px;
+    line-height: 20px;
+}
+.quantity_txt1 {
+    padding: 0px;
+    margin: 0px;
+    color: green;
+    text-align: left;
+    font-size: 15px;
+    padding-bottom: 5px;
+}

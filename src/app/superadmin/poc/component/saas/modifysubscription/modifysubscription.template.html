@@ -1,0 +1,83 @@
+<section class="subscription">
+    <div class="subscripe-info text-center">
+        <!-- <h1>{{(Config.portal.name) || "MyMedic"}} Premium Subscription Plans</h1> -->
+        <h1>MyMedic Premium Subscription Plans</h1>
+
+        <p>Introducing First of Its kind Digital Health B2B Platform & Services for all Your HPM, HSM & HLM needs along
+            with seamless Digital Hospital Management System. A platform plug-in that expands the business models for
+            Pharmacies.</p>
+        <div class="plan-info hidden-md-down">
+            <ng-container *ngFor='let subscription of subscriptionPlansCategoryList;let i = index'>
+                <!-- <div class=`plan-infocard pointer-cursor ${{plan.isSelected==true && active}}`> -->
+
+
+                <div class="plan-infocard pointer-cursor" (click)="onSassSubscriptionPlansClickHandler(i)">
+                    <h3 class="mb-0">{{subscription.categoryName}}</h3>
+                    <p>{{subscription.description}}</p>
+                </div>
+
+            </ng-container>
+
+
+
+        </div>
+        <div class="plan-info hidden-lg-up">
+            <div class="dropdown plan-infocard pointer-cursor">
+                <button class="dropdown-toggle modify-heading btn text-left" data-toggle="dropdown" type="button">
+                    <h5 class="mb-0">Pharmacy Plans</h5>
+                    <p>Manage your pharmacy better!</p><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu keep-open">
+                    <li>
+                        <div class="plan-infocard pointer-cursor row">
+                            <h5 class="col-md-12 col-12">Pharmacy Plans</h5>
+                            <p class="col-md-12 col-12">Manage your pharmacy better!</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="plan-infocontent">
+        <ng-container *ngFor="let item of fiteredSubscriptionsBasedOnCategory;let j=index">
+            <div class="plan-detailwidget">
+                <h4 class="text-white mb-0 heading">{{item.productName}}</h4>
+                <div class="plan-detail">
+
+                    <ul *ngIf="item.productDescription">
+                        <li>{{item.productDescription}}</li>
+                    </ul>
+
+                    <ng-template [ngIf]="item && item?.detailedDescriptionList &&
+                    item.detailedDescriptionList?.length > 0">
+
+                        <ng-container *ngFor="let desc of item?.detailedDescriptionList">
+                            <ul>
+                                <ng-container *ngFor="let contentItem of desc?.content">
+                                    <li> {{contentItem}}</li>
+                                </ng-container>
+                            </ul>
+                        </ng-container>
+
+                    </ng-template>
+
+                    <div class="cost-info">
+                        <h5 class="strike">{{item.grossPrice}}/mo</h5>
+                        <h4><b>{{item.netPrice}}/mo</b></h4>
+                    </div>
+                    <div class="p-3 buy-package">
+                        <button class="w-100 p-2 text-white buy-package-spacing"
+                            (click)="this.onSubscriptionSelectHandler(item)">Buy
+                            Subscription</button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+
+
+    </div>
+
+</section>
+
+<spinner-component></spinner-component>

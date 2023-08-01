@@ -1,0 +1,549 @@
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="row" *ngIf="processOrderDetails.remarks">
+    <div class="col-md-12">
+        <p>
+            <span class="remarks">Remarks:</span> {{processOrderDetails.remarks}}
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-12 processid_text">
+        <h1 class="page-title">Order ID: {{processOrderDetails.orderId}}</h1>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-6">
+        <button type="button" class="btn reject_btn" data-toggle="modal" (click)="onInvoiceClick()"
+            data-target="#invoiceModal">VIEW INVOICE</button>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-6" *ngIf="processOrderDetails.actionStatus!=this.actionStatus.NEW 
+    && processOrderDetails.actionStatus!=this.actionStatus.COMPLETED 
+    && processOrderDetails.actionStatus!=this.actionStatus.PENDING_CUSTOMER_APPROVAL 
+    && processOrderDetails.actionStatus!=this.actionStatus.REJECTED 
+    && processOrderDetails.actionStatus!=this.actionStatus.CANCELLED 
+    && processOrderDetails.actionStatus!=this.actionStatus.PENDING_VENDOR_DELIVERY_APPROVAL">
+        <button type="button" class="btn reject_btn" (click)="openCancelOrderModal()">CANCEL ORDER</button>
+    </div>
+</div>
+
+<div class="col-lg-12">
+    <section class="newadd_process  row" widget="">
+        <div class="col-md-12 col-sm-12 col-xs-12 panding_approvetxt"
+            *ngIf="processOrderDetails.actionStatus==actionStatus.PENDING_CUSTOMER_APPROVAL">
+            <!-- <p>Order Modified, Awaiting Customer Approval</p> -->
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 processid_text"
+            *ngIf="processOrderDetails.actionStatus==actionStatus.CUSTOMER_APPROVED">
+            <!-- <p>Order Modified, Customer Approved</p> -->
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 processid_text" *ngIf="processOrderDetails.actionStatus==actionStatus.VENDOR_DELIVERY_INITIATED 
+        || processOrderDetails.actionStatus==actionStatus.DELIVERY_INITIATED">
+            <p>Out for Delivery</p>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt arrprove_pending">
+            <p>Patient</p>
+            <h4>{{processOrderDetails.cartItem.patientProfileDetails.title?processOrderDetails.cartItem.patientProfileDetails.title+".
+                ":''}} {{processOrderDetails.cartItem.patientProfileDetails.fName}}
+                {{processOrderDetails.cartItem.patientProfileDetails.lName?processOrderDetails.cartItem.patientProfileDetails.lName:''}}
+            </h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt arrprove_pending">
+            <p>Delivery Area &amp; Address</p>
+            <h4> {{processOrderDetails.address}}
+            </h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12 editprocess_txt arrprove_pending prescription_jpg">
+            <p>Prescription Documents</p>
+            <h5>{{processOrderDetails.cartItem.convertedDocumentUrlList!=null &&
+                processOrderDetails.cartItem.convertedDocumentUrlList.length>0?'Available':'Not Available'}}
+            </h5>
+        </div>
+    </section>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding"
+    *ngIf="processOrderDetails.cartItem.convertedDocumentUrlList!=null && processOrderDetails.cartItem.convertedDocumentUrlList.length>0">
+    <h2>Prescription Documents</h2>
+</div>
+<!-- *ngIf="processOrderDetails.actionStatus == 0 || processOrderDetails.actionStatus == 7" -->
+<div class="col-lg-12"
+    *ngIf="processOrderDetails.cartItem.convertedDocumentUrlList!=null && processOrderDetails.cartItem.convertedDocumentUrlList.length>0">
+    <section class="newadd_process  row" widget="">
+        <div class="col-lg-12 prescription_scroll"
+            *ngFor="let item of processOrderDetails.cartItem.convertedDocumentUrlList ; let i =index">
+            <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup"
+                    data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+            <div *ngIf="item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() == 'pdf'">
+                <embed width="100%" height="100%" id="pdfEmbed" />
+                <!-- <embed width="100%" height="300px" src="http://drive-html-viewer.pansy.at/?state=%7B%22ids%22:%5B%221ZgchUUkpsktsq0tR4Dhnc7mfD_5SW4Jc%22%5D,%22action%22:%22open%22,%22userId%22:%22112591283131725379773%22%7D "> -->
+                <!-- <object width="400" height="400" [attr.data]="item" type="application/pdf"> </object> -->
+                <!-- <iframe src="{{item}}"  width="100%" height="300px"></iframe> -->
+                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')"
+                    class="image_clickpdf" data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding">
+    <h2>Prescription</h2>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <section class="process_widget table_pading widget-shadow" widget="">
+
+            <div class="widget-body">
+                <div class="table-responsive table-datalabel">
+                    <table class="table table-hover table-striped hs_tabletxt prescription-table">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="">
+                                    #
+                                </th>
+
+                                <th class="">
+                                    Medicine Name
+                                </th>
+                                <th class="">
+                                    Composition
+                                </th>
+                                <th class="">
+                                    Quantity
+                                </th>
+                                <th class="">Strength</th>
+                                <th class="">
+                                    Gross Rate (Per unit)
+                                </th>
+                                <th class="">
+                                    Total Tax
+                                </th>
+                                <th class="sort-true">
+                                    Total Amount
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of processOrderDetails.cartItem.pharmacyList ; let i =index">
+                            <tr>
+                                <td data-label="#">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Medicine Name">
+                                    <div class="tabledatalabel-right">
+                                        <span>{{item.productName}}
+                                            <sup class="rx_icontxt">
+                                                <img src="assets/icon/ic_rx.png" *ngIf="item.rxDrug == true">
+                                            </sup>
+                                        </span>
+                                    </div><br>
+                                    <div></div>
+                                    <div>batch No : {{item.stockDetails?item.stockDetails.batchNo:''}}</div>
+                                </td>
+                                <td data-label="Composition">
+                                    <div class="tabledatalabel-right" *ngIf="item.genericMedicine">
+                                        {{item.genericMedicine?.genericMedicineName}}</div><br>
+                                    <div>Total Stock Available :
+                                        {{item.stockDetails?item.stockDetails.totalAvailableQuantity:0}}
+                                    </div>
+                                </td>
+                                <td data-label="Quantity">
+                                    <div class="tabledatalabel-right"><span>{{item.quantity}} </span></div>
+                                </td>
+                                <td data-label="Strength">
+                                    <div class="tabledatalabel-right"><span>{{item.medicineStrength}}</span></div>
+                                </td>
+                                <td data-label="Gross Rate (Per unit)">
+                                    <div class="tabledatalabel-right">&#8377; {{item.grossPrice|number:'1.0-2'}}</div>
+                                </td>
+                                <td data-label="Total Tax">
+                                    <div class="tabledatalabel-right">
+                                        &#8377; {{item.taxationAmount | number : '1.2-2'}}
+                                        <br> CGST({{item.taxes?item.taxes.cgst:0}}%): &#8377;
+                                        {{(item.totalTaxes?item.totalTaxes.cgstAmount:0) | number : '1.2-2'}}
+                                        <br> SGST({{item.taxes?item.taxes.sgst:0}}%): &#8377;
+                                        {{(item.totalTaxes?item.totalTaxes.sgstAmount:0) | number : '1.2-2'}}
+                                        <br> IGST({{item.taxes?item.taxes.igst:0}}%): &#8377;
+                                        {{(item.totalTaxes?item.totalTaxes.igstAmount:0) | number : '1.2-2'}}
+                                    </div>
+                                </td>
+                                <td data-label="Total Amount">
+                                    <div class="tabledatalabel-right"><span>&#8377;
+                                            {{item.finalAmount | number : '1.2-2'}} </span></div>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td></td>
+                                <td>batch No : {{item.stockDetails.batchNo}}</td>
+                                <td colspan="3">Total Stock Available : {{item.stockDetails.totalAvailableQuantity}}
+                                </td>
+                                <td colspan="3"></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+        <div class="col-md-12 col-sm-12 col-xs-12 process_padding">
+            <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+        <form action="#" class="from_txt" novalidate="">
+            <view-pay-summary [cartItem]="processOrderDetails.cartItem" [showCartPaid]="false"
+                [showCartPayable]="false"></view-pay-summary>
+            <div class="container">
+                <div class="row process_original">
+                    <!-- *ngIf="calculatedData && processOrderDetails.cartItem.payment.finalAmount==calculatedData.finalAmount" -->
+                    <!-- <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Rate Subtotal</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377;{{processOrderDetails.cartItem.payment.originalAmount | number : '1.2-2'}} </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{processOrderDetails.cartItem.userPackageId>0 && processOrderDetails.cartItem.packageName!=null?processOrderDetails.cartItem.packageName:'NA'}}
+                    </div>
+    
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package Discount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377;
+                        {{(processOrderDetails.cartItem.userPackageId>0?processOrderDetails.cartItem.payment.packageDiscountAmount:'0.0') | number : '1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377;
+                        {{(processOrderDetails.cartItem.payment.usedWalletAmount>0?processOrderDetails.cartItem.payment.usedWalletAmount:'0') | number : '1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377;
+                        {{(processOrderDetails.cartItem.payment.totalCashbackAmount>0?processOrderDetails.cartItem.payment.totalCashbackAmount:'0') | number : '1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt" *ngIf="processOrderDetails.onlinePaymentAmount">Other
+                        Discounts </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="processOrderDetails.onlinePaymentAmount">
+                        &#8377;
+                        {{(processOrderDetails.cartItem.payment.otherDiscountAmount?processOrderDetails.cartItem.payment.otherDiscountAmount:'0.0') | number : '1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Taxes </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{processOrderDetails.cartItem.payment.taxationAmount | number : '1.2-2'}}</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Shipping Charges</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377;
+                        {{processOrderDetails.cartItem.deliveryAmount ? processOrderDetails.cartItem.deliveryAmount : 0 | number : '1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Billing Amount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{processOrderDetails.cartItem.payment.finalAmount | number : '1.2-2'}}
+                    </div> -->
+                    <ng-template
+                        [ngIf]="processOrderDetails && processOrderDetails.actionStatus!=actionStatus.PENDING_CUSTOMER_APPROVAL">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount paid online :</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            &#8377; {{processOrderDetails.onlinePaymentAmount?processOrderDetails.onlinePaymentAmount:0
+                            | number : '1.2-2'}}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount collected :</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            &#8377; {{processOrderDetails.cartItem.payment.amountPaid?
+                            processOrderDetails.cartItem.payment.amountPaid :0 | number : '1.2-2'}}
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt"
+                            *ngIf="processOrderDetails.cartItem.payment.finalAmount != processOrderDetails.cartItem.payment.amountPaid && (processOrderDetails.cartItem.payment.finalAmount - +processOrderDetails.cartItem.payment.amountPaid >=0 )">
+                            Amount to be collected :</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="processOrderDetails.cartItem.payment.finalAmount != processOrderDetails.cartItem.payment.amountPaid && (processOrderDetails.cartItem.payment.finalAmount - +processOrderDetails.cartItem.payment.amountPaid >=0 )">
+                            &#8377; {{processOrderDetails.cartItem.payment.finalAmount -
+                            +processOrderDetails.cartItem.payment.amountPaid |
+                            number : '1.2-2'}}
+                        </div>
+                    </ng-template>
+                    <ng-template
+                        [ngIf]="processOrderDetails && processOrderDetails.actionStatus==actionStatus.CANCELLED">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">
+                            Amount to be Refunded :</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            &#8377; {{processOrderDetails.cartItem.payment.amountPaid?
+                            processOrderDetails.cartItem.payment.amountPaid :0 |
+                            number : '1.2-2'}}
+                        </div>
+                    </ng-template>
+                    <ng-template [ngIf]="changeAgent">
+                        <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Agent assigned :</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">{{agentName}}</div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="row" *ngIf="processOrderDetails.actionStatus == actionStatus.NEW 
+                || processOrderDetails.actionStatus == actionStatus.PENDING_VENDOR_DELIVERY_APPROVAL">
+                <div class="col-md-12 col-sm-12 col-xs-12 order-btn">
+                    <button class="processsubmit_txt2" role="button" value="Accept Order"
+                        (click)="onAcceptOrder()">ACCEPT ORDER </button>
+                    <button class="processsubmit_txt" role="button" value="Accept Order"
+                        (click)="onRejectOrder()">REJECT ORDER</button>
+                </div>
+            </div>
+            <div class="row" *ngIf="changeAgent && this.processOrderDetails.orderId && this.processOrderDetails.cartItem.pharmacyList != null
+            && (this.processOrderDetails.actionStatus == this.actionStatus.CUSTOMER_APPROVED
+            || this.processOrderDetails.actionStatus == this.actionStatus.DELIVERY_INITIATED
+            || this.processOrderDetails.actionStatus == this.actionStatus.OUT_FOR_DELIVERY)">
+                <div class="col-md-12 col-sm-12 col-xs-12 order-btn">
+                    <button class="processsubmit_txt" role="button" (click)="onEditAgent()">Edit Agent</button>
+                </div>
+            </div>
+            <div class="row" id="assignAgentList" *ngIf="this.processOrderDetails.orderId && this.processOrderDetails.cartItem.pharmacyList != null
+                    && (this.processOrderDetails.actionStatus == this.actionStatus.CUSTOMER_APPROVED
+                    || this.processOrderDetails.actionStatus == this.actionStatus.DELIVERY_INITIATED
+                    || this.processOrderDetails.actionStatus == this.actionStatus.OUT_FOR_DELIVERY)">
+                <div class="col-md-12 col-sm-12 col-xs-12  row" *ngIf="!changeAgent">
+                    <select id="poc_select" class="form-control col-sm-6 col-md-6 col-xs-12 m-1"
+                        [(ngModel)]="agentEmpId" [ngModelOptions]="{standalone: true}">
+                        <option value="" disabled>-- Select Agent --</option>
+                        <option *ngFor="let emp of agentList;let i = index" [value]="emp.empId">{{emp.title}}
+                            {{emp.firstName}} {{emp.lastName}}</option>
+                    </select>
+                    <button class="processsubmit_txt assign_agent_btn col-sm-5 col-md-5 col-xs-12 mt-1" role="button"
+                        value="Accept Order" (click)="assignAgent()">ASSIGN AGENT</button>
+                </div>
+            </div>
+
+            <div class="edit_process row">
+                <!-- <div class="col-md-4 col-sm-4 col-xs-4"></div>
+                <div class="col-md-4 col-sm-4 col-xs-4"
+                    *ngIf="processOrderDetails.actionStatus != actionStatus.VENDOR_APPROVED "> </div> -->
+                <div class="col-md-6 col-sm-6 col-xs-6" *ngIf="(processOrderDetails.actionStatus== actionStatus.VENDOR_APPROVED 
+                    || processOrderDetails.actionStatus == actionStatus.CUSTOMER_APPROVED) 
+                    && !processOrderDetails.employeeAccepted">
+                    <button class="processsubmit_txt edt_btn" role="button" value="Pay Now"
+                        (click)="onGenerateEditOrder()">{{processOrderDetails.orderType == 3?'ADD ORDER':'EDIT
+                        ORDER'}}</button>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6"
+                    *ngIf="processOrderDetails.actionStatus == actionStatus.VENDOR_APPROVED ">
+                    <!-- && calculatedData && processOrderDetails.cartItem.payment.finalAmount==calculatedData.finalAmount -->
+                    <button class="processsubmit_txt" role="button" value="Pay Now"
+                        (click)="onGenerateConfirmOrder()">CONFIRM ORDER</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="rejectModal" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content row digo_popuotxt">
+            <div class="modal-header custom-modal-header col-md-12">
+                <h4 class="modal-title">Cancelling Order</h4>
+            </div>
+            <div class="modal-body row body_rejecttxt">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <form name="info_form" class="form-inline" action="#" method="post">
+                        <!-- <h5 class="reject_ordertxt">Reject Order</h5> -->
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12 reason_remark">
+                            <label class="reason_txt">Reason</label>
+                            <textarea class="form-control" [(ngModel)]="processOrderDetails.remarks" name="msg" rows="4"
+                                placeholder="Prescription uploaded was fake"></textarea>
+                        </div>
+                        <br>
+                        <hs-message [isError]="isError" [show]="showMessagetxt" [messages]="errorMessage"></hs-message>
+                        <div class="form-group col-sm-12">
+                            <button type="submit" class="btn reject_buttontxt" (click)="onRejectButtonClicked()">CANCEL
+                                ORDER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--invoice Modal -->
+<div class="modal fade" id="invoiceModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">VIEW INVOICES</h4>
+            </div>
+            <div class="modal-body">
+                <div class="custab p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead>
+
+                                <tr>
+                                    <th>INVOICE ID</th>
+                                    <th>TYPE</th>
+                                    <th class="text-center">VIEW</th>
+                                </tr>
+                            </thead>
+                            <tr *ngFor="let invoice of invoiceDetailList">
+                                <td>{{invoice.invoiceId}}</td>
+                                <td>{{(invoice.instrumentType == 1 || invoice.instrumentType == 4)?'Credit
+                                    Memo':'Invoice'}}
+                                </td>
+                                <td>
+                                    <span *ngIf="invoice.pdfUrlWithHeader || invoice.pdfUrlWithHeader">
+                                        <a class="btn  btn-xs">
+                                            <img class="img_txt" src="assets/img/partner/pdf_icon_read.png"
+                                                (click)="invoiceClick(invoice)">
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<!-- deliveryremarkspopup -->
+
+<div id="deliveryremarkspopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content row digo_popuotxt">
+            <div class="modal-header custom-modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Delivery Remarks</h4>
+            </div>
+            <div class="modal-body enquery_txt">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <span class="row" style="margin:0px;width: 100%;"
+                        *ngIf="processOrderDetails.cartItem && processOrderDetails.cartItem.payment && 
+                        (processOrderDetails.onlinePaymentAmount<processOrderDetails.cartItem.payment.finalAmount 
+                        || processOrderDetails.cartItem.payment.paymentStatus!= 1 || processOrderDetails.cashPaymentAmount)">
+                        <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment Mode : </div>
+                        <div class="col-md-7 col-sm-6 col-xs-12">
+                            <form action="#" class="color_cash">
+                                <input type="radio" name="paymant" value="0" checked
+                                    (change)="checkPaymentModeSelection(2)">
+                                Cash
+                                &nbsp;&nbsp;<input type="radio" name="paymant" value="2" id="other-payment"
+                                    (change)="checkPaymentModeSelection(9)">
+                                Others
+                                <div class="other-paymentdetails">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                            <select class="form-control"
+                                                (change)="checkPaymentModeSelection($event.target.value)">
+                                                <option value="0">Select</option>
+                                                <option value="1">Card</option>
+                                                <option value="8">PhonePe</option>
+                                                <option value="6">Google Pay</option>
+                                                <option value="7">PayTM</option>
+                                                <option value="11">NEFT</option>
+                                                <option value="12">UPI</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <input type="text" placeholder="Transaction Id" class="form-control"
+                                                [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </span>
+
+                    <div class="form-group description_text">
+                        <label class="col-md-12">Comments</label>
+                        <textarea class="form-control col-md-12 description_text"
+                            [(ngModel)]="processOrderDetails.remarks" name="msg" rows="4"
+                            placeholder="Enter Message"></textarea>
+                    </div>
+                    <br><br>
+                    <hs-message [isError]="isError" [show]="showRemarksMessagetxt" [messages]="errorMessage">
+                    </hs-message>
+                    <div class="form-group col-sm-12">
+                        <button type="submit" class="btn btn-danger pull-right submit_textenquery"
+                            (click)="onRemarkSubmitClicked()">
+                            {{processOrderDetails.cashPaymentAmount && processOrderDetails.cashPaymentAmount>0 ?
+                            'Collected Rs.'+processOrderDetails.cashPaymentAmount:'Submit'}}
+                            <!-- Submit -->
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- sliderImage -->
+
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="prescription-modal">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop" *ngIf="prescriptionType=='img'">
+                    </div>
+                    <div id="pdfView3" class="pdf" *ngIf="prescriptionType!='img'">
+                        <!-- <embed class="embed_tool" width="100%" height="100%" id="pdfView2"
+                            (clikc)="hideToolBar($event)" /> -->
+                        <!-- src="{{crouselSelectedImage}}" *ngIf="prescriptionType=='pdf'" -->
+                        <object class="embed_tool" width="100%" height="100%" id="pdfView2"
+                            (clikc)="hideToolBar($event)" type="application/pdf"> </object>
+                        <!-- <iframe src="{{item}}"  width="100%" height="300px"></iframe> -->
+                        <!-- <div id="pdfView"> </div> -->
+                    </div>
+                    <div class="form-group image_download">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank"
+                            *ngIf="processOrderDetails.actionStatus != actionStatus.NEW
+                        && processOrderDetails.actionStatus != actionStatus.PENDING_VENDOR_DELIVERY_APPROVAL">Download</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>{{modalMessage}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                    (click)="onGenerateBack()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

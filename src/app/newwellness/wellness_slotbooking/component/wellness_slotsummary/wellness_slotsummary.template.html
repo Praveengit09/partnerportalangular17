@@ -1,0 +1,136 @@
+<div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding">
+    <h1 class="page-title">Services Summary</h1>
+</div>
+
+<div class="col-lg-12">
+    <section class="newadd_process row" widget="">
+        <div class="col-md-4 col-sm-4 col-xs-12 process_txt patientpop">
+            <p>Patient</p>
+            <h4>{{slotBookingDetails.patientProfileDetails.title?slotBookingDetails.patientProfileDetails.title+". ":''}} {{slotBookingDetails.patientProfileDetails.fName}} {{slotBookingDetails.patientProfileDetails.lName?slotBookingDetails.patientProfileDetails.lName:''}}
+            </h4>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-12 process_txt">
+            <p>Slot Date & Time</p>
+            <h4>{{slotBookingDetails.slotDate | date:"dd-MMM-yyyy"}} &nbsp; {{slotBookingDetails.slotTime | date:"hh:mm a"}} </h4>
+        </div>
+    </section>
+</div>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+<div class="row">
+    <div class="col-md-12">
+        <section class="process_widget table_pading" widget="">
+
+            <div class="widget-body table-datalabel widget-shadow">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head tabledoc_head">
+                            <th>#</th>
+                            <th>Service Name</th>
+                            <th>Original Price</th>
+                            <th>Offer Price</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of slotBookingDetails.serviceList ; let i =index">
+                        <tr>
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{i+1}}</div>
+                            </td>
+                            <td data-label="Test Name">
+                                <div class="tabledatalabel-right"><span>{{item.serviceName}}</span></div>
+                            </td>
+                            <td data-label="Original Price">
+                                <div class="tabledatalabel-right">&#8377; {{item.grossPrice}}</div>
+                            </td>
+                            <td data-label="Offer Price">
+                                <div class="tabledatalabel-right"><span>&#8377; {{item.offerPrice| number : '1.2-2'}}
+                                    </span></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+        <div class="col-md-12 col-sm-12 col-xs-12 process_padding">
+            <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+        <form action="#" class="from_txt">
+            <app-slotbookingdiscount [slotBookingDetails]="this.slotBookingDetails" [onlyPayment]="this.onlyPayment" [discountType]="discountType" [promotionalDiscount]="this.promotionalDiscountAmount" [isOldRecord]="this.isOldRecord" (hasError)="checkForDiscountErrors($event)">
+            </app-slotbookingdiscount>
+
+            <div class="row process_original" *ngIf="slotBookingDetails.payment.finalAmount>0">
+                <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment mode: </div>
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <form action="#" class="color_cash">
+                        <input type="radio" name="payment" value="1" checked (change)="checkPaymentModeSelection(2)"> Cash &nbsp;&nbsp;
+                        <input type="radio" name="payment" value="0" (change)="checkPaymentModeSelection(5)"> Mobile &nbsp;&nbsp;
+                        <input type="radio" name="payment" id="other-payment" value="2" (change)="checkPaymentModeSelection(0)"> Others
+                        <div class="other-paymentdetails" *ngIf="paymentModeIndex !=2 && paymentModeIndex!= 5">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 pr-0">
+                                    <select class="form-control" (change)="checkPaymentModeSelection($event.target.value)">
+                                        <option value="0">Select</option>
+                                        <option value="1">Card</option>
+                                        <option value="8">PhonePe</option>
+                                        <option value="6">Google Pay</option>
+                                        <option value="7">PayTM</option>
+                                        <option value="11">NEFT</option>
+                                        <option value="12">UPI</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <input type="text" placeholder="Transaction Id" class="form-control" [(ngModel)]="transactionId" [ngModelOptions]="{standalone: true}" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row process_original" *ngIf="paymentModeIndex != 5 && !onlyPayment && slotBookingDetails.payment.finalAmount>0">
+                <div class="col-md-5 col-sm-6 col-xs-12 total_txt">Payment Status: </div>
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                    <form action="#" class="color_cash">
+                        <input type="radio" name="payment" value="1" checked (change)="checkPaymentStatusSelection(1)"> Paid &nbsp;&nbsp;
+                        <input type="radio" name="payment" value="0" (change)="checkPaymentStatusSelection(0)"> Not Paid
+                    </form>
+                </div>
+            </div>
+            <div class="row edit_process">
+                <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                <button class="processsubmit_txt" role="button" (click)="onSubmitChanges()">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onGenerateBack()"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="this.slotBookingDetails.payment.paymentStatus == 1">Payment done Successfully.
+                </p>
+                <p *ngIf="this.slotBookingDetails.payment.paymentStatus == 0">
+                    Order Initiated Successfully.Payment Not Done</p>
+                <p *ngIf="this.slotBookingDetails.payment.paymentStatus == 2">
+                    Order Initiated Successfully.Payment pending</p>
+                <p *ngIf="this.slotBookingDetails.payment.paymentStatus == 3">Payment Failed.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" *ngIf="slotBookingDetails.payment.paymentStatus == 1" (click)="onPrintButtonClick()">View Receipt</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onGenerateBack()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

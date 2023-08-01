@@ -1,0 +1,66 @@
+.settle_txt label{
+    font-size: 15px;
+    font-weight: 600;
+}
+.comment-txt{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.financial_report_tabletxt .table-striped .table_head th, .financial_report_tabletxt .table td{
+    font-size: 12px;
+}
+.ok_txt{
+    background-color: #2196F3;
+    float: right;
+}
+
+.Updatereport{
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #14a9b5;
+    border: solid 1px #14a9b5;
+    padding: 5px 9px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+.back_buttontxt{
+    float: right;
+    background: #14a9b5;
+    border-color: #14a9b5;
+    font-size: 16px;
+    color:#fff;
+}
+.downloadsetel_txt{
+    float: right;
+    padding: 5px 25px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.reconcile_txt{
+    cursor: inherit;
+    background-color: #808080;
+    border: #808080;
+}
+@media (min-width: 576px){
+    .modal_payment {
+        max-width: 600px;
+    }
+        
+}
+@media (min-width: 992px){
+    .modal_payment {
+        max-width: 800px;
+    }
+        
+}
+
+
+
+
+

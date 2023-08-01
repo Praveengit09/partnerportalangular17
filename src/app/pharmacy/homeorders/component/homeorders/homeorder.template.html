@@ -1,0 +1,99 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Consumer Order Notifications</h1>
+    
+
+    <form action="#">
+        <div class="row">
+            <div class="col-xl-6 col-lg-12">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Order ID/Mobile Number</mat-label>
+                    <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                        placeholder="Enter Order ID/Mobile Number">
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="onSearchButtonClick()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-12">
+                <div class="filter-orders">
+                    <div class="filter-content" *ngIf="(isFilterVisible && getWidth()<768)||getWidth()>767">
+                        <div class="filter_txt select_city">
+                            <h6 class="sub-title mt-0">Filter by Area</h6>
+                            <form>
+                                <select class="form-control" [(ngModel)]="indexForLoc"
+                                    [ngModelOptions]="{standalone : true}" *ngIf="localityResponse"
+                                    (change)="onLocationChange($event.target.value)">
+                                    <option value=0>Select Area</option>
+                                    <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j+1>
+                                        {{locationArea.name}}</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="filter_txt">
+                            <h6 class="sub-title mt-0">Filter by City</h6>
+                            <form>
+                                <select class="form-control" title={{cityResponseforTooltip}} *ngIf="cityResponse"
+                                    [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}"
+                                    (change)="onCityChange($event.target.value)">
+                                    <option value=0>Select City</option>
+                                    <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}
+                                    </option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="filter_txt ">
+                            <h6 class="sub-title mt-0">Filter by State</h6>
+                            <form>
+                                <select class="form-control" [(ngModel)]="indexForState"
+                                    [ngModelOptions]="{standalone : true}" *ngIf="stateResponse"
+                                    (change)="onStateChange($event.target.value)">
+                                    <option value=0>Select State</option>
+                                    <option *ngFor="let loc of stateResponse;let i = index" [value]=i+1>{{loc.name}}
+                                    </option>
+                                </select>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="autorefresh-refreshbutton filter-ordersbtn">
+                    <button class="filter-btn" (click)=filterBtnClicked()><span
+                            class="glyphicon glyphicon-filter"></span></button>
+                    <auto-refresh (refreshEvent)="pageRefresh($event)" [componentName]='pharmacyHomeListIndex'>
+                    </auto-refresh>
+                    <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                        (click)="getRefreshedorderList()">
+                        <span class="glyphicon glyphicon-repeat"></span>
+                        <span class="refresh_txt">REFRESH</span>
+                    </button>
+                    <button type="button" class="btn btn-primary button_addtxt width-88 mb-xs reset_btn new_order"
+                        role="button" (click)="newOrder()"><span class="reset_txt new_ordertxt"><i
+                                class="fa fa-plus add_txt" aria-hidden="true"></i>New Order</span></button>
+                </div>
+            </div>
+            
+        </div>
+    </form>
+    <div *ngIf="isCorrectMobile" class="enter_error">Enter 10 digits mobile number only..!</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="pharmacyDeliveryResponseList" [sort]="sorting"
+                        (clickEvent)="clickEventHandler($event)" [componentId]="'pharmacyAdminTable'"
+                        [perPage]="perPage" [total]="total" (pageClick)="onPage($event)" [dataMsg]="dataMsg"
+                        *ngIf="pharmacyDeliveryResponseList.length>0">
+                        Loading table...
+                    </hs-table>
+                    <hs-table [columns]="columns" *ngIf="pharmacyDeliveryResponseList.length<=0"></hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

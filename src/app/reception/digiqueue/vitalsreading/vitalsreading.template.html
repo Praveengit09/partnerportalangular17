@@ -1,0 +1,82 @@
+<div class="row">
+    <vitalsReadingComponent [patientQue]="this.patientQue" [isFromDoctor]="false"  ></vitalsReadingComponent>
+</div>
+
+<spinner-component></spinner-component>
+
+
+<!-- <div id="vitalModal" class="modal fade" role="dialog">
+    <div class="modal-dialog model-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title" style="color:#44BBC5">Mandatory Informations Missing</h2>
+            </div>
+            <p class="errormes">Some of the Mandatory Information must be filled before updating Vitals.Please use the
+                below form</p>
+            <div class="modal-body mandatoryclass">
+
+                <div class="form-group row">
+                    <label class="col-md-4 control-label">Select the Gender</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <label class="input_label">
+                            <input type="radio" name="gender" class="male" value="Male" />
+                            <span class="input_gender input_male"></span>
+                            <span class="text-center gender male">Male</span>
+                        </label>
+                        <label class="input_label">
+                            <input type="radio" name="gender" class="female" value="Female" />
+                            <span class="input_gender input_female"></span>
+                            <span class="text-center gender female">Female</span>
+                        </label>
+                        <label class="input_label">
+                            <input type="radio" name="gender" class="others" value="Others" />
+                            <span class="input_gender input_others"></span>
+                            <span class="text-center gender others">Others</span>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row">
+
+                    <div class="col-sm-6 ageclass">
+                        <label class="radio-inline date_txt">
+                            <input type="radio" name="ageButton" value="0" [checked]="isDOB"
+                                (change)="checkAgeSelection(0)"> Date of
+                            Birth
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ageButton" value="1" [checked]="isAge"
+                                (change)="checkAgeSelection(1)"> Age
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="isDOB">
+                    <label for="birthdate" class="col-md-4">Age/Date of Birth</label>
+                    <div class="col-sm-6">
+                        <datetime [(value)]="memberDate" name="datepicker" id="datepicker" [datepicker]="datepickerOpts"
+                            [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="isAge">
+                    <label for="birthdate" class="col-md-4 control-label" *ngIf="isAge">How old are you?</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" required placeholder="Enter Age" name="aname" id="aname"
+                            (keypress)="validation.onlyNumbers($event)" [(ngModel)]="registrationVo.age">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div> -->

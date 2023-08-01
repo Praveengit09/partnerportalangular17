@@ -1,0 +1,398 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+
+@-moz-document url-prefix() {
+    .datepic_txt1 .date {
+        width: auto!important;
+    }
+}
+.datepic_txt1 .form-inline .input-group{
+    display: inline-table;
+    }
+a:hover,a:active{
+    color:blue;
+    background-color: transparent;
+    text-decoration: none;
+}
+.button_save{
+
+    width: 80px;
+    background-color: #14a9b5;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 10px;
+    float: right;
+   
+    cursor: pointer;
+}
+.advice_text{
+    padding-left: 0px;
+}
+.advice_text h2{
+     font-size: 30px;
+    color: #14a9b5;
+    font-weight: 500;
+}
+.error_class{
+    color:#ff6d6d;
+}
+.patient_txt{
+float: left;
+}
+.color_cash{
+    font-size: 500;
+}
+.widget_txt123 {
+   position: relative;
+    margin-bottom: 35px;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 0.2rem;
+    height: 80px;
+    margin-top: 10px;
+  
+}
+.select_txt{
+    padding: 10px 47px;
+}
+.select_only{
+    padding: 10px 0px;
+}
+
+.widget_txt123 .patient_txt h4,.widget_txt123  .patient_txt p{
+    margin: 0px;
+    font-weight: 400;
+
+}
+.fname-txt{
+    width:22px;
+    font-size: 13px;
+    text-align: center;
+    border: none;
+}
+.fname_2txt1{
+    width: 170px !important;
+    font-size: 13px;
+    text-align: center;
+    resize: none;
+}
+.datepic_txt1 .date{
+width: 155px !important;
+}
+
+input[type='date'] {
+    @include appearance(textfield);
+    }
+_:-ms-lang(x), _:-webkit-full-screen, .datepic_txt1 .date{
+    width: 155px !important;
+    }
+
+.fname_3txt{
+    width: 45px;
+    font-size: 13px;
+    text-align: center;
+}
+.diagno_Item{
+    display: none;
+}
+.fname_4txt{
+    width: 80px;
+    font-size: 13px;
+    text-align: center;
+}
+.fname_5txt{
+    width: 100px;
+    font-size: 13px;
+    text-align: center;
+}
+.fname_6txt{
+    width: 50px;
+    font-size: 13px;
+    text-align: center;
+}
+.checkbox .control-label{
+float: right;
+}
+.display_row_table{
+    border: none;
+}
+input[placeholder], [placeholder], *[placeholder] {
+    color: #000 !important;
+}
+.perscripton_txt{
+   font-size: 24px;
+  color: rgba(20, 169, 181, 0.8);
+  font-weight: 500;
+  
+  }
+.from_txt .button_addtxt {
+    float: none;
+    width: 250px;
+    border-radius: 10px;
+}
+ .from_txt{
+   width: 350px;
+}
+.from_txt, .submit_txt{
+    float: right;
+} 
+.from_txt{
+   width: 350px;
+}
+.from_txt, .submit_txt{
+    float: right;
+}
+.add_medtxt{
+    padding: 0px 43px 0px;
+    font-size: 30px;
+    color: $title-color;
+    font-weight: 500;
+}
+.add_prescrib{
+    padding: 0px 0px 0px; 
+}
+
+.model_txt{
+    float: right;
+    right: 0px;
+    width: 500px;
+}
+.model_txt1{
+    float: right;
+    right: 0px;
+    width: 400px;
+}
+.modal-body {
+    position: relative;
+    padding: 0px 45px 0px !important;
+}
+
+
+/*Left*/
+	.modal.left.fade .modal-dialog{
+		right: -320px;
+		-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+		        transition: opacity 0.3s linear, left 0.3s ease-out;
+	}
+	
+	.modal.left.in .modal-dialog{
+		right: 0;
+         margin: 0px;
+        position: relative;
+    height: 100%;
+	}
+
+
+.modal.right.fade .modal-dialog {
+		right: -320px;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		        transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
+	.modal.left.in .modal-dialog,
+	.modal.right.in .modal-dialog {
+		right: 0;
+    margin: 0px;
+        position: relative;
+    height: 100%;
+	}
+  .modal-content {
+		border-radius: 0;
+		border: none;
+        min-height: 100%;
+        margin: 0 auto;
+        bottom: 0;
+	}
+    .input_date .form-control{
+    padding: 10px 5px;
+}
+    .dropdown-menu {
+    font-size: 13px;
+    padding: 20px 15px;
+}
+
+	.modal-header {
+	border-bottom-color: transparent;
+    background-color: transparent;
+      padding: 15px 15px 11px 0px;
+    border-bottom: none;
+}
+.close_txt{
+   font-size: 40px;
+}
+.Update {
+  width: 172px;
+  height: 17px;
+ 
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  width: 172px;
+  height: 40px;
+  border-radius: 2px;
+  background-color: #ff6d6d;
+  border: solid 1px #ec6262;
+}
+.all_textboxtxt {
+
+
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+
+.submit_txt{
+    background-color: #dd5826;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 5px 35px;
+    font-weight: 500;
+}
+.submit_txt:focus{
+   outline: none;
+}
+.total_txt{
+   font-weight: 500 ;
+}
+.form-inline .input-group{
+   display: flex;
+}
+@media only screen and (min-width: 320px) {
+.widget_txt123{
+    height: 150px;
+}
+.widget_txt123 .patient_txt h4{
+    font-size: 16px;
+}
+.widget_txt123 .patient_txt p{
+    font-size: 13px;
+}
+.patient_txt{
+    padding-bottom: 8px;
+}
+input[placeholder], [placeholder], *[placeholder] {
+    color: #000 !important;
+    border: 1px solid rgba(0, 0, 0, 0.47);
+}
+.from_txt {
+    width: auto;
+}
+.modal-header{
+    padding: 15px 15px 11px 30px;
+}
+.modal-body {
+    position: relative;
+    padding: 0px 45px 0px 75px !important;
+}
+}
+
+
+@media only screen and (min-width: 640px){
+
+.widget_txt123 {
+    height: 70px;
+}
+.widget_txt123 .patient_txt h4 {
+    font-size: 13px;
+}
+.from_txt {
+    width: 350px;
+}
+.modal-header{
+    padding: 15px 15px 0px 0px;
+}
+.modal-body {
+    position: relative;
+    padding: 0px 45px 0px 45px !important;
+}
+
+}
+
+@media only screen and (min-width: 1200px) {
+.widget_txt123 .patient_txt h4{
+    font-size: 21px;
+}
+ .widget_txt123{
+    height: 80px;
+}
+.patient_txt{
+    padding-bottom: 0px;
+}
+.from_txt {
+    width: 350px;
+}
+}
+.datepic_txt1 .ng-untouched{
+    min-width: 150px;
+    width: 100%;
+    float: left;
+}
+table td{
+    white-space: normal;
+}
+table th{
+    white-space: nowrap;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.description_text {
+    width: 100%;
+}
+
+.homeorder_widget .table {
+    margin-bottom: 0;
+}
+.pdf_details {
+    cursor: pointer;
+    word-break: break-word;
+}
+@media screen and (max-width: 600px) {
+    .homeorder_widget {
+        border: none !important;
+    }
+    .tabledatalabel-right .fname_2txt1 {
+        width: 100% !important;
+        min-width: 118px;
+    }
+    ::ng-deep .datepicker, .mat-form-field {
+        width: 100% !important;
+        min-width: 140px;
+    }
+    .model_txt {
+        width: 100%;
+    }
+}
+
+.barcode_widget {
+    position: relative;
+}
+.barcode_icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+.partnerCheckBox {
+    font-size: 12px;
+}
+.partnerCheckBox input {
+    position: relative;
+    top: 3px;
+}

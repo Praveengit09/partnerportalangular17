@@ -1,0 +1,189 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title order_txt">Search Coupon</h1>
+    <form action="#">
+        <div class="row mb-3">
+            <div class="col-lg-3">
+                <mat-form-field appearance="outline" class="search-orders">
+                    <mat-label>Order ID/Mobile Number</mat-label>
+                    <input (change)="onInputChange()" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}"
+                        type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                        placeholder="Mobile Number" maxlength=10>
+                    <i class="fa fa-search" aria-hidden="true" matSuffix (click)="getCoponUserbaseMobileNo()"></i>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12 col-12 coupon_margin">
+                <select id="coupon_select" class="form-control coupon_box"
+                    (change)="onCouponSelect($event.target.value)">
+                    <option value=0>Select Coupon</option>
+                    <option *ngFor="let coupon of couponList;let i = index" [value]="coupon.couponCode">
+                        {{coupon.couponCode}}</option>
+                </select>
+            </div>
+            <div class="col-lg-7 coupon_field">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-4 col-xs-12">
+                        <datetime [(value)]="startDate" name="startDate" id="datepicker" [datepicker]="datepickerOpts"
+                            (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                        </datetime>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-4 col-xs-12">
+                        <datetime [(value)]="endDate" name="endDate" id="datepicker" [timepicker]="false"
+                            (dateChange)="endDateChoosen($event)" [datepicker]="datepickerOpts">
+                        </datetime>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-xs-12 coupon_margin">
+                        <button type="submit" class="btn btn-danger 
+                                product_submit width-100" role="button" (click)="onSubmit()">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn button_addtxt mr-0" role="button" type="button" (click)="assignCouponCOde()">
+                New Assign CouponCode</button>
+            <!-- <i aria-hidden="true"
+               class="fa fa-plus add_txt"></i> -->
+        </div>
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="couponuserList" [sort]="sorting"
+                        [componentId]="'couponuserTable'" [perPage]="perPage" [total]="total"
+                        (pageClick)="onPage($event)">
+                        Loading table...
+                    </hs-table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="modal fade " id="UserModal">
+        <div class="modal-dialog user_dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title assign_txt">ASSIGN COUPON</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Patient
+                                <i aria-hidden="true" class="fa fa-plus add_patient"  
+                                (click)="modelOpenRegister()"></i>
+                            </p>
+                            <h4 *ngIf="selectedRegisteredProfile">
+                                {{selectedRegisteredProfile.selectedProfile.title?selectedRegisteredProfile.selectedProfile.title+".
+                                ":''}} {{selectedRegisteredProfile.selectedProfile.fName}} {{
+                                selectedRegisteredProfile.selectedProfile.lName?selectedRegisteredProfile.selectedProfile.lName:''}}
+                            </h4>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-4">
+                            <select id="coupon_select" class="form-control"
+                                (change)="onPOpUPCouponSelect($event.target.value)">
+                                <option value=0>Select Coupon</option>
+                                <option *ngFor="let coupon of couponList;let i = index" [value]="coupon.couponCode">
+                                    {{coupon.couponCode}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-4">
+                            <button class="assign" role="button" type="submit" value="SEARCH"
+                                (click)="getCouponAssigns()">
+                                ASSIGN
+                                COUPON CODE </button>
+                        </div>
+                        <div class="col-md-6 mt-1 popup_error">
+                            <hs-message [isError]="popupIsError" [show]="popupShowMessage"
+                                [messages]="popupErrorMessage">
+                            </hs-message>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 package-listdetail">
+
+                            <!-- {{freeConsulDetailList | json}} -->
+                            <div *ngIf="couponDetailList">
+                                <ul class="card_padding package_explained">
+                                    <li *ngIf="couponDetailList.freeConsultationsList.length > 0"
+                                        class="package_info consult_info">
+                                        <h3>Consultations</h3>
+                                        <div class="card-columns">
+                                            <div
+                                                *ngFor="let freeconsult of couponDetailList.freeConsultationsList; let i = index">
+                                                <div
+                                                    *ngIf="couponDetailList.freeConsultationsList[i].serviceTypeName!='Investigation' && couponDetailList.freeConsultationsList[i].serviceTypeName!='Investigations'">
+                                                    <div class="card">
+                                                        <div class="card-img"><img
+                                                                src="{{freeconsult.serviceList[0].imageUrl}}"></div>
+                                                        <div class="card-block">
+                                                            <h4 class="card-title"><span
+                                                                    *ngFor="let services of freeconsult.serviceList">{{services.serviceName}}</span>
+                                                            </h4>
+                                                            <p class="card-text">
+                                                                {{(freeconsult.freeCount==-1)?'Unlimited':freeconsult.freeCount}}
+                                                                Free
+                                                                <span
+                                                                    *ngFor="let services of freeconsult.serviceList">{{services.serviceName}}</span>
+                                                                every {{freeconsult.daysLimit}} days
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal left  register–patient" id="registerPatientModal">
+        <div class="modal-dialog model_txt1 model_register patientregister-modaldialog" role="document">
+            <div class="modal-content patient-registerpopup">
+                <patientregister-component [isPatientFetch]='true' [componentId]="'registerPatientModal'"
+                    (closeModel)="closeModel('#registerPatientModal')" (onRegisterNewUser)="onRegisterNewUser($event)">
+                </patientregister-component>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- <div class="col-lg-6 col-xl-4">
+                <button type="button" class="btn btn-primary searchresult_resetbtn width-88 mb-xs reset_btn"
+                    role="button" (click)="getRefreshedorderList()"><span
+                        class="glyphicon glyphicon-repeat"></span><span class="reset_txt">REFRESH</span></button>
+                <button type="button" class="btn btn-primary button_addtxt width-88 mb-xs reset_btn new_order"
+                    role="button" (click)="newOrder()"><span class="reset_txt new_ordertxt"><i
+                            class="fa fa-plus add_txt" aria-hidden="true"></i>New Order</span></button>
+            </div> -->
+
+    <!-- <div class="row">
+            <div class="col-xl-6 date-mrgn">
+               
+            </div>
+
+            
+        </div> -
+    </div> -->
+    <spinner-component></spinner-component>

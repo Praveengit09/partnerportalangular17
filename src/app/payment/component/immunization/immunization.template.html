@@ -1,0 +1,63 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Immunization List</h1>
+    <!-- <h4 class="sub-title">Search orders</h4> -->
+    <!-- <div class="row all_tableh">
+        <div class="col-lg-9 col-md-12">
+            <form>
+                <label for="advice" class="radio_txt">Mobile Number : </label>
+                <input type="text" name="search" #search class="serch_txt85" placeholder="Enter Mobile Number" 
+                (keypress) = "validateNumberInputOnly($event)"  maxlength = "10" [(ngModel)]="mobileNumber">
+                <button type="submit" class="btn btn-danger width-100 mb-xs search_btn" (click)="onSearch()">
+                    SEARCH
+                </button>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12">
+            <button type="button" class="btn btn-primary width-100 mb-xs reset_btn" role="button" (click)="onRefresh(); search.value=''">
+                <span class="glyphicon glyphicon-repeat"></span>REFRESH
+            </button>
+        </div>
+    </div> -->
+
+    <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="search-orders">
+                        <mat-label>Mobile Number</mat-label>
+                        <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                            placeholder="Enter Mobile Number"  (keypress)="validateNumberInputOnly($event)"  maxlength="10" 
+                            [(ngModel)]="mobileNumber" [ngModelOptions]="{standalone:true}">
+                        <i class="fa fa-search" aria-hidden="true" matSuffix
+                            (click)="onSearch()"></i>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+
+
+    <div class="row">
+        <div class="col-lg-12 neworder-refresh">
+            <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                (click)="onRefresh();">
+                <span class="glyphicon glyphicon-repeat"></span>
+                <span class="refresh_txt">REFRESH</span>
+            </button>
+            <button type="button" class="button_addtxt" role="button" (click)="onGenerateWalkin()">Walkin</button>
+        </div>
+        <div class="col-lg-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="immunizationList" [sort]="sorting"  (clickEvent)="clickEventHandler($event)" [dataMsg] = 'dataMsg'
+                    [componentId]="'immunizationListTable'" [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                        Loading table...
+                    </hs-table>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<spinner-component></spinner-component>

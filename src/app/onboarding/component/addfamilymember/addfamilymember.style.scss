@@ -1,0 +1,197 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+
+.list-family {
+    color: #27B0E7;
+    padding-top: 20px;
+}
+
+#mytable {
+    border: 1px solid #f3f3f3;
+}
+
+.date_txt {
+    padding-right: 25px;
+}
+
+.date_txt_radio {
+    padding-left: 30px;
+}
+
+.checkboxlist {
+    display: inline;
+}
+
+.modal.left.fade .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+.ageBox {
+    width: 60%;
+    display: -webkit-inline-box;
+
+}
+
+.ageInline {
+    display: inline;
+
+}
+
+
+.modal.right.fade .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog,
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+.ondord_event {
+    pointer-events: none;
+}
+
+.error_Messages {
+    list-style-type: none;
+    margin: -8px 7px 14px 2px;
+    padding: 8px 35px 8px 14px;
+    color: #B94A48;
+    background-color: #F2DEDE;
+    border: 2px solid #EED3D7;
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+}
+
+.modal-body {
+    position: relative;
+    padding: 0px 45px 0px !important;
+}
+
+.model_txt {
+    float: right;
+    right: 0px;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    min-height: 100%;
+    margin: 0 auto;
+    bottom: 0;
+}
+
+.add_medtxt {
+    padding: 0px 43px 0px;
+    font-size: 30px;
+    color: $title-color;
+    font-weight: 500;
+}
+
+.all_textboxtxt {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+}
+
+.text-line {
+    background-color: transparent;
+    color: $title-color;
+    outline: none;
+    outline-style: none;
+    outline-offset: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #eeeeee 1px;
+    padding: 3px 5px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.add,
+.Update {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+.onboarding_widget {
+    margin-bottom: 0;
+}
+
+.onboarding_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .onboarding_widget {
+        border: none !important;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .onboardtype-popup {
+        width: 540px;
+    }
+}
+
+.other-paymentdetails {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.other-paymentdetails input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: calc(2.5rem - 2px);
+}
+
+#other-payment:checked~.other-paymentdetails {
+    display: block !important;
+}
+
+@media only screen and (max-width:991px) {
+    .other-paymentdetails input {
+        margin-top: 10px;
+    }
+}
+
+.add_color {
+    color: red;
+}
+
+.form-control1 {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}

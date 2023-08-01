@@ -1,0 +1,222 @@
+<div class="producthomeorder_summary">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <div class="row">
+        <div class="col-md-12 processid_text">
+            <h1 class="page-title">Order ID: {{processOrderDetails.orderId}}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="newadd_process row" widget="">
+                <div class="col-md-4 col-sm-4 col-xs-12 process_txt patientpop">
+                    <p>Patient</p>
+                    <h4>{{processOrderDetails.cartItem.patientProfileDetails.title?processOrderDetails.cartItem.patientProfileDetails.title+". ":''}}
+                        {{processOrderDetails.cartItem.patientProfileDetails.fName}}
+                        {{processOrderDetails.cartItem.patientProfileDetails.lName?processOrderDetails.cartItem.patientProfileDetails.lName:''}}
+                    </h4>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-12 process_txt">
+                    <p>Delivery Area & Address</p>
+                    <h4> {{processOrderDetails.address}}
+                    </h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12 editprocess_txt arrprove_pending prescription_jpg">
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding"
+    *ngIf="processOrderDetails.cartItem.convertedDocumentUrlList && processOrderDetails.cartItem.convertedDocumentUrlList.length">
+    <h2>Prescription</h2>
+</div>
+<div class="col-lg-12"
+    *ngIf="processOrderDetails.cartItem.convertedDocumentUrlList && processOrderDetails.cartItem.convertedDocumentUrlList.length">
+    
+    <section class="newadd_process  row" widget="">
+        <div class="col-lg-12 prescription_scroll"
+            *ngFor="let item of processOrderDetails.cartItem.convertedDocumentUrlList ; let i =index">
+            <div *ngIf="item&&item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() != 'pdf'">
+                <img alt=" " [attr.src]='item' (click)="sliderImage(item,'img')" class="image_clickpopup"
+                    data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+            <div *ngIf="item.substring(item.lastIndexOf('.') + 1,item.lastIndexOf('.') + 4).toString() == 'pdf'">
+                <embed width="100%" height="100%" id="pdfEmbed" />
+                <img alt=" " src='assets/img/partner/pdf_icon_read.png' (click)="sliderImage(item,'pdf')"
+                    class="image_clickpdf" data-toggle="modal" data-target="#sliderimagepopup">
+            </div>
+        </div>
+    </section>
+</div>
+
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 processid_text prescription_padding">
+            <h2>Order Items Summary</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="process_widget table_pading homeorder_summarywidget widget-shadow" widget="">
+
+                <div class="widget-body table-responsive table-datalabel">
+                    <table class="table table-hover table-striped hs_tabletxt">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="">
+                                    #
+                                </th>
+                                <th class="">
+                                    Medicine Name
+                                </th>
+                                <th class="">
+                                    Quantity
+                                </th>
+                                <th class="">
+                                    Gross Rate (Per unit)
+                                </th>
+                                <th class="">
+                                    Total Tax
+                                </th>
+                                <th class="sort-true">
+                                    Total Amount
+                                </th>
+                            </tr>
+                        </thead>
+                        <ng-container *ngIf="processOrderDetails.cartItem">
+                            <tbody *ngFor="let item of processOrderDetails.cartItem.productList ; let i =index">
+                                <tr>
+                                    <td data-label="#">
+                                        <div class="tabledatalabel-right">{{i+1}}</div>
+                                    </td>
+                                    <td data-label="Medicine Name">
+                                        <div class="tabledatalabel-right"><span>{{item.productName}}</span></div>
+                                    </td>
+                                    <td data-label="Quantity">
+                                        <div class="tabledatalabel-right"><span>{{item.quantity}} </span></div>
+                                    </td>
+                                    <td data-label="Gross Rate (Per unit)">
+                                        <div class="tabledatalabel-right">
+                                            {{item.grossPrice |currency:'INR':true:'1.2-2'}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Total Tax">
+                                        <div class="tabledatalabel-right">
+                                            {{item.taxationAmount |currency:'INR':true:'1.2-2'}}
+                                            <br> CGST({{item.taxes?item.taxes.cgst:0}}%):
+                                            {{(item.totalTaxes?item.totalTaxes.cgstAmount:0) |currency:'INR':true:'1.2-2'}}
+                                            <br> SGST({{item.taxes?item.taxes.sgst:0}}%):
+                                            {{(item.totalTaxes?item.totalTaxes.sgstAmount:0) |currency:'INR':true:'1.2-2'}}
+                                            <br> IGST({{item.taxes?item.taxes.igst:0}}%):
+                                            {{(item.totalTaxes?item.totalTaxes.igstAmount:0) | currency:'INR':true:'1.2-2'}}
+                                        </div>
+                                    </td>
+                                    <td data-label="Total Amount">
+                                        <div class="tabledatalabel-right"><span>{{item.finalAmount |
+                                                currency:'INR':true:'1.2-2'}} </span></div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </ng-container>
+                    </table>
+                </div>
+
+            </section>
+            <div class="col-md-12 col-sm-12 col-xs-12 process_padding">
+                <button role="button" class="processbotton_txt processdone_txt" (click)="onGenerateBack()">BACK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 process_form">
+            <form action="#" class="from_txt" novalidate="" *ngIf="processOrderDetails.cartItem as item">
+                <!-- <div class="row process_original">
+
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Rate Subtotal
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{item.payment.originalAmount | currency:'INR':true:'1.2-2'}} </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{item.userPackageId>0 && item.packageName!=null?processOrderDetails.cartItem.packageName:'NA'}}
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Package Discount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(item.userPackageId>0?item.payment.packageDiscountAmount:'0.0') | currency:'INR':true:'1.2-2'}}
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Other Discounts </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(item.payment.otherDiscountAmount?item.payment.otherDiscountAmount:'0.0') | currency:'INR':true:'1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Wallet Discount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377;
+                        {{(item.payment.usedWalletAmount?item.payment.usedWalletAmount:'0') | number : '1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Taxes </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{item.payment.taxationAmount |currency:'INR':true:'1.2-2'}}</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Cashback Amount</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        &#8377; {{item.payment.totalCashbackAmount | number : '1.2-2'}}</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Shipping Charges</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{item.deliveryAmount|currency:'INR':true:'1.2-2'}}</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Billing Amount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{item.payment.finalAmount | currency:'INR':true:'1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Amount Paid</div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{item.payment.amountPaid?item.payment.amountPaid:0 | currency:'INR':true:'1.2-2'}}
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 total_txt">Total Payable Amount </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        {{(+item.payment.finalAmount - +(item.payment.amountPaid?item.payment.amountPaid:0)) | currency:'INR':true:'1.2-2'}}
+                    </div>
+
+                </div> -->
+                <view-pay-summary [cartItem]="processOrderDetails.cartItem"></view-pay-summary>
+                <div class="row edit_process">
+                    <div class="col-md-6 col-sm-6 col-xs-6"></div>
+                    <button class="processsubmit_txt" role="button" (click)="onSubmitChanges()">Confirm Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- sliderImage -->
+
+<div id="sliderimagepopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close slider_close{
+                            " data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form name="info_form" class="form-inline" action="#" method="post">
+                    <div class="form-group">
+                        <img [src]="crouselSelectedImage" class="image_sliderpop">
+                        <a href={{crouselSelectedImage}} class="download_imagetxt" target="_blank">Download</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<spinner-component></spinner-component>

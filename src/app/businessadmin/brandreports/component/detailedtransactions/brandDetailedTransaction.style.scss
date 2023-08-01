@@ -1,0 +1,42 @@
+.brand_tablereport {
+    padding: 0px;
+}
+
+.downloaddetail_brand {
+    height: calc(3rem - 2px) !important;
+    float: right;
+    padding: 5px 25px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.submit_brand {
+    height: calc(3rem - 2px) !important;
+    padding: 5px 25px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.date_time .mat-form-field {
+    top: 23px;
+}
+
+.filter_brand select {
+    height: calc(3rem - 2px) !important;
+}
+
+.brand_tablereport .widget-body {
+    overflow-x: inherit;
+}
+
+.brand_tablereport .mat-form-field {
+    top: 0px;
+}

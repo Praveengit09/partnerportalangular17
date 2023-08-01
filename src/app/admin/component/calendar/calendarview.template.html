@@ -1,0 +1,80 @@
+<div class="app">
+    <div class="week">
+        <button type="submit" class="btn btn-danger width-100" role="button" (click)="onPrevWeek()">
+      Last Week
+    </button>
+        <button type="submit" class="btn btn-primary width-100" role="button" (click)="onNextweek()">
+      Next Week
+    </button>
+    </div>
+
+    <div class="day">
+        <button type="submit" class="btn btn-danger width-100" role="button" (click)="onPrevDay()">
+      Last Day
+    </button>
+        <button type="submit" class="btn btn-primary width-100" role="button" (click)="onNextDay()">
+      Next Day
+    </button>
+    </div>
+
+    <br>
+    <br>
+    <div class="app-calendar">
+        <full-calendar #calendar defaultView="timeGridWeek" [header]="{
+          right: 'timeGridWeek,timeGridDay'  
+        }" [plugins]="calendarPlugins" [events]="calendarEvents" [slotDuration]="slotDuration" (eventClick)="onEventClick($event)" [allDaySlot]="allDaySlot" [slotLabelInterval]="slotLabelInterval">
+        </full-calendar>
+    </div>
+</div>
+
+<div class="modal fade" id="slotdetails">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content" *ngIf="modalData.doctorDetail != undefined">
+
+            <div class="modal-header">
+                <h4>Slot Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p class="col-md-4 total_txt">Doctor Name:</p>
+                    <p class="col-md-4">
+                        {{ (modalData.doctorDetail.title?modalData.doctorDetail.title:'') + ' ' + (modalData.doctorDetail.firstName?modalData.doctorDetail.firstName:' ') + ' ' + (modalData.doctorDetail.lastName?modalData.doctorDetail.lastName:'') }}
+                    </p>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 total_txt">Patient Name </p>
+                    <p class="col-md-4">
+                        {{ (modalData.patientProfileDetails.fName?modalData.patientProfileDetails.fName:'') + ' ' + (modalData.patientProfileDetails.lName?modalData.patientProfileDetails.lName:'') }}
+                    </p>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 total_txt">Patient Mobile Number :</p>
+
+                    <p class="col-md-4">{{modalData.patientProfileDetails.contactInfo.mobile || ''}}</p>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 total_txt">Payment Status :</p>
+                    <p class="col-md-4">{{modalData.payment.paymentStatus == 0 ? 'Not Paid' : modalData.payment.paymentStatus == 1 ? 'Paid' : modalData.payment.paymentStatus == 2 ? 'Pending' : modalData.payment.paymentStatus == 3 ? 'Failed' : 'NA'}}</p>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 total_txt">Date :</p>
+                    <p class="col-md-4">
+                        {{modalData.slotDate | date:'d/MMMM/yyyy'}}
+                    </p>
+                </div>
+                <div class="row">
+                    <p class=" col-md-4 total_txt">Time Slot :</p>
+
+                    <p class=" col-md-4">{{modalData.slotTime | date:"hh:mm a"}} </p>
+                </div>
+                <div class="row">
+                    <p class="col-md-4 total_txt">Booking Type :</p>
+                    <p class="col-md-4">{{modalData.bookingSubType == 0 ? 'Walk-In' : modalData.bookingSubType == 1 ? 'Digiroom' : modalData.bookingSubType == 2 ? 'Video chat' : modalData.bookingSubType == 3 ? 'Walk-In' : modalData.bookingSubType == 4 ? 'Home Consultation':''}}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

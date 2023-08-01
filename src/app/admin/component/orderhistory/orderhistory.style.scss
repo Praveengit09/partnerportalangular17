@@ -1,0 +1,41 @@
+.notesbtn {
+  float: right;
+  margin-right: 25px;
+}
+
+.enter_error {
+  color: #ff0000;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.table-border {
+  box-shadow: 0px 1px 5px 1px #ddd;
+  border: 1px solid #00000014;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+.widget_txt {
+  box-shadow: 0px 0px 2px 1px #e6e6e6;
+  padding: 30px 25px;
+}
+
+.total_txt {
+  font-weight: 600;
+}
+
+.datepicker {
+  max-width: 236px !important;
+  width: 100% !important;
+}
+
+@media screen and (min-width:992px) {
+  .mrgin {
+    margin-top: 28px;
+  }
+
+}

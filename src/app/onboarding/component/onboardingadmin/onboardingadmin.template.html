@@ -1,0 +1,168 @@
+<div class="table_size">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Onboarding Consumer List</h1>
+
+    <div class="row all_tableh">
+        <!--<div class="col-md-6 col-sm-12 col-xs-12">
+
+            <form action="#">
+                <h6 class="sub-title">Search orders</h6>
+               
+                <div id="checkMobile" name="searchcriteria" value="mobile" (change)="onSearchChange('mobile')">
+                   
+                    <input type="text" id="searchBox" name="search" #search minlength="10" maxlength="10" class="serch_txt" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Search by Mobile Number">
+                    <button type="submit" class="btn btn-primary width-100 mb-xs search_btn" role="button" (click)="getOnBoardedConsumerListOnMobileNo(search.value)">
+        SEARCH
+          </button>
+
+                    <button type="button" class="btn btn-primary width-100 mb-xs reset_btn" role="button" (click)="getRefreshedorderList()">Reset</button>
+                </div>
+
+            </form>
+            <p *ngIf="isNumComplete" value="isNumComplete" class="error_Messages">
+                Fill the complete 10 digits. </p>
+
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+
+                            <label for="sel1">Filter by state</label>
+                
+                            <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone : true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+                                <option value = 0 > select</option>
+                                <option *ngFor="let state of stateResponse;let i = index" [value]=i+1>{{state.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            
+                            <label for="sel1">Filter by city</label>
+                
+                            <select class="form-control" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}" *ngIf="cityResponse" (change)="onCityChange($event.target.value)">
+                                <option value = 0 > select</option>
+                                <option *ngFor="let city of cityResponse;let i = index" [value]=i>{{city.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                            <label for="sel1">Filter by area</label>
+                
+                            <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse">
+                                <option value = 0 > select</option>
+                                <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j>{{locationArea.name}}</option>
+                            </select>
+                        </div>
+            </div>
+            
+        </div>-->
+        <div class="col-md-12">
+            <div class="row">
+                
+                <div class=" col-xl-6">
+                    <form action="#">
+                        <h6 class="sub-title">Search orders</h6>
+                        <div class="row" id="checkMobile" name="searchcriteria" value="mobile" (change)="onSearchChange('mobile')">
+                            <div class="col-md-8 col-sm-8 col-xs-7">
+                                <input type="text" id="searchBox" name="search" #search minlength="10" maxlength="10" class="serch_txt" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Search by Mobile Number">
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-5">
+                                <button type="submit" class="btn btn-primary width-100 mb-xs search_btn" role="button" (click)="getOnBoardedConsumerListOnMobileNo(search.value)">
+                                SEARCH</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p *ngIf="isNumComplete" value="isNumComplete" class="error_Messages">
+                        Fill the complete 10 digits. </p>
+                </div>
+                <div class="col-xl-6 filter-section">
+                    <div class="row">
+                    <div class="col-sm-4 filter_txt select_city">
+                            <label for="sel1">Filter by area</label>
+
+                            <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse" (change)="onLocalityChange($event.target.value)">
+                                                <option value = 0 > select</option>
+                                                <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j>{{locationArea.name}}</option>
+                                            </select>
+
+                      
+                    </div>
+                    <div class="col-sm-4 filter_txt">
+
+                        <label for="sel1">Filter by city</label>
+
+                        <select class="form-control" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}" *ngIf="cityResponse" (change)="onCityChange($event.target.value)">
+                                            <option value = 0 > select</option>
+                                            <option *ngFor="let city of cityResponse;let i = index" [value]=i>{{city.name}}</option>
+                                        </select>
+                    </div>
+                    <div class="col-sm-4 filter_txt mb-3">
+                            <label for="sel1">Filter by state</label>
+
+                            <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone : true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+                                                <option value = 0 > select</option>
+                                                <option *ngFor="let state of stateResponse;let i = index" [value]=i+1>{{state.name}}</option>
+                                            </select>
+                       
+                    </div>
+                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+    <div class="row">
+    
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary width-100  reset_btn" role="button" (click)="getRefreshedorderList()"><span class="glyphicon glyphicon-repeat"></span><span class="reset_txt">REFRESH</span></button>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-12">
+            <section class="widget table_pading hs-table" widget>
+
+                <div class="widget-body">
+                    <hs-table [columns]="columns" [pagingList]="profileResponseList" (clickEvent)="clickEventHandler($event)" [componentId]="'onboardingTable'" [perPage]="perPage" [total]="total">
+                        Loading table...
+                    </hs-table>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<!-- onboarding popup model code start here -->
+
+<div id="enquirypopup" class="modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+        <!-- Modal content-->
+        <div class="modal-content row digo_popuotxt">
+            <div class="modal-header custom-modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="onCloseButtonClicked()">×</button>
+                <h4 class="modal-title">Onboarding Remarks</h4>
+            </div>
+            <div class="modal-body">
+                <form name="info_form" class="form-inline" action="#" method="post">
+
+                    <div class="form-group col-sm-12">
+                        <label>Description</label>
+                        <textarea class="form-control" [(ngModel)]="onboardingUserVO.description" id="msg" name="msg" rows="4" placeholder="Enter Message" cols="30" maxlength="30"></textarea>
+                    </div>
+                    <hs-message [isError]="isRemarksError" [show]="showRemarksMessage" [messages]="errorRemarksMessage"></hs-message>
+                    <div class="form-group col-sm-12">
+                        <button type="submit" class="btn btn-danger pull-right" (click)="onSubmitClicked()">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- onboarding popup model code start here -->
+
+<spinner-component></spinner-component>

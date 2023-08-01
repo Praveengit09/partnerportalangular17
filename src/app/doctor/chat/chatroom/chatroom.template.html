@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="charts-info" *ngIf="contactTo">
+            <div class="user">
+                <img alt="..." class="rounded-circle" src="{{getImageOfContact(contactTo)}}">
+            </div>
+            <div class="doctor_name">
+                <h5 class="queueName">{{contactTo.firstName}} {{contactTo.lastName}}<a class="badge ml-1 text-white"
+                        [class.bg-success]="contactTo.onlineStatus==1"
+                        [class.offline]="contactTo.onlineStatus!=1">{{contactTo.onlineStatus==1?'Online':''}}</a>
+                </h5>
+                <span class="user-typing"
+                    *ngIf="(typingName && typingName!='' && typingName!=' ');else userNotTyping">{{typingName}} is
+                    typing...</span>
+                <ng-template #userNotTyping>
+                    <span class="user-typing">
+                        {{contactTo.gender?contactTo.gender:''}}{{contactTo.age?(', '+contactTo.age+' Years'):''}}
+                    </span>
+                </ng-template>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-0" id="sent-messages">
+    <div class="col-md-12">
+        <div class="charts-infocontainer">
+            
+            <ng-container *ngFor="let message of getConversations()">
+                <div class="clearfix"></div>
+                <div *ngIf="message" [class.pull-left]="message.receiverId == doctorId"
+                    [class.pull-right]="message.receiverId != doctorId">
+                  
+                    <div id="messagephote" >
+                        {{message.message}}
+                        <span *ngIf="message.documentInfo"  (click)="onclickphoto(message)" data-toggle="modal" data-target="#myModal"> <br>  <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" alt="" width="190px" height="110px"></span><span *ngIf="message.sentTimestamp > 0"
+                            class="chat-msg-time">{{message.sentTimestamp | ChatDateFormatterPipe}}</span>
+                    </div>
+                </div>
+            </ng-container>
+    
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="send-msg-div">
+            <div class="file_uploaded" *ngIf="fileLocation" >
+                <span (click)="remove()">
+                <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+                </span><br>
+                <img src="{{fileLocation}}" alt="" height="200px" width="300px">
+            </div>
+            <form class="send-msg-input">
+                <input type="text" [(ngModel)]="message" name="message" autocomplete="off" (keyup)="typing($event)"
+                    placeholder="Type a message">
+                <div class="attach_sendbtn">
+                    <span>
+                        <input type="file" id="fileLoader" name="files" title="Load File" (change)="getImage($event)">
+                        <i class="fa fa-picture-o attach-icon" aria-hidden="true" (click)="attachFile();"></i>
+                    </span>
+                    <span class="send_msg" (click)="sendMessage()">
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" role="dialog" >
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Image</h4>
+            </div>
+            <div class="modal-body">
+                <img src="{{ImageUrl}}" alt="loading..." width="100%">
+            </div>
+        </div>
+    </div>
+</div>

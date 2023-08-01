@@ -1,0 +1,75 @@
+.info-head {
+    font-size: 13px;
+    font-weight: normal;
+    color: rgba(51, 51, 51, 0.6);
+}
+h5 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+    margin-top: 0;
+}
+p {
+    color: rgba(51, 51, 51, 0.9);
+    margin-bottom: 5px;
+    line-height: 16px;
+}
+.status-info p {
+    line-height: normal;
+}
+.status-info select {
+    color:  #333333 ;
+    width: 270px;
+    padding: 8px;
+}
+.update-btn {
+    width: 172px;
+    border-radius: 2px;
+    border: solid 1px #ec6262;
+    background-color: #ff6d6d;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.other-paymentdetails{
+    display: none;
+    margin-bottom: 10px;
+}
+.other-paymentdetails input{
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    height: calc(2.5rem - 2px);
+}
+#other-payment:checked ~ .other-paymentdetails{
+    display: block !important;
+}
+
+.update-btn {
+    width: 172px;
+    border-radius: 2px;
+    border: solid 1px #ec6262;
+    background-color: #ff6d6d;
+    color: #ffffff;
+    text-transform: uppercase;
+    height:40px;
+}
+
+.paymode_cash, .paymode_cash select {
+    color: rgba(51, 51, 51, 0.9);
+}
+
+.validationCustom04{
+    font-size: 1.3rem;
+    color: rgba(51, 51, 51, 0.9);
+  }
+
+  h6, label.validationCustom03, label.validationCustom04 {
+    font-size: 13px;
+    color: rgba(51, 51, 51, 0.6);
+    margin-top: 0;
+    display: block;
+}
+
+.color_cash{
+    font-size: 500;
+   }

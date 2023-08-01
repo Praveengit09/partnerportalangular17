@@ -1,0 +1,250 @@
+<h1 class="page-title">My Saved Templates</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <button class="button_addtxt" role="button" type="button" (click)="addNewTemplate()">
+            Add New Template
+        </button>
+    </div>
+    <div class="col-lg-12">
+        <section class="widget table_pading templates_widget widget-shadow">
+            <div class="widget-body table-responsive table-datalabel">
+                <table class="table table-hover table-striped hs_tabletxt">
+                    <thead>
+                        <tr class="table_head">
+                            <th>#</th>
+                            <th>Template Name</th>
+                            <th>Diagnosis</th>
+                            <th>Medication</th>
+                            <th>Invesigation</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let template of displaytemplates;let i=index">
+                            <td data-label="#">
+                                <div class="tabledatalabel-right">{{((this.indexOfPage - 1) * this.noOfReportsPerPage)+(i+1)}}</div>
+                            </td>
+                            <td data-label="Template Name" class="width-200 word-break">
+                                <div class="tabledatalabel-right">{{template.title}}</div>
+                            </td>
+                            <td data-label="Diagnosis">
+                                <div class="tabledatalabel-right">
+                                    <div class="mb-0" *ngIf="isDiagnosisListNull(template)">
+                                        --</div>
+
+                                    <div class="mb-0" *ngIf="!isDiagnosisListNull(template)&&(template.diagnosisList && template.diagnosisList.length == 1)">
+                                        {{template.diagnosisList[0].name}}
+                                    </div>
+                                    <div class="mb-0" *ngIf="!isDiagnosisListNull(template)&&(template.diagnosisList && template.diagnosisList.length == 2)">
+                                        {{template.diagnosisList[0].name}}, {{template.diagnosisList[1].name}}
+                                    </div>
+                                    <div class="mb-0" *ngIf="!isDiagnosisListNull(template)&&(template.diagnosisList && template.diagnosisList.length  >= 3)">
+                                        {{template.diagnosisList[0].name}}, {{template.diagnosisList[1].name}} +{{template.diagnosisList.length-2}}
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Medication">
+                                <div class="tabledatalabel-right">
+                                    <div class="mb-0" *ngIf="isPharmacyAdvisesNull(template)">
+                                        --
+                                    </div>
+
+                                    <div class="mb-0" *ngIf="(!isPharmacyAdvisesNull(template) )&& template.pharmacyAdvises.pharmacyAdviceList.length == 1">
+                                        {{template.pharmacyAdvises.pharmacyAdviceList[0].productName}}
+                                    </div>
+                                    <div class="mb-0" *ngIf="(!isPharmacyAdvisesNull(template) )&& template.pharmacyAdvises.pharmacyAdviceList.length == 2 ">
+                                        {{template.pharmacyAdvises.pharmacyAdviceList[0].productName}}, {{template.pharmacyAdvises.pharmacyAdviceList[1].productName}}
+                                    </div>
+                                    <div class="mb-0" *ngIf="(!isPharmacyAdvisesNull(template) )&& template.pharmacyAdvises.pharmacyAdviceList.length  >= 3 ">
+                                        {{template.pharmacyAdvises.pharmacyAdviceList[0].productName}}, {{template.pharmacyAdvises.pharmacyAdviceList[1].productName}} +{{template.pharmacyAdvises.pharmacyAdviceList.length-2}}
+                                    </div>
+                                </div>
+                            </td>
+                            <td data-label="Invesigation">
+                                <div class="tabledatalabel-right">
+                                    <div class="mb-0" *ngIf="(template.investigationAdvises.investigationList.length==0)">
+                                        --
+                                    </div>
+
+                                    <div class="mb-0" *ngIf="template.investigationAdvises.investigationList && template.investigationAdvises.investigationList.length == 1">
+                                        {{template.investigationAdvises.investigationList[0].serviceName}}
+                                    </div>
+                                    <div class="mb-0" *ngIf="template.investigationAdvises.investigationList && template.investigationAdvises.investigationList.length == 2 ">
+                                        {{template.investigationAdvises.investigationList[0].serviceName}}, {{template.investigationAdvises.investigationList[1].serviceName}}
+                                    </div>
+                                    <div class="mb-0" *ngIf="template.investigationAdvises.investigationList && template.investigationAdvises.investigationList.length  >= 3 ">
+                                        {{template.investigationAdvises.investigationList[0].serviceName}}, {{template.investigationAdvises.investigationList[1].serviceName}} +{{template.investigationAdvises.investigationList.length-2}}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tabledatalabel-right">
+                                    <button class="btn btn-danger" type="submit" (click)="openTemplateModel(template,i)">View</button>
+                                    <button class="btn btn-danger" (click)="print(template);routeToEditTemplate(template);print(template)">Edit</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <nav aria-label="Page navigation pull-right" *ngIf="templates.length>noOfReportsPerPage">
+            <ul class="pagination pull-right">
+                <li class="page-item" *ngIf="indexOfPage!=1" [class.disabled]="indexOfPage==1">
+                    <a class="page-link" tabindex="-1" (click)="changePageIndex(indexOfPage-1)">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" [class.currentPage]="indexOfPage==(i+1)" *ngFor="let j of getNumberOfPages();let i=index" (click)="changePageIndex(i+1)">
+                      {{i+1}}
+                    </a>
+                </li>
+                <li class="page-item" *ngIf="indexOfPage!=(getNumberOfPages().length)" [class.disabled]="indexOfPage==(getNumberOfPages().length)">
+                    <a class="page-link" (click)="changePageIndex(indexOfPage+1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="templateViewModel" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">Close &times;</button>
+                <h4 class="modal-title">Template Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5>Template Information</h5>
+                    </div>
+                    <div class="col-lg-12">
+                        <section class="widget table_pading">
+                            <div class="widget-body table-responsive">
+                                <table class="table table-hover table-striped hs_tabletxt">
+                                    <thead>
+                                        <tr class="table_head">
+                                            <th>Template Name</th>
+                                            <!-- <th> Provisional Diagnosis</th>
+                                            <th>Final Diagnosis</th> -->
+                                            <th>Diagnosis</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{templateDetail.title}}</td>
+                                            <td>
+                                                <span *ngFor="let diagnosis of templateDetail.diagnosisList;let i=index">{{i==0?'':','}}
+                                                    {{diagnosis.name}}</span>
+
+                                            </td>
+                                            <!-- <td>Fever</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="row" *ngIf="templateDetail.pharmacyAdvises">
+                    <div class="col-lg-12" *ngIf="templateDetail.pharmacyAdvises.pharmacyAdviceList.length>0">
+                        <h5>Pharmacy Advice</h5>
+                    </div>
+                    <div class="col-lg-12" *ngIf="templateDetail.pharmacyAdvises.pharmacyAdviceList.length>0">
+                        <section class="widget table_pading pharmacyadvice_widget widget-shadow">
+                            <div class="widget-body table-responsive table-datalabel">
+                                <table class="table table-hover table-striped hs_tabletxt">
+                                    <thead>
+                                        <tr class="table_head">
+                                            <th>Drug Form</th>
+                                            <th>Medicine Name</th>
+                                            <th>Dosage</th>
+                                            <th>Duration</th>
+                                            <th>Diet Info</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let pharmacyAdvise of templateDetail.pharmacyAdvises.pharmacyAdviceList">
+                                            <td data-label="Medicine Type">
+                                                <div class="tabledatalabel-right">{{pharmacyAdvise.drugForm?pharmacyAdvise.drugForm:''}}</div>
+                                            </td>
+                                            <td data-label="Medicine Name">
+                                                <div class="tabledatalabel-right">{{pharmacyAdvise.productName}} {{pharmacyAdvise.medicineStrength?pharmacyAdvise.medicineStrength:''}} {{pharmacyAdvise.genericMedicine.genericMedicineName ? '('+pharmacyAdvise.genericMedicine.genericMedicineName+')':''}}
+                                                </div>
+                                            </td>
+                                            <td data-label="Dosage">
+                                                <div class="tabledatalabel-right">{{pharmacyAdvise.doseLabel}}</div>
+                                            </td>
+                                            <td data-label="Duration">
+                                                <div class="tabledatalabel-right">{{((pharmacyAdvise.duration) && (pharmacyAdvise.duration.repeatTimes) ) ?(pharmacyAdvise.duration.repeatTimes)+' Days' :((pharmacyAdvise.isSOS)?'SOS':'--') }}</div>
+                                            </td>
+                                            <td data-label="Diet Info">
+                                                <div class="tabledatalabel-right">{{pharmacyAdvise.takenWhenFood}}</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="row" *ngIf="templateDetail.investigationAdvises">
+                    <div class="col-lg-12" *ngIf="templateDetail.investigationAdvises.investigationList.length>0">
+                        <h5>Invesigation Advice</h5>
+                    </div>
+                    <div class="col-lg-12" *ngIf="templateDetail.investigationAdvises.investigationList.length>0">
+                        <section class="widget table_pading">
+                            <div class="widget-body table-responsive">
+                                <table class="table table-hover table-striped hs_tabletxt">
+                                    <thead>
+                                        <tr class="table_head">
+                                            <th>Invesigation Tests</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let investigation of templateDetail.investigationAdvises.investigationList;let i=index">
+                                            <td> {{investigation.serviceName}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="routeToEditTemplate(templateDetail)">Modify Template</button>
+                <button type="button" *ngIf="canDoctorDeleteTemplate" class="btn btn-danger" (click)="openDeleteAlertmodel()">Delete Template</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal" style=" overflow-y: auto !important" id="deleteAlertmodelId" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [style.width]="'auto'" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                Do you want to delete {{templateDetail.title}}?
+            </div>
+            <div class="modal-body row" style="text-align: center">
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px" (click)="deleteTemplateForDoctor(templateDetail)">Yes</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn " style="width:100px" (click)="discardDeleteAlert()">No</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<spinner-component></spinner-component>

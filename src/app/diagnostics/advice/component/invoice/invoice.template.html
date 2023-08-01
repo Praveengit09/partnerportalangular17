@@ -1,0 +1,122 @@
+<div class="col-md-12 col-sm-12 col-xs-12 advice_text">
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Invoice ID {{diagnosticsAdviseTrack.invoiceId}}</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="widget_txt" widget="">
+
+
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Patient Name </p>
+                <h4>{{diagnosticsAdviseTrack.patientProfileDetails.title?diagnosticsAdviseTrack.patientProfileDetails.title+". ":''}} {{diagnosticsAdviseTrack.patientProfileDetails.fName}} {{diagnosticsAdviseTrack.patientProfileDetails.lName?diagnosticsAdviseTrack.patientProfileDetails.lName:''}}
+                </h4>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt">
+                <p>Doctor</p>
+                <span *ngIf="diagnosticsAdviseTrack.doctorDetail!=undefined">
+                    <h4>Dr. {{diagnosticsAdviseTrack.doctorDetail.firstName}}
+                        {{diagnosticsAdviseTrack.doctorDetail.lastName?diagnosticsAdviseTrack.doctorDetail.lastName:''}}
+                    </h4>
+                </span>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 patient_txt" *ngIf="diagnosticsAdviseTrack.orderId!=undefined">
+                <p>Order ID</p>
+                <h4>{{diagnosticsAdviseTrack.orderId}}</h4>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+
+
+
+
+<div class="table_size">
+
+
+    <div class="row">
+        <div class="col-md-9 col-sm-12 col-xs-12 perscripton_txt">
+            Tests
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="widget table_pading invoice-widget" widget>
+
+                <div class="widget-body table-datalabel widget-shadow">
+                    <table class="table">
+                        <thead>
+                            <tr class="table_head">
+                                <th class="head_dogo">#</th>
+                                <th class="">Test Name</th>
+                                <th class="">Original Price</th>
+                                <th class="">Offer Price</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of diagnosticsAdviseTrack.serviceList; let i = index">
+                            <tr>
+                                <td data-label="#" class="fname-txt">
+                                    <div class="tabledatalabel-right">{{i+1}}</div>
+                                </td>
+                                <td data-label="Test Name" class="fname_2txt">
+                                    <div class="tabledatalabel-right">{{item.serviceName}}</div>
+                                </td>
+                                <td data-label="Original Price">
+                                    <div class="tabledatalabel-right">&#x20B9; {{item.grossPrice}}</div>
+                                </td>
+                                <td data-label="Offer Price">
+                                    <div class="tabledatalabel-right">&#x20B9; {{item.netPrice}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <form class="from_txt">
+            <div class="row">
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Original Amount (OA) :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#x20B9; {{diagnosticsAdviseTrack.payment.originalAmount}}</div><br><br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Package Discount (PD) : </div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#x20B9; {{diagnosticsAdviseTrack.payment.packageDiscountAmount | number : '1.2-2'}}</div>
+                <br><br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Wallet Discount (WD) :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{diagnosticsAdviseTrack.payment.usedWalletAmount?diagnosticsAdviseTrack.payment.usedWalletAmount:0|number : '1.2-2'}}
+                </div><br><br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Platform Charges :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{diagnosticsAdviseTrack.payment.platformCharges?diagnosticsAdviseTrack.payment.platformCharges:0|number : '1.2-2'}}
+                </div><br><br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">Other Discount (OD) :</div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt">
+                    &#8377; {{diagnosticsAdviseTrack.payment.otherDiscountAmount?diagnosticsAdviseTrack.payment.otherDiscountAmount:0|number : '1.2-2'}}
+                </div><br><br>
+                <div class="col-md-7 col-sm-6 col-xs-6 total_txt">
+                    <p *ngIf="diagnosticsAdviseTrack.payment.transactionType != 5">Total Amount Paid:</p>
+                    <p *ngIf="diagnosticsAdviseTrack.payment.transactionType == 5">Total Amount Payable:</p>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-6 total_txt"> &#x20B9; {{diagnosticsAdviseTrack.payment.finalAmount}}
+                </div><br><br>
+            </div>
+
+            <button role="button" class="submit_txt prient_txt" value="Submit" (click)="onPrintButtonClick()" *ngIf="diagnosticsAdviseTrack.payment.transactionType != 5">
+                <i class="fa fa-print" aria-hidden="true"></i> Print</button>
+            <button role="button" class="submit_txt " value="" (click)="onBackButtonClick()">Back</button>
+
+        </form>
+    </div>
+</div>

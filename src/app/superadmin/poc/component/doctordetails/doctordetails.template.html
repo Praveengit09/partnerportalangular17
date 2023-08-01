@@ -1,0 +1,310 @@
+<div class="table_size">
+
+    <div class="row">
+
+        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+            <h1 class="page-title">Select Doctor</h1>
+
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <span>
+                <button class="btn btn-danger  mb-xs botton_txtsearch done_txt addnew_schedule" role="button"
+                    data-toggle="modal" data-target="#myModal1" (click)="addNewSchdule()"
+                    [disabled]="isScheduleBtnDisable">
+                    <i class="fa fa-plus add_txt" aria-hidden="true"></i>ADD NEW SCHEDULE</button>
+            </span>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+            <button class="btn btn-danger  mb-xs botton_txtsearch done_txt markleave" role="button" (click)="openModal('#myModal2')">MARK LEAVE</button>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+            <button class="btn btn-danger  mb-xs botton_txtsearch done_txt markleave" role="button" (click)="showDoctorLeaves()">VIEW LEAVES</button>
+        </div>
+    </div>
+
+    <hs-message [isError]="isScheduleBtnDisable" [show]="isScheduleBtnDisable" [messages]="cnsltnErrMsg"></hs-message>
+
+    <div class="row doctor_detailstxt">
+        <div class="col-md-7 col-sm-12 col-xs-12">
+            <h3>Doctor Details</h3>
+            <div class="row doctor_name_spec">
+                <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="!this.doctorDetail.imageUrl">
+                    <img alt="..." class="rounded-circle doctor_imagetxt" src="assets/img/avatar.png">
+
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="this.doctorDetail.imageUrl">
+                    <img alt="..." class="rounded-circle doctor_imagetxt" src={{this.doctorDetail.imageUrl}}>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <h4 class="text-primary">{{this.doctorDetail.firstName}} {{this.doctorDetail.lastName?this.doctorDetail.lastName:''}}
+                    </h4>
+                    <h5 class="text">{{this.doctorDetail.contactList[0]}}</h5>
+
+                    <div>
+                        <p class="service_name-txt">{{doctorDetail.serviceName}}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <section class="widget table_pading doctor_tablesec docschedule_detailwidget table-responsive table-datalabel widget-shadow">
+
+        <table class="table table-striped doctor_table table-hover" *ngIf="this.POCList != null">
+            <thead>
+                <tr>
+                    <th>From Time</th>
+                    <th>To Time</th>
+                    <th>Validity Date From</th>
+                    <th>Validity Date To</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="this.schedules[0] !=null">
+                <tr *ngFor="let item of this.schedules ; let i=index ">
+                    <td data-label="From Time">
+                        <div class="tabledatalabel-right">{{item.dateTiming[0][0] | date: 'shortTime'}}</div>
+                    </td>
+                    <td data-label="To Time">
+                        <div class="tabledatalabel-right">
+                            {{item.dateTiming[0][(item.dateTiming[0].length)-1] | date: 'shortTime'}}</div>
+                    </td>
+                    <td data-label="Validity Date From">
+                        <div class="tabledatalabel-right">{{item.validFrom | date: 'dd/MM/yyyy'}}</div>
+                    </td>
+                    <td data-label="Validity Date To">
+                        <div class="tabledatalabel-right">{{item.validTo | date: 'dd/MM/yyyy'}}</div>
+                    </td>
+                    <td data-label="Action">
+                        <div class="tabledatalabel-right"><i class="fa fa-pencil" (click)="onEditButton(item);openModal('#myModal1')" aria-hidden="true"></i></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+</div>
+
+<!-- Modal -->
+<div class="modal " id="myModal1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" *ngIf="this.editScheduleId">Modify Schedule</h4>
+                <h4 class="modal-title" *ngIf="!this.editScheduleId">Add New Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="validationCustom03">From Time:</label>
+                        <datetime [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="false" [(value)]="fromTime" [placeholder]="'From Time'">
+                        </datetime>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="validationCustom03">To Time:</label>
+                        <datetime [(value)]="toTime" [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="false" [placeholder]="'To Time'">
+                        </datetime>
+
+                    </div>
+                </div>
+                <h4>Repeat On</h4>
+                <div class="row custom_chk2">
+                    <div class="col-md-1 custom_chk2">
+                        <input type="checkbox" name="testCheckBox" id="0" name="mon" value="0" autocomplete="on">
+                        <label class="role_size1" for="0">Mon</label>
+
+                    </div>
+                    <div class="col-md-1 custom_chk2">
+                        <input type="checkbox" name="testCheckBox" id="1" name="Tue" value="1" autocomplete="on">
+                        <label class="role_size1" for="1">Tue</label>
+
+                    </div>
+                    <div class="col-md-1 custom_chk2">
+                        <input type="checkbox" name="testCheckBox" id="2" name="Wed" value="2" autocomplete="on">
+                        <label class="role_size1" for="2">Wed</label>
+
+                    </div>
+                    <div class="col-md-1 custom_chk2">
+                        <input type="checkbox" name="testCheckBox" id="3" name="Thu" value="3" autocomplete="on">
+                        <label class="role_size1" for="3">Thu</label>
+
+                    </div>
+                    <div class="col-md-1 custom_chk2">
+                        <input type="checkbox" name="testCheckBox" id="4" name="Fri" value="4" autocomplete="on">
+                        <label class="role_size1" for="4">Fri</label>
+
+                    </div>
+                    <div class="col-md-1 custom_chk2">
+                        <input type="checkbox" name="testCheckBox" id="5" name="Sat" value="5" autocomplete="on">
+                        <label class="role_size1" for="5">Sat</label>
+
+                    </div>
+                    <div class="col-md-1 custom_chk2">
+                        <input type="checkbox" name="testCheckBox" id="6" name="Sun" value="6" autocomplete="on">
+                        <label class="role_size1" for="6">Sun</label>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="validationCustom03">From Date:</label>
+                        <datetime name="fromDate" [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="fromDate" [placeholder]="'From Date'"></datetime>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="validationCustom03">To Date:</label>
+                        <datetime name="toDate" [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="toDate" [placeholder]="'To Date'">
+                        </datetime>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Slot Publish days: </h4>
+                    </div>
+                    <div class="col-md-4">
+                        <input id="userid" name="userid" class="form-control input-large" ngModel type="text" maxlength="3" (keypress)="validation.onlyNumbers($event)" [(ngModel)]="slotPublishDays" placeholder="No of Days" required="">
+                    </div>
+                </div>
+                <h4>Consultation slot duration(minute)</h4>
+                <div class="row">
+                    <div class="buying-selling-group" id="buying-selling-group" data-toggle="buttons">
+                        <label class="btn btn-default buying-selling" *ngFor="let time of timeDurationSlotList;let i=index;" [class.active]="slotDurationEdit==time" (click)="timeIntervals(time)">
+                            <input type="radio" name="options{{i+1}}" id="interval{{time}}" autocomplete="on">
+                            <span class="radio-dot"></span>
+                            <span class="buying-selling-word">{{time}} min</span>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="scheduleCancel()">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnGetValue" Value="Get Value" (click)="updateSchedule()">Done</button>
+            </div>
+        </div>
+    </div>
+    <spinner-component></spinner-component>
+</div>
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal" id="myModal2" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Mark Leave</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="validationCustom03">From Date:</label>
+                        <datetime [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="fromDate"></datetime>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="validationCustom03">To Date:</label>
+                        <datetime [timepicker]="false" [datepicker]="datepickerOpts" [(value)]="toDate"></datetime>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="validationCustom03">From Time:</label>
+                        <datetime [(value)]="fromTime" [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="false">
+                        </datetime>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="validationCustom03">To Time:</label>
+                        <datetime [(value)]="toTime" [timepicker]="{ icon: 'fa fa-clock-o' }" [datepicker]="false">
+                        </datetime>
+                    </div>
+
+                </div>
+            </div>
+            <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="scheduleCancel()">Close</button>
+                <button type="button" class="btn btn-default" (click)="onLeave()">Done</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->
+<!-- <div *ngIf="this.conflict"> -->
+<div class="modal " id="myModal3" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body confirmation">
+                <h4>{{message}}</h4>
+                <h4>{{message1}}</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onLeaveConfirm()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+<!-- Modal -->
+<div class="modal " id="myModal4" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Doctor Leaves</h4>
+            </div>
+            <div class="modal-body confirmation">
+                <section class="widget table_pading doctor_tablesec docschedule_detailwidget table-responsive table-datalabel widget-shadow">
+                    <table class="table table-striped doctor_table table-hover">
+                        <thead>
+                            <tr>
+                                <th>From Date & Time</th>
+                                <th>To Date & Time</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="doctorLeaves && doctorLeaves.length > 0">
+                            <tr *ngFor="let item of doctorLeaves ; let i=index ">
+                                <td data-label="From Time">
+                                    <div>{{item.startDate | date: 'dd/MM/yyyy'}} {{item.startTime | date: 'shortTime'}}
+                                    </div>
+                                </td>
+                                <td data-label="To Time">
+                                    <div>
+                                        {{item.endDate | date: 'dd/MM/yyyy'}} {{item.endTime | date: 'shortTime'}}</div>
+                                </td>
+                                <td data-label="Status">
+                                    <div>
+                                        {{item.leaveCancellationStatus?'Cancelled':'Active'}}</div>
+                                </td>
+
+                                <td data-label="Action">
+                                    <div *ngIf="!item.leaveCancellationStatus" class="tabledatalabel-right"><i class="fa fa-trash" (click)="deleteLeaveRequest(item)" aria-hidden="true"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->

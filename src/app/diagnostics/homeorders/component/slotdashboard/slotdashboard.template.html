@@ -1,0 +1,87 @@
+<div class="table_size pdgleft">
+    <h1 class="page-title">Slot Dashboard</h1>
+    <section class="widget_txt" widget="">
+        <div class="row">
+            <div class="col-xl-3 col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <datetime [(value)]="date" [datepicker]="datepickerOpts" [timepicker]="false"
+                    [datepicker]="{ icon: 'fa fa-calendar'}" (dateChange)="getSlotSummaryList()">
+                </datetime>
+            </div>
+            <div >
+                <button class="btn btn-primary" (click)="refreshSlots()">Refresh</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-3 order_reports">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h6><b>Tootal Booking : {{ totalOrderCount }}</b></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="vendorCountDetails.length > 0">
+            <div class="col-lg-2 col-md-3 col-sm-3 order_reports" *ngFor="let vendor of vendorCountDetails">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h6><b>{{ vendor.vendorPocName }} : {{ vendor.orderCount }}</b></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row mt-2">
+        <div class="col-xl-6 col-lg-5">
+            <h3 class="page-title">Slot Summary</h3>
+        </div>
+        <div class="col-xl-6 col-lg-5 drpdwn">
+            <div class="row">
+                <div class="col-sm-6 filter_txt drpdwn" *ngIf="slotResponse.length">
+                    <h6>Sort by Cluster</h6>
+                    <select class="form-control" (change)="onClusterFilter($event.target.value)">
+                        <option value=-1>Select Cluster</option>
+                        <option *ngFor="let cluster of this.slotResponse;let i= index" [value]="i">{{cluster.areaClusterName}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 filter_txt drpdwn" *ngIf="slotResponse.length">
+                    <h6>Sort by</h6>
+                    <select class="form-control" [(ngModel)]='sortBy' [ngModelOptions]="{standalone: true}"
+                        (change)="onChangeSort($event.target.value)">
+                        <option value=1>Most Booked</option>
+                        <option value=2>Slot Time</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>    
+    <ng-container *ngIf="displaySlotResponse.length">
+        <div *ngFor="let cluster of displaySlotResponse">
+            <ng-container *ngIf="scheduleType ==1">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>Cluster Name: {{cluster.areaClusterName}}</h3>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row mt-1">
+                <div class="slot_booktxt">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bxs"
+                        *ngFor="let dateSlots of cluster.dateSlots">
+                        <label class="sloat_size">
+                            <span class="ailment_text">{{dateSlots.timeString}}</span>
+                            <p>Slots Booked: {{dateSlots.filled}} / {{cluster.pplPerSlot}}</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!slotResponse.length">
+        <h2>No Slots Found</h2>
+    </ng-container>
+</div>
+
+<spinner-component></spinner-component>

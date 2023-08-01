@@ -1,0 +1,209 @@
+<div class="table_size">
+    <hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+    <h1 class="page-title">Cash Accounting Report</h1>
+    <div class="col-md-12 col-sm-12 col-xs-12 serbox_txt">
+        <div class="row serbox_txt date-filterPOC">
+
+            <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-6 input_date respon_txt">
+                <!-- <label for="strength" class="all_textboxtxt">Start Date</label> -->
+                <datetime [(value)]="startDate" name="startDate" id="datepicker" [placeholder]="'Start Date'" (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-6 input_date respon_txt">
+                <!-- <label for="strength" class="all_textboxtxt">End Date</label> -->
+                <datetime [(value)]="endingDate" name="endDate" id="datepicker" [placeholder]="'End Date'" (dateChange)="endDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOptEnd"></datetime>
+            </div>
+            <div class="form-group col-xl-2 col-lg-4 col-md-4">
+                <button type="submit" class="btn btn-danger  sub_txt width-100" role="button" (click)="getAccountingRecords(0,0,0,0)">
+                    Submit
+                </button>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="filter_txt">
+                    <h6 class="sub-title">Filter by POC</h6>
+                    <form>
+                        <select id="poc_select" class="form-control" *ngIf="pocList" (change)="onPOCSelect($event.target.value)">
+                            <option value=0>Select</option>
+                            <option *ngFor="let poc of pocList;let i = index" [value]="poc.pocId">{{poc.pocName}}</option>
+                        </select>
+
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 col-sm-12 aria_filter_txt">
+
+                <div class="filter_txt select_city">
+                    <h6 class="sub-title">Filter by Area</h6>
+                    <form>
+                        <select class="form-control" [(ngModel)]="indexForLoc" [ngModelOptions]="{standalone : true}" *ngIf="localityResponse" (change)="onLocationChange($event.target.value)">
+                            <option value=0>Select Area</option>
+                            <option *ngFor="let locationArea of localityResponse;let j = index" [value]=j+1>{{locationArea.name}}</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="filter_txt">
+                    <h6 class="sub-title">Filter by City</h6>
+                    <form>
+                        <select class="form-control" *ngIf="cityResponse" [(ngModel)]="indexForCity" [ngModelOptions]="{standalone : true}" (change)="onCityChange($event.target.value)">
+                            <option value=0>Select City</option>
+                            <option *ngFor="let city of cityResponse;let i = index" [value]=i+1>{{city.name}}</option>
+                        </select>
+
+                    </form>
+                </div>
+
+                <div class="filter_txt">
+                    <h6 class="sub-title">Filter by State</h6>
+                    <form>
+                        <select class="form-control" [(ngModel)]="indexForState" [ngModelOptions]="{standalone : true}" *ngIf="stateResponse" (change)="onStateChange($event.target.value)">
+                            <option value=0>Select State</option>
+                            <option *ngFor="let loc of stateResponse;let i = index" [value]=i+1>{{loc.name}}</option>
+                        </select>
+
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                <button type="button" class="downloadacc_txt btn btn-danger" (click)="exlDownload()">Download</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="widget table_pading hs-table" widget>
+
+                    <div class="widget-body">
+
+
+                        <hs-table [columns]="columns" [pagingList]="accountingReportList"  [componentId]="'accountsReportsTable'" [perPage]="perPage" [total]="total" (clickEvent)="clickEventHandler($event)" (pageClick)="onPage($event)">
+                            Loading table...
+                        </hs-table>
+
+
+
+                    </div>
+
+
+                </section>
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <form>
+                        <label for="filter">Collection Status</label>&nbsp;
+                        <select class="form-control" name="reconciliationstatus" #reconciliationstatus [(ngModel)]=dropDownIndex>
+                            <option value="0" selected>Not Collected</option>
+                            <option value="1">Collected</option>
+                            <option value="2">Partially Collected</option>
+                        </select><br />
+                        <label for="descrip">Collection Amount</label>&nbsp;
+                        <input type="text" class="form-control" name="totalCollectionAmount" #totalCollectionAmount [(ngModel)]="totalCollectionAmountReset" (keypress)="validateNumberInputOnly($event)"><br />
+
+                        <label for="descrip">Add Remarks</label><br>
+                        <textarea rows="4" id="remarkArea" cols="50" [(ngModel)]="remarks" name="remark" #remark class="form-control title_txt"></textarea>
+                        <hs-message [isError]="isError" [show]="showMessage1" [messages]="errorMessage"></hs-message>
+                        <!-- <hs-message  [isError]="isError" [show]="showMessage1" [messages]="errorMessage"></hs-message> -->
+                        <button type="button" class="btn-serch" value="serch" (click)="onRemarkSubmit(totalCollectionAmount.value, remark.value, reconciliationstatus.value)">Submit</button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="myfinancial" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                    <h2 class="modal-title" style="text-align:left;color:#45B9C3">Detailed Transactions</h2>
+                </div>
+                <div class="modal-body">
+
+
+
+                    <table class="table table-fixed table-striped" *ngIf="displayReports && displayReports.length>0">
+                        <thead>
+                            <tr>
+                                <th>Purchase<br>Type</th>
+                                <th>Transaction<br>Type</th>
+
+                                <th>Doctor<br>Name</th>
+                                <th>Customer<br>Name</th>
+
+                                <th>Total<br>Amount</th>
+                                <th>Invoice</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let report of displayReports">
+                                <td>{{report.purchaseType}}</td>
+                                <td>{{report.transactionType}}</td>
+                                <td>{{report.doctorName}}</td>
+                                <td>{{report.customerName }}</td>
+                                <td>{{(report.totalAmount!=undefined?report.totalAmount:0) | currency:'INR':true:'1.2-2'}}
+                                </td>
+
+                                <td _ngcontent-c12="" class="admin_payment">
+                                    <!---->
+
+                                    <!---->
+                                    <!----><span _ngcontent-c12="">
+                                                <a _ngcontent-c12="" class="" (click)="openURLInNewTab(report.pdf)">
+                                                    {{report.invoiceId}} <img _ngcontent-c12="" alt="" class="img_txt" src="assets/img/partner/pdf_icon_read.png">
+                                                </a>
+                                            </span>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <nav aria-label="Page navigation example" *ngIf="financialReportList.length>noOfReportsPerPage">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item" *ngIf="indexOfPage!=1" [class.disabled]="indexOfPage==1">
+                                <a class="page-link" tabindex="-1" (click)="changePageIndex(indexOfPage-1)">Previous</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" [class.currentPage]="indexOfPage==(i+1)" *ngFor="let j of getNumberOfPages();let i=index" (click)="changePageIndex(i+1)">
+                            {{i+1}}
+                          </a>
+                            </li>
+                            <li class="page-item" *ngIf="indexOfPage!=(getNumberOfPages().length)" [class.disabled]="indexOfPage==(getNumberOfPages().length)">
+                                <a class="page-link" (click)="changePageIndex(indexOfPage+1)">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+        </div>
+    </div>

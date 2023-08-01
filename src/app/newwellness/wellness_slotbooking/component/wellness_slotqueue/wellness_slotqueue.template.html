@@ -1,0 +1,197 @@
+<h1 class="page-title">Slot Queue</h1>
+<hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+
+<form action="#">
+    <div class="row">
+        <div class="col-xl-6 col-lg-12">
+            <mat-form-field appearance="outline" class="search-orders">
+                <mat-label>Order ID/Mobile Number</mat-label>
+                <input type="text" autocomplete="off" id="search" (keyup)="onEnterPressed($event)" matInput
+                    placeholder="Enter Order ID/Mobile Number">
+                <i class="fa fa-search" aria-hidden="true" matSuffix
+                    (click)="getWellnessAdvisesForPocBasedOnPhoneNumberOrId()"></i>
+            </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-12">
+            <div class="autorefresh-refreshbutton filter-ordersbtn datepicker-refreshbutton">
+                <button type="button" class="btn btn-primary searchresult_resetbtn" role="button"
+                    (click)="getRefreshedorderList('')">
+                    <span class="glyphicon glyphicon-repeat"></span>
+                    <span class="refresh_txt">REFRESH</span>
+                </button>
+                <datetime class="datePayment" [(value)]="startDate" name="startDate" id="datepicker"
+                    [datepicker]="datepickerOpts" (dateChange)="startDateChoosen($event)" [timepicker]="false">
+                </datetime>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row mt-1">
+    <div class="col-lg-12"> <button type="button" class="btn btn-primary button_addtxt" role="button"
+            (click)="onGenerateNewAppointment()"><i class="fa fa-plus add_txt" aria-hidden="true"></i>New
+            Appointment</button></div>
+
+    <div class="col-md-12">
+        <section class="widget table_pading hs-table" widget>
+
+            <div class="widget-body">
+                <hs-table [columns]="columns" [pagingList]="slotBookingDetails" [sort]="sorting"
+                    (clickEvent)="clickEventHandler($event)" [dataMsg]="dataMsg" [componentId]="'wellnessslotqueueList'"
+                    [perPage]="perPage" [total]="total" (pageClick)="onPage($event)">
+                    Loading table...
+                </hs-table>
+
+            </div>
+        </section>
+    </div>
+    <!-- </div> -->
+</div>
+
+<!--Cancellation Confirmation popup starts here-->
+<div class="modal fade" id="modalId">
+    <div class="modal-dialog model_addtxt">
+        <div class="modal-content" *ngIf="adviceDetails!=undefined">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span class="close_txt" aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title add_medtxt text-line" *ngIf='this.modalId === "cancel_confirm"'>Cancel
+                    Appointment</h4>
+                <h4 class="modal-title add_medtxt text-line" *ngIf='this.modalId === "complete_order"'>Confirm Order
+                    Completion</h4>
+
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-horizontal" #signupForm="ngForm">
+                    <div class="form-group">
+                        <h5 class="paycon_txt"> Booking Details</h5>
+                    </div>
+
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">{{adviceDetails.serviceName}}</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{adviceDetails.serviceName}}</p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Date</p>
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">
+                            {{adviceDetails.slotDate | date:'d/MMMM/yyyy'}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-sm-6 col-xs-6">Time Slot </p>
+
+                        <p class="doctor_input col-md-6 col-sm-6 col-xs-6">{{adviceDetails.slotTime | date:"hh:mm a"}}
+                        </p>
+                        <!-- commonUtil.convertTimeStampToDate(adviceDetails.slotTime) -->
+                    </div>
+
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Patient Information</p>
+                    </div>
+
+                    <div class="form-group row">
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Name</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{(adviceDetails.patientProfileDetails?.title?(adviceDetails.patientProfileDetails?.title+".
+                            "):'')}}
+                            {{adviceDetails.patientProfileDetails?.fName}}
+                            {{adviceDetails.patientProfileDetails?.lName?(adviceDetails.patientProfileDetails?.lName):''}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Age</p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{common.getAge(adviceDetails.patientProfileDetails.dob).split(",")[0]+common.getAge(adviceDetails.patientProfileDetails.dob).split(",")[1]}}
+                        </p>
+                        <p class="editdoc_txt col-md-6 col-xs-6 col-xs-6">Gender </p>
+                        <p class="doctor_input col-md-6 col-xs-6 col-xs-6">
+                            {{adviceDetails.patientProfileDetails.gender}}</p>
+                    </div>
+
+                    <hr class="date_line">
+                    <div class="form-group">
+                        <p class="paycon_txt">Payment Information</p>
+                    </div>
+
+                    <div class="form-group consoul_line row">
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Service Charges</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{adviceDetails.payment.originalAmount}}
+                        </p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Package Discount</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{adviceDetails.payment.packageDiscountAmount}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Wallet Discount</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">
+                            {{adviceDetails.payment.usedWalletAmount?adviceDetails.payment.usedWalletAmount:0}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Grand Total</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6">{{adviceDetails.payment.finalAmount}}</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Payment Status</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.paymentStatus==1">
+                            Payment Done</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.paymentStatus==0">
+                            Payment Pending</p>
+                        <p class="consultation_txt col-md-6 col-sm-6 col-xs-6">Payment Mode
+                        </p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==0">
+                            Not defined</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==1">
+                            Card</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==2">
+                            Cash</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==3">
+                            Online</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==4">
+                            Package</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==5">
+                            Mobile</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==6">
+                            GooglePay</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==7">
+                            Paytm</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==8">
+                            PhonePay</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==11">
+                            Neft</p>
+                        <p class="consul_package col-md-6 col-sm-6 col-xs-6"
+                            *ngIf="adviceDetails.payment.transactionType==12">
+                            Upi</p>
+                    </div>
+                    <span
+                        *ngIf="adviceDetails.payment.totalCashbackAmount || adviceDetails.payment.packageCashBackAmount > 0"
+                        class="quantity_txt1">Cashback of
+                        &#x20B9;
+                        {{adviceDetails.payment.totalCashbackAmount+adviceDetails.payment.packageCashBackAmount}} will
+                        be credited after successful
+                        Payment</span>
+                    <div class="row">
+                        <div class="col-md-12"><a class="btn Update cancelslot_txt" data-toggle="modal"
+                                (click)="cancelSlot()" *ngIf='this.modalId === "cancel_confirm"'>Cancel
+                                Slot</a></div>
+                        <div class="col-md-12"><a class="btn confirm_button" data-toggle="modal"
+                                (click)="markAddressed()" *ngIf='this.modalId === "complete_order"'>Mark
+                                Addressed</a></div>
+
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<spinner-component></spinner-component>

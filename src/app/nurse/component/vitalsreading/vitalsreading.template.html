@@ -1,0 +1,273 @@
+<div class="row" id="vital-readings">
+    <div class="col-md-12" *ngIf="this.consentVerified == true">
+        <section class="widget">
+
+            <div class="widget-body">
+
+                <div class="col-md-12">
+                    <div class="well-block">
+                        <div class="well-title text-line">
+                            <h4 class="vitals-text">Todays Vitals Readings</h4>
+                        </div>
+                        <div class="row" *ngIf="!isFromDoctor">
+                            <div class="col-lg-9 col-md-12 border_text">
+                                <section class="widget_txt row" widget="">
+
+                                    <div class="col-md-7">
+                                        <h5 class="vitals-text">Patient Information</h5>
+                                        <div class="row">
+                                            <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                                                *ngIf="patientQue?.patientProfilePic == undefined || patientQue?.patientProfilePic == null || patientQue?.patientProfilePic==''">
+                                                <img class="rounded-circle" src="assets/img/avatar.png" alt="..." />
+                                            </span>
+                                            <span class="col-lg-2 col-md-3 col-sm-3 col-xs-3"
+                                                *ngIf="patientQue?.patientProfilePic != undefined && patientQue?.patientProfilePic != null && patientQue?.patientProfilePic!=''">
+                                                <img class="rounded-circle" src={{patientQue?.patientProfilePic}}
+                                                    alt="..." />
+                                            </span>
+                                            <span class="col-lg-10 col-md-9 col-sm-9 col-xs-9">
+
+                                                <h4>{{(patientQue.patientTitle?patientQue.patientTitle+'.
+                                                    ':'')+patientQue.patientFirstName+"
+                                                    "+(patientQue.patientLastName?patientQue.patientLastName:'')}}
+                                                </h4>
+                                                <p>{{common.getAge(patientQue.patientDOB).split(",")[0]+common.getAge(patientQue.patientDOB).split(",")[1]}}
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 apt_detail">
+                                        <h5 class="vitals-text">Appointment Details</h5>
+                                        <h4>{{patientQue.doctorTitle}}{{emptyStr}}{{patientQue.doctorFirstName}}{{emptyStr}}{{patientQue.doctorLastName?patientQue.doctorLastName:''}}
+                                        </h4>
+                                        <p>{{patientQue.visitedTime | date:'short'}}</p>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <br />
+                        <form>
+
+                            <div class="row">
+
+                                <ng-container *ngFor="let vitalInput of vitalInputList;let i = index">
+                                    <ng-container [ngSwitch]="vitalInput.componentId">
+
+                                        <div class="col-md-4 col-sm-6"
+                                            *ngSwitchCase="QuestionConstants['COMPONENT_OPTIONS']">
+                                            <div class="form-group vital-widget">
+                                                <label class="control-label w-100" for="height">{{vitalInput.name}}
+                                                    {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+                                                    <span class="float-right" *ngIf="isFromDoctor"
+                                                        (click)="getPHRGraphplots({reportId:vitalInput.id,name:vitalInput.name})"><i
+                                                            class="glyphicon glyphicon-stats"></i></span>
+                                                </label>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <select [disabled]="vitalInput.isDisabled"
+                                                            class="form-control pr-0"
+                                                            (change)="onChangeInput($event,vitalInput)"
+                                                            [(ngModel)]="vitalInput.ansList[0]"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                            <option *ngFor="let option of vitalInput.choices[0]">
+                                                                {{option.option}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <select [disabled]="vitalInput.isDisabled"
+                                                            class="form-control pr-0"
+                                                            (change)="onChangeInput($event,vitalInput,1)"
+                                                            [(ngModel)]="vitalInput.ansList[1]"
+                                                            [ngModelOptions]="{standalone: true}">
+                                                            <option *ngFor="let option of vitalInput.choices[1]">
+                                                                {{option.option}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6"
+                                            *ngSwitchCase="QuestionConstants['COMPONENT_ENTRY']">
+                                            <div class="form-group vital-widget">
+                                                <label class="control-label w-100"
+                                                    for="{{vitalInput.name}}">{{vitalInput.name}}
+                                                    {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+                                                    <span class="float-right" *ngIf="isFromDoctor"
+                                                        (click)="getPHRGraphplots({reportId:vitalInput.id,name:vitalInput.name})"><i
+                                                            class="glyphicon glyphicon-stats"></i></span>
+                                                </label>
+                                                <input [disabled]="vitalInput.isDisabled"
+                                                    (keyup)="onKeyUp($event,vitalInput)"
+                                                    (change)="onChangeInput($event,vitalInput)" autocomplete="off"
+                                                    type="{{vitalInput.inputType==2?'number':'text'}}"
+                                                    class="form-control" [(ngModel)]="vitalInput.value"
+                                                    name="{{vitalInput.name}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6"
+                                            *ngSwitchCase="QuestionConstants['COMPONENT_OPTION']">
+                                            <div class="form-group vital-widget">
+                                                <label class="control-label w-100"
+                                                    for="{{vitalInput.name}}">{{vitalInput.name}}
+                                                    {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+                                                    <span class="float-right" *ngIf="isFromDoctor"
+                                                        (click)="getPHRGraphplots({reportId:vitalInput.id,name:vitalInput.name})"><i
+                                                            class="glyphicon glyphicon-stats"></i></span>
+                                                </label>
+                                                <select [disabled]="vitalInput.isDisabled" id="{{vitalInput.name}}"
+                                                    (change)="onChangeInput($event,vitalInput)"
+                                                    name="{{vitalInput.name}}" [(ngModel)]="vitalInput.value"
+                                                    class="form-control">
+                                                    <option selected="{{vitalInput.value==option.option}}"
+                                                        *ngFor="let option of vitalInput.choices[0]">
+                                                        {{option.option}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6"
+                                            *ngSwitchCase="QuestionConstants['COMPONENT_SWITCH']">
+                                            <div class="form-group vital-widget">
+                                                <label class="control-label w-100"
+                                                    for="{{vitalInput.name}}">{{vitalInput.name}}
+                                                    {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+
+                                                </label>
+                                                <select [disabled]="vitalInput.isDisabled" id="{{vitalInput.name}}"
+                                                    (change)="onChangeInput($event,vitalInput)"
+                                                    name="{{vitalInput.name}}" [(ngModel)]="vitalInput.value"
+                                                    class="form-control">
+                                                    <option selected="{{vitalInput.value==option.option}}"
+                                                        *ngFor="let option of vitalInput.choices[0]">
+                                                        {{option.option}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6"
+                                            *ngSwitchCase="QuestionConstants['COMPONENT_MULTI_SELECTION']">
+                                            <div class="form-group vital-widget">
+                                                <label class="control-label w-100"
+                                                    for="{{vitalInput.name}}">{{vitalInput.name}}
+                                                    {{vitalInput.unit?'('+vitalInput.unit+')':''}}
+
+                                                </label>
+                                                <select [disabled]="vitalInput.isDisabled" id="{{vitalInput.name}}"
+                                                    (change)="onChangeInput($event,vitalInput)"
+                                                    name="{{vitalInput.name}}" [(ngModel)]="vitalInput.value"
+                                                    class="form-control">
+                                                    <option selected="{{vitalInput.value==option.option}}"
+                                                        *ngFor="let option of vitalInput.choices[0]">
+                                                        {{option.option}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                    </ng-container>
+                                </ng-container>
+
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group float-right" *ngIf="this.enableVitals == true">
+
+                                        <button type="button" class="btn-serch mt-2" value="SAVE & CONTINUE"
+                                            (click)="updatedVitals()">Submit</button>
+
+
+                                        <p class="errormsg">{{errorMessage}}</p>
+
+                                    </div>
+                                    <div class="form-group float-right" *ngIf="this.enableQuestionnaire == true">
+
+                                        <button type="button" class="btn-serch mt-2"
+                                            (click)="updateWalkinConsultationQuestinnaire()">Update</button>
+
+
+                                        <p class="errormsg">{{errorMessage}}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</div>
+
+<div class="vital-consent" *ngIf="this.consentVerified == false && this.isFromDoctor == true">
+
+    <p class="">Please enter otp given by the patient to access vitals information of <span
+            class="queueName">{{requestConsentForPatient}}</span>
+    </p>
+    <div class="row otp-sec">
+        <div class="col-9">
+            <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6,inputClass:'vitalotpinput'}"
+                [allowNumbersOnly]='true'>
+            </ng-otp-input>
+        </div>
+        <div class=" col-3">
+            <button class="verify_btn verify_btn_margin" (click)="verifyConsentOtpHandler()">Verify</button>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<spinner-component></spinner-component>
+
+<div class="modal" style=" overflow-y: auto !important" id="dvital_modelView" tabindex="-1" role="dialog"
+    aria-labelledby="modelLabel" aria-hidden="true">
+    <div class="modal-dialog" [class.modal-dialog-centered]="modelView=='reportGraph'" role="document">
+        <div class="modal-content" *ngIf="modelView">
+            <div *ngIf="modelView=='reportGraph'">
+                <div class="modal-header">
+                    <h5 class="modal-title d-inline-block" id="exampleModalLabel">{{report.name}} Graph</h5>
+                    <button type="button" class="close" (click)="closeModal('#dvital_modelView')">
+                        Close<span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div *ngIf="reportResponse">
+                                <reportgraph [startingDate]="graphIntervals[graphIntervalsIndex].startingDate"
+                                    [xAxisStep]="graphIntervals[graphIntervalsIndex].step"
+                                    [reportResponse]="reportResponse" [graphLabel]="report.name"></reportgraph>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="dropdown">
+                                <!-- 1 week, 1 month, 6 months, 1 yr ,default 1 month -->
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                    id="perioddropdownMenuButton"
+                                    (mouseover)="toggleDropdown('#perioddropdownMenuButton')" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Interval : {{graphIntervals[graphIntervalsIndex].label}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="perioddropdownMenuButton">
+                                    <ng-container *ngFor="let graphInterval of graphIntervals;let i = index">
+                                        <a class="dropdown-item" [class.active]="graphIntervalsIndex==i"
+                                            (click)="graphIntervalsIndex=i;getPHRGraphplots()">{{graphInterval.label}}
+                                        </a>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

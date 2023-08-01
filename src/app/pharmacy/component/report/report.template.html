@@ -1,0 +1,55 @@
+<div class="table_size">
+    <!--<hs-message [isError]="!isDate" [show]="!isDisplay" [messages]="message"></hs-message>-->
+    <hs-message [isError]="isDate" [show]="isDisplay" [messages]="message"></hs-message>
+
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+
+    <h1 class="page-title">Collection Details</h1>
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 serbox_txt">
+        <!--<input class="serch_txt" name="search" placeholder="Enter Search query" type="text">
+<input class="serch_txt" name="search" placeholder="Enter Search query" type="text">-->
+        <h6>Filter by Date</h6>
+        <div class="row serbox_txt ">
+            <!--<input class="serch_txt" name="search" placeholder="Enter Search query" type="text">
+<button class="btn btn-danger width-100 mb-xs search_btn" role="button">
+        SEARCH
+          </button>-->
+            <div class="form-group col-xl-3 col-lg-4 col-md-4 col-sm-4 input_date respon_txt">
+                <!-- <label for="strength" class="all_textboxtxt">Start Date</label> -->
+                <datetime [(value)]="startDate" name="startDate" id="datepicker" (dateChange)="startDateChoosen($event)" [timepicker]="false" [datepicker]="datepickerOpts"></datetime>
+            </div>
+            <div class="form-group col-xl-3 col-lg-4 col-md-4 col-sm-4 input_date respon_txt">
+                <!-- <label for="strength" class="all_textboxtxt">End Date</label> -->
+                <datetime [(value)]="endDate" name="endDate" id="datepicker2" [timepicker]="false" [datepicker]="datepickerOptEnd"></datetime>
+            </div>
+            <div class="form-group col-xl-2 col-lg-4 col-md-4 col-sm-2">
+                <button type="submit" class="btn btn-danger  sub_txt width-100" role="button" (click)="getpharmacyReportForPoc()">
+           Submit
+           
+          </button>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="widget table_pading hs-table" widget>
+
+                    <div class="widget-body">
+
+                        <hs-table [columns]="columns" [pagingList]="pharmacyReportList" [sort]="sorting" [dataMsg]='dataMsg' [componentId]="'pharmacyReportsTable'" [perPage]="perPage" [total]="total" [isStaticPaging]=true>
+                            Loading table...
+                        </hs-table>
+
+
+                    </div>
+
+
+                </section>
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+    </div>
+    <spinner-component></spinner-component>

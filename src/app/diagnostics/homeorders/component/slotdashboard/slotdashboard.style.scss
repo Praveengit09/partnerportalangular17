@@ -1,0 +1,123 @@
+.order_list ul {
+    list-style: none;
+}
+
+.order_reports {
+    background-color: #fff;
+    box-shadow: 0.1px 0.1px 5px 2px #88888824;
+    padding: 10px 10px;
+    border-radius: 8px;
+    margin: 10px 10px;
+    float: left;
+}
+
+.order_list ul li {
+    display: inline;
+    float: left;
+    border-left: 1px solid #000;
+    padding: 15px 40px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.bxs {
+    display: inline;
+}
+
+.pdgleft {
+    padding-left: 20px;
+}
+
+.drpdwn {
+    float: right;
+    padding-right: 20px;
+}
+
+.filter_txt select {
+    width: 100%;
+    padding: 6px 5px;
+    border-radius: 2px;
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.18);
+}
+
+.slot_booktxt label {
+    width: 165px;
+    padding: 10px !important;
+    min-height: 85px;
+    height: auto !important;
+    -webkit-box-shadow: 1px 2px 3px -2px #999;
+    -moz-box-shadow: 1px 2px 3px -2px #999;
+    box-shadow: 1px 2px 3px -2px #999;
+    border: 1px solid #e9f8fb;
+}
+
+.sloat_size {
+    height: 80px !important;
+}
+
+@media screen and (max-width: 1297px) {
+    .order_list ul li {
+        padding: 15px 19px
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    .order_list ul li {
+        padding: 15px 15px
+    }
+
+    .order_list ul {
+        padding: 0px;
+    }
+}
+
+@media screen and (max-width: 964px) {
+    .order_list ul li {
+        padding: 0px 20px;
+        font-size: 12px;
+    }
+
+    .widget_txt {
+        height: 170px;
+    }
+
+    .order_list ul {
+        padding-top: 15px;
+        padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .order_list ul li {
+        padding: 0px 5px;
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 359px) {
+    .order_list ul {
+        float: left;
+        width: 100%;
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .slot_booktxt label {
+        width: 100%;
+        padding: 10px 5px !important;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .slot_booktxt label {
+        height: 145px !important;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width: 1017px) {
+    .filter_txt select {
+        width: 125px;
+    }
+}

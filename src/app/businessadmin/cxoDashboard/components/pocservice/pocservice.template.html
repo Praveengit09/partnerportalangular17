@@ -1,0 +1,298 @@
+<div class="row poc_service">
+  <div class="col-lg-4 all_card">
+    <div class="d-flex top_header">
+      <h1>Diagnostic Centers</h1>
+      <span>{{diagnosticPocCount}} Centers</span>
+    </div>
+    <div class="card diagnostic_center">
+      <div *ngFor="let item of diagnosticTodayReport">
+        <div class="card revenue_card">
+          <p>Today's Revenue </p>
+          <div class="d-flex">
+            <h2>{{item.finalAmount | number:'1.1-1'}}</h2>
+            <div *ngIf="item.percentageChange>=0">
+              <h4 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h4>
+            </div>
+            <div *ngIf="item.percentageChange<0">
+              <h4 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!diagnosticTodayReport || diagnosticTodayReport.length === 0">
+        <div class="card revenue_card">
+          <p>Today's Revenue </p>
+          <div class="d-flex">
+            <h2>{{0 | number:'1.1-1'}}</h2>
+            <h4 class="percentage_green">{{0 | number:'1.1-1'}}%</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div *ngFor="let item of diagnosticWeekReport">
+            <div class="card revenue_card">
+              <p>This Week's Revenue</p>
+              <div class="d-flex">
+                <h5>{{item.finalAmount | number:'1.1-1'}}</h5>
+                <div *ngIf="item.percentageChange>=0">
+                  <h5 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+                <div *ngIf="item.percentageChange<0">
+                  <h5 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!diagnosticWeekReport || diagnosticWeekReport.length === 0">
+            <div class="card revenue_card">
+              <p>This Week's Revenue</p>
+              <div class="d-flex">
+                <h5>{{0 | number:'1.1-1'}}</h5>
+                <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div *ngFor="let item of diagnosticMonthReport">
+            <div class="card revenue_card">
+              <p>Month to Date</p>
+              <div class="d-flex">
+                <h5>{{item.finalAmount | number:'1.1-1'}}</h5>
+                <div *ngIf="item.percentageChange>=0">
+                  <h5 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+                <div *ngIf="item.percentageChange<0">
+                  <h5 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!diagnosticMonthReport || diagnosticMonthReport.length === 0">
+            <div class="card revenue_card">
+              <p>Month to Date</p>
+              <div class="d-flex">
+                <h5>{{0 | number:'1.1-1'}}</h5>
+                <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="card revenue_card">
+            <!-- graph -->
+            <div class="widget-body">
+              <div *ngIf="nvd35Data != undefined" class='transform_txt002'>
+                <div nvd3-chart [chart]="nvd35Chart" [datum]="nvd35Data">
+                  <svg id="chart6"></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 all_card">
+    <div class="d-flex top_header">
+      <h1>Pharmacy Centers</h1>
+      <span>{{pharmacyPocCount}} Centers</span>
+    </div>
+    <div class="card pharmacy">
+      <div *ngFor="let item of pharmacyTodayReport">
+        <div class="card revenue_card">
+          <p>Today's Revenue </p>
+          <div class="d-flex">
+            <h2>{{item.finalAmount | number:'1.1-1'}}</h2>
+            <div *ngIf="item.percentageChange>=0">
+              <h4 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h4>
+            </div>
+            <div *ngIf="item.percentageChange<0">
+              <h4 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!pharmacyTodayReport || pharmacyTodayReport.length === 0">
+        <div class="card revenue_card">
+          <p>Today's Revenue </p>
+          <div class="d-flex">
+            <h2>{{0 | number:'1.1-1'}}</h2>
+            <h4 class="percentage_green">{{0 | number:'1.1-1'}}%</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div *ngFor="let item of pharmacyWeekReport">
+            <div class="card revenue_card">
+              <p>This Week's Revenue</p>
+              <div class="d-flex">
+                <h5>{{item.finalAmount | number:'1.1-1'}}</h5>
+                <div *ngIf="item.percentageChange>=0">
+                  <h5 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+                <div *ngIf="item.percentageChange<0">
+                  <h5 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!pharmacyWeekReport || pharmacyWeekReport.length === 0">
+            <div class="card revenue_card">
+              <p>This Week's Revenue</p>
+              <div class="d-flex">
+                <h5>{{0 | number:'1.1-1'}}</h5>
+                <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div *ngFor="let item of pharmacyMonthReport">
+            <div class="card revenue_card">
+              <p>Month to Date</p>
+              <div class="d-flex">
+                <h5>{{item.finalAmount | number:'1.1-1'}}</h5>
+                <div *ngIf="item.percentageChange>=0">
+                  <h5 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+                <div *ngIf="item.percentageChange<0">
+                  <h5 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!pharmacyMonthReport || pharmacyMonthReport.length === 0">
+            <div class="card revenue_card">
+              <p>Month to Date</p>
+              <div class="d-flex">
+                <h5>{{0 | number:'1.1-1'}}</h5>
+                <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="card revenue_card">
+            <!-- graph -->
+            <div class="widget-body">
+              <div *ngIf="nvd36Data != undefined" class='transform_txt002'>
+                <div nvd3-chart [chart]="nvd36Chart" [datum]="nvd36Data">
+                  <svg id="chart7"></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 all_card">
+    <div class="d-flex top_header">
+      <h1>Product Centers</h1>
+      <span>{{productPocCount}} Centers</span>
+    </div>
+    <div class="card product_card">
+      <div *ngFor="let item of productTodayReport">
+        <div class="card revenue_card">
+          <p>Today's Revenue </p>
+          <div class="d-flex">
+            <h2>{{item.finalAmount | number:'1.1-1'}}</h2>
+            <div *ngIf="item.percentageChange>=0">
+              <h4 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h4>
+            </div>
+            <div *ngIf="item.percentageChange<0">
+              <h4 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!productTodayReport || productTodayReport.length === 0">
+        <div class="card revenue_card">
+          <p>Today's Revenue </p>
+          <div class="d-flex">
+            <h2>{{0 | number:'1.1-1'}}</h2>
+            <h4 class="percentage_green">{{0 | number:'1.1-1'}}%</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div *ngFor="let item of productWeekReport">
+            <div class="card revenue_card">
+              <p>This Week's Revenue</p>
+              <div class="d-flex">
+                <h5>{{item.finalAmount | number:'1.1-1'}}</h5>
+                <div *ngIf="item.percentageChange>=0">
+                  <h5 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+                <div *ngIf="item.percentageChange<0">
+                  <h5 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!productWeekReport || productWeekReport.length === 0">
+            <div class="card revenue_card">
+              <p>This Week's Revenue</p>
+              <div class="d-flex">
+                <h5>{{0 | number:'1.1-1'}}</h5>
+                <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-6">
+          <div *ngFor="let item of productMonthReport">
+            <div class="card revenue_card">
+              <p>Month to Date</p>
+              <div class="d-flex">
+                <h5>{{item.finalAmount | number:'1.1-1'}}</h5>
+                <div *ngIf="item.percentageChange>=0">
+                  <h5 class="percentage_green">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+                <div *ngIf="item.percentageChange<0">
+                  <h5 class="percentage_red">{{item.percentageChange | number:'1.1-1'}}%</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!productMonthReport || productMonthReport.length === 0">
+            <div class="card revenue_card">
+              <p>Month to Date</p>
+              <div class="d-flex">
+                <h5>{{0 | number:'1.1-1'}}</h5>
+                <h5 class="percentage_green">{{0 | number:'1.1-1'}}%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="card revenue_card">
+            <!-- graph -->
+            <div class="widget-body">
+              <div *ngIf="nvd37Data != undefined" class='transform_txt002'>
+                <div nvd3-chart [chart]="nvd37Chart" [datum]="nvd37Data">
+                  <svg id="chart8"></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

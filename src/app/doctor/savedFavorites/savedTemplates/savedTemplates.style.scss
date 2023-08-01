@@ -1,0 +1,124 @@
+@import '../../prescription/reports/reports.style.scss';
+@import '../../../scss/variables';
+@import '../../../scss/theme.scss';
+.word-break {
+    word-break: break-word;
+}
+
+// th {
+//     color: #64819E !important;
+//     text-transform: capitalize !important;
+//     font-size: 15px;
+//     line-height: 1.73;
+// }
+
+.btn-danger {
+    // background-color: #FF6D6D;
+    // border-color: #FF6D6D;
+    background: $btn-danger-bg;
+    border-color: $btn-danger-bg;
+    text-transform: uppercase;
+    padding-top: 11px;
+    padding-bottom: 12px;
+    line-height: 17px;
+}
+
+table .btn-danger {
+    margin-top: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 12px;
+    border-radius: 1px;
+    width: 86px;
+    line-height: 14px;
+}
+
+table td .btn-danger:first-child,
+.modal-footer .btn-danger:first-child {
+    margin-right: 7px;
+}
+
+@media screen and (max-width: 1037px) {
+    table .btn-danger:not(:first-child) {
+        margin-top: 10px;
+    }
+}
+
+/* Modal */
+
+.modal .widget {
+    margin-bottom: 15px;
+    border: 1px solid #f1f1f1 !important;
+    box-shadow: none;
+    border-bottom: none !important;
+}
+
+.modal table {
+    margin-bottom: 0;
+}
+
+.modal table th,
+.modal table td {
+    padding-top: 16px;
+    padding-bottom: 17px;
+}
+
+.modal-content {
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.31);
+}
+
+.modal-body {
+    padding: 15px 30px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #cecece;
+    padding: 20px 30px 5px 30px;
+}
+
+.modal-title {
+    font-size: 20px;
+    color: #333333;
+}
+
+.modal h5 {
+    font-size: 15px;
+    font-weight: 500;
+    color: #14a9b5;
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 5px;
+}
+
+.modal .widget {
+    border-top: none;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 80%;
+        margin: 90px auto;
+    }
+}
+
+.templates_widget .table {
+    margin-bottom: 0;
+}
+
+@media screen and (min-width:601px) {
+    .templates_widget table, .pharmacyadvice_widget table{
+        min-width: 600px;
+    }
+}
+
+@media screen and (max-width: 365px) {
+    .modal-footer .btn-danger {
+        padding: 5px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .templates_widget {
+        border: none !important;
+    }
+}

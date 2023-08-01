@@ -1,0 +1,323 @@
+@import "../../../../scss/variables";
+.img_txt{
+    margin-left: 5px;
+}
+.reports{
+    margin-bottom: 11px;
+    color: #FFF;
+    background-color: $btn-secondary;
+    border: 1px solid $btn-border-color;
+}
+.page-item.disabled .page-link {
+    color: #6c757d !important;
+    pointer-events: none;
+    cursor: auto;
+    border-color: #dee2e6;
+}
+.downloadacc_txt{
+    float: right;
+    margin-top: 17%;
+    padding: 5px 25px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.page-link {
+    margin: 0 0 0 -1px !important;
+    line-height: 1.25;
+    color: #007bff !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 0 !important;
+}
+.page-item:first-child .page-link{
+    margin-left: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+.page-item:last-child .page-link {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+.currentPage{
+   background-color: #eeeeee;
+}
+.modal-footer {
+    padding-right: 15px;
+}
+    
+    .serbox_txt{
+        padding-left: 0px;
+        padding-bottom: 15px;
+    }
+     .serch_txt {
+        padding: 6px 10px;
+        text-align: left;
+        border-radius: 4px;
+        border-width: 0px;
+        border: 1px solid #ddd;
+        text-align: left;
+        width: 235px;
+        height: 36px;
+    }
+    .filter_txt{
+        float: right;
+        width: 185px;
+    }
+    .bck_tabcol {
+        background-color: #f7fafd;
+    }
+    .input_date .form-control{
+        padding: 10px 20px !important;
+    }
+        .dropdown-menu {
+        font-size: 13px;
+        padding: 20px 15px;
+    }
+    .sub_txt{
+        margin-top: 7px;
+    }
+     @media only screen and (min-width: 320px){
+    .respon_txt{
+    z-index: 0;
+    }
+     }
+
+     .filter_txt {
+        float: right;
+        margin-left: 15px;
+    }
+
+    .filter_txt select {
+        padding: 6px 5px;
+        border-radius: 2px;
+        box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.18);
+    }
+
+    @media screen and (max-width:459px){
+        .reset_btn .reset_txt{
+            display: none;
+        }
+        .reset_btn{
+            width: auto;
+        }
+        .btn .glyphicon{
+            right: 0;
+        }
+    }
+    @media screen and (min-width:992px) and (max-width: 1017px){
+        .filter_txt select{
+            width: 125px;
+        }
+    }
+
+    .select_city {
+        margin-right: 0px;
+    }
+
+    .aria_filter_txt {
+        padding-bottom: 35px;
+    }
+    
+.sub-title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+     
+@media only screen and (min-width: 320px) {
+.serch_txt{
+width: 175px;
+}
+.all_week{
+margin-left: 0px;
+margin-top: 8px;
+}
+.widget-body { overflow-x: scroll; }
+th, td { min-width: 135px; }
+.nextprv_txt .next_btn ul {
+list-style: none;
+float: left;
+padding-left: 0px;
+}
+
+.nextprv_txt .next_btn ul li {
+display: inline;
+float: left;
+padding: 0px 10px 0px 10px;
+}
+.nextprv_txt .next_btn ul .box_txticon {
+padding: 5px 12px;
+border: 1px solid #e6e6e6;
+background-color: #fff;
+box-shadow: 1px 1px 1px #e6e6e6;
+}
+}
+
+
+@media only screen and (min-width: 1100px) {
+.serch_txt{
+width: 185px;
+}
+.all_week{
+margin-left: 76px;
+margin-top: 0px;
+}
+.widget-body {
+   overflow-x: inherit;
+}
+th, td {
+   min-width: 0px;
+}
+.nextprv_txt .next_btn ul {
+   list-style: none;
+   float: right;
+   padding-right: 0px;
+}
+
+.nextprv_txt .next_btn ul li {
+   display: inline;
+   float: left;
+   padding: 0px 15px 0px 15px;
+}
+.nextprv_txt .next_btn ul .box_txticon {
+   padding: 5px 15px;
+   border: 1px solid #e6e6e6;
+   background-color: #fff;
+   box-shadow: 1px 1px 1px #e6e6e6;
+}
+}
+
+.hide_btntxt {
+    padding: 5px 5px;
+    font-size: 13px;
+    border-radius: 9px;
+     
+    background-color: rgba(128, 128, 128, 0.54);
+    border-color: #1dc8d5;
+    border: none;
+    color: #fff;
+    width: 125px;
+    pointer-events: none;
+}
+
+.modal.right.fade .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+       -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+            transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+margin: 0px;
+}
+.modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+.modal-header {
+   min-height: 16.43px;
+padding: 0px 50px 20px;
+border-bottom: transparent;
+}
+.modal-body label{
+color: #23aeba;
+font-weight: 500;
+font-size: 16px;
+}
+.modal-content{
+  border-radius: 0;
+border: none;
+padding: 40px 0;
+top: 100px;
+float: left;
+width: 100%;
+}
+.modal-title{
+color: #23aeba;
+font-weight: 600;
+}
+.modal-body .title_txt{
+background-color: #f2fdff;
+resize: none;
+color: #23aeba;
+}
+
+.model_txt{
+    float: right;
+        right: 0px;
+        width: 400px;
+    }
+    .modal-body {
+        position: relative;
+    }
+
+    .modal-dialog{
+        margin: -40px auto;
+  }
+  .modal-body .title_txt:focus{
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-serch {
+    color: #fff;
+    background-color: #dd5826;
+    border-color: #dd5826;
+    float: right;
+    padding: 5px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    float: right;
+}
+
+tbody {
+    overflow-y: auto;
+    height: 280px;
+}
+
+tr:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    visibility: hidden;
+}
+
+.table {
+    border: 1px solid #ddd;
+}
+
+.hide_btn{
+    display: block;
+    pointer-events: none;
+  }
+
+.datepicker {
+    min-width: 165px;
+    width: 100% !important;
+}
+
+@media screen and (max-width:1199px) {
+    .sub_txt {
+        float: right;
+    }
+}
+// @media screen and (min-width: 1200px) {
+//     max-width: 236px;
+// }
+
+@media screen and (max-width: 1300px) and (min-width: 1200px) {
+    .date-filterPOC .col-xl-2 {
+        flex: 0 0 18.66667%;
+        max-width: 18.66667%;
+    }
+    .date-filterPOC .col-xl-6 {
+        flex: 0 0 44%;
+        max-width: 44%;
+    }
+}

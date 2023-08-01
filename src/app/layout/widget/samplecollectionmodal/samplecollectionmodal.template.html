@@ -1,0 +1,59 @@
+<div class="samplecollection-widget">
+    <h4 class="samplecol-title m-0">Home Collection Charges</h4>
+    <h5 class="text-primary" *ngIf="this.brandSpecific">Brand Specific</h5>
+
+    <div class="row mt-1">
+        <div class="col-md-6 col-sm-6">
+            <label class="mb-0"><input type="checkbox" [(ngModel)]="this.collectionCharge.isIncludeDistance"
+                    [checked]="this.collectionCharge.isIncludeDistance"
+                    value="this.collectionCharge.isIncludeDistance">&nbsp;Include Distance</label>
+        </div>
+        <div class="col-md-6 col-sm-6 selectBrand-mrg" *ngIf="this.brandSpecific">
+            <label class="mb-0">Select brand&nbsp;</label>
+            <select [(ngModel)]="brandId" (change)="getChargesData()">
+                <option *ngFor="let brand of brandList" [ngValue]="brand.brandId">
+                    {{brand.brandName}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="isError" class="errorMessages"><span>{{this.errorMessage}}</span></div>
+    <div *ngFor="let item of collectionCharge.deliveryCharges; let i = index">
+        <div class="widget-shadow my-2 p-1">
+            <button class="btn btn-danger removetxt_icon" (click)="onRemoveClick(i)"><i
+                    class="fa fa-remove"></i></button>
+            <div class="row">
+                <div class="col-md-12" *ngIf="this.collectionCharge.isIncludeDistance">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <label for="from">From</label>
+                            <input type="number" id="from" class="form-control" value={{item.fromDistance}} [(ngModel)]="item.fromDistance" min="0" oninput="validity.valid||(value='');" step="0.01">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label for="to">To</label>
+                            <input type="number" id="to" class="form-control" value={{item.toDistance}} [(ngModel)]="item.toDistance" min="0" oninput="validity.valid||(value='');" step="0.01">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <label for="order_value">Order Value</label>
+                            <input type="number" id="order_value" class="form-control" value={{item.orderValue}} [(ngModel)]="item.orderValue" min="0" oninput="validity.valid||(value='');" step="0.01">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label for="collection_charges">Collection Charges</label>
+                            <input type="number" id="collection_charges" class="form-control" value={{item.collection}} [(ngModel)]="item.collection" min="0" oninput="validity.valid||(value='');" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-right">
+        <button class="btn add-btn" (click)="onAddClick()">Add</button>
+    </div>
+    <div class="samplecol-submitbtn">
+        <button type="button" class="btn btn-danger" (click)="updateChargesData()">Submit</button>
+    </div>
+</div>

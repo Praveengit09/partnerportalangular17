@@ -1,0 +1,121 @@
+.view-btn {
+    border-radius: 15px;
+    background-color: #1dc8d5;
+    border: solid 1px #edf0f5;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.view-btn-disabled {
+    border-radius: 15px;
+    border: solid 1px #edf0f5;
+    color: black;
+    text-transform: uppercase;
+}
+
+.cancel-btn {
+    border-radius: 15px;
+    background-color: #ff0000;
+    border: solid 1px #edf0f5;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.datepicker,
+.mat-form-field {
+    width: 100% !important;
+    min-width: 125px;
+}
+
+.error-msg {
+    color: #ff0000;
+}
+
+@media screen and (max-width: 575px) {
+    .datepicker input {
+        text-align: left !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-flex {
+        padding: 0 0 0 0.50em !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-suffix {
+        width: 32px !important;
+    }
+    .blank_filter{
+        display: none;
+    }
+}
+
+.search-orders {
+    margin-top: 27px !important;
+}
+
+.searchresult_resetbtn {
+    margin-bottom: 10px;
+}
+
+.image_center{
+    width: 25px;
+    display: block;
+    margin: auto;
+}
+.digitization-btn{
+    background-color:#94EFF7;
+    border-color: #94EFF7;
+}
+
+.digitization-complete-btn{
+    background-color: #6CDBE4;
+    border-color: #6CDBE4;
+}
+.digitization-action-btn{
+    background-color: #6CDBE4;
+    border-color: #6CDBE4;
+    opacity: 1; 
+}
+.digitization-view-btn{
+    background-color: #CEDCDD;
+    border-color: #CEDCDD; 
+}
+
+//modal
+
+.digitization_mdl_title{
+    font-weight: 600;
+    color: #828181;
+    margin-left: 15px;
+}
+.dizitization_modal{ 
+    width: 90%;
+    display: block;
+    margin: auto;
+    padding: 0px;
+}
+.dizitization_modal input{
+    width: 100%;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    margin: 4px 0px;
+    cursor: pointer;
+}
+.dizitization_modal input:focus {
+    background-color: #94EFF7;
+    outline: none;
+}
+.digitization-assign-btn{
+    padding: 8px 16px;
+    gap: 8px;
+    width: 85px;
+    height: 36px;
+    border-radius: 8px;
+}
+.digitization-modal-header{
+    border-bottom: none;
+}
+.digitization-modal-footer{
+    border-top: none;
+    padding: 22px;
+}

@@ -1,0 +1,220 @@
+@import "../../../../scss/variables";
+@import "../../../../scss/theme.scss";
+
+.booking-calender {
+    table {
+        border-collapse: collapse;
+        width: 100%;
+
+
+        th,
+        td {
+            text-align: center;
+            max-width: fit-content;
+            white-space: nowrap;
+            z-index: 0 !important;
+        }
+
+        td {
+            label {
+                margin-bottom: 0;
+            }
+        }
+
+        .available-txt {
+            background: #90EE90;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    }
+
+    .refreshbtn {
+        float: right;
+        margin-right: 5px;
+    }
+}
+
+.doctor_input {
+    border: none;
+    width: 165px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.doctor_input:focus {
+    outline: none;
+}
+
+.add_medtxt {
+    padding: 0px 43px 0px 0px;
+    font-size: 30px;
+    color: $title-color;
+    font-weight: 500;
+}
+
+.text-line {
+    background-color: transparent;
+    color: $title-color;
+    outline: none;
+    outline-style: none;
+    outline-offset: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #eeeeee 1px;
+    padding: 3px 5px 3px 0px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.modal.right .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.left.in .modal-dialog,
+.modal.right.in .modal-dialog {
+    right: 0;
+    margin: 0px;
+    position: relative;
+    height: 100%;
+}
+
+.model_txt1 {
+    float: right;
+    width: 500px;
+    display: inline-table;
+    overflow-y: scroll;
+}
+
+
+.digi_radio {
+    margin-right: 10px;
+}
+
+.Update {
+    margin-top: 60px;
+    margin-right: 0px;
+}
+
+.Update {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin: 5px;
+}
+
+.Update:focus,
+.Update:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sbt_btn {
+    position: fixed;
+    bottom: 15px;
+    z-index: 1;
+    right: 15px;
+}
+
+.booking-calender .table-responsive {
+    height: 450px;
+}
+
+::ng-deep .vdcheader th {
+    position: sticky;
+    overflow: hidden;
+    top: 0;
+    z-index: 1;
+    background-color: #5d8fc2 !important;
+    color: #fff;
+}
+
+::ng-deep .vdcheader .cloum-sticky-head {
+    z-index: 111 !important;
+}
+
+::ng-deep .vdcheader .mat-header-cell {
+    background-color: #2e6e91 !important;
+    color: #fff !important;
+}
+
+.table_sticky th:first-child {
+    left: 0px;
+    position: sticky;
+    z-index: 11;
+    background: #5d8fc2;
+    color: #fff;
+}
+
+.table_sticky td:first-child {
+    left: 0px;
+    position: sticky;
+    z-index: 1;
+    background: #5d8fc2;
+    color: #fff;
+}
+
+.notfound {
+    font-weight: 500;
+    font-size: 16px;
+    float: center;
+    margin-top: 25px;
+
+}
+
+.booking-calender h3 {
+    margin-top: 10px;
+    margin-bottom: -20px;
+}
+
+.booking-calender .ref_button {
+    text-align: right;
+    padding-right: 0px;
+
+    button {
+        margin-right: 0px;
+    }
+}
+
+.booking-calender .refresh_in {
+    width: 200px;
+    margin-right: 5px;
+}
+
+
+@media only screen and (min-width:320px) and (max-width:920px) {
+    .booking-calender h3 {
+        font-size: 1.25em;
+    }
+
+    .booking-calender .refresh_in {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .booking-calender .ref_button {
+        margin-top: 30px;
+    }
+
+    .booking-calender .refresh_in {
+        width: 150px;
+        margin-top: 30px;
+        margin-right: 5px;
+    }
+
+}

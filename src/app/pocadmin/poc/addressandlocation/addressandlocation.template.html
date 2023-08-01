@@ -1,0 +1,100 @@
+<div class="address_location">
+  <div class="content_section">
+    <h1 class="page-title">Pharmacy Location</h1>
+    <p>Net, let us update your pharmacy address & location.</p>
+  </div>
+  <span (click)="skipForNow()">Skip for now</span>
+  <form>
+
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="firstaddress">Address Line 1</label>
+      <input type="text" class="form-control" id="firstaddress" name="address1" placeholder="Building name, street name"
+        [(ngModel)]="pocDetails.address.address1">
+    </div>
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="secondaddress">Address Line 2</label>
+      <input type="text" class="form-control" id="secondaddress" name="address2" placeholder="Locality, suburb"
+        [(ngModel)]="pocDetails.address.address2">
+
+    </div>
+    <!-- need change method -->
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="pin-code">PIN Code</label>
+      <!-- <input type="number" class="form-control" id="pin-code" placeholder="For eg: Remedy Pharmacy"   name="zip_code" [(ngModel)]="pocDetails.address.pinCode"> -->
+
+      <input type="text" class="form-control" id="zip_code" maxlength="6" minlength="6"
+        placeholder="Enter your PIN/Zip code" (keyup)="getStateCityByPinCode($event.target.value)"
+        (change)="getStateCityByPinCode($event.target.value)" value={{pocDetails.address.pinCode}} name="zip_code"
+        [(ngModel)]="pocDetails.address.pinCode">
+    </div>
+    <div class="form-row d-flex">
+      <div class="form-group col-md-4 col-lg-3 pt-1">
+        <label for="licenseNo">City</label> <input name="cityName" type="text" disabled
+          [(ngModel)]="pocDetails.address.cityName" class="form-control input-md">
+        <!--         
+        <select id="inputState" class="form-control">
+            <option selected>Select city</option>
+            <option>...</option>
+          </select> -->
+      </div>
+      <div class="form-group col-md-4 col-lg-3 pt-1">
+        <label for="gstNo">State</label>
+        <input name="stateName" type="text" disabled [(ngModel)]="pocDetails.address.stateName"
+          class="form-control input-md">
+      
+      </div>
+    </div>
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <label for="locality">Locality</label>
+      <!-- <input type="" class="form-control" id="locality" placeholder="For eg: banjara hills"> -->
+      <select class="form-control" id="selectbasic" name="selectbasic" [(ngModel)]="pocDetails.locality"
+        (change)="onLocalityChange()" [ngModelOptions]="{standalone : true}">
+        <option value="Select Locality"> Select Locality</option>
+        <option *ngFor="let locality of localityList;let i = index" [ngValue]="locality.name">
+          {{locality.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <address>{{pocDetails.areaName}}</address>
+    </div>
+    <div class="form-group col-md-8 col-lg-6 pt-1">
+      <div class="location">
+    
+           <div class="location_find" data-toggle="modal" data-target="#myModal" (click)="showMap()">
+          <!-- <i class="fa fa-map-marker fa-2x pr-1" aria-hidden="true"></i> -->
+          <i class="glyphicon glyphicon-map-marker fa-2x"></i>
+          <h2>Location Map</h2>
+           </div>
+        
+          <p>Let’s locate your work place on the map.</p>
+        
+        
+
+      </div>
+    </div>
+   
+    <div class="form-group col-md-8 col-lg-6 pt-1 work_place_btn">
+      <button class="w-100" (click)="onServicePortfolio()">Next: Service Portfolio</button>
+    </div>
+  </form>
+  <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+</div>
+
+<!-- Modal map -->
+<div class="modal fade" id="myModal" role="dialog" *ngIf="isMapVisible">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Select Location</h4>
+      </div>
+      <div class="modal-body">
+        <hs-autocomplete-map (onChooseAddress)="onChooseAddress($event)" addressType="establishment">
+        </hs-autocomplete-map>
+      </div>
+    </div>
+
+  </div>
+</div>

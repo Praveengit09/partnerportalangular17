@@ -1,0 +1,172 @@
+@import "../../../scss/variables";
+@import "../../../scss/theme.scss";
+.saveBtn {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.saveBtn:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.card-header h4 {
+    font-size: 1.082rem;
+    margin: 5px 0 0 0;
+}
+
+.card-header {
+    padding: 5px 10px;
+}
+
+h6 {
+    font-size: 1.1428571428571428rem !important;
+    font-weight: 600
+}
+
+.pPast {
+    margin-bottom: 0px !important;
+}
+
+.nextBtn {
+    color: #fff;
+    // background-color: #dc3545;
+    background-color:$btn-next;
+}
+
+.card {
+    position: relative;
+    background-color: #FFF;
+    border: none;
+    -webkit-box-shadow: 0 2px 6px 0 #ccc;
+    -moz-box-shadow: 0 2px 6px 0 #ccc;
+    box-shadow: 0 2px 6px 0 #ccc;
+    margin: 0 0 20px 0;
+    display: block;
+    width: 100%;
+}
+
+.getMorePastPrescriptionBtn {
+    background-color: #f06060;
+    text-transform: uppercase;
+}
+
+.rightCard {
+    height: 459px;
+    overflow: auto;
+    padding: 0px;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: $btn-secondary;
+    border: 1px solid $btn-border-color;
+}
+
+.modal-dialog {
+    max-width: 1000px !important;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto !important;
+}
+
+.btn-outline-info {
+    color: #17a2b8;
+    background-color: transparent;
+    background-image: none;
+    border-color: #17a2b8;
+}
+
+.large_table {
+    font-size: 0.750em;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.btn-primary {
+    color: #FFF;
+    background-color: $btn-secondary;
+    border: 1px solid $btn-border-color;
+}
+
+.form-control {
+    display: block;
+    width: 100% !important;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.col-12,
+.col-6,
+.col-lg-12 {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.mb-5,
+.my-5 {
+    margin-bottom: 3rem !important;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125) !important;
+    line-height: 34px;
+}
+
+.card-container,
+.front {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.card-container {
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+    margin-bottom: 15px;
+}
+
+.front {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+    z-index: 2;
+}
+
+.request_consent {
+    margin: -4px 0px 8px 140px;
+}
+
+.consent_txt {
+    margin: 10px;
+}

@@ -1,0 +1,75 @@
+<!-- <button class="btn bg-info btn-light mx-1px text-95" data-title="PDF" (click)="handleExport()">
+    <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+    Export
+</button> -->
+
+<div class="container receipt-pdf" id="invoice_container">
+
+    <div class="row paddingLeftRight">
+        <div class="col-lg-8 col-md-7 col-sm-6 col-xs-12 doctors-details-pdf">
+            <h1><b>{{selectedDoctor.firstName?selectedDoctor.firstName:"" }}
+                    {{selectedDoctor.lastName?selectedDoctor.lastName:""}}</b></h1>
+            <h4>{{selectedDoctor.serviceName}}</h4>
+            <h3>{{selectedDoctor.qualificationName}}</h3>
+            <!-- <h3><b>Emp ID:</b> <span>{{selectedDoctor.empId}}</span></h3> -->
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 hospital-details-pdf">
+            <div class="hospital-logo">
+                <!-- <img src="../../../../assets/chavan/icons/logo.png" /> -->
+                <h4><b>{{selectedDoctor.empPersonalPocInfo.pocName}}</b></h4>
+            </div>
+            <h3 class="hs-details-heading">Ph No:
+                <span>2010301020 </span>
+            </h3>
+            <h3 class="hs-details-heading">Address:
+                <span class="hs-details">{{selectedDoctor.empPersonalPocInfo.areaName}}</span>
+            </h3>
+            <h3 class="hs-details-heading">Email:
+                <span class="hs-details">{{selectedDoctor.empPersonalPocInfo.email}}</span>
+            </h3>
+        </div>
+    </div>
+    <hr class="bottom-border" />
+    <div class="patient-details-pdf">
+        <div class="row paddingLeftRight">
+            <div class="col-sm-3 col-xs-4">
+                <h3 class="hs-details-heading">Name:
+                    <span class="hs-details">
+                        {{patientDetails.patientTitle }}.
+                        {{patientDetails.patientFirstName}}
+                    </span>
+                </h3>
+            </div>
+            <div class="col-sm-3 col-xs-4">
+                <h3 class="hs-details-heading">Age:
+                    <span class="hs-details">
+                        {{patientDetails.age}}
+                    </span>
+                </h3>
+            </div>
+            <div class="col-sm-3 col-xs-4">
+                <h3 class="hs-details-heading">Gender:
+                    <span class="hs-details">
+                        {{patientDetails.patientGender}}
+                    </span>
+                </h3>
+            </div>
+            <div class="col-sm-3 col-xs-4">
+                <h3 class="hs-details-heading">Date:
+                    <span class="hs-details">
+                        {{currentDate | date}}
+                    </span>
+                </h3>
+            </div>
+            <div class="col-sm-3 col-xs-4">
+                <h3 class="hs-details-heading">Patient Contact No:
+                    <span class="hs-details">
+                        {{patientDetails.patientContactNumber}}
+                    </span>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <hr class="bottom-border" />
+    <img src="../../../../assets/chavan/icons/logo.png" />
+</div>

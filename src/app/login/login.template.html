@@ -1,0 +1,225 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid nav-barcontainer">
+
+        <div class="navbar-header">
+            <a class="nav-link not-active"><img class="logo_icon logo-md" src="{{getAssertsLogoPath()+'logo.png'}}" alt="..." /></a>
+            <a class="nav-link not-active"><img class="logo_icon logo-sm" src="{{getAssertsLogoPath()+'logo_sm.png'}}" alt="..." /></a>
+        </div>
+    </div>
+</nav>
+<spinner-component></spinner-component>
+<div class="container-fluid" (click)="resetForm()" onclick="document.forms['forgetPassword'].reset();">
+    <div class="row">
+        <div class="col-lg-9 col-md-8 login-backgroundimg">
+
+            <img class="login-page hidden-sm-down" src="{{getAssertsbackgroundPath()+'1440-1024.png'}}" alt="..." />
+            <img class="login-page hidden-md-up hidden-xs-down" src="{{getAssertsbackgroundPath()+'828-396.png'}}" alt="..." />
+            <img class="login-page hidden-sm-up" src="{{getAssertsbackgroundPath()+'414-198.png'}}" alt="..." />
+            <p>Introducing First of Its kind<br> <b>{{loginText}}</b><br> for all Your HPM, HSM & HLM needs along with seamless Digital Hospital Management System</p>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm-down">
+                <ul class="list-login list-login_footer copyright_txt">
+                    <li>2023 &copy; {{environment.name ||'MyMedic'}} Partner Manager.</li>
+                    <li><a href="{{environment.website||'http://www.my3c.co/'}}" target="_blank">{{environment.websiteLabel||(environment.website||'http://www.my3c.co/')}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <main id="content" class="widget-login-txt col-lg-3 col-md-4" role="main">
+            <div class="col-lg-12"></div>
+            <h5 class="widget-login-logo animated fadeInUp">
+                <p class="login_portal">
+                    <label *ngIf='TEST_TYPE!=BUG_FIX_MODE'>Login</label>
+                    <label *ngIf='TEST_TYPE==BUG_FIX_MODE' data-toggle="modal" data-target="#myChange">Login</label> to {{environment.name}} Partner Portal now and manage your business efficiently.</p>
+            </h5>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+
+                    <section class="widget widget-login animated fadeInUp">
+                        <ul class="tab-group">
+
+                            <li class="tab active" (click)="showPartnerPortalLogin()">
+                                <a>Partner Account</a></li>
+                            <li class="tab" (click)="showCorporateLogin()">
+                                <a>Business Account</a></li>
+                        </ul>
+                        <div class="widget-body widget_login">
+                            <form class="login-form mt-lg" (ngSubmit)="userLogin()">
+                                <div class="form-group" *ngIf="false">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Email Address</mat-label>
+                                        <input matInput type="email" id="emailId" autofocus class="form-control name-password" name="userlogin" [(ngModel)]="login.emailId" placeholder="Email Address">
+                                    </mat-form-field>
+                                </div>
+                                <div class="form-group" *ngIf="false">
+                                    <mat-form-field class="w-100">
+                                        <mat-label>Password</mat-label>
+                                        <p> <input matInput class="form-control name-password" type="{{passwordType}}" placeholder="Password" id="password" name="userpass" [(ngModel)]="login.password">
+                                            <a *ngIf='!isIEOrEdge'> <span *ngIf="passwordType=='text'" class="glyphicon glyphicon-eye-open" (click)=" showPasswordClick()"></span></a>
+                                            <a *ngIf='!isIEOrEdge'> <span *ngIf="passwordType=='password'" class="glyphicon glyphicon-eye-close" (click)=" showPasswordClick()"></span></a>
+                                        </p>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="enter_txt">Email Address</label>
+                                    <input type="email" id="emailId" autofocus class="form-control name-password" name="userlogin" [(ngModel)]="login.emailId" placeholder="emailId">
+                                </div>
+                                <div class="form-group">
+                                    <label class="enter_txt">Password</label>
+                                    <p> <input class="form-control name-password" type="{{passwordType}}" placeholder="password" id="password" name="userpass" [(ngModel)]="login.password">
+                                        <a *ngIf='!isIEOrEdge'> <span *ngIf="passwordType=='text'" class="glyphicon glyphicon-eye-open" (click)=" showPasswordClick()"></span></a>
+                                        <a *ngIf='!isIEOrEdge'> <span *ngIf="passwordType=='password'" class="glyphicon glyphicon-eye-close" (click)=" showPasswordClick()"></span></a>
+                                    </p>
+                                </div>
+                                <div class="col-lg-6 col-md-12 for_gettxt">
+                                    <a class="" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="form-group  m-t-1">
+                                        <button type="submit" id="loginbutton" class="btn btn-secondary btn-sm" [disabled]="loginClickedOnce">Login</button>
+                                    </div>
+                                </div>
+                                <hs-message *ngIf="!dialogOpen" [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+                                <div class="row m-t-1">
+                                    <div class="col-md-6 push-md-6">
+                                        <div class="clearfix">
+                                            <div class="abc-checkbox widget-login-info float-xs-right">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                    <p class="version_info">{{version}}</p>
+                </div>
+                <div class="col-xl-6 offset-xl-3 col-lg-7 offset-lg-3 col-md-9 col-sm-12 col-xs-12 hidden-sm-down">
+                    <ul class="social">
+                        <li *ngIf="environment.facebook && environment.facebook.length > 0"><a href="{{environment.facebook || 'https://www.facebook.com/Hsignz/'}}" class="ic_footer ic_fb" target="_blank">Like us on
+                            Facebook</a></li>
+                        <li *ngIf="environment.twitter && environment.twitter.length > 0"><a href="{{environment.twitter  || 'https://twitter.com/healthsignz'}}" class="ic_footer ic_tw" target="_blank">Follow us on
+                            Twitter</a></li>
+                        <li *ngIf="environment.linkedin && environment.linkedin.length > 0"><a href="{{environment.linkedin || 'https://www.linkedin.com/company/healthsignz-technologies-pvt-ltd'}}" class="ic_footer ic_in" target="_blank">Follow us on LinkedIn</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <footer class="page-footer container">
+        <div class="row copyright_sec hidden-md-up">
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6">
+                <ul class="list-login copyright_txt">
+                    <li>2023 &copy; {{environment.name ||'MyMedic'}} Partner Manager.</li>
+                    <li><a href="{{environment.website||'http://www.my3c.co/'}}" target="_blank">{{environment.websiteLabel||(environment.website||'http://www.my3c.co/')}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 offset-lg-1 col-md-5 col-sm-6 col-xs-6">
+                <ul class="social">
+                    <li><a href="{{environment.facebook || 'https://www.facebook.com/Hsignz/'}}" class="ic_footer ic_fb" target="_blank">Like us on
+                            Facebook</a></li>
+                    <li><a href="{{environment.twitter  || 'https://twitter.com/healthsignz'}}" class="ic_footer ic_tw" target="_blank">Follow us on
+                            Twitter</a></li>
+                    <li><a href="{{environment.linkedin || 'https://www.linkedin.com/company/healthsignz-technologies-pvt-ltd'}}" class="ic_footer ic_in" target="_blank">Follow us on LinkedIn</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+</div>
+
+<!-- Dialog Modal for forgot password -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-toggle="modal" data-target="#myModal" aria-label="Close" class="close" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title text-xs-center fw-bold mt" id="myModalLabel18">Forgot Password</h4>
+                <p class="text-xs-center fs-mini text-muted mt-sm">
+                    We need a bit of your detailed information to proceed. Please enter your login email address to generate OTP. Enter your OTP to reset your password.
+                </p>
+            </div>
+            <hs-message *ngIf="dialogOpen" [isError]="isError" [show]="showMessage" [messages]="errorMessage">
+            </hs-message>
+            <hs-wait *ngIf="changePasswordClicked"></hs-wait>
+            <div class="modal-body login-modal-background">
+                <form id="forgetPassword" autocomplete="off">
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <input type="email" class="form-control input-no-border" [(ngModel)]="otpVerification.emailId" [ngModelOptions]="{standalone: true}" placeholder="Email" [disabled]="showOTPField" autocomplete="false">
+                            </div>
+                        </div>
+                        <div *ngIf="showOTPField" class="col-xs-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control input-no-border" [(ngModel)]="otpVerification.otp" [ngModelOptions]="{standalone: true}" placeholder="OTP" autocomplete="false">
+                            </div>
+                        </div>
+                        <div *ngIf="showOTPField" class="col-xs-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control input-no-border" [(ngModel)]="otpVerification.password" [ngModelOptions]="{standalone: true}" placeholder="New Password" autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div *ngIf="showOTPField" class="col-xs-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control input-no-border" [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}" placeholder="Confirm Password" autocomplete="new-password">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-gray" data-toggle="modal" data-target="#myModal">Close</button>
+                <button type="button" class="btn btn-success" [disabled]="changePasswordClicked" (click)="changePassword()">{{showOTPField?'Change
+                    Password':'Generate OTP'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dialog ended for forgot password -->
+
+<!-- IP CHANGE  MODAL-->
+<div id="myChange" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="myTagBody">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+        </div> -->
+            <div class="modal-body">
+                <select (change)="chengeIp2DevWQa($event.target.value)" [(ngModel)]="BUG_FIX_MODE">
+                    <option value="0">DEV</option>
+                    <option value="2">AWS-DEV</option>
+                    <option value="3">AWS-QA</option>
+                    <option value="-1">MANUAL</option>
+                    <option value="{{TEMP_TEST_TYPE}}">RESET</option>
+                </select>
+                <button type="button" class="close btn btn-success mb-1" data-dismiss="modal">Close</button>
+                <br>
+                <div *ngIf="isCustomIp || BUG_FIX_MODE==-1">
+                    <div *ngFor="let item of awsBaseUrls|slice:0:4;let i=index;">
+                        <input type="text" [(ngModel)]='qaChangeIP[i]' (change)="changeToCustomizeIp(i)" placeholder="{{item}}  IP with PORT" *ngIf="item!='DEV_BYPASS_SESSION' && item!='DEV_BYPASS_ENCRYPTION'" class="form-control mb-1">
+                    </div>
+                    <!-- <button type="button" class="btn btn-success mt-2 mr-1 float-right" data-toggle="modal"
+                                data-target="#myChange" (click)="chengeIp2DevWQa(3,'clear')">RESET</button> -->
+                    <button type="button" class="btn btn-success mt-2 mr-1 float-right" data-toggle="modal" data-target="#myChange">MANUAL IP SET</button>
+                    <!-- <button type="button" class="btn btn-success mt-2 mr-1 float-right" data-toggle="modal"
+                                data-target="#myChange" (click)="chengeIp2DevWQa(2,'awsdev')">AWS-DEV</button>
+                            <button type="button" class="btn btn-success mt-2 mr-1 float-right" data-toggle="modal"
+                                data-target="#myChange" (click)="chengeIp2DevWQa(3,'qa')">AWS-QA</button>
+                            <button type="button" class="btn btn-success mt-2 mr-1 float-right" data-toggle="modal"
+                                data-target="#myChange" (click)="chengeIp2DevWQa(0,'dev')">DEV</button> -->
+                </div>
+
+            </div>
+        </div>
+    </div>

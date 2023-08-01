@@ -1,0 +1,153 @@
+.emp_roles{
+    padding: 2rem 1rem;
+    
+    .d-flex{
+        display: flex;
+       }
+       h5{
+        color: #14a9b5;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 29px;
+       }
+       p{
+         font-weight: 600;
+         font-size: 14px;
+         line-height: 20px;
+         color: #626C74;
+         margin-bottom: 7px;
+       }
+       .profile_email{
+         color: #DF5B21;
+       }
+    .emp_poc_roles{   
+    background: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+      .emp_profile{
+         display: flex;
+         align-items: center;
+      }
+      .profile_pic img{
+         width: 130px;
+         height: 130px;
+         border-radius: 50%;
+      }
+      .about_profile{
+        padding-left: 12px;
+
+      }
+    }
+    .first_hr{
+        border: 1px solid #EDEEF0;
+    }
+    .add_roles{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+         h2{
+            font-weight: 600;
+            font-size: 28px;
+            line-height: 42px;
+            letter-spacing: -0.02em;
+            color: #41484D;
+         }
+        .add_roles_btn{
+            padding: 8px 16px;
+            gap: 8px;
+            background: #21A5DF;
+            border-radius: 8px;
+            border: none;
+            color: #ffffff;
+        }
+    }
+    .workplc_details{
+        background: #F9F9FA;
+        border: 1px solid #EDEEF0;
+        border-radius: 8px;
+        margin-top: 20px;
+
+           label{
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            color: #41484D;
+           }
+           span{
+            color: #DF5B21;
+            padding-left: 4px;
+          }
+
+           .emp_btn_group button{
+            margin-bottom: 10px;
+            background: #F4FBFD;
+            border: 1px solid #DEF2FA;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            color: #626C74;
+           }
+           .emp_btn_group button:hover{
+            background-color: #14a9b5;
+            color: #ffffff;
+           }
+        .default_workplace{
+        position: absolute;
+        right: 40px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        margin-top: 20px;
+      }
+      .emp_poc_name{
+        font-size: 17px;
+      }
+   } 
+
+   .next_work_place_btn button{
+    padding: 8px 16px;
+    border: none;
+    background: #DF5B21; 
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+   
+    .emp_roles{
+        padding: 2rem 1rem;
+        .d-flex{
+            flex-direction: column;
+           }
+           .workplc_details .default_workplace{
+              margin-top: 6px;
+           }
+        }     
+    
+  }
+
+  @media only screen and (max-width: 420px) {
+    .emp_roles{
+        .add_roles{
+           flex-direction: column;
+          }
+          .workplc_details .default_workplace{
+            margin-top: 0px;
+         }  
+         
+  } 
+} 
+
+@media only screen and (max-width: 390px) {
+  .emp_roles{
+    .emp_profile{
+       flex-direction: column;
+   }
+  }
+}  

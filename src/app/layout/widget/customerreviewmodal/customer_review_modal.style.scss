@@ -1,0 +1,194 @@
+.add_color{
+    color: #23aeba;
+    font-size: 16px!important;
+  }
+.model_txt{
+    float: right;
+        right: 0px;
+        width: 400px;
+    }
+.modal-body {
+        position: relative;
+        padding: 0px 45px 25px !important;
+    }
+    
+.modal.right.fade .modal-dialog {
+        right: -320px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+           -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+             -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+                transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+      
+.modal.right.fade.in .modal-dialog {
+        right: 0;
+        margin: 0px;
+ }
+.modal-content {
+        border-radius: 0;
+        border: none;
+}
+    
+.modal-header {
+           min-height: 16.43px;
+        padding: 0px 50px 20px;
+        border-bottom: transparent;
+    
+}
+.modal-body label{
+      color: #23aeba;
+      font-weight: 500;
+      font-size: 16px;
+      padding-left: 18px;
+}
+.modal-content{
+          border-radius: 0;
+        border: none;
+        padding: 40px 0px 60px;
+        top: 100px;
+}
+.modal-title{
+    color: #23aeba;
+    font-weight: 600;
+}
+.modal-body .title_txt{
+    background-color: #f2fdff;
+     resize: none;
+    //  color: #23aeba;
+}
+.btn-serch {
+      color: #fff;
+      background-color: #dd5826;
+      border-color: #dd5826;
+      float: right;
+      padding: 5px 20px;
+      margin-top: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+     
+}
+.modal-body .title_txt:focus{
+    border-color: rgba(0, 0, 0, 0.15);
+}
+.close_txt{
+  font-size: 40px;
+}
+
+
+.applicable_check[type="checkbox"]:checked + label::after {
+    
+    position: absolute;
+    width: 2.2ex;
+    height: 1.3ex;
+    background: transparent;
+    top: 0.6ex;
+    left: 0.4ex;
+    border: 3px solid #68c7d0;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+ }
+ 
+ .applicable_check[type="checkbox"] {
+    line-height: 2.1ex;
+ }
+ 
+ .applicable_check[type="radio"],
+ .applicable_check[type="checkbox"] {
+     position: absolute;
+     left: -999em;
+ }
+ 
+ .applicable_check[type="checkbox"] + label {
+     position: relative;
+     overflow: hidden;
+     cursor: pointer;
+ }
+ 
+ .applicable_check[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    vertical-align: -25%;
+    height: 3ex;
+    width: 3ex;
+    background-color: white;
+    border: 1px solid rgb(166, 166, 166);
+    border-radius: 4px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.25);
+    margin-right: 0.5em;
+ }
+
+ .add_txt{
+    padding: 5px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+ }
+
+ .applicable{
+    display: inline-block;
+    vertical-align: -25%;
+    height: 3ex;
+    width: 3ex;
+    background-color: white;
+    border: 1px solid #a6a6a6;
+    border-radius: 4px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+    margin-right: 0.5em;
+
+ }
+
+ .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  add_to_label{
+    font-size:16px;
+    padding-left: 18px;
+  }

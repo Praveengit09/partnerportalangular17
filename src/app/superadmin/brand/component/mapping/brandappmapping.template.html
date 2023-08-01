@@ -1,0 +1,15 @@
+<div>
+    <div>
+        <h1>JSON Validator</h1>
+        <p>This mini application is set up to be a JSON Validator, modify the box below and it will tell you if your
+            JSON creates a valid javascript object.</p>
+        <textarea (keyup)="updateJsonObject()" (change)="updateJsonObject()" [(ngModel)]="script" rows="10"
+            class="form-control" style="width: 100%" [ngStyle]="formatting"></textarea>
+    </div>&nbsp;&nbsp;
+    <div>
+        <button type="submit" *ngIf="isValid" class="btn btn-danger width-100" role="button" (click)="onSubmit()">
+            Submit
+        </button>
+    </div>
+</div>
+<spinner-component></spinner-component>

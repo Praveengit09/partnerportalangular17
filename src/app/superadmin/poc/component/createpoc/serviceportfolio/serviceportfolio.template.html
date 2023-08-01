@@ -1,0 +1,88 @@
+<div class="table_size">
+    <h1 class="page-title" *ngIf="!this.pocDetail.pocId">Add New POC's</h1>
+    <h1 class="page-title" *ngIf="this.pocDetail.pocId">EDIT POC</h1>
+    <optionNavigator [tabData]="tabData" [currentPageIndex]="currentPageIndex" [allBtnActive]="isPocModify" (pageChange)="onBackClick($event.pageType)" *ngIf="tabData.length>0"></optionNavigator>
+    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="progress_indicator_wrapper"> -->
+    <!-- routerLink="/app/master/poc/create/" -->
+    <!-- <a (click)="onBackClick(0)" [className]="'active progress_indicator'">
+                <span [className]="'ic_progress past'"></span>POC Information</a> -->
+    <!-- <a routerLink="/app/master/poc/serviceportfolio/" class="progress_indicator active"> -->
+    <!-- <a class="progress_indicator active" (click)="onBackClick(1)">
+                <span class="ic_progress present"></span>Service Portfolio</a> -->
+    <!-- <a routerLink="/app/master/poc/partneragreement/" class="progress_indicator"> -->
+    <!-- <a (click)="onBackClick(2)"
+                [className]="isPocModify ? 'active progress_indicator' : 'inactive progress_indicator'">
+                <span [className]="isPocModify? 'ic_progress present': 'future ic_progress'"></span>HS Agreement</a>
+
+            <div class="clearfix"></div>
+        </div>
+    </div> -->
+    <br />
+    <h3 class="service_title2">Service Portfolio</h3>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+
+                <div class="col-md-12 service_portfolio" *ngFor="let item of serviceKey;let i=index">
+                    <div class="special-title" *ngIf="(getValue(item))">
+                        <h3>{{serviceRole[item-1]}}</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 service_rep" *ngFor="let item1 of getValue(item) ;let i=index">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id={{item1.serviceId}} (click)="onValueChecked(item1)"
+                                    name={{i}}>
+                                <label class="" for={{item1.serviceId}}> {{item1.serviceName}}</label>
+                            </label>
+                            <!--  <div *ngFor="let service of item1.subServiceList" style="color:blue; font: bold;">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name={{service.serviceId}} style="color:rgb(75, 8, 138)" id={{service.serviceId}} (click)="onValueChecked(item1)"> {{service.serviceName}} </label>
+                    </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-4 team-box">
+            <!-- <div class="team-box"> -->
+            <div class="team-img" *ngIf="this.pocDetail.pocLogo">
+
+                <img src={{this.pocDetail.pocLogo}} class="poc_img">
+            </div>
+            <br />
+            <div class="team-title">
+                <h3>{{this.pocDetail.pocName}}</h3>
+                <div class="desc">{{this.pocDetail.licenseInfo}}</div>
+                <div class="desc" *ngFor="let contact of pocDetail.contactList; let i =index;">
+                    P:{{contact}}
+                </div>
+                <div class="desc">{{pocDetail.email}}</div>
+                <div class="desc"> {{this.pocDetail.address.address1}}, {{this.pocDetail.address.address2}}, {{pocDetail.address.cityName}}, {{pocDetail.address.stateName}}- {{pocDetail.address.pinCode}}</div>
+
+                <!--  <div *ngIf="pocDetail.serviceList != undefined || pocDetail.serviceList!=null">
+                    <h3 class="poc_service">Service Portfolio:</h3>
+                    <section *ngFor="let item of serviceKey">
+                        <div *ngIf="(getValue(item))" class="col-md-5 col-sm-5 col-xs-5 service_poctxt medical_pocServicestxt">
+                            <div class="medical_services">{{serviceRole[item-1]}}</div>
+                            <div *ngFor="let item1 of getValue(item)">
+                                <div class="desc">{{item1.serviceName}}</div>
+                            </div>
+                        </div>
+                    </section>
+                </div> -->
+            </div>
+            <!-- </div> -->
+
+        </div>
+    </div>
+    <br />
+    <div class="col-md-12">
+        <div class="form-group">
+            <button id="singlebutton" name="singlebutton" class="btn  Update" (click)="onPartnerAgree()">NEXT: SETTINGS</button>
+        </div>
+    </div>
+    <hs-message [isError]="isError" [show]="showMessage" [messages]="errorMessage"></hs-message>
+</div>

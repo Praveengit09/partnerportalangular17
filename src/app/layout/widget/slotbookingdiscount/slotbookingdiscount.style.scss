@@ -1,0 +1,132 @@
+.total_txt {
+    font-weight: 500;
+}
+
+.all_textboxtxt {
+    font-size: 14px;
+    width: 100%;
+}
+
+.discount_enter{
+    float: left;
+}
+.fname_discount_text{
+    padding-left: 5px;
+}
+#recption-3 .modal-dialog .process_form .from_txt {
+    float: none;
+}
+.quantity_txt {
+    padding: 0px;
+    margin: 0px;
+    color: green;
+    text-align: left;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+.quantity_txt1 {
+    padding: 0px;
+    margin: 0px;
+    color: green;
+    text-align: left;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+
+.ErrorMessage {
+    color: red;
+}
+.process_form .from_txt,.process_form .processsubmit_txt {
+    float: right;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+
+.searchclear {
+    position: absolute;
+    top: 12px;
+    margin-left: -20px;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.apply_btn {
+    margin-left: 5px;
+}
+#percenageOtherDis, .fname_discount_text {
+    width: 60px;
+}
+#couponDiscount {
+    height: 36px;
+    width: 130px;
+}
+
+.process_original .col-md-5, .process_original .col-md-7 {
+    margin-bottom: 25px;
+    line-height: 20px;
+}
+.walletInput{
+    height: 20px;
+    width: 50px;
+}
+
+// upload doc
+.error_class{
+    color:#ff6d6d;
+}
+    
+.Update {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ec6262;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin-top: 5px;
+}
+
+.Update12 {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+    background-color: #ff6d6d;
+    border: solid 1px #ff6d6d;
+    padding: 5px 30px;
+    text-transform: uppercase;
+    color: #fff !important;
+}
+.Update12 a{
+    color: #fff;
+    text-decoration: none;
+}
+.clientdoc {
+    display: inline;
+    color: blue;
+}
+
+::ng-deep .removetxt_icon {
+    font-size: 1.3em;
+    width: 1.3em;
+    height: 1.2em !important;
+    text-align: center;
+    background: #666;
+    line-height: .95em !important;
+    color: #fff;
+    border-radius: 0.9em;
+    cursor: pointer;
+    border: 1px solid #dd5826;
+    background-color: #dd5826;
+}

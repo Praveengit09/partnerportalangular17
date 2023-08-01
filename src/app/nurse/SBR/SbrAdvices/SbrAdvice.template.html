@@ -1,0 +1,23 @@
+<div class="mt-3" *ngIf="tablets">
+    <h3>Pharmacology</h3>
+    <div class="customer-info" *ngFor="let tablet of tablets;let i=index">
+        <p>{{i+1}}. {{tablet.genericMedicine.genericMedicineName}} ( {{tablet.drugForm}} ) - ( {{tablet.doseLabel}} )
+        </p>
+    </div>
+</div>
+<div class="mt-3" *ngIf="notes">
+    <h3>Note</h3>
+    <div class="customer-info" *ngFor="let note of notes;let i=index">
+        <p>{{i+1}}. {{note.title}}</p>
+    </div>
+</div>
+<div class="mt-3" *ngIf="nonMedications">
+    <h3>Non Medication</h3>
+    <div class="customer-info" *ngFor="let med of nonMedications;let i=index">
+        <p>{{i+1}}. {{med.title}}</p>
+    </div>
+</div>
+<div class="mt-3">
+    <button type="button" class="btn btn-success" (click)="OnAcceptReject(2)">ACCEPT</button>
+    <button type="button" class="btn btn-danger" (click)="OnAcceptReject(3)">REJECT</button>
+</div>

@@ -1,0 +1,60 @@
+<section class="widget table_pading">
+    <div class="widget-body table-responsive">
+        <table class="table table-hover table-striped hs_tabletxt">
+            <thead>
+                <tr class="table_head">
+                    <th width="4%">#</th>
+                    <th width="48%">Doctor Info</th>
+                    <th width="48%">POC Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let specialists of displayDoctorList;let i =index;">
+                    <td>{{((indexOfPage-1)*noOfReportsPerPage)+i+1}}</td>
+                    <td>
+                        <div class="doctor_img">
+                            <div *ngIf="specialists.imageUrl">
+                                <img alt="" class="img-responsive" src={{specialists.imageUrl}}>
+                            </div>
+                            <div *ngIf="!specialists.imageUrl">
+                                <img alt="" class="img-responsive" src="assets/img/package/ic_default_doctor_82.png">
+                            </div>
+                        </div>
+                        <div class="doctor_detail">
+                            <h6>{{specialists.title}} {{specialists.firstName}}
+                                {{specialists.lastName?specialists.lastName:''}}</h6>
+                            <p>{{specialists.esType}}</p>
+                            <p>{{specialists.qualificationName}}, {{specialists.experience}} Years</p>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="pocname">{{specialists?.pocDetails[0]?.pocName}}</p>
+                        <p>{{specialists?.pocDetails[0]?.address.address2}}</p>
+                        <p class="distance">{{(''+specialists.distance).slice(0,5)}} Kms</p>
+                    </td>
+                </tr>
+
+
+            </tbody>
+
+        </table>
+    </div>
+    <div aria-label="Page navigation example" *ngIf="viewspecialists && viewspecialists.length > noOfReportsPerPage">
+        <ul class="pagination justify-content-end">
+            <li class="page-item" *ngIf="indexOfPage!=1" [class.disabled]="indexOfPage==1">
+                <a class="page-link" tabindex="-1" (click)="changePageIndex(indexOfPage-1)">Previous</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" [class.currentPage]="indexOfPage==(i+1)"
+                    *ngFor="let j of getNumberOfPages();let i=index" (click)="changePageIndex(i+1)">
+                    {{i+1}}
+                </a>
+            </li>
+            <li class="page-item" *ngIf="indexOfPage!=(getNumberOfPages().length)"
+                [class.disabled]="indexOfPage==(getNumberOfPages().length)">
+                <a class="page-link" (click)="changePageIndex(indexOfPage+1)">Next</a>
+            </li>
+        </ul>
+    </div>
+</section>
+<spinner-component></spinner-component>

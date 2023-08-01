@@ -1,0 +1,66 @@
+.page-title {
+    color: #14a9b5;
+    margin-bottom: 20px;
+}
+::ng-deep .datepicker {
+    width: 100% !important;
+    min-width: 150px;
+}
+::ng-deep .datepicker input {
+    text-align: left;
+}
+.brand_filter{
+    width: auto;
+    min-width: 221px;
+    text-align: left;
+}
+.submit_btn{
+    margin-top: 7px;
+}
+.modal-title{
+  color: #23aeba;
+}
+.modal-header .close {
+    margin-top: 7px;
+    margin-left: 5px;
+}
+.btn-serch {
+    color: #fff;
+    background-color: #23aeba;
+    border-color: #23aeba;
+    float: right;
+    padding: 5px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+}
+.title_txt{
+    font-size: 16px;
+}
+.modal_link{
+    font-size: 1.5rem;
+    float: right;
+    text-decoration: underline !important;
+    color: #14a9b5 !important;
+}
+.searchresult_resetbtn {
+    padding: 5px 0 5px 15px;
+}
+.filter-refresh {
+    text-align: right;
+}
+.searchresult_resetbtn .btn {
+    margin-right: 0;
+}
+
+@media (max-width: 1199px) {
+    .searchresult_resetbtn {
+        margin-top: 27px;
+    } 
+}
+@media (min-width: 1200px) {
+    .brand_filter {
+        margin-top: -25px;
+    }
+}
